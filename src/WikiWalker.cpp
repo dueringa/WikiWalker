@@ -2,8 +2,7 @@
 
 using namespace std;
 
-WikiWalker::WikiWalker(string url)
-    : url(url)
+void WikiWalker::startWalking(string url)
 {
     if(url.find("wikipedia.org/") == string::npos) {
         throw WalkerException("Must be a Wikipedia URL");

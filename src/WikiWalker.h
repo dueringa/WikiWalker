@@ -8,10 +8,10 @@
 class WikiWalker : public Walker
 {
 public:
-    WikiWalker(std::string url);
+    void startWalking(std::string url);
 
 private:
-    std::string url;
+
 };
 
 #endif // _WIKIWALKER_H
