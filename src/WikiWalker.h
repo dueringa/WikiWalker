@@ -3,8 +3,9 @@
 
 #include <string>
 #include "WalkerException.h"
+#include "Walker.h"
 
-class WikiWalker
+class WikiWalker : public Walker
 {
 public:
     WikiWalker(std::string url);
