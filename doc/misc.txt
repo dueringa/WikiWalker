@@ -1,7 +1,0 @@
-I'm not sure whether this "Walker" class is such a good idea.
-It was intended as a starting point and have the responsibility of getting links of articles within the article.
-
-But as it is designed now, there would be one global Walker for the program (since the walker holds th article collection).
-But a walker would also need to walk through other articles recursively...
-
-Thus, it might not be such a good idea...
