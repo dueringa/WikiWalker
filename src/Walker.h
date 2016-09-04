@@ -5,7 +5,7 @@
 
 class Walker
 {
-private:
+protected:
     ArticleCollection articleSet;
 };
 
