@@ -17,6 +17,11 @@ public:
 
     size_t getNumLinks() const;
 
+    void addLink(Article* article)
+    {
+        links.push_back(article);
+    }
+
 private:
     std::string title;
     std::vector<Article*> links;
