@@ -1,8 +1,8 @@
-#include "Walker.h"
+#include "WikiWalker.h"
 
 using namespace std;
 
-Walker::Walker(string url)
+WikiWalker::WikiWalker(string url)
     : url(url)
 {
     if(url.find("wikipedia.org/") == string::npos) {

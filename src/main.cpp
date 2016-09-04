@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Walker.h"
+#include "WikiWalker.h"
 
 using namespace std;
 
@@ -15,7 +15,7 @@ int main(int argc, char** argv)
     string url = argv[1];
 
     try {
-        Walker w = Walker(url);
+        WikiWalker w = WikiWalker(url);
     } catch(std::exception& e) {
         cout << "Error " << e.what() << endl;
         return -1;
