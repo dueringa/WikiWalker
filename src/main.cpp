@@ -1,5 +1,5 @@
-hich one. But they make it very clear that there are two licenses for the project and you get to chich one. But they make it very clear that there are two licenses for the project and you get to chich one. But they make it very clear that there are two licenses for the project and you get to chich one. But they make it very clear that there are two licenses for the project and you get to chich one. But they make it very clear that there are two licenses for the project and you get to c#include <iostream>
-hich one. But they make it very clear that there are two licenses for the project and you get to c#include "WikiWalker.h"
+#include <iostream>
+#include "WikiWalker.h"
 
 using namespace std;
 
@@ -30,3 +30,4 @@ void usage(string exename)
     cout << "Usage: " << endl;
     cout << exename << " [URL]" << endl;
 }
+
