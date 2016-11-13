@@ -30,3 +30,6 @@
 
 # debug folders
 Debug/
+
+# dependency files
+*.d
