@@ -4,11 +4,13 @@
 #include <string>
 #include <vector>
 
+class ArticleCollection;
+
 class Article
 {
 public:
-    Article(std::string title)
-        : title(title){};
+    Article(std::string title);
+    ~Article();
 
     std::string getTitle() const
     {
@@ -17,14 +19,11 @@ public:
 
     size_t getNumLinks() const;
 
-    void addLink(Article* article)
-    {
-        links.push_back(article);
-    }
+    void addLink(Article* article);
 
 private:
     std::string title;
-    std::vector<Article*> links;
+    ArticleCollection* links;
 };
 
 #endif //_ARTICLE_H
