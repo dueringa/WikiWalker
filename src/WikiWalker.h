@@ -4,6 +4,7 @@
 #include <string>
 #include "WalkerException.h"
 #include "Walker.h"
+#include "CurlWikiGrabber.h"
 
 class WikiWalker : public Walker
 {
@@ -11,6 +12,7 @@ public:
     void startWalking(std::string url);
 
 private:
+    CurlWikiGrabber grabber;
 
 };
 
