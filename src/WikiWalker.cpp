@@ -4,8 +4,15 @@ using namespace std;
 
 void WikiWalker::startWalking(string url)
 {
-    if(url.find("wikipedia.org/") == string::npos) {
-        throw WalkerException("Must be a Wikipedia URL");
+    std::string findUrl = "en.wikipedia.org/wiki/";
+    size_t pos = url.find(findUrl);
+    if(pos == string::npos) {
+        throw WalkerException("Must be an English Wikipedia URL");
     }
-    grabber.grabUrl(url);
+
+    // extract Wikipedia title
+    std::string title = url.substr(pos + findUrl.length());
+
+    // little bobby tables?
+    auto content = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=100&titles=" + title);
 };
