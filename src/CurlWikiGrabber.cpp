@@ -1,4 +1,5 @@
 #include "CurlWikiGrabber.h"
+#include <json/json.h>
 
 //! Todo: look for better implementation
 static std::string gotContent = "";
@@ -26,9 +27,19 @@ std::string CurlWikiGrabber::grabUrl(std::string url)
 
     curl_easy_cleanup(handle);
     handle = NULL;
+
+    Json::Reader reader;
+    Json::Value document;
+    bool success = reader.parse(gotContent, document, false);
+
+    if(!success) {
+        throw WalkerException("Error parsing JSON");
+    }
+
     return std::string(gotContent);
 }
 
 // note to self: API
 // https://en.wikipedia.org/w/api.php
-// /w/api.php?action=query&format=json&prop=links&pllimit=100&titles=<title>
+// /w/api.php?action=query&format=json&prop=links&plnamespace=0&titles=<title>
+// maybe &pllimit=100
