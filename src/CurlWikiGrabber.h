@@ -4,6 +4,7 @@
 #include <string>
 #include <curl/curl.h>
 #include "WalkerException.h"
+#include "Article.h"
 
 //! Class responsible for grabbing the contents / links of an article
 class CurlWikiGrabber
@@ -25,8 +26,8 @@ public:
         curl_global_cleanup();
     }
 
-    //! given an URL, fetch... contents / links? TODO!
-    std::string grabUrl(std::string url);
+    //! given an URL, return an Article with its links
+    Article grabUrl(std::string url);
 };
 
 #endif // _CURL_WIKI_GRABBER_H

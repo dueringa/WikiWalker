@@ -10,7 +10,7 @@ static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdat
 }
 
 //! TODO: change to passing page title?
-std::string CurlWikiGrabber::grabUrl(std::string url)
+Article CurlWikiGrabber::grabUrl(std::string url)
 {
     CURL *handle = curl_easy_init();
 
@@ -36,7 +36,24 @@ std::string CurlWikiGrabber::grabUrl(std::string url)
         throw WalkerException("Error parsing JSON");
     }
 
-    return std::string(gotContent);
+    auto allPages = document.get("query", Json::Value::nullSingleton())
+                            .get("pages", Json::Value::nullSingleton());
+
+    // only get first page
+    auto wantedPage = allPages.get(allPages.getMemberNames()[0],
+                                   Json::Value::nullSingleton());
+
+    Article wantedArticle(wantedPage.get("title", Json::Value::nullSingleton()).asString());
+
+    // add links
+    for(const auto &linked : wantedPage.get("links", Json::Value::nullSingleton()))
+    {
+        wantedArticle.addLink(
+            new Article(linked.get("title", Json::Value::nullSingleton()).asString())
+        );
+    }
+
+    return wantedArticle;
 }
 
 // note to self: API
