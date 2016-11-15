@@ -1,6 +1,6 @@
 #include <string>
 #include <sstream>
-#include <json/json.h>
+#include "json/json.h"
 #include <iostream>
 #include <map>
 
@@ -33,19 +33,23 @@ void iterateover(const Json::Value & val, int level = 0)
 {
     std::string foo(level, '-');
 
-    // iterationtest
-    for(const auto &value : val)
+    if(val.type() == Json::ValueType::objectValue)
     {
-        if(value.type() == Json::ValueType::objectValue)
+        for(auto &member : val.getMemberNames())
         {
-            std::cout << foo;
-            for(auto &member : value.getMemberNames())
-            {
-                std::cout << member << ", ";
-            }
-            std::cout << std::endl;
-            iterateover(value, ++level);
+            std::cout << foo << member << ": ("
+                      << typeMapper[val[member].type()] << ")" << std::endl;
+            iterateover(val[member], level+1);
         }
+    }
+    else if(val.type() == Json::ValueType::arrayValue)
+    {
+        std::cout << foo << "[" << std::endl;
+        for(const auto &value : val)
+        {
+            iterateover(value, level+1);
+        }
+        std::cout << foo << "]" << std::endl;
     }
 }
 
