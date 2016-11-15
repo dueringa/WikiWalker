@@ -1,5 +1,7 @@
 #include "WikiWalker.h"
 
+#include <iostream>
+
 using namespace std;
 
 void WikiWalker::startWalking(string url)
@@ -15,4 +17,6 @@ void WikiWalker::startWalking(string url)
 
     // TODO: little bobby tables?
     auto content = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&titles=" + title);
+
+    std::cout << "Article " << content.getTitle() << " has " << content.getNumLinks() << " links" << std::endl;
 };
