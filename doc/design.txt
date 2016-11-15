@@ -28,3 +28,11 @@ Using this global collection one could look up if the article instance already e
 Another class should be responsible for parsing the article. This parser could either add linked articles
 to the article itself, or simply return a collection. This is because the result of the parser needs to be
 parsed again.
+
+# TODO
+
+ - Support multiple wikipedias
+ - support other Wikimedia installations+
+ - support local wikipedia dump
+ - support output formats (dot, etc?)
+ - support "routing"?
