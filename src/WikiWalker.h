@@ -6,9 +6,11 @@
 #include "Walker.h"
 #include "CurlWikiGrabber.h"
 
+//! main "app" class
 class WikiWalker : public Walker
 {
 public:
+    //! given an URL (Title?), start collecting links
     void startWalking(std::string url);
 
 private:

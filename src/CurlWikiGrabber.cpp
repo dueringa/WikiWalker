@@ -9,7 +9,7 @@ static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdat
     return size * nmemb;
 }
 
-//! TODO: change to passing page title
+//! TODO: change to passing page title?
 std::string CurlWikiGrabber::grabUrl(std::string url)
 {
     CURL *handle = curl_easy_init();

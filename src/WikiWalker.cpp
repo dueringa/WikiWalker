@@ -13,6 +13,6 @@ void WikiWalker::startWalking(string url)
     // extract Wikipedia title
     std::string title = url.substr(pos + findUrl.length());
 
-    // little bobby tables?
+    // TODO: little bobby tables?
     auto content = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&titles=" + title);
 };

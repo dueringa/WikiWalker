@@ -5,9 +5,12 @@
 #include <curl/curl.h>
 #include "WalkerException.h"
 
+//! Class responsible for grabbing the contents / links of an article
 class CurlWikiGrabber
 {
 public:
+    //! Create a new instance.
+    //! Might throw an exception, if curl intialization failed
     CurlWikiGrabber()
     {
         int error = curl_global_init(CURL_GLOBAL_ALL);
@@ -22,6 +25,7 @@ public:
         curl_global_cleanup();
     }
 
+    //! given an URL, fetch... contents / links? TODO!
     std::string grabUrl(std::string url);
 };
 
