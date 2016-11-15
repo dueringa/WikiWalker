@@ -1,6 +1,19 @@
 #include <string>
 #include <sstream>
 #include <json/json.h>
+#include <iostream>
+#include <map>
+
+std::map<Json::ValueType, std::string> typeMapper  {
+{   Json::ValueType::nullValue, "null"},
+{   Json::ValueType::intValue, "int"},
+{   Json::ValueType::uintValue, "uint"},
+{   Json::ValueType::realValue, "real"},
+{   Json::ValueType::stringValue, "string"},
+{   Json::ValueType::booleanValue, "boolean"},
+{   Json::ValueType::arrayValue, "array"},
+{   Json::ValueType::objectValue, "object"}
+};
 
 class Myexcept : public std::exception
 {
@@ -15,6 +28,26 @@ public:
 private:
     std::string message;
 };
+
+void iterateover(const Json::Value & val, int level = 0)
+{
+    std::string foo(level, '-');
+
+    // iterationtest
+    for(const auto &value : val)
+    {
+        if(value.type() == Json::ValueType::objectValue)
+        {
+            std::cout << foo;
+            for(auto &member : value.getMemberNames())
+            {
+                std::cout << member << ", ";
+            }
+            std::cout << std::endl;
+            iterateover(value, ++level);
+        }
+    }
+}
 
 int main()
 {
@@ -48,4 +81,6 @@ int main()
     if (next == Json::Value::nullSingleton()) {
         throw Myexcept("Error parsing JSON - no pages result");
     }
+    
+    iterateover(document);
 }
