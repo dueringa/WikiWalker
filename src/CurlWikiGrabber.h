@@ -22,7 +22,7 @@ public:
     /*! given an URL, return article JSON data
      * \returns article JSON data
      */
-    std::string grabUrl(std::string url);
+    std::string grabUrl(std::string url) const;
 };
 
 #endif // _CURL_WIKI_GRABBER_H

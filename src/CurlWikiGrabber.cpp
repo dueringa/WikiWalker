@@ -17,7 +17,7 @@ CurlWikiGrabber::CurlWikiGrabber()
 
 //! \todo change to passing page title?
 //! \todo Curl return code checking
-std::string CurlWikiGrabber::grabUrl(std::string url)
+std::string CurlWikiGrabber::grabUrl(std::string url) const
 {
     CURL *handle = curl_easy_init();
 
