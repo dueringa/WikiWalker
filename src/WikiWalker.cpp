@@ -14,7 +14,8 @@ struct ContinueData
     std::string continueString;
 };
 
-Article getArticle(std::string json, ContinueData &contData)
+//! \todo really ugly workaround, passing in the ArticleCollection instance... :/
+Article* getArticle(std::string json, ContinueData &contData, ArticleCollection* addArticle)
 {
     Json::Reader reader;
     Json::Value document;
@@ -31,14 +32,17 @@ Article getArticle(std::string json, ContinueData &contData)
     auto wantedPage = allPages.get(allPages.getMemberNames()[0],
                                    Json::Value::nullSingleton());
 
-    Article wantedArticle(wantedPage.get("title", Json::Value::nullSingleton()).asString());
+    Article* wantedArticle = new Article(wantedPage.get("title", Json::Value::nullSingleton()).asString());
+    addArticle->add(wantedArticle);
 
     // add links
     for(const auto &linked : wantedPage.get("links", Json::Value::nullSingleton()))
     {
-        wantedArticle.addLink(
-            new Article(linked.get("title", Json::Value::nullSingleton()).asString())
+        auto par = new Article(linked.get("title", Json::Value::nullSingleton()).asString());
+        wantedArticle->addLink(
+            par
         );
+        addArticle->add(par);
     }
 
     if(!document.isMember("batchcomplete")) {
@@ -73,21 +77,24 @@ void WikiWalker::startWalking(std::string url)
     if(json != "")
     {
         ContinueData contData;
-        Article article = getArticle(json, contData);
+        Article* article = getArticle(json, contData, &articleSet);
 
         while(contData.moreData && contData.continueString != "") {
             std::string json = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&formatversion=1&plcontinue=" + contData.continueString + "&titles=" + title);
-            Article article2 = getArticle(json, contData);
+            Article* article2 = getArticle(json, contData, &articleSet);
 
-            for(auto x = article2.linkBegin(); x != article2.linkEnd(); x++) {
-                article.addLink(*x);
+            for(auto x = article2->linkBegin(); x != article2->linkEnd(); x++) {
+                article->addLink(*x);
             }
+            // delete duplicate article
+            //! \todo cleanup problem: linked articles may also already exist in collection -> leak
+            delete article2;
         }
 
-        std::cout << "Article " << article.getTitle() << " has " << article.getNumLinks() << " links" << std::endl;
+        std::cout << "Article " << article->getTitle() << " has " << article->getNumLinks() << " links" << std::endl;
     }
     else
     {
         std::cerr << "Error fetching article" << std::endl;
     }
-};
+}
