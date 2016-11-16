@@ -12,14 +12,7 @@ class CurlWikiGrabber
 public:
     //! Create a new instance.
     //! Might throw an exception, if curl intialization failed
-    CurlWikiGrabber()
-    {
-        int error = curl_global_init(CURL_GLOBAL_ALL);
-        if(error)
-        {
-            throw WalkerException("CURL init failed");
-        }
-    }
+    CurlWikiGrabber();
 
     ~CurlWikiGrabber()
     {

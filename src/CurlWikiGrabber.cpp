@@ -6,6 +6,15 @@ static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdat
     return size * nmemb;
 }
 
+CurlWikiGrabber::CurlWikiGrabber()
+{
+    int error = curl_global_init(CURL_GLOBAL_ALL);
+    if(error)
+    {
+        throw WalkerException("CURL init failed");
+    }
+}
+
 //! \todo change to passing page title?
 //! \todo Curl return code checking
 std::string CurlWikiGrabber::grabUrl(std::string url)
