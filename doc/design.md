@@ -22,8 +22,13 @@ Thus, it might not be such a good idea...
 An *article* consists of of title and a collection of other articles it links to.
 
 All articles must also reside in a "global" collection (which might be in *another class*).
-This is to avoid creating infinite articles because of cyclic links (i.e. article A links to B, B -> C, C -> D and D -> A).
+A) This is to avoid creating infinite articles because of multiple links (i.e. article A -> B, B -> C, A -> C).
+B) Also, there might be cyclic links (i.e. article A links to B, B -> C, C -> D and D -> A).
 Using this global collection one could look up if the article instance already exists.
+
+I'm not really happy with the C pointers, regarding resource cleanup.
+I need to avoid double freeing in case A.
+Using only shared pointers is not possible because of B.
 
 Another class should be responsible for parsing the article. This parser could either add linked articles
 to the article itself, or simply return a collection. This is because the result of the parser needs to be
