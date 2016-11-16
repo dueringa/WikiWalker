@@ -27,6 +27,13 @@ Article CurlWikiGrabber::grabUrl(std::string url)
     gotContent = "";
     curl_easy_perform(handle);
 
+    long httpcode = 0;
+    curl_easy_getinfo(handle, CURLINFO_RESPONSE_CODE, &httpcode);
+
+    if(httpcode != 200) {
+      return Article("");
+    }
+
     curl_easy_cleanup(handle);
     handle = NULL;
 

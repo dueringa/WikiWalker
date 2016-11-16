@@ -18,5 +18,12 @@ void WikiWalker::startWalking(string url)
     // TODO: little bobby tables?
     auto content = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&titles=" + title);
 
-    std::cout << "Article " << content.getTitle() << " has " << content.getNumLinks() << " links" << std::endl;
+    if(content.getTitle() != "")
+    {
+        std::cout << "Article " << content.getTitle() << " has " << content.getNumLinks() << " links" << std::endl;
+    }
+    else
+    {
+        std::cerr << "Error fetching article" << std::endl;
+    }
 };

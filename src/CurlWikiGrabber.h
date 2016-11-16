@@ -26,7 +26,10 @@ public:
         curl_global_cleanup();
     }
 
-    //! given an URL, return an Article with its links
+    /*! given an URL, return an Article with its links
+     * \returns an Article instance wiith title and links set.
+     *          If title is empty, an error occurred.
+     */
     Article grabUrl(std::string url);
 };
 
