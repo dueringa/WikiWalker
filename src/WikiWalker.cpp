@@ -14,7 +14,7 @@ struct ContinueData
     std::string continueString;
 };
 
-Article getArticle(std::string json)
+Article getArticle(std::string json, ContinueData &contData)
 {
     Json::Reader reader;
     Json::Value document;
@@ -41,6 +41,14 @@ Article getArticle(std::string json)
         );
     }
 
+    if(!document.isMember("batchcomplete")) {
+        contData.moreData = true;
+        contData.continueString =
+          document.get("continue", Json::Value::nullSingleton())
+                  .get("plcontinue", Json::Value::nullSingleton())
+                    .asString();
+    }
+
     return wantedArticle;
 }
 
@@ -60,7 +68,8 @@ void WikiWalker::startWalking(std::string url)
 
     if(json != "")
     {
-        Article article = getArticle(json);
+        ContinueData contData;
+        Article article = getArticle(json, contData);
         std::cout << "Article " << article.getTitle() << " has " << article.getNumLinks() << " links" << std::endl;
     }
     else
