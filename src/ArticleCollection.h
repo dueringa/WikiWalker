@@ -18,6 +18,8 @@ public:
         return articleSet.size();
     }
 
+    ~ArticleCollection();
+
 private:
     struct article_compare {
         bool operator()(const Article* lhs, const Article* rhs) const
