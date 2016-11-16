@@ -31,8 +31,10 @@ parsed again.
 
 # TODO
 
- - Support multiple wikipedias
- - support other Wikimedia installations+
- - support local wikipedia dump
- - support output formats (dot, etc?)
- - support "routing"?
+ - [ ] Support multiple wikipedias
+ - [ ] support other Wikimedia installations+
+ - [ ] support local wikipedia dump
+ - [ ] support output formats (dot, etc?)
+ - [ ] support "routing"?
+
+![overview](design.jpg)
