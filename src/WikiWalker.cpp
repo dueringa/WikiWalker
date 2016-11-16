@@ -68,7 +68,7 @@ void WikiWalker::startWalking(std::string url)
     std::string title = url.substr(pos + findUrl.length());
 
     //! \todo: little bobby tables?
-    std::string json = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&titles=" + title);
+    std::string json = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&formatversion=1&titles=" + title);
 
     if(json != "")
     {
@@ -76,7 +76,7 @@ void WikiWalker::startWalking(std::string url)
         Article article = getArticle(json, contData);
 
         while(contData.moreData && contData.continueString != "") {
-            std::string json = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&plcontinue=" + contData.continueString + "&titles=" + title);
+            std::string json = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&formatversion=1&plcontinue=" + contData.continueString + "&titles=" + title);
             Article article2 = getArticle(json, contData);
 
             for(auto x = article2.linkBegin(); x != article2.linkEnd(); x++) {
