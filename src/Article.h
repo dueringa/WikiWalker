@@ -10,8 +10,12 @@
 class Article
 {
 public:
+    //! representation of links to other articles
     typedef std::vector<Article*>                 ArticleLinkStorage;
-    typedef std::vector<Article*>::const_iterator ArticleLinkIterator;
+    //! representation of iterator over links
+    typedef std::vector<Article*>::iterator ArticleLinkIterator;
+    //! representation of const iterator over links
+    typedef std::vector<Article*>::const_iterator ArticleLinkConstIterator;
 
     /*! Create a new article from a title
      * \param title The title of the article
@@ -38,13 +42,13 @@ public:
     }
 
     /*! Get const_iterator to first linked article */
-    ArticleLinkIterator linkBegin() const
+    ArticleLinkConstIterator linkBegin() const
     {
         return links.cbegin();
     }
 
     /*! Get const_iterator to last linked article */
-    ArticleLinkIterator linkEnd() const
+    ArticleLinkConstIterator linkEnd() const
     {
         return links.cend();
     }
