@@ -1,11 +1,9 @@
 #include "CurlWikiGrabber.h"
 #include <json/json.h>
 
-//! Todo: look for better implementation
-static std::string gotContent = "";
 static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
 {
-    gotContent.append(ptr, size * nmemb);
+    static_cast<std::string*>(userdata)->append(ptr, size * nmemb);
     return size * nmemb;
 }
 
@@ -22,6 +20,10 @@ Article CurlWikiGrabber::grabUrl(std::string url)
     curl_easy_setopt(handle, CURLOPT_URL, url.c_str());
     curl_easy_setopt(handle, CURLOPT_USERAGENT, "WikiWalker/ test program");
     curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_callback);
+    std::string gotContent;
+    curl_easy_setopt(handle, CURLOPT_WRITEDATA, &gotContent);
+
+
     gotContent = "";
     curl_easy_perform(handle);
 
