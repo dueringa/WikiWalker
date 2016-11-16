@@ -34,3 +34,5 @@ Debug/
 # dependency files
 *.d
 /lib/jsoncpp/doxygen
+/doc/html
+
