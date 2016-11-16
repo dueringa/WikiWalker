@@ -10,6 +10,9 @@
 class Article
 {
 public:
+    typedef std::vector<Article*>                 ArticleLinkStorage;
+    typedef std::vector<Article*>::const_iterator ArticleLinkIterator;
+
     /*! Create a new article from a title
      * \param title The title of the article
      */
@@ -34,9 +37,21 @@ public:
         links.push_back(article);
     }
 
+    /*! Get const_iterator to first linked article */
+    ArticleLinkIterator linkBegin() const
+    {
+        return links.cbegin();
+    }
+
+    /*! Get const_iterator to last linked article */
+    ArticleLinkIterator linkEnd() const
+    {
+        return links.cend();
+    }
+
 private:
     std::string title;
-    std::vector<Article*> links;
+    ArticleLinkStorage links;
 };
 
 #endif //_ARTICLE_H
