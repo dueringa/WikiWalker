@@ -48,6 +48,10 @@ Article getArticle(std::string json, ContinueData &contData)
                   .get("plcontinue", Json::Value::nullSingleton())
                     .asString();
     }
+    else
+    {
+        contData.moreData = false;
+    }
 
     return wantedArticle;
 }
