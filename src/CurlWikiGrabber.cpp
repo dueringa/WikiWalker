@@ -1,5 +1,4 @@
 #include "CurlWikiGrabber.h"
-#include <json/json.h>
 
 static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
 {
@@ -9,7 +8,7 @@ static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdat
 
 //! \todo change to passing page title?
 //! \todo Curl return code checking
-Article CurlWikiGrabber::grabUrl(std::string url)
+std::string CurlWikiGrabber::grabUrl(std::string url)
 {
     CURL *handle = curl_easy_init();
 
@@ -31,39 +30,14 @@ Article CurlWikiGrabber::grabUrl(std::string url)
     long httpcode = 0;
     curl_easy_getinfo(handle, CURLINFO_RESPONSE_CODE, &httpcode);
 
-    if(httpcode != 200) {
-      return Article("");
-    }
-
     curl_easy_cleanup(handle);
     handle = NULL;
 
-    Json::Reader reader;
-    Json::Value document;
-    bool success = reader.parse(gotContent, document, false);
-
-    if(!success) {
-        throw WalkerException("Error parsing JSON");
+    if(httpcode != 200) {
+      return "";
     }
 
-    auto allPages = document.get("query", Json::Value::nullSingleton())
-                            .get("pages", Json::Value::nullSingleton());
-
-    // only get first page
-    auto wantedPage = allPages.get(allPages.getMemberNames()[0],
-                                   Json::Value::nullSingleton());
-
-    Article wantedArticle(wantedPage.get("title", Json::Value::nullSingleton()).asString());
-
-    // add links
-    for(const auto &linked : wantedPage.get("links", Json::Value::nullSingleton()))
-    {
-        wantedArticle.addLink(
-            new Article(linked.get("title", Json::Value::nullSingleton()).asString())
-        );
-    }
-
-    return wantedArticle;
+    return gotContent;
 }
 
 // note to self: API
