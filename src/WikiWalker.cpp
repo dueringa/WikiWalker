@@ -3,6 +3,17 @@
 #include <iostream>
 #include <json/json.h>
 
+//! represents continue operations
+struct ContinueData
+{
+    //! Creates a new ContinueData object
+    ContinueData() : moreData(false), continueString("") {};
+    //! more data available
+    bool moreData;
+    //! string required for API operation
+    std::string continueString;
+};
+
 Article getArticle(std::string json)
 {
     Json::Reader reader;
