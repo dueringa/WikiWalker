@@ -48,11 +48,11 @@ parsed again.
 
 <table><tbody><tr><td></td><td></td><td></td><td colspan="6"><p>Article links to other articles</p></td></tr><tr><td></td><td></td><td></td><td><p>unique_ptr</p></td><td><p>shared_ptr</p></td><td><p>weak_ptr</p></td><td><p>raw pointer</p></td><td><p>reference</p></td><td><p>object</p></td></tr><tr><td></td><td></td><td></td><td><p>(1)</p></td><td><p>(5)</p></td><td></td><td></td><td><p>(2)</p></td><td><p>(3)</p></td></tr><tr><td rowspan="6"><p>Article map contents</p></td><td><p>unique_ptr</p></td><td><p>(6)</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td></tr><tr><td><p>shared_ptr</p></td><td></td><td><p>X</p></td><td><p>X</p></td><td></td><td></td><td><p>X</p></td><td><p>X</p></td></tr><tr><td><p>weak_ptr</p></td><td></td><td><p>X</p></td><td><p>X</p></td><td><p>X (7)</p></td><td><p>X (8)</p></td><td><p>X</p></td><td><p>X</p></td></tr><tr><td><p>raw pointer</p></td><td></td><td><p>X</p></td><td><p>X</p></td><td><p>X (8)</p></td><td><p>Current implementation</p></td><td><p>X</p></td><td><p>X</p></td></tr><tr><td><p>reference</p></td><td><p>(2)</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td></tr><tr><td><p>object</p></td><td><p>(4)</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td><td><p>X</p></td></tr></tbody></table>
 
-(1) obviously, no, since multiple articles can link to the same one
-(2) STL containers can't save references
-(3) doesn't make sense, see (1)
-(4) would be nice, but objects here could move, and invalidate pointers
-(5) Articles could have cyclic references, STL is not clever enough to detect this
-(6) won't be unique, articles link among themselves
-(7) only weak pointers doesn't make much sense. also, we need at least 1 shared
-(8) combination doesn't make sense
+ - (1) obviously, no, since multiple articles can link to the same one
+ - (2) STL containers can't save references
+ - (3) doesn't make sense, see (1)
+ - (4) would be nice, but objects here could move, and invalidate pointers
+ - (5) Articles could have cyclic references, STL is not clever enough to detect this
+ - (6) won't be unique, articles link among themselves
+ - (7) only weak pointers doesn't make much sense. also, we need at least 1 shared
+ - (8) combination doesn't make sense
