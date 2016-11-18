@@ -19,10 +19,11 @@ public:
         curl_global_cleanup();
     }
 
-    /*! given an URL, return article JSON data
+    /*! given an article title, return article JSON data
+     * \param title title of article
      * \returns article JSON data
      */
-    std::string grabUrl(std::string url) const;
+    std::string grabUrl(std::string title, const std::string& continuationData="") const;
 };
 
 #endif // _CURL_WIKI_GRABBER_H

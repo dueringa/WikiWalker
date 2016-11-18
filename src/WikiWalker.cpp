@@ -1,4 +1,5 @@
 #include "WikiWalker.h"
+#include "WikiWalker.h"
 #include "JsonToArticleConverter.h"
 
 #include <iostream>
@@ -16,7 +17,7 @@ void WikiWalker::startWalking(std::string url)
     std::string title = url.substr(pos + findUrl.length());
 
     //! \todo: little bobby tables?
-    std::string json = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&formatversion=1&titles=" + title);
+    std::string json = grabber.grabUrl(title);
 
     if(json != "")
     {
@@ -24,7 +25,7 @@ void WikiWalker::startWalking(std::string url)
         Article* article = conv.convertToArticle(json, articleSet);
 
         while(conv.hasMoreData() && conv.getContinuationData() != "") {
-            std::string json = grabber.grabUrl("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pllimit=50&plnamespace=0&formatversion=1&plcontinue=" + conv.getContinuationData() + "&titles=" + title);
+            std::string json = grabber.grabUrl(title, conv.getContinuationData());
             Article* article2 = conv.convertToArticle(json, articleSet);
 
             for(auto x = article2->linkBegin(); x != article2->linkEnd(); x++) {
