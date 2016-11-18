@@ -42,16 +42,10 @@ public:
     }
 
     /*! Get const_iterator to first linked article */
-    ArticleLinkConstIterator linkBegin() const
-    {
-        return links.cbegin();
-    }
+    ArticleLinkConstIterator linkBegin() const;
 
     /*! Get const_iterator to last linked article */
-    ArticleLinkConstIterator linkEnd() const
-    {
-        return links.cend();
-    }
+    ArticleLinkConstIterator linkEnd() const;
 
 private:
     std::string title;
