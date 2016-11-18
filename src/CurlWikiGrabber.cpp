@@ -50,6 +50,8 @@ std::string CurlWikiGrabber::grabUrl(std::string title, const std::string& conti
     curl_easy_getinfo(handle, CURLINFO_RESPONSE_CODE, &httpcode);
 
     curl_easy_cleanup(handle);
+    curl_free(titleEncoded);
+
     handle = NULL;
 
     if(httpcode != 200) {
