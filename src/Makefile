@@ -10,7 +10,7 @@ GIT_VERSION:=$(shell git describe --always)
 CXXFLAGS+=-MMD -Wall -Wextra -std=c++11 -I../lib/jsoncpp/ -D _WW_VERSION=\"$(GIT_VERSION)\"
 
 walker: $(OBJS)
-	$(CXX) -o walker $(LIBS) $(LIBOBJ) $(OBJS)
+	$(CXX) $(CXXFLAGS) -o walker $(LIBS) $(LIBOBJ) $(OBJS)
 
 clean:
 	rm -f $(OBJS) *.d
