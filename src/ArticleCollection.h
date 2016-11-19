@@ -28,6 +28,12 @@ public:
         return articleSet.size();
     }
 
+    /*! get pointer to article.
+     * \param title title of the article to request
+     * \return pointer to article, or nullptr, if not found
+     */
+    Article* get(std::string title);
+
     ~ArticleCollection();
 
 private:

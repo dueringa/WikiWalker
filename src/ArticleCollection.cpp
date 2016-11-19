@@ -13,3 +13,14 @@ ArticleCollection::~ArticleCollection()
     }
     articleSet.clear();
 }
+
+Article* ArticleCollection::get(std::string title)
+{
+    auto it = articleSet.find(title);
+
+    if(articleSet.end() == it) {
+        return nullptr;
+    }
+
+    return it->second;
+}
