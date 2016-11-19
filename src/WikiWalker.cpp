@@ -22,7 +22,7 @@ void WikiWalker::startWalking(std::string url)
     std::string title = url.substr(pos + findUrl.length());
 
     creator.addParameter("action", "query").addParameter("format", "json")
-            .addParameter("prop", "links").addParameter("pllimit", "50")
+            .addParameter("prop", "links").addParameter("pllimit", "max")
             .addParameter("plnamespace", "0").addParameter("formatversion", "1");
     creator.addParameter("titles", title);
 
