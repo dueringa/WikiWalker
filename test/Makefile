@@ -5,7 +5,7 @@ OBJS = $(SRCS:.cpp=.o)
 LIBS = `pkg-config --libs unittest++` -lcurl
 BINARY = run_tests
 
-tests: $(OBJS)
+$(BINARY): $(OBJS)
 	g++ $(CXXFLAGS) $(OBJS) -o $(BINARY) $(LIBS) \
 	../src/ArticleCollection.o ../src/CurlUrlCreator.o
 
