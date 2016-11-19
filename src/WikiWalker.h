@@ -10,7 +10,9 @@
 class WikiWalker : public Walker
 {
 public:
-    //! given an URL (Title?), start collecting links
+    /*! given an URL (Title?), start collecting links
+     * \param url start point for analysis
+     */
     void startWalking(std::string url);
 
 private:

@@ -35,6 +35,8 @@ Debug/
 *.d
 /lib/jsoncpp/doxygen
 /doc/html
+/doc/latex
+/doc/doxygen*db*
 
 #project files
 .codelite/

@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all clean doc
 
 all:
 	make -C src
@@ -7,3 +7,5 @@ all:
 clean:
 	make -C src clean
 	make -C test clean
+doc:
+	cd doc;	doxygen

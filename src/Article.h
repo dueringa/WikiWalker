@@ -40,7 +40,8 @@ public:
     /*! Set article to be analyzed.
      * State is automatically set by #addLink, but if
      * article has no outgoing links, this must be called,
-     * otherwise getNumLinks will throw an exception
+     * otherwise #getNumLinks will throw an exception
+     * \param analyzed whether article has been analyzed
      */
     void setAnalyzed(bool analyzed);
 

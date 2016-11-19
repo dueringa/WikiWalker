@@ -5,14 +5,19 @@
 
 #include "Article.h"
 
+/*! Collection of available articles.
+ *  This should be used as "cache".
+ */
 class ArticleCollection
 {
 public:
+    //! add article to collection
     void add(Article* article)
     {
         articleSet.insert(article);
     }
 
+    //! get number of articles in collection
     size_t getNumArticles() const
     {
         return articleSet.size();
