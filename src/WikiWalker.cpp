@@ -29,8 +29,7 @@ void WikiWalker::startWalking(std::string url)
     //! \todo: little bobby tables?
     std::string json = grabber.grabUrl(creator.buildUrl());
 
-    if(json != "")
-    {
+    if(json != "") {
         JsonToArticleConverter conv;
         Article* article = conv.convertToArticle(json, articleSet);
 
@@ -50,9 +49,7 @@ void WikiWalker::startWalking(std::string url)
         }
 
         std::cout << "Article " << article->getTitle() << " has " << article->getNumLinks() << " links" << std::endl;
-    }
-    else
-    {
+    } else {
         std::cerr << "Error fetching article" << std::endl;
     }
 }

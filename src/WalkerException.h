@@ -13,9 +13,9 @@ public:
      * the compiler.
      */
     WalkerException(std::string message)
-        : message(message){};
+        : message(message) {};
 
-    ~WalkerException() throw(){};
+    ~WalkerException() throw() {};
 
     //! get exception message
     const char* what() const throw()

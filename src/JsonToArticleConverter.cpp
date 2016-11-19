@@ -25,8 +25,7 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
     addArticle.add(wantedArticle);
 
     // add links
-    for(const auto &linked : wantedPage.get("links", Json::Value::nullSingleton()))
-    {
+    for(const auto &linked : wantedPage.get("links", Json::Value::nullSingleton())) {
         auto par = new Article(linked.get("title", Json::Value::nullSingleton()).asString());
         wantedArticle->addLink(
             par
@@ -40,9 +39,7 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
           document.get("continue", Json::Value::nullSingleton())
                   .get("plcontinue", Json::Value::nullSingleton())
                     .asString();
-    }
-    else
-    {
+    } else {
         moreData = false;
     }
 

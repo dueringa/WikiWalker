@@ -9,8 +9,7 @@ static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdat
 CurlWikiGrabber::CurlWikiGrabber()
 {
     int error = curl_global_init(CURL_GLOBAL_ALL);
-    if(error)
-    {
+    if(error) {
         throw WalkerException("CURL init failed");
     }
 }
@@ -20,8 +19,7 @@ std::string CurlWikiGrabber::grabUrl(std::string url) const
 {
     CURL *handle = curl_easy_init();
 
-    if(NULL == handle)
-    {
+    if(NULL == handle) {
         throw WalkerException("error initiating curl");
     }
 
@@ -43,7 +41,7 @@ std::string CurlWikiGrabber::grabUrl(std::string url) const
     handle = NULL;
 
     if(httpcode != 200) {
-      return "";
+        return "";
     }
 
     return gotContent;

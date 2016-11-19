@@ -20,9 +20,16 @@ public:
     Article* convertToArticle(std::string json, ArticleCollection& addArticle);
 
     //! JSON data says there's mote links to fetch
-    bool hasMoreData() const { return moreData; }
+    bool hasMoreData() const
+    {
+        return moreData;
+    }
+
     //! continution string
-    std::string getContinuationData() const { return continueString; }
+    std::string getContinuationData() const
+    {
+        return continueString;
+    }
 
 private:
     //! more data available
