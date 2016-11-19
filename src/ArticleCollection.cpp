@@ -9,7 +9,7 @@ ArticleCollection::~ArticleCollection()
     for(auto it = articleSet.rbegin(); it != articleSet.rend(); it++) {
         /* reverse iteration, forward one could cause us trouble if we
          * delete and erase */
-        delete *it;
+        delete it->second;
     }
     articleSet.clear();
 }

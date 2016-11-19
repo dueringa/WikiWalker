@@ -1,7 +1,7 @@
 #ifndef _ARTICLE_COLLECTION_H
 #define _ARTICLE_COLLECTION_H
 
-#include <set>
+#include <map>
 
 #include "Article.h"
 
@@ -11,10 +11,15 @@
 class ArticleCollection
 {
 public:
-    //! add article to collection
-    void add(Article* article)
+    /*! add article to collection.
+     * \param article article to add
+     * \return true if insertion took place
+     *          false if it failed (e.g. another article with the same title already exists
+     */
+    bool add(Article* article)
     {
-        articleSet.insert(article);
+        auto ret = articleSet.insert(std::make_pair(article->getTitle(), article));
+        return ret.second;
     }
 
     //! get number of articles in collection
@@ -26,17 +31,9 @@ public:
     ~ArticleCollection();
 
 private:
-    struct article_compare {
-        bool operator()(const Article* lhs, const Article* rhs) const
-        {
-            // use title to compare
-            return lhs->getTitle().compare(rhs->getTitle()) < 0;
-        }
-    };
-
     // we need to avoid duplicate article instances.
     // we do this by associating an article title with its instance
-    std::set<Article*, article_compare> articleSet;
+    std::map<std::string, Article*> articleSet;
 };
 
 #endif // _ARTICLE_COLLECTION_H
