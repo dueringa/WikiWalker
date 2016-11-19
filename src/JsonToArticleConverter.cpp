@@ -21,16 +21,27 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
     auto wantedPage = allPages.get(allPages.getMemberNames()[0],
                                    Json::Value::nullSingleton());
 
-    Article* wantedArticle = new Article(wantedPage.get("title", Json::Value::nullSingleton()).asString());
+    //! \todo get normalized title, if present
+    std::string wantedArticleTitle = wantedPage.get("title", Json::Value::nullSingleton()).asString();
+    Article* wantedArticle = articleCache.get(wantedArticleTitle);
+
+    if(wantedArticle == nullptr) {
+        wantedArticle = new Article(wantedArticleTitle);
+    }
+
     articleCache.add(wantedArticle);
 
     // add links
     for(const auto &linked : wantedPage.get("links", Json::Value::nullSingleton())) {
-        auto par = new Article(linked.get("title", Json::Value::nullSingleton()).asString());
-        wantedArticle->addLink(
-            par
-        );
-        articleCache.add(par);
+        auto linkedPageTitle = linked.get("title", Json::Value::nullSingleton()).asString();
+        auto par = articleCache.get(linkedPageTitle);
+
+        if(par == nullptr) {
+            par = new Article(linkedPageTitle);
+            articleCache.add(par);
+        }
+
+        wantedArticle->addLink(par);
     }
 
     wantedArticle->setAnalyzed(true);

@@ -39,13 +39,15 @@ void WikiWalker::startWalking(std::string url)
             json = grabber.grabUrl(creator.buildUrl());
             Article* article2 = conv.convertToArticle(json, articleSet);
 
-            for(auto x = article2->linkBegin(); x != article2->linkEnd(); x++) {
-                article->addLink(*x);
-            }
+            if(article != article2) {
+                for(auto x = article2->linkBegin(); x != article2->linkEnd(); x++) {
+                    article->addLink(*x);
+                }
 
-            // delete duplicate article
-            //! \todo cleanup problem: linked articles may also already exist in collection -> leak
-            delete article2;
+                // delete duplicate article
+                //! \todo cleanup problem: linked articles may also already exist in collection -> leak
+                delete article2;
+            }
         }
 
         std::cout << "Article " << article->getTitle() << " has " << article->getNumLinks() << " links" << std::endl;
