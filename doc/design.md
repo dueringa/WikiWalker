@@ -60,12 +60,3 @@ Maybe:
    the ArticleCollection. As soon as the ArticleCollection is "dead", all Articles are as well.
    Might be the same scennario as (9), only I won't need the penalty (?) of locking the weak_ptrs.
    This would be really preferrable to the current implementation (with manual cleanup).
-
-# TODO
-
- - [ ] get unit tests to work without manually specifying .o files
- - [ ] Support multiple wikipedias
- - [ ] support other Wikimedia installations+
- - [ ] support local wikipedia dump
- - [ ] support output formats (dot, etc?)
- - [ ] support "routing"?

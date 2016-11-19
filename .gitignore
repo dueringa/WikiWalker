@@ -41,3 +41,5 @@ Debug/
 *.project
 *.workspace
 
+#astyle + co
+*.orig
