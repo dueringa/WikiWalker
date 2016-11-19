@@ -14,10 +14,10 @@ public:
 
     /*! convert string containing json data representing link structure to an article.
      * \param json json data
-     * \param addArticle reference to global (ew) article collection
+     * \param articleCache reference to global (ew) article collection
      * \returns pointer to generated article. YOU free it!
      */
-    Article* convertToArticle(std::string json, ArticleCollection& addArticle);
+    Article* convertToArticle(std::string json, ArticleCollection& articleCache);
 
     //! JSON data says there's mote links to fetch
     bool hasMoreData() const

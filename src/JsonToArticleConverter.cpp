@@ -4,7 +4,7 @@
 #include <json/json.h>
 
 //! \todo really ugly workaround, passing in the ArticleCollection instance... :/
-Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleCollection& addArticle)
+Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleCollection& articleCache)
 {
     Json::Reader reader;
     Json::Value document;
@@ -22,7 +22,7 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
                                    Json::Value::nullSingleton());
 
     Article* wantedArticle = new Article(wantedPage.get("title", Json::Value::nullSingleton()).asString());
-    addArticle.add(wantedArticle);
+    articleCache.add(wantedArticle);
 
     // add links
     for(const auto &linked : wantedPage.get("links", Json::Value::nullSingleton())) {
@@ -30,7 +30,7 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
         wantedArticle->addLink(
             par
         );
-        addArticle.add(par);
+        articleCache.add(par);
     }
 
     wantedArticle->setAnalyzed(true);
