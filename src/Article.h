@@ -21,11 +21,10 @@ public:
      * \param title The title of the article
      */
     Article(std::string title)
-        : title(title) {};
+        : title(title), analyzed(false) {};
 
     //! Get the title of the article
-    std::string getTitle() const
-    {
+    std::string getTitle() const {
         return title;
     }
 
@@ -36,10 +35,17 @@ public:
      * \param[in] article Pointer to the article this article links
      * to
      */
-    void addLink(Article* article)
-    {
-        links.push_back(article);
-    }
+    void addLink(Article* article);
+
+    /*! Set article to be analyzed.
+     * State is automatically set by #addLink, but if
+     * article has no outgoing links, this must be called,
+     * otherwise getNumLinks will throw an exception
+     */
+    void setAnalyzed(bool analyzed);
+
+    //! Get state if article was analyzed (for out links)
+    bool isAnalyzed() const;
 
     /*! Get const_iterator to first linked article */
     ArticleLinkConstIterator linkBegin() const;
@@ -50,6 +56,7 @@ public:
 private:
     std::string title;
     ArticleLinkStorage links;
+    bool analyzed;
 };
 
 #endif //_ARTICLE_H

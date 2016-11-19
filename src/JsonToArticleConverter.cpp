@@ -33,6 +33,8 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
         addArticle.add(par);
     }
 
+    wantedArticle->setAnalyzed(true);
+
     if(!document.isMember("batchcomplete")) {
         moreData = true;
         continueString =
