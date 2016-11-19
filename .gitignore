@@ -36,3 +36,8 @@ Debug/
 /lib/jsoncpp/doxygen
 /doc/html
 
+#project files
+.codelite/
+*.project
+*.workspace
+
