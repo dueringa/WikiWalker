@@ -36,7 +36,7 @@ void WikiWalker::startWalking(std::string url)
         while(conv.hasMoreData() && conv.getContinuationData() != "") {
             creator.addParameter("plcontinue", conv.getContinuationData());
 
-            std::string json = grabber.grabUrl(creator.buildUrl());
+            json = grabber.grabUrl(creator.buildUrl());
             Article* article2 = conv.convertToArticle(json, articleSet);
 
             for(auto x = article2->linkBegin(); x != article2->linkEnd(); x++) {

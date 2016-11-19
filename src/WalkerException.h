@@ -14,8 +14,8 @@ public:
      *
      * \param message The exception message.
      */
-    WalkerException(std::string message)
-        : message(message) {};
+    WalkerException(std::string exmessage)
+        : message(exmessage) {};
 
     ~WalkerException() throw() {};
 

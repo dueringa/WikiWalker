@@ -20,8 +20,8 @@ public:
     /*! Create a new article from a title
      * \param title The title of the article
      */
-    Article(std::string title)
-        : title(title), analyzed(false) {};
+    Article(std::string articleTitle)
+        : title(articleTitle), analyzed(false) {};
 
     //! Get the title of the article
     std::string getTitle() const {

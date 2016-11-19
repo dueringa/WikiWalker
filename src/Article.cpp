@@ -26,8 +26,8 @@ void Article::addLink(Article* article)
     analyzed = true;
 }
 
-void Article::setAnalyzed(bool isAnalyzed) {
-    analyzed = isAnalyzed;
+void Article::setAnalyzed(bool analyzedState) {
+    analyzed = analyzedState;
 }
 
 bool Article::isAnalyzed() const {
