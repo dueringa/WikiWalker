@@ -18,10 +18,10 @@ public:
     typedef std::vector<Article*>::const_iterator ArticleLinkConstIterator;
 
     /*! Create a new article from a title
-     * \param title The title of the article
+     * \param articleTitle The title of the article
      */
     Article(std::string articleTitle)
-        : title(articleTitle), analyzed(false) {};
+        : title(articleTitle), analyzed(false) {}
 
     //! Get the title of the article
     std::string getTitle() const {

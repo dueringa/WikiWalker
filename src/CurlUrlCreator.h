@@ -37,7 +37,7 @@ public:
     ~CurlUrlCreator();
 
 private:
-    std::string baseUrl;
+    std::string _baseUrl;
     std::unordered_map<std::string, std::string> args;
     CURL* handle;
 

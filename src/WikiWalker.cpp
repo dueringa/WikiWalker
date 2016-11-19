@@ -1,7 +1,6 @@
 #include "WikiWalker.h"
 
 #include <iostream>
-#include <json/json.h>
 
 #include "JsonToArticleConverter.h"
 #include "CurlUrlCreator.h"

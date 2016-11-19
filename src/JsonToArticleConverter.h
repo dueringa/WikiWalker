@@ -10,7 +10,7 @@ class JsonToArticleConverter
 public:
     //! create a new instance
     JsonToArticleConverter()
-        : moreData(false), continueString("") {};
+        : moreData(false), continueString("") {}
 
     /*! convert string containing json data representing link structure to an article.
      * \param json json data

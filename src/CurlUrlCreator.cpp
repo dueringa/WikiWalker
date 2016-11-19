@@ -1,7 +1,7 @@
 #include "CurlUrlCreator.h"
 
 CurlUrlCreator::CurlUrlCreator(std::string baseUrl)
-    : baseUrl(baseUrl)
+    : _baseUrl(baseUrl)
 {
     curl_global_init(CURL_GLOBAL_ALL);
     handle = curl_easy_init();
@@ -24,7 +24,7 @@ CurlUrlCreator& CurlUrlCreator::addParameter(std::string param, std::string valu
 
 std::string CurlUrlCreator::buildUrl()
 {
-    std::string ret = baseUrl;
+    std::string ret = _baseUrl;
     ret.append("?");
 
     for(auto parpair : args) {

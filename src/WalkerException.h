@@ -12,10 +12,10 @@ public:
      * Message might be shown on exception occurring, depending on
      * the compiler.
      *
-     * \param message The exception message.
+     * \param exmessage The exception message.
      */
     WalkerException(std::string exmessage)
-        : message(exmessage) {};
+        : message(exmessage) {}
 
     ~WalkerException() throw() {};
 
