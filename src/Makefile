@@ -19,7 +19,7 @@ clean:
 	rm -f walker
 
 distclean: clean
-	rm -f $(LIBOBJS)
+	rm -f $(LIBOBJ)
 
 lib: $(LIBOBJ)
 
