@@ -24,5 +24,8 @@ lib: $(LIBOBJ)
 debug: CXXFLAGS += -g
 debug: walker
 
+optimized: CXXFLAGS += -O3
+optimized: walker
+
 -include $(OBJS:%.o=%.d)
 
