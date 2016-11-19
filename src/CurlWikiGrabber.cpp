@@ -15,9 +15,8 @@ CurlWikiGrabber::CurlWikiGrabber()
     }
 }
 
-//! \todo change to passing page title?
 //! \todo Curl return code checking
-std::string CurlWikiGrabber::grabUrl(std::string title, const std::string& continuationData) const
+std::string CurlWikiGrabber::grabUrl(std::string url) const
 {
     CURL *handle = curl_easy_init();
 
@@ -25,16 +24,6 @@ std::string CurlWikiGrabber::grabUrl(std::string title, const std::string& conti
     {
         throw WalkerException("error initiating curl");
     }
-
-    char* titleEncoded = curl_easy_escape(handle, title.c_str(), 0);
-    std::string apiBaseUrl = "https://en.wikipedia.org/w/api.php";
-    std::string url = apiBaseUrl.append("?action=query&format=json&prop=links&pllimit=50&plnamespace=0&formatversion=1");
-
-    if(!continuationData.empty()) {
-        url = apiBaseUrl.append("&plcontinue=").append(continuationData);
-    }
-
-    url = apiBaseUrl.append("&titles=").append(titleEncoded);
 
     curl_easy_setopt(handle, CURLOPT_URL, url.c_str());
     curl_easy_setopt(handle, CURLOPT_USERAGENT, "WikiWalker/ test program");
@@ -50,7 +39,6 @@ std::string CurlWikiGrabber::grabUrl(std::string title, const std::string& conti
     curl_easy_getinfo(handle, CURLINFO_RESPONSE_CODE, &httpcode);
 
     curl_easy_cleanup(handle);
-    curl_free(titleEncoded);
 
     handle = NULL;
 

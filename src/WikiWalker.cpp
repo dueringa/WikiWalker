@@ -1,9 +1,10 @@
 #include "WikiWalker.h"
-#include "WikiWalker.h"
-#include "JsonToArticleConverter.h"
 
 #include <iostream>
 #include <json/json.h>
+
+#include "JsonToArticleConverter.h"
+#include "CurlUrlCreator.h"
 
 void WikiWalker::startWalking(std::string url)
 {
@@ -13,11 +14,20 @@ void WikiWalker::startWalking(std::string url)
         throw WalkerException("Must be an English Wikipedia URL");
     }
 
+    std::string apiBaseUrl = "https://en.wikipedia.org/w/api.php";
+    CurlUrlCreator creator(apiBaseUrl);
+
+
     // extract Wikipedia title
     std::string title = url.substr(pos + findUrl.length());
 
+    creator.addParameter("action", "query").addParameter("format", "json")
+            .addParameter("prop", "links").addParameter("pllimit", "50")
+            .addParameter("plnamespace", "0").addParameter("formatversion", "1");
+    creator.addParameter("titles", title);
+
     //! \todo: little bobby tables?
-    std::string json = grabber.grabUrl(title);
+    std::string json = grabber.grabUrl(creator.buildUrl());
 
     if(json != "")
     {
@@ -25,12 +35,15 @@ void WikiWalker::startWalking(std::string url)
         Article* article = conv.convertToArticle(json, articleSet);
 
         while(conv.hasMoreData() && conv.getContinuationData() != "") {
-            std::string json = grabber.grabUrl(title, conv.getContinuationData());
+            creator.addParameter("plcontinue", conv.getContinuationData());
+
+            std::string json = grabber.grabUrl(creator.buildUrl());
             Article* article2 = conv.convertToArticle(json, articleSet);
 
             for(auto x = article2->linkBegin(); x != article2->linkEnd(); x++) {
                 article->addLink(*x);
             }
+
             // delete duplicate article
             //! \todo cleanup problem: linked articles may also already exist in collection -> leak
             delete article2;

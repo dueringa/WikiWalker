@@ -10,8 +10,9 @@
 class CurlWikiGrabber
 {
 public:
-    //! Create a new instance.
-    //! Might throw an exception, if curl intialization failed
+    /*! Create a new instance.
+     * Might throw an exception, if curl intialization failed
+     */
     CurlWikiGrabber();
 
     ~CurlWikiGrabber()
@@ -19,11 +20,11 @@ public:
         curl_global_cleanup();
     }
 
-    /*! given an article title, return article JSON data
-     * \param title title of article
+    /*! given an URL, return article JSON data
+     * \param url URL of the article
      * \returns article JSON data
      */
-    std::string grabUrl(std::string title, const std::string& continuationData="") const;
+    std::string grabUrl(std::string url) const;
 };
 
 #endif // _CURL_WIKI_GRABBER_H
