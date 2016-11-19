@@ -1,3 +1,5 @@
+.PHONY: clean
+
 SRC=$(wildcard *.cpp)
 OBJS=$(SRC:%.cpp=%.o)
 

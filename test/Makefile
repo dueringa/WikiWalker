@@ -1,3 +1,5 @@
+.PHONY: clean
+
 CFLAGS = `pkg-config --cflags unittest++ ` -std=c++11
 CXXFLAGS = $(CFLAGS)
 SRCS = $(wildcard *.cpp)
