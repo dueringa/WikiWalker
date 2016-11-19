@@ -15,4 +15,16 @@ SUITE(CollectionTests)
         w.add(new Article("Queen"));
         CHECK_EQUAL(3, w.getNumArticles());
     }
+
+    TEST(CollectionIsCaseInsensitive)
+    {
+        ArticleCollection w;
+        w.add(new Article("King"));
+        w.add(new Article("Queen"));
+        CHECK_EQUAL(2, w.getNumArticles());
+        w.add(new Article("Prince"));
+        CHECK_EQUAL(3, w.getNumArticles());
+        w.add(new Article("queen"));
+        CHECK_EQUAL(4, w.getNumArticles());
+    }
 }
