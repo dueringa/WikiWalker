@@ -17,7 +17,7 @@ public:
     WalkerException(std::string exmessage)
         : message(exmessage) {}
 
-    ~WalkerException() throw() {};
+    virtual ~WalkerException() throw() {}
 
     //! get exception message
     const char* what() const throw()
