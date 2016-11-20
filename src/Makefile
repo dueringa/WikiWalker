@@ -8,7 +8,7 @@ LIBOBJ=$(LIBSRC:%.cpp=%.o)
 
 LIBS+=-L/usr/lib/i386-linux-gnu -lcurl
 GIT_VERSION:=$(shell git describe --always --dirty --tags || cat version.gen)
-CXXFLAGS+=-MMD -Wall -Wextra -Werror=shadow -std=c++11 -I../lib/jsoncpp/ -D _WW_VERSION=\"$(GIT_VERSION)\"
+CXXFLAGS+=-MMD -Wall -Wextra -Wshadow -std=c++11 -I../lib/jsoncpp/ -D _WW_VERSION=\"$(GIT_VERSION)\"
 
 walker: $(OBJS) $(LIBOBJ)
 	$(CXX) $(CXXFLAGS) -o walker $(LIBS) $(LIBOBJ) $(OBJS)
