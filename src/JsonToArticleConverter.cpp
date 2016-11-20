@@ -27,7 +27,7 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
         throw WalkerException("Invalid article");
     }
 
-    //! \todo get normalized title, if present
+    //! get normalized title not necessary, "title" is already
     std::string wantedArticleTitle = wantedPage.get("title", Json::Value::nullSingleton()).asString();
     Article* wantedArticle = articleCache.get(wantedArticleTitle);
 
