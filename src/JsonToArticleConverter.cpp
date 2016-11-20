@@ -21,6 +21,12 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
     auto wantedPage = allPages.get(allPages.getMemberNames()[0],
                                    Json::Value::nullSingleton());
 
+    if(wantedPage.isMember("missing")) {
+        throw WalkerException("Article doesn't exist");
+    } else if(wantedPage.isMember("invalid")) {
+        throw WalkerException("Invalid article");
+    }
+
     //! \todo get normalized title, if present
     std::string wantedArticleTitle = wantedPage.get("title", Json::Value::nullSingleton()).asString();
     Article* wantedArticle = articleCache.get(wantedArticleTitle);
