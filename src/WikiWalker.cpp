@@ -7,18 +7,41 @@
 
 void WikiWalker::startWalking(std::string url)
 {
-    std::string findUrl = "en.wikipedia.org/wiki/";
-    size_t pos = url.find(findUrl);
-    if(pos == std::string::npos) {
-        throw WalkerException("Must be an English Wikipedia URL");
+    std::string apiBaseUrl = "";
+
+    // this must be included in the URL.
+    std::string domain = "wikipedia.org/";
+    std::string findUrl = domain + "wiki/";
+    size_t domainpos = url.find(findUrl);
+    if(domainpos == std::string::npos) {
+        throw WalkerException("Must be an Wikipedia URL");
     }
 
-    std::string apiBaseUrl = "https://en.wikipedia.org/w/api.php";
+    // ugly URL checking
+    size_t subdomainpos = url.find("http://");
+    if(subdomainpos != std::string::npos) {
+        if(subdomainpos != 0) {
+            throw WalkerException("http:// must be at the beginning of the URL");
+        }
+    } else {
+        subdomainpos = url.find("https://");
+
+        if(subdomainpos != std::string::npos) {
+            if(subdomainpos != 0) {
+                throw WalkerException("https:// must be at the beginning of the URL");
+            }
+        }
+        else {
+            apiBaseUrl = "https://";
+        }
+    }
+
+    apiBaseUrl.append(url.substr(0, domainpos + domain.length())).append("w/api.php");
+
     CurlUrlCreator creator(apiBaseUrl);
 
-
     // extract Wikipedia title
-    std::string title = url.substr(pos + findUrl.length());
+    std::string title = url.substr(domainpos + findUrl.length());
 
     creator.addParameter("action", "query").addParameter("format", "json")
             .addParameter("prop", "links").addParameter("pllimit", "max")
