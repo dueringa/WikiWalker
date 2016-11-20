@@ -6,3 +6,5 @@
  - [ ] support local wikipedia dump
  - [ ] support output formats (dot, etc?)
  - [ ] support "routing"?
+ - [ ] make local "cache file", so multiple runs can re-use articles fetched
+       previously
