@@ -24,3 +24,8 @@ Article* ArticleCollection::get(std::string title)
 
     return it->second;
 }
+bool ArticleCollection::add(Article* article)
+{
+    auto ret = articleSet.insert(std::make_pair(article->getTitle(), article));
+    return ret.second;
+}

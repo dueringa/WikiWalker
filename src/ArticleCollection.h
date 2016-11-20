@@ -16,11 +16,7 @@ public:
      * \return true if insertion took place
      *          false if it failed (e.g. another article with the same title already exists
      */
-    bool add(Article* article)
-    {
-        auto ret = articleSet.insert(std::make_pair(article->getTitle(), article));
-        return ret.second;
-    }
+    bool add(Article* article);
 
     //! get number of articles in collection
     size_t getNumArticles() const
