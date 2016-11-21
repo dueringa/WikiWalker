@@ -1,5 +1,6 @@
 #include <iostream>
 #include "WikiWalker.h"
+#include "version.h"
 
 using namespace std;
 
