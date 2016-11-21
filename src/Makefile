@@ -1,12 +1,14 @@
 .PHONY: clean
 
+BIN_OUT_NAME=walker
+
 SRC=$(wildcard *.cpp)
-OBJS=$(SRC:%.cpp=%.o)
+OBJ=$(SRC:%.cpp=%.o)
 
 LIBSRC=../lib/jsoncpp/jsoncpp.cpp
 LIBOBJ=$(LIBSRC:%.cpp=%.o)
 
-LIBS+=-L/usr/lib/i386-linux-gnu -lcurl
+LIBS+=-lcurl
 GIT_VERSION:=$(shell git describe --always --dirty --tags)
 CXXFLAGS+=-MMD -Wall -Wextra -Wshadow -std=c++11 -I../lib/jsoncpp/
 
@@ -14,23 +16,20 @@ ifneq ($(GIT_VERSION), )
 	CXXFLAGS+=-D _WW_VERSION=\"$(GIT_VERSION)\"
 endif
 
-walker: $(OBJS) $(LIBOBJ)
-	$(CXX) $(CXXFLAGS) -o walker $(LIBS) $(LIBOBJ) $(OBJS)
+$(BIN_OUT_NAME): $(OBJ) $(LIBOBJ)
+	$(CXX) $(CXXFLAGS) -o $(BIN_OUT_NAME) $(LIBS) $(LIBOBJ) $(OBJ)
 
 clean:
-	rm -f $(OBJS) *.d
-	rm -f walker
+	rm -f $(OBJ) *.d
+	rm -f $(BIN_OUT_NAME)
 
 distclean: clean
 	rm -f $(LIBOBJ)
 
-lib: $(LIBOBJ)
-
 debug: CXXFLAGS += -g
-debug: walker
+debug: $(BIN_OUT_NAME)
 
 optimized: CXXFLAGS += -O3
-optimized: walker
+optimized: $(BIN_OUT_NAME)
 
--include $(OBJS:%.o=%.d)
-
+-include $(OBJ:%.o=%.d)
