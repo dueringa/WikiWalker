@@ -20,7 +20,7 @@ public:
     virtual ~WalkerException() throw() {}
 
     //! get exception message
-    const char* what() const throw()
+    const char* what() const noexcept
     {
         return message.c_str();
     }
