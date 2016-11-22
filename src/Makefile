@@ -10,7 +10,7 @@ LIBOBJ=$(LIBSRC:%.cpp=%.o)
 
 LIBS+=-lcurl
 GIT_VERSION:=$(shell git describe --always --dirty --tags)
-CXXFLAGS+=-MMD -Wall -Wextra -Wshadow -std=c++11 -I../lib/jsoncpp/
+CXXFLAGS+=-MMD -Wall -Wextra -Wshadow -std=c++11 -I../lib/jsoncpp/ -Werror=return-type
 
 ifneq ($(GIT_VERSION), )
 	CXXFLAGS+=-D _WW_VERSION=\"$(GIT_VERSION)\"
