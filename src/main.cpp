@@ -21,7 +21,7 @@ int main(int argc, char** argv)
     string url = argv[1];
 
     try {
-        WikiWalker w = WikiWalker();
+        WikiWalker w;
         w.startWalking(url);
     } catch(std::exception& e) {
         cout << "Error " << e.what() << endl;

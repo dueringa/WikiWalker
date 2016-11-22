@@ -30,12 +30,19 @@ public:
      */
     Article* get(std::string title);
 
+    ArticleCollection() {}
     ~ArticleCollection();
+
+    ArticleCollection(const ArticleCollection&) = delete;
+    ArticleCollection& operator=(const ArticleCollection&) = delete;
 
 private:
     // we need to avoid duplicate article instances.
     // we do this by associating an article title with its instance
     std::map<std::string, Article*> articleSet;
+
+
+
 };
 
 #endif // _ARTICLE_COLLECTION_H
