@@ -60,6 +60,7 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
                     .asString();
     } else {
         moreData = false;
+        continueString = "";
     }
 
     return wantedArticle;
