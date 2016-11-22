@@ -31,11 +31,13 @@ public:
     //! get the number of links the article has
     size_t getNumLinks() const;
 
-    /*! Add a link to another article
+    /*! Add a link to another article.
      * \param[in] article Pointer to the article this article links
      * to
+     * \returns Whether adding woth successful. Returns false if
+     * instance / pointer is already included.
      */
-    void addLink(Article* article);
+    bool addLink(Article* article);
 
     /*! Set article to be analyzed.
      * State is automatically set by #addLink, but if

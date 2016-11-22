@@ -33,12 +33,13 @@ SUITE(ArticleTests)
         CHECK_EQUAL(1, a.getNumLinks());
     }
 
-    TEST(Article_AddLinks_OneLinkAddedAndDuped)
+    TEST(Article_AddLinks_DuplicateInstance)
     {
         Article a("Foo");
 
-        a.addLink(new Article("Barmiz"));
-        a.addLink(new Article("Barmiz"));
+        auto arl = new Article("Barmiz");
+        CHECK(a.addLink(arl));
+        CHECK(!a.addLink(arl));
 
         CHECK_EQUAL(a.isAnalyzed(), true);
         CHECK_EQUAL(1, a.getNumLinks());

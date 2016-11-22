@@ -1,5 +1,6 @@
 #include "Article.h"
 #include "WalkerException.h"
+#include <algorithm>
 
 size_t Article::getNumLinks() const
 {
@@ -20,10 +21,18 @@ Article::ArticleLinkConstIterator Article::linkEnd() const
     return links.cend();
 }
 
-void Article::addLink(Article* article)
+bool Article::addLink(Article* article)
 {
+    auto pos = find(links.begin(), links.end(), article);
+
+    if(pos != links.end()) {
+      return false;
+    }
+
     links.push_back(article);
     analyzed = true;
+
+    return true;
 }
 
 void Article::setAnalyzed(bool analyzedState) {
