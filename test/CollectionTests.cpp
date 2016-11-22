@@ -7,12 +7,14 @@ SUITE(CollectionTests)
     TEST(MakeSureNoDuplicateArticlesExist)
     {
         ArticleCollection w;
-        w.add(new Article("King"));
-        w.add(new Article("Queen"));
+        CHECK(w.add(new Article("King")));
+        CHECK(w.add(new Article("Queen")));
         CHECK_EQUAL(2, w.getNumArticles());
-        w.add(new Article("Prince"));
+        CHECK(w.add(new Article("Prince")));
         CHECK_EQUAL(3, w.getNumArticles());
-        w.add(new Article("Queen"));
+
+        // must fail
+        CHECK(!w.add(new Article("Queen")));
         CHECK_EQUAL(3, w.getNumArticles());
     }
 
@@ -26,5 +28,20 @@ SUITE(CollectionTests)
         CHECK_EQUAL(3, w.getNumArticles());
         w.add(new Article("queen"));
         CHECK_EQUAL(4, w.getNumArticles());
+    }
+
+    TEST(GetArticle_Existing_MustNotBeNull)
+    {
+        ArticleCollection w;
+        w.add(new Article("King"));
+        CHECK(w.get("King") != nullptr);
+    }
+
+    TEST(GetArticle_NonExisting_MustBeNull)
+    {
+        ArticleCollection w;
+        w.add(new Article("King"));
+        CHECK(w.get("Queen") == nullptr);
+
     }
 }

@@ -73,4 +73,19 @@ SUITE(CurlUrlCreatorTests)
         CHECK(url.find("zig=zag") != std::string::npos);
         CHECK_EQUAL(2, std::count(url.begin(), url.end(), '&'));
     }
+
+    TEST(Reset_MustReturnBaseUrl)
+    {
+        CurlUrlCreator cucu("http://example.com/get");
+        cucu.addParameter("foo", "bar");
+
+        auto url = cucu.buildUrl();
+        CHECK(url.find("http://example.com/get") == 0);
+        CHECK("http://example.com/get" != url);
+
+        cucu.reset();
+        url = cucu.buildUrl();
+        CHECK(url.find("http://example.com/get") == 0);
+        CHECK_EQUAL("http://example.com/get", url);
+    }
 }

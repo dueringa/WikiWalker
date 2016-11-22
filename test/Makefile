@@ -10,7 +10,9 @@ BINARY = run_tests
 $(BINARY): $(OBJS)
 	make -C ../src
 	g++ $(CXXFLAGS) $(OBJS) -o $(BINARY) $(LIBS) \
-	../src/ArticleCollection.o ../src/CurlUrlCreator.o
+	../src/ArticleCollection.o ../src/CurlUrlCreator.o \
+	../src/JsonToArticleConverter.o ../lib/jsoncpp/jsoncpp.o \
+	../src/Article.o
 
 clean:
 	rm -f *.o *.d $(BINARY)
