@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <curl/curl.h>
 
-/*! Responsible for creating GET URLs with parameters.
+/*! Creates GET URLs with parameters.
  *  With the help of curl
  */
 class CurlUrlCreator
@@ -33,7 +33,6 @@ public:
      */
     std::string buildUrl();
 
-    //! Called on destruction
     ~CurlUrlCreator();
 
 private:

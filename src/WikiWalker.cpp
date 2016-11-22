@@ -48,7 +48,6 @@ void WikiWalker::startWalking(std::string url)
             .addParameter("plnamespace", "0").addParameter("formatversion", "1");
     creator.addParameter("titles", title);
 
-    //! \todo: little bobby tables?
     std::string json = grabber.grabUrl(creator.buildUrl());
 
     if(json != "") {
@@ -67,7 +66,6 @@ void WikiWalker::startWalking(std::string url)
                 }
 
                 // delete duplicate article
-                //! \todo cleanup problem: linked articles may also already exist in collection -> leak
                 delete article2;
             }
         }

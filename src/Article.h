@@ -5,7 +5,7 @@
 #include <vector>
 
 /*!
- * represents a Wikipedia (Mediawiki) and its links
+ * represents a Wikipedia (Mediawiki) article and its links
  */
 class Article
 {
