@@ -25,3 +25,12 @@ std::string ToJsonWriter::convertToJson(const ArticleCollection&)
     return "";
 }
 
+void ToJsonWriter::output(const Article* article, std::ostream& outstream)
+{
+    outstream << convertToJson(article);
+}
+
+void ToJsonWriter::output(const ArticleCollection& collection, std::ostream& outstream)
+{
+    outstream << convertToJson(collection);
+}
