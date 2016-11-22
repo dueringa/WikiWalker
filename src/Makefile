@@ -26,7 +26,7 @@ clean:
 distclean: clean
 	rm -f $(LIBOBJ)
 
-debug: CXXFLAGS += -g
+debug: CXXFLAGS += -g -DDEBUG
 debug: $(BIN_OUT_NAME)
 
 optimized: CXXFLAGS += -O3
