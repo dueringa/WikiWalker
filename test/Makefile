@@ -8,6 +8,7 @@ LIBS = `pkg-config --libs unittest++` -lcurl
 BINARY = run_tests
 
 $(BINARY): $(OBJS)
+	make -C ../src
 	g++ $(CXXFLAGS) $(OBJS) -o $(BINARY) $(LIBS) \
 	../src/ArticleCollection.o ../src/CurlUrlCreator.o
 
