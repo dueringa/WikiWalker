@@ -6,7 +6,7 @@ std::string ToJsonWriter::convertToJson(const Article* a)
 {
     Json::Value val;
 
-    auto array = val[a->getTitle()];
+    Json::Value array(Json::ValueType::arrayValue);
 
     for(auto ali = a->linkBegin(); ali != a->linkEnd(); ali++) {
         std::string tit = (*ali)->getTitle();
@@ -16,6 +16,7 @@ std::string ToJsonWriter::convertToJson(const Article* a)
     val[a->getTitle()] = array;
 
     Json::FastWriter jsw;
+    jsw.omitEndingLineFeed();
 
     return jsw.write(val);
 }

@@ -4,28 +4,28 @@
 
 SUITE(ArticleToJsonWriterTests)
 {
-    TEST(Unidentified)
+    TEST(WriteArticleWithoutLinks)
     {
         ToJsonWriter atj;
         Article a("Farm");
-        CHECK_EQUAL("", atj.convertToJson(&a));
+        CHECK_EQUAL("{\"Farm\":[]}", atj.convertToJson(&a));
     }
 
-    TEST(Unidentified2)
+    TEST(WriteArticleWithOneLink)
     {
         ToJsonWriter atj;
         Article a("Farm");
         a.addLink(new Article("Animal"));
-        CHECK_EQUAL("", atj.convertToJson(&a));
+        CHECK_EQUAL("{\"Farm\":[\"Animal\"]}", atj.convertToJson(&a));
     }
 
-    TEST(Unidentified3)
+    TEST(WriteArticleWithMultipleLinks)
     {
         ToJsonWriter atj;
         Article a("Farm");
         a.addLink(new Article("Animal"));
         a.addLink(new Article("Pig"));
         a.addLink(new Article("Equality"));
-        CHECK_EQUAL("", atj.convertToJson(&a));
+        CHECK_EQUAL("{\"Farm\":[\"Animal\",\"Pig\",\"Equality\"]}", atj.convertToJson(&a));
     }
 }
