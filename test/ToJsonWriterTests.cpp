@@ -8,7 +8,7 @@ SUITE(ArticleToJsonWriterTests)
     {
         ToJsonWriter atj;
         Article a("Farm");
-        CHECK_EQUAL("{\"Farm\":[]}", atj.convertToJson(&a));
+        CHECK_EQUAL("{\"Farm\":{\"forward_links\":[]}}", atj.convertToJson(&a));
     }
 
     TEST(WriteArticleWithOneLink)
@@ -16,7 +16,7 @@ SUITE(ArticleToJsonWriterTests)
         ToJsonWriter atj;
         Article a("Farm");
         a.addLink(new Article("Animal"));
-        CHECK_EQUAL("{\"Farm\":[\"Animal\"]}", atj.convertToJson(&a));
+        CHECK_EQUAL("{\"Farm\":{\"forward_links\":[\"Animal\"]}}", atj.convertToJson(&a));
     }
 
     TEST(WriteArticleWithMultipleLinks)
@@ -26,7 +26,7 @@ SUITE(ArticleToJsonWriterTests)
         a.addLink(new Article("Animal"));
         a.addLink(new Article("Pig"));
         a.addLink(new Article("Equality"));
-        CHECK_EQUAL("{\"Farm\":[\"Animal\",\"Pig\",\"Equality\"]}", atj.convertToJson(&a));
+        CHECK_EQUAL("{\"Farm\":{\"forward_links\":[\"Animal\",\"Pig\",\"Equality\"]}}", atj.convertToJson(&a));
     }
 
     TEST(WriteEmptyArticleCollection)
@@ -41,6 +41,6 @@ SUITE(ArticleToJsonWriterTests)
         ToJsonWriter atj;
         ArticleCollection ac;
         ac.add(new Article("Foo"));
-        CHECK_EQUAL("{\"Foo\":[]}", atj.convertToJson(ac));
+        CHECK_EQUAL("{\"Foo\":{\"forward_links\":[]}}", atj.convertToJson(ac));
     }
 }
