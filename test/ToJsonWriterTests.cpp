@@ -28,4 +28,19 @@ SUITE(ArticleToJsonWriterTests)
         a.addLink(new Article("Equality"));
         CHECK_EQUAL("{\"Farm\":[\"Animal\",\"Pig\",\"Equality\"]}", atj.convertToJson(&a));
     }
+
+    TEST(WriteEmptyArticleCollection)
+    {
+        ToJsonWriter atj;
+        ArticleCollection ac;
+        CHECK_EQUAL("{}", atj.convertToJson(ac));
+    }
+
+    TEST(WriteArticleCollection_OneArticleWithoutLinks)
+    {
+        ToJsonWriter atj;
+        ArticleCollection ac;
+        ac.add(new Article("Foo"));
+        CHECK_EQUAL("{\"Foo\":[]}", atj.convertToJson(ac));
+    }
 }
