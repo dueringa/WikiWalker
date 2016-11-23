@@ -45,3 +45,5 @@ Debug/
 
 #astyle + co
 *.orig
+
+/test/*.dot
