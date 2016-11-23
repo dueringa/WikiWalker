@@ -29,3 +29,23 @@ bool ArticleCollection::add(Article* article)
     auto ret = articleSet.insert(std::make_pair(article->getTitle(), article));
     return ret.second;
 }
+
+ArticleCollection::iterator ArticleCollection::begin()
+{
+    return articleSet.begin();
+}
+
+ArticleCollection::iterator ArticleCollection::end()
+{
+    return articleSet.end();
+}
+
+ArticleCollection::const_iterator ArticleCollection::begin() const
+{
+    return articleSet.begin();
+}
+
+ArticleCollection::const_iterator ArticleCollection::end() const
+{
+    return articleSet.end();
+}
