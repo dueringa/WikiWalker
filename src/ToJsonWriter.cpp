@@ -2,10 +2,8 @@
 
 #include <json/json.h>
 
-std::string ToJsonWriter::convertToJson(const Article* a)
+Json::Value getArticleLinks(const Article* a)
 {
-    Json::Value val;
-
     Json::Value array(Json::ValueType::arrayValue);
 
     for(auto ali = a->linkBegin(); ali != a->linkEnd(); ali++) {
@@ -13,7 +11,14 @@ std::string ToJsonWriter::convertToJson(const Article* a)
         array.append(Json::Value(tit));
     }
 
-    val[a->getTitle()] = array;
+    return array;
+}
+
+std::string ToJsonWriter::convertToJson(const Article* a)
+{
+    Json::Value val;
+
+    val[a->getTitle()] = getArticleLinks(a);
 
     Json::FastWriter jsw;
     jsw.omitEndingLineFeed();
@@ -21,9 +26,18 @@ std::string ToJsonWriter::convertToJson(const Article* a)
     return jsw.write(val);
 }
 
-std::string ToJsonWriter::convertToJson(const ArticleCollection&)
+std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
 {
-    return "";
+    Json::Value val(Json::ValueType::objectValue);
+
+    for(auto ar : ac) {
+        val[ar.first] = getArticleLinks(ar.second);
+    }
+
+    Json::FastWriter jsw;
+    jsw.omitEndingLineFeed();
+
+    return jsw.write(val);
 }
 
 void ToJsonWriter::output(const Article* article, std::ostream& outstream)
