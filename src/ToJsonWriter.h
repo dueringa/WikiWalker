@@ -9,7 +9,7 @@
 /*! Output module: write to json.
  * "ugly", non-human-readable JSON, though.
  */
-class ToJsonWriter : public ADataUsage
+class ToJsonWriter : public ADataOutput
 {
 public:
     /*! Convert article to string representation of JSON representation.

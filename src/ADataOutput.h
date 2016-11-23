@@ -4,13 +4,13 @@
 #include <ostream>
 #include "ArticleCollection.h"
 
-class ADataUsage
+class ADataOutput
 {
 public:
     virtual void output(const Article*, std::ostream&) = 0;
     virtual void output(const ArticleCollection&, std::ostream&) = 0;
 
-    virtual ~ADataUsage() {}
+    virtual ~ADataOutput() {}
 };
 
 #endif // _ADATAOUTPUT_H
