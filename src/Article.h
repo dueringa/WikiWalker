@@ -28,7 +28,11 @@ public:
         return title;
     }
 
-    //! get the number of links the article has
+    /*! get the number of links the article has.
+     * This throws an exception if state has not been set to anaylzed.
+     * \see setAnalyzed
+     * \see addLink
+     */
     size_t getNumLinks() const;
 
     /*! Add a link to another article.
@@ -36,6 +40,10 @@ public:
      * to
      * \returns Whether adding woth successful. Returns false if
      * instance / pointer is already included.
+     *
+     * Automatically sets state to analyzed
+     * \see setAnalyzed
+     * \see isAnalyzed
      */
     bool addLink(Article* article);
 
@@ -44,11 +52,24 @@ public:
      * article has no outgoing links, this must be called,
      * otherwise #getNumLinks will throw an exception
      * \param analyzed whether article has been analyzed
+     * \see addLink
      */
     void setAnalyzed(bool analyzed);
 
     //! Get state if article was analyzed (for out links)
     bool isAnalyzed() const;
+
+    /*! Set article to be marked.
+     * Some kind of "marking" for output usage. May be start point,
+     * may be end point, may be point of special interest.
+     * \param marked whether article os marked
+     */
+    void setMarked(bool marked);
+
+    /*! Get state whether article was marked.
+     * \returns Whether article is marked.
+     */
+    bool isMarked() const;
 
     /*! Get const_iterator to first linked article */
     ArticleLinkConstIterator linkBegin() const;
@@ -60,6 +81,7 @@ private:
     std::string title;
     ArticleLinkStorage links;
     bool analyzed;
+    bool marked;
 };
 
 #endif //_ARTICLE_H

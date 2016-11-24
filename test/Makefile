@@ -12,7 +12,7 @@ $(BINARY): $(OBJS)
 	g++ $(CXXFLAGS) $(OBJS) -o $(BINARY) $(LIBS) \
 	../src/ArticleCollection.o ../src/CurlUrlCreator.o \
 	../src/JsonToArticleConverter.o ../lib/jsoncpp/jsoncpp.o \
-	../src/Article.o ../src/ToJsonWriter.o
+	../src/Article.o ../src/ToJsonWriter.o ../src/ToGraphvizWriter.o
 
 clean:
 	rm -f *.o *.d $(BINARY)
