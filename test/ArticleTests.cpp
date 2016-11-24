@@ -69,4 +69,14 @@ SUITE(ArticleTests)
 
         CHECK_EQUAL(titles.size(), num);
     }
+
+    TEST(Article_Marked_State)
+    {
+        Article a("Todo");
+        CHECK_EQUAL(false, a.isMarked());
+        a.setMarked(true);
+        CHECK_EQUAL(true, a.isMarked());
+        a.setMarked(false);
+        CHECK_EQUAL(false, a.isMarked());
+    }
 }

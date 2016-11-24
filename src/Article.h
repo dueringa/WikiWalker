@@ -40,6 +40,10 @@ public:
      * to
      * \returns Whether adding woth successful. Returns false if
      * instance / pointer is already included.
+     *
+     * Automatically sets state to analyzed
+     * \see setAnalyzed
+     * \see isAnalyzed
      */
     bool addLink(Article* article);
 
@@ -55,6 +59,18 @@ public:
     //! Get state if article was analyzed (for out links)
     bool isAnalyzed() const;
 
+    /*! Set article to be marked.
+     * Some kind of "marking" for output usage. May be start point,
+     * may be end point, may be point of special interest.
+     * \param marked whether article os marked
+     */
+    void setMarked(bool marked);
+
+    /*! Get state whether article was marked.
+     * \returns Whether article is marked.
+     */
+    bool isMarked() const;
+
     /*! Get const_iterator to first linked article */
     ArticleLinkConstIterator linkBegin() const;
 
@@ -65,6 +81,7 @@ private:
     std::string title;
     ArticleLinkStorage links;
     bool analyzed;
+    bool marked;
 };
 
 #endif //_ARTICLE_H

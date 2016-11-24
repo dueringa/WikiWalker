@@ -42,3 +42,11 @@ void Article::setAnalyzed(bool analyzedState) {
 bool Article::isAnalyzed() const {
     return analyzed;
 }
+
+void Article::setMarked(bool _marked) {
+    marked = _marked;
+}
+
+bool Article::isMarked() const {
+    return marked;
+}
