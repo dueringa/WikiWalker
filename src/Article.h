@@ -28,7 +28,11 @@ public:
         return title;
     }
 
-    //! get the number of links the article has
+    /*! get the number of links the article has.
+     * This throws an exception if state has not been set to anaylzed.
+     * \see setAnalyzed
+     * \see addLink
+     */
     size_t getNumLinks() const;
 
     /*! Add a link to another article.
@@ -44,6 +48,7 @@ public:
      * article has no outgoing links, this must be called,
      * otherwise #getNumLinks will throw an exception
      * \param analyzed whether article has been analyzed
+     * \see addLink
      */
     void setAnalyzed(bool analyzed);
 
