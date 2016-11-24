@@ -2,7 +2,9 @@
 #define _ARTICLE_H
 
 #include <string>
-#include <vector>
+
+// forward_list has no size :(
+#include <list>
 
 /*!
  * represents a Wikipedia (Mediawiki) article and its links
@@ -11,11 +13,11 @@ class Article
 {
 public:
     //! representation of links to other articles
-    typedef std::vector<Article*>                 ArticleLinkStorage;
+    typedef std::list<Article*>  storage;
     //! representation of iterator over links
-    typedef std::vector<Article*>::iterator ArticleLinkIterator;
+    typedef storage::iterator ArticleLinkIterator;
     //! representation of const iterator over links
-    typedef std::vector<Article*>::const_iterator ArticleLinkConstIterator;
+    typedef storage::const_iterator ArticleLinkConstIterator;
 
     /*! Create a new article from a title
      * \param articleTitle The title of the article
@@ -79,7 +81,7 @@ public:
 
 private:
     std::string title;
-    ArticleLinkStorage links;
+    storage links;
     bool analyzed;
     bool marked;
 };
