@@ -23,16 +23,16 @@ void ToGraphvizWriter::writeArticle(const Article *a, std::ostream& os)
 {
     // marked articles are printed as box
     if(a->isMarked()) {
-        os << a->getTitle() << " [shape=box];" << std::endl;
+        os << "\"" << a->getTitle() << "\" [shape=box];" << std::endl;
     }
 
     if(!a->isAnalyzed()) {
-        os << a->getTitle() << " [fillcolor=gray,style=filled];" << std::endl;
+        os << "\"" << a->getTitle() << "\" [fillcolor=gray,style=filled];" << std::endl;
     }
 
     // unanalyzed articles are printed greyed out
     for(auto al = a->linkBegin(); al != a->linkEnd(); al++) {
-        os << a->getTitle() << " -> " << (*al)->getTitle() << ";" << std::endl;
+        os << "\"" << a->getTitle() << "\" -> \"" << (*al)->getTitle() << "\";" << std::endl;
     }
 }
 
