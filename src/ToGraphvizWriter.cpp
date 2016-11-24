@@ -14,10 +14,25 @@ void ToGraphvizWriter::writeFooter(std::ostream& os)
     os << std::endl;
 }
 
+/*! \bug When writing an #Article only, attributes are only set on the article
+ * itself. Attributes won't be written on linked articles.
+ * However, when writing an #ArticleCollection, all articles are included, so
+ * all attibutes will be written.
+ */
 void ToGraphvizWriter::writeArticle(const Article *a, std::ostream& os)
 {
+    // marked articles are printed as box
+    if(a->isMarked()) {
+        os << a->getTitle() << " [shape=box];" << std::endl;
+    }
+
+    if(!a->isAnalyzed()) {
+        os << a->getTitle() << " [fillcolor=gray,style=filled];" << std::endl;
+    }
+
+    // unanalyzed articles are printed greyed out
     for(auto al = a->linkBegin(); al != a->linkEnd(); al++) {
-        os << a->getTitle() << " -> " << (*al)->getTitle() << std::endl;
+        os << a->getTitle() << " -> " << (*al)->getTitle() << ";" << std::endl;
     }
 }
 

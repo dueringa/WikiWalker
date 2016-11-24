@@ -62,6 +62,7 @@ SUITE(ArticleToGraphvizWriterTests)
         ac.add(animal);
 
         auto pig = new Article("Pig");
+        pig->setMarked(true);
         farm->addLink(pig);
         ac.add(pig);
 
