@@ -17,6 +17,11 @@ include_directories(
 	${CURL_INCLUDE_DIRS}
 )
 
+add_custom_command(
+	OUTPUT version.txt
+	COMMAND git -C ${CMAKE_CURRENT_SOURCE_DIR} describe --always --dirty --tags > version.txt
+)
+
 # Compiler options
 add_definitions(-Wall)
 add_definitions(-Wextra)
@@ -40,7 +45,8 @@ set ( CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
-add_executable(walker ${CXX_SRCS})
+add_executable(walker ${CXX_SRCS} version.txt)
+
 target_link_libraries(walker ${CURL_LIBRARIES})
 
 install (TARGETS walker DESTINATION bin)
