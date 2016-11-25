@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 2.8.11)
 project(WikiWalker)
 
+find_package(CURL REQUIRED)
 include_directories(
-    ../lib/jsoncpp/
+	../lib/jsoncpp/
+	${CURL_INCLUDE_DIRS}
 )
 
 # Compiler options
@@ -29,5 +31,5 @@ set ( CXX_SRCS
 )
 
 add_executable(walker ${CXX_SRCS})
+target_link_libraries(walker ${CURL_LIBRARIES})
 
-target_link_libraries(walker curl)
