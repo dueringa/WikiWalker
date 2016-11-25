@@ -13,3 +13,9 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/src)
 if(WITH_TESTS)
 add_subdirectory(${CMAKE_SOURCE_DIR}/test)
 endif(WITH_TESTS)
+
+add_custom_target(
+	doc
+	doxygen
+	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/doc/
+)
