@@ -1,0 +1,10 @@
+#ifndef _VERSION_H_GEN
+#define _VERSION_H_GEN
+
+#ifndef _WW_VERSION
+constexpr char _WW_VERSION[] = "@walker_version@";
+#endif // _WW_VERSION
+
+#cmakedefine GIT_RAN_SUCCESSFULLY
+
+#endif // _VERSION_H_GEN
