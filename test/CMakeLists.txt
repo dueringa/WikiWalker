@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 2.8.11)
 project(wikiwalker_tests)
 
+find_package(PkgConfig)
+find_package(CURL REQUIRED)
+pkg_check_modules(UT REQUIRED unittest++)
+
 #warning, will be different on debian and gentoo
 include_directories(
-    /usr/include/unittest++
+	${UT_INCLUDE_DIRS}
+	${CURL_INCLUDE_DIRS}
+	${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/
 )
 add_definitions(-std=c++11)
 
@@ -21,7 +27,12 @@ set ( CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriterTests.cpp
 )
 
-add_executable(run_tests ${CXX_SRCS})
-target_link_libraries(run_tests ${LINK_OPTIONS})
+add_executable(run_tests
+	${TESTED_SRCS}
+	${CXX_SRCS}
+)
 
-target_link_libraries(run_tests libUnitTest++.a curl)
+target_link_libraries(run_tests
+	${UT_LDFLAGS}
+	${CURL_LIBRARIES}
+)
