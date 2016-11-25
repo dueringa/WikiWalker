@@ -4,7 +4,7 @@
 #include <json/json.h>
 
 //! \todo really ugly workaround, passing in the ArticleCollection instance... :/
-Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleCollection& addArticle)
+Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleCollection& articleCache)
 {
     Json::Reader reader;
     Json::Value document;
@@ -21,18 +21,36 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
     auto wantedPage = allPages.get(allPages.getMemberNames()[0],
                                    Json::Value::nullSingleton());
 
-    Article* wantedArticle = new Article(wantedPage.get("title", Json::Value::nullSingleton()).asString());
-    addArticle.add(wantedArticle);
+    if(wantedPage.isMember("missing")) {
+        throw WalkerException("Article doesn't exist");
+    } else if(wantedPage.isMember("invalid")) {
+        throw WalkerException("Invalid article");
+    }
+
+    //! get normalized title not necessary, "title" is already
+    std::string wantedArticleTitle = wantedPage.get("title", Json::Value::nullSingleton()).asString();
+    Article* wantedArticle = articleCache.get(wantedArticleTitle);
+
+    if(wantedArticle == nullptr) {
+        wantedArticle = new Article(wantedArticleTitle);
+    }
+
+    articleCache.add(wantedArticle);
 
     // add links
-    for(const auto &linked : wantedPage.get("links", Json::Value::nullSingleton()))
-    {
-        auto par = new Article(linked.get("title", Json::Value::nullSingleton()).asString());
-        wantedArticle->addLink(
-            par
-        );
-        addArticle.add(par);
+    for(const auto &linked : wantedPage.get("links", Json::Value::nullSingleton())) {
+        auto linkedPageTitle = linked.get("title", Json::Value::nullSingleton()).asString();
+        auto par = articleCache.get(linkedPageTitle);
+
+        if(par == nullptr) {
+            par = new Article(linkedPageTitle);
+            articleCache.add(par);
+        }
+
+        wantedArticle->addLink(par);
     }
+
+    wantedArticle->setAnalyzed(true);
 
     if(!document.isMember("batchcomplete")) {
         moreData = true;
@@ -40,10 +58,9 @@ Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleColle
           document.get("continue", Json::Value::nullSingleton())
                   .get("plcontinue", Json::Value::nullSingleton())
                     .asString();
-    }
-    else
-    {
+    } else {
         moreData = false;
+        continueString = "";
     }
 
     return wantedArticle;

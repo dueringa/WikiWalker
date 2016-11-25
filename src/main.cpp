@@ -1,7 +1,10 @@
 #include <iostream>
-#include "WikiWalker.h"
+
 #include <boost/program_options.hpp>
 #include <boost/exception/diagnostic_information.hpp>
+
+#include "WikiWalker.h"
+#include "version.h"
 
 namespace po = boost::program_options;
 
@@ -76,7 +79,7 @@ int main(int argc, char** argv)
     }
 
     try {
-        WikiWalker w = WikiWalker();
+        WikiWalker w;
         w.startWalking(url);
     } catch(std::exception& e) {
         cout << "Error " << e.what() << endl;

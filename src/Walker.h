@@ -3,9 +3,11 @@
 
 #include "ArticleCollection.h"
 
+//! Base class for article analyzers
 class Walker
 {
 protected:
+    //! article collection, used as cache, for walked articles
     ArticleCollection articleSet;
 };
 

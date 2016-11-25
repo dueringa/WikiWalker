@@ -11,14 +11,16 @@ public:
      *
      * Message might be shown on exception occurring, depending on
      * the compiler.
+     *
+     * \param exmessage The exception message.
      */
-    WalkerException(std::string message)
-        : message(message){};
+    WalkerException(std::string exmessage)
+        : message(exmessage) {}
 
-    ~WalkerException() throw(){};
+    virtual ~WalkerException() throw() {}
 
     //! get exception message
-    const char* what() const throw()
+    const char* what() const noexcept
     {
         return message.c_str();
     }

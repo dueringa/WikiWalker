@@ -2,60 +2,88 @@
 #define _ARTICLE_H
 
 #include <string>
-#include <vector>
+
+// forward_list has no size :(
+#include <list>
 
 /*!
- * represents a Wikipedia (Mediawiki) and its links
+ * represents a Wikipedia (Mediawiki) article and its links
  */
 class Article
 {
 public:
     //! representation of links to other articles
-    typedef std::vector<Article*>                 ArticleLinkStorage;
+    typedef std::list<Article*>  storage;
     //! representation of iterator over links
-    typedef std::vector<Article*>::iterator ArticleLinkIterator;
+    typedef storage::iterator ArticleLinkIterator;
     //! representation of const iterator over links
-    typedef std::vector<Article*>::const_iterator ArticleLinkConstIterator;
+    typedef storage::const_iterator ArticleLinkConstIterator;
 
     /*! Create a new article from a title
-     * \param title The title of the article
+     * \param articleTitle The title of the article
      */
-    Article(std::string title)
-        : title(title) {};
+    Article(std::string articleTitle)
+        : title(articleTitle), analyzed(false) {}
 
     //! Get the title of the article
-    std::string getTitle() const
-    {
+    std::string getTitle() const {
         return title;
     }
 
-    //! get the number of links the article has
+    /*! get the number of links the article has.
+     * This throws an exception if state has not been set to anaylzed.
+     * \see setAnalyzed
+     * \see addLink
+     */
     size_t getNumLinks() const;
 
-    /*! Add a link to another article
+    /*! Add a link to another article.
      * \param[in] article Pointer to the article this article links
      * to
+     * \returns Whether adding woth successful. Returns false if
+     * instance / pointer is already included.
+     *
+     * Automatically sets state to analyzed
+     * \see setAnalyzed
+     * \see isAnalyzed
      */
-    void addLink(Article* article)
-    {
-        links.push_back(article);
-    }
+    bool addLink(Article* article);
+
+    /*! Set article to be analyzed.
+     * State is automatically set by #addLink, but if
+     * article has no outgoing links, this must be called,
+     * otherwise #getNumLinks will throw an exception
+     * \param analyzed whether article has been analyzed
+     * \see addLink
+     */
+    void setAnalyzed(bool analyzed);
+
+    //! Get state if article was analyzed (for out links)
+    bool isAnalyzed() const;
+
+    /*! Set article to be marked.
+     * Some kind of "marking" for output usage. May be start point,
+     * may be end point, may be point of special interest.
+     * \param marked whether article os marked
+     */
+    void setMarked(bool marked);
+
+    /*! Get state whether article was marked.
+     * \returns Whether article is marked.
+     */
+    bool isMarked() const;
 
     /*! Get const_iterator to first linked article */
-    ArticleLinkConstIterator linkBegin() const
-    {
-        return links.cbegin();
-    }
+    ArticleLinkConstIterator linkBegin() const;
 
     /*! Get const_iterator to last linked article */
-    ArticleLinkConstIterator linkEnd() const
-    {
-        return links.cend();
-    }
+    ArticleLinkConstIterator linkEnd() const;
 
 private:
     std::string title;
-    ArticleLinkStorage links;
+    storage links;
+    bool analyzed;
+    bool marked;
 };
 
 #endif //_ARTICLE_H
