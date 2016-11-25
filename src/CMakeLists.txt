@@ -29,6 +29,7 @@ configure_file(
 )
 
 find_package(CURL REQUIRED)
+## huh, path spec is relative to... ???
 include_directories(
 	../lib/jsoncpp/
 	${CURL_INCLUDE_DIRS}
@@ -63,3 +64,10 @@ add_executable(walker ${CXX_SRCS})
 target_link_libraries(walker ${CURL_LIBRARIES})
 
 install (TARGETS walker DESTINATION bin)
+
+enable_testing()
+add_test(NAME versiondisplay
+	COMMAND walker -v)
+
+add_test(NAME fetchArticle
+	COMMAND walker en.wikipedia.org/wiki/Spoon)
