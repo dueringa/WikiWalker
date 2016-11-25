@@ -10,7 +10,8 @@ namespace po = boost::program_options;
 
 using namespace std;
 
-int parseOptions(int argc, char** argv, std::string& outUrl) {
+int main(int argc, char** argv)
+{
     po::options_description cmdOptions("Allowed options");
     cmdOptions.add_options()
       ("version,v", "produce version message")
@@ -55,28 +56,13 @@ int parseOptions(int argc, char** argv, std::string& outUrl) {
         return 0;
     }
 
-    if(vm.count("url") == 0) {
+    if(!vm.count("url")) {
         cout << "Usage: " << argv[0] << " [options]\n";
         cout << cmdOptions;
         return 1;
     }
 
-    outUrl = vm["url"].as<string>();
-
-    return 0;
-}
-
-void usage(string exename);
-
-int main(int argc, char** argv)
-{
-    std::string url;
-    int retc = parseOptions(argc, argv, url);
-
-    if(retc || url == "")
-    {
-        return retc;
-    }
+    std::string url = vm["url"].as<string>();
 
     try {
         WikiWalker w;
@@ -88,11 +74,3 @@ int main(int argc, char** argv)
 
     return 0;
 }
-
-void usage(string exename)
-{
-    cout << "Usage: " << endl;
-    cout << exename << " [URL]" << endl;
-    cout << exename << " -v" << endl;
-}
-
