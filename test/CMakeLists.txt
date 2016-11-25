@@ -14,7 +14,15 @@ include_directories(
 add_definitions(-std=c++11)
 
 #won't work with cmake-built
-set(LINK_OPTIONS ../src/WikiWalker.o ../src/Article.o ../src/ToJsonWriter.o ../src/CurlWikiGrabber.o ../src/CurlUrlCreator.o ../src/JsonToArticleConverter.o ../src/ArticleCollection.o ../lib/jsoncpp/jsoncpp.o)
+set( TESTED_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/../src/Article.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../src/ToJsonWriter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../src/ToGraphvizWriter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../src/CurlUrlCreator.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../src/JsonToArticleConverter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../src/ArticleCollection.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
+)
 
 # Define the CXX sources
 set ( CXX_SRCS
