@@ -43,3 +43,4 @@ set ( CXX_SRCS
 add_executable(walker ${CXX_SRCS})
 target_link_libraries(walker ${CURL_LIBRARIES})
 
+install (TARGETS walker DESTINATION bin)
