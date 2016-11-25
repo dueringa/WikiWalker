@@ -1,6 +1,6 @@
 # TODO
 
- - [ ] get unit tests to work without manually specifying .o files
+ - [x] get unit tests to work without manually specifying .o files
  - [x] Support multiple wikipedias
  - [ ] support other Wikimedia installations
  - [ ] support local wikipedia dump
