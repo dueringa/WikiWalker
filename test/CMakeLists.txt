@@ -12,13 +12,13 @@ set(LINK_OPTIONS ../src/WikiWalker.o ../src/Article.o ../src/ToJsonWriter.o ../s
 
 # Define the CXX sources
 set ( CXX_SRCS
-    ${CMAKE_SOURCE_DIR}/test/main.cpp
-    ${CMAKE_SOURCE_DIR}/test/CollectionTests.cpp
-    ${CMAKE_SOURCE_DIR}/test/CurlUrlCreatorTests.cpp
-    ${CMAKE_SOURCE_DIR}/test/ArticleTests.cpp
-    ${CMAKE_SOURCE_DIR}/test/JsonToArticleConverterTests.cpp
-    ${CMAKE_SOURCE_DIR}/test/ToJsonWriterTests.cpp
-    ${CMAKE_SOURCE_DIR}/test/ToGraphvizWriterTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/test/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/test/CollectionTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/test/CurlUrlCreatorTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/test/ArticleTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/test/JsonToArticleConverterTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/test/ToJsonWriterTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/test/ToGraphvizWriterTests.cpp
 )
 
 add_executable(run_tests ${CXX_SRCS})

@@ -16,16 +16,16 @@ add_definitions(-Werror=return-type)
 
 # Define the CXX sources
 set ( CXX_SRCS
-    ${CMAKE_SOURCE_DIR}/CurlWikiGrabber.cpp
-    ${CMAKE_SOURCE_DIR}/CurlUrlCreator.cpp
-    ${CMAKE_SOURCE_DIR}/JsonToArticleConverter.cpp
-    ${CMAKE_SOURCE_DIR}/main.cpp
-    ${CMAKE_SOURCE_DIR}/ArticleCollection.cpp
-    ${CMAKE_SOURCE_DIR}/WikiWalker.cpp
-    ${CMAKE_SOURCE_DIR}/ToJsonWriter.cpp
-    ${CMAKE_SOURCE_DIR}/ToGraphvizWriter.cpp
-    ${CMAKE_SOURCE_DIR}/Article.cpp
-    ${CMAKE_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/JsonToArticleConverter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
 add_executable(walker ${CXX_SRCS})
