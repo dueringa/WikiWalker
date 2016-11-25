@@ -25,7 +25,7 @@ endif (GIT_RETCODE)
 # and I guess include_directories in only appended...
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/version.h.in"
-	"${CMAKE_CURRENT_SOURCE_DIR}/version.h"
+	"${CMAKE_CURRENT_BINARY_DIR}/version.h"
 )
 
 find_package(CURL REQUIRED)
@@ -33,6 +33,7 @@ find_package(CURL REQUIRED)
 include_directories(
 	../lib/jsoncpp/
 	${CURL_INCLUDE_DIRS}
+	${CMAKE_CURRENT_BINARY_DIR}
 )
 
 # Compiler options
