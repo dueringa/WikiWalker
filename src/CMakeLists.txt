@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 2.8.11)
 project(WikiWalker)
 
+SET(walker_version "git-prerelease")
+
+# also, project_...?
+# overwriting version.h in ok (?), I want the generated one to be preferred
+# and I guess include_directories in only appended...
+configure_file(
+	"${CMAKE_CURRENT_SOURCE_DIR}/version.h.in"
+	"${CMAKE_CURRENT_SOURCE_DIR}/version.h"
+)
+
 find_package(CURL REQUIRED)
 include_directories(
 	../lib/jsoncpp/
