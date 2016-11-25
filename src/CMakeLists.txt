@@ -3,6 +3,23 @@ project(WikiWalker)
 
 SET(walker_version "git-prerelease")
 
+execute_process(
+	COMMAND	git -C ${CMAKE_CURRENT_SOURCE_DIR} describe --always --dirty --tags
+	RESULT_VARIABLE GIT_RETCODE
+	OUTPUT_VARIABLE GIT_OUTPUT_VERSION
+	ERROR_VARIABLE GIT_RAN_ERROR
+	OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#message("Git result: ${GIT_RETCODE} / ${GIT_OUTPUT_VERSION} / ${GIT_RAN_ERROR}")
+
+# exit status 0 means successful
+if (GIT_RETCODE)
+	set(GIT_RAN_SUCCESSFULLY 0)
+else (GIT_RETCODE)
+	set(GIT_RAN_SUCCESSFULLY 1)
+endif (GIT_RETCODE)
+
 # also, project_...?
 # overwriting version.h in ok (?), I want the generated one to be preferred
 # and I guess include_directories in only appended...
@@ -17,12 +34,8 @@ include_directories(
 	${CURL_INCLUDE_DIRS}
 )
 
-add_custom_command(
-	OUTPUT version.txt
-	COMMAND git -C ${CMAKE_CURRENT_SOURCE_DIR} describe --always --dirty --tags > version.txt
-)
-
 # Compiler options
+# TODO: What's the difference between this and SET_SOURCE_FILES_PROPERTIES?
 add_definitions(-Wall)
 add_definitions(-Wextra)
 add_definitions(-Wshadow)
@@ -45,7 +58,7 @@ set ( CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
-add_executable(walker ${CXX_SRCS} version.txt)
+add_executable(walker ${CXX_SRCS})
 
 target_link_libraries(walker ${CURL_LIBRARIES})
 
