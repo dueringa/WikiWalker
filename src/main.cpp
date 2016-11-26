@@ -1,26 +1,43 @@
 //! \file main.cpp
 
 #include <iostream>
+
 #include "WikiWalker.h"
 #include "version.h"
+#include "BoostPoCommandLineParser.h"
 
 using namespace std;
 
-void usage(string exename);
-
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        usage(argv[0]);
+    BoostPoCommandLineParser cmdp;
+
+    try {
+        cmdp.parse(argc, argv);
+    }
+    catch(std::exception& e) {
+        cerr << endl << e.what() << endl;
+        cmdp.printHelp();
         return -1;
     }
 
-    if(std::string("-v") == argv[1] || std::string("--version") == argv[1]) {
+    if (cmdp.hasSet("version")) {
         std::cout << "WikiWalker, version " << _WW_VERSION << std::endl;
         return 0;
     }
 
-    string url = argv[1];
+    if (cmdp.hasSet("help")) {
+        cmdp.printHelp();
+        return 0;
+    }
+
+    if(!cmdp.hasSet("url")) {
+        cerr << "Missing URL" << endl;
+        cmdp.printHelp();
+        return 1;
+    }
+
+    std::string url = cmdp.getValue("url");
 
     try {
         WikiWalker w;
@@ -32,11 +49,3 @@ int main(int argc, char** argv)
 
     return 0;
 }
-
-void usage(string exename)
-{
-    cout << "Usage: " << endl;
-    cout << exename << " [URL]" << endl;
-    cout << exename << " -v" << endl;
-}
-

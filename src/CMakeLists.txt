@@ -29,11 +29,17 @@ configure_file(
 )
 
 find_package(CURL REQUIRED)
+find_package(Boost
+	REQUIRED
+	COMPONENTS program_options
+)
+
 ## huh, path spec is relative to... ???
 include_directories(
 	../lib/jsoncpp/
 	${CURL_INCLUDE_DIRS}
 	${CMAKE_CURRENT_BINARY_DIR}
+	${Boost_INCLUDE_DIR}
 )
 
 # Compiler options
@@ -57,12 +63,16 @@ set ( CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
 add_executable(walker ${CXX_SRCS})
 
-target_link_libraries(walker ${CURL_LIBRARIES})
+target_link_libraries(walker
+	${CURL_LIBRARIES}
+	${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
+)
 
 install (TARGETS walker DESTINATION bin)
 
