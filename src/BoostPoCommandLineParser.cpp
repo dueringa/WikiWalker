@@ -27,6 +27,7 @@ BoostPoCommandLineParser::BoostPoCommandLineParser() :
 
 std::string BoostPoCommandLineParser::getValue(std::string option)
 {
+    assert(hasSet(option));
     return vm[option].as<std::string>();
 }
 
