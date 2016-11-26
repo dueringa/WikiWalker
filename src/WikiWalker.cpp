@@ -4,12 +4,14 @@
 
 #include <iostream>
 #include <fstream>
+#include <cassert>
 
 #include "WikimediaJsonToArticleConverter.h"
 #include "CurlUrlCreator.h"
 #include "Article.h"
 #include "WalkerException.h"
 #include "ToJsonWriter.h"
+#include "CacheJsonToArticleConverter.h"
 
 void WikiWalker::startWalking(std::string url)
 {
@@ -80,6 +82,31 @@ void WikiWalker::startWalking(std::string url)
     } else {
         std::cerr << "Error fetching article" << std::endl;
     }
+}
+
+void WikiWalker::readCache(std::string cacheFile)
+{
+    CacheJsonToArticleConverter cjta;
+    std::ifstream cache(cacheFile);
+
+    if(!cache.is_open()) {
+        throw WalkerException("Error reading from cache file."
+            " Check permissions, and whether file exists.");
+    }
+
+    std::string json;
+
+    //! \todo what happend with megabyte-big data? looks like str.max_size is the limit
+    std::getline(cache, json);
+
+    assert(cache.eof());
+
+    if(cache.fail()) {
+        cache.close();
+        throw WalkerException("Error reading from file");
+    }
+
+    cjta.convertToArticle(json, articleSet);
 }
 
 void WikiWalker::writeCache(std::string cacheFile)

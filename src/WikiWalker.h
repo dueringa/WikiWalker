@@ -16,6 +16,7 @@ public:
      */
     void startWalking(std::string url);
 
+    void readCache(std::string cache);
     void writeCache(std::string cache);
 
 private:
