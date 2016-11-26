@@ -8,3 +8,4 @@
  - [ ] support "routing"?
  - [ ] make local "cache file", so multiple runs can re-use articles fetched
        previously
+ - [ ] support getopt as command line parser
