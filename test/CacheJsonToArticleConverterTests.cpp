@@ -5,7 +5,22 @@
 
 SUITE(CacheJsonToArticleConverterTests)
 {
-    TEST(GetArticleWithoutLinks)
+    TEST(GetArticleWithoutLinks_Unanalyzed)
+    {
+        std::string json = "{\"Farm\":{\"forward_links\":null}}";
+
+        ArticleCollection ac;
+        CacheJsonToArticleConverter cjta;
+        cjta.convertToArticle(json, ac);
+
+        CHECK_EQUAL(1, ac.getNumArticles());
+
+        Article* a = ac.get("Farm");
+        CHECK(a != nullptr);
+        CHECK_EQUAL(false, a->isAnalyzed());
+    }
+
+    TEST(GetArticleWithoutLinks_Analyzed)
     {
         std::string json = "{\"Farm\":{\"forward_links\":[]}}";
 
@@ -18,10 +33,8 @@ SUITE(CacheJsonToArticleConverterTests)
         Article* a = ac.get("Farm");
         CHECK(a != nullptr);
 
-        // true or false, that's the question...
-        // CHECK_EQUAL(???, a->isAnalyzed());
-        // crashes
-        // CHECK_EQUAL(0, a->getNumLinks());
+        CHECK_EQUAL(true, a->isAnalyzed());
+        CHECK_EQUAL(0, a->getNumLinks());
     }
 
     TEST(GetArticleWithOneLink)
@@ -66,7 +79,22 @@ SUITE(CacheJsonToArticleConverterTests)
         CHECK_EQUAL(0, ac.getNumArticles());
     }
 
-    TEST(WriteArticleCollection_OneArticleWithoutLinks)
+    TEST(WriteArticleCollection_OneArticleWithoutLinks_Unanalyzed)
+    {
+        std::string json = "{\"Foo\":{\"forward_links\":null}}";
+
+        ArticleCollection ac;
+        CacheJsonToArticleConverter cjta;
+        cjta.convertToArticle(json, ac);
+
+        CHECK_EQUAL(1, ac.getNumArticles());
+
+        Article* a = ac.get("Foo");
+        CHECK(a != nullptr);
+        CHECK_EQUAL(false, a->isAnalyzed());
+    }
+
+    TEST(WriteArticleCollection_OneArticleWithoutLinks_Analyzed)
     {
         std::string json = "{\"Foo\":{\"forward_links\":[]}}";
 
@@ -78,5 +106,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
         Article* a = ac.get("Foo");
         CHECK(a != nullptr);
+        CHECK_EQUAL(true, a->isAnalyzed());
+        CHECK_EQUAL(0, a->getNumLinks());
     }
 }
