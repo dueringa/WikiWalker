@@ -19,7 +19,7 @@ set( TESTED_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/../src/ToJsonWriter.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../src/ToGraphvizWriter.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../src/CurlUrlCreator.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/../src/JsonToArticleConverter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../src/WikimediaJsonToArticleConverter.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../src/ArticleCollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )

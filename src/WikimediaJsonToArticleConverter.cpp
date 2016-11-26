@@ -1,13 +1,13 @@
-//! \file JsonToArticleConverter.cpp
+//! \file WikimediaJsonToArticleConverter.cpp
 
-#include "JsonToArticleConverter.h"
+#include "WikimediaJsonToArticleConverter.h"
 #include "WalkerException.h"
 #include "Article.h"
 
 #include <json/json.h>
 
 //! \todo really ugly workaround, passing in the ArticleCollection instance... :/
-Article* JsonToArticleConverter::convertToArticle(std::string json, ArticleCollection& articleCache)
+Article* WikimediaJsonToArticleConverter::convertToArticle(std::string json, ArticleCollection& articleCache)
 {
     Json::Reader reader;
     Json::Value document;

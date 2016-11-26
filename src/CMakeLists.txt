@@ -56,7 +56,7 @@ add_definitions(-Werror=return-type)
 set ( CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/JsonToArticleConverter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp

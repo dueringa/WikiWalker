@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "JsonToArticleConverter.h"
+#include "WikimediaJsonToArticleConverter.h"
 #include "CurlUrlCreator.h"
 #include "Article.h"
 #include "WalkerException.h"
@@ -57,7 +57,7 @@ void WikiWalker::startWalking(std::string url)
     std::string json = grabber.grabUrl(creator.buildUrl());
 
     if(json != "") {
-        JsonToArticleConverter conv;
+        WikimediaJsonToArticleConverter conv;
         Article* article = conv.convertToArticle(json, articleSet);
 
         while(conv.hasMoreData() && conv.getContinuationData() != "") {
