@@ -1,6 +1,7 @@
 #include <UnitTest++.h>
 
 #include "../src/JsonToArticleConverter.h"
+#include "../src/Article.h"
 #include "../src/WalkerException.h"
 
 SUITE(JsonToArticleConverterTests)

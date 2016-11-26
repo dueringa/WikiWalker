@@ -1,6 +1,7 @@
 #include <UnitTest++.h>
 
 #include "../src/ArticleCollection.h"
+#include "../src/Article.h"
 
 SUITE(CollectionTests)
 {

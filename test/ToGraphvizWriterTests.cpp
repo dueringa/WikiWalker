@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "../src/ToGraphvizWriter.h"
+#include "../src/Article.h"
 
 // these test always pass, unless exceptions occur
 

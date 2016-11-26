@@ -1,6 +1,7 @@
 #include <UnitTest++.h>
 
 #include "../src/ToJsonWriter.h"
+#include "../src/Article.h"
 
 SUITE(ArticleToJsonWriterTests)
 {
