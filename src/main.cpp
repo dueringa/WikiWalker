@@ -18,6 +18,8 @@ int main(int argc, char** argv)
     cmdOptions.add_options()
       ("version,v", "produce version message")
       ("help,h", "produce help message")
+      ("dot-out,o", po::value<string>(), "file for dot output (unused)")
+      ("json-cache,j", po::value<string>(), "file for json cache file (unused)")
     ;
 
     po::options_description input("Input URLs");
