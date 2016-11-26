@@ -2,71 +2,42 @@
 
 #include <iostream>
 
-#include <boost/program_options.hpp>
-#include <boost/exception/diagnostic_information.hpp>
-
 #include "WikiWalker.h"
 #include "version.h"
-
-namespace po = boost::program_options;
+#include "BoostPoCommandLineParser.h"
 
 using namespace std;
 
 int main(int argc, char** argv)
 {
-    po::options_description cmdOptions("Allowed options");
-    cmdOptions.add_options()
-      ("version,v", "produce version message")
-      ("help,h", "produce help message")
-      ("dot-out,o", po::value<string>(), "file for dot output (unused)")
-      ("json-cache,j", po::value<string>(), "file for json cache file (unused)")
-    ;
-
-    po::options_description input("Input URLs");
-    input.add_options()
-        ("url", po::value<string>(), "URL")
-      //("url", po::value<vector<string>>(), "URL")
-    ;
-
-    // groups
-    po::options_description cmdline_options;
-    cmdline_options.add(cmdOptions).add(input);
-
-    po::positional_options_description p;
-    p.add("url", 1);
-
-    po::variables_map vm;
+    BoostPoCommandLineParser cmdp;
 
     try {
-        // po::store(po::parse_command_line(argc, argv, desc), vm);
-        po::store(po::command_line_parser(argc, argv)
-                      .options(cmdline_options).positional(p).run(), vm);
-        po::notify(vm);
+        cmdp.parse(argc, argv);
     }
     catch(std::exception& e) {
         cerr << endl << e.what() << endl;
-        cerr << endl << cmdOptions << endl;
+        cmdp.printHelp();
         return -1;
     }
 
-    if (vm.count("version")) {
+    if (cmdp.hasSet("version")) {
         std::cout << "WikiWalker, version " << _WW_VERSION << std::endl;
         return 0;
     }
 
-    if (vm.count("help")) {
-        cout << "Usage: " << argv[0] << " [options]\n";
-        cout << cmdOptions;
+    if (cmdp.hasSet("help")) {
+        cmdp.printHelp();
         return 0;
     }
 
-    if(!vm.count("url")) {
-        cout << "Usage: " << argv[0] << " [options]\n";
-        cout << cmdOptions;
+    if(!cmdp.hasSet("url")) {
+        cerr << "Missing URL" << endl;
+        cmdp.printHelp();
         return 1;
     }
 
-    std::string url = vm["url"].as<string>();
+    std::string url = cmdp.getValue("url");
 
     try {
         WikiWalker w;
