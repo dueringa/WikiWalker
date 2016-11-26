@@ -79,6 +79,3 @@ install (TARGETS walker DESTINATION bin)
 enable_testing()
 add_test(NAME versiondisplay
 	COMMAND walker -v)
-
-add_test(NAME fetchArticle
-	COMMAND walker en.wikipedia.org/wiki/Spoon)
