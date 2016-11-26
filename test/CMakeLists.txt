@@ -20,6 +20,7 @@ set( TESTED_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/../src/ToGraphvizWriter.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../src/CurlUrlCreator.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../src/WikimediaJsonToArticleConverter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../src/CacheJsonToArticleConverter.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../src/ArticleCollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
@@ -28,6 +29,7 @@ set( TESTED_SRCS
 set ( CXX_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ArticleTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/CollectionTests.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverterTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreatorTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/JsonToArticleConverterTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
