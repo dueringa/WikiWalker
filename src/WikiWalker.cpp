@@ -6,6 +6,7 @@
 
 #include "JsonToArticleConverter.h"
 #include "CurlUrlCreator.h"
+#include "Article.h"
 
 void WikiWalker::startWalking(std::string url)
 {

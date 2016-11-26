@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include "Article.h"
+
 void ToGraphvizWriter::writeHeader(std::ostream& os)
 {
     os << "digraph G {";

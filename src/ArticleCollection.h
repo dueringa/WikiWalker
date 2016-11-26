@@ -5,7 +5,8 @@
 
 #include <map>
 
-#include "Article.h"
+// forward-declare, since we only store pointer
+class Article;
 
 /*! Collection of available articles.
  *  This should be used as "cache".

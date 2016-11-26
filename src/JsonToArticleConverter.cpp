@@ -2,6 +2,7 @@
 
 #include "JsonToArticleConverter.h"
 #include "WalkerException.h"
+#include "Article.h"
 
 #include <json/json.h>
 

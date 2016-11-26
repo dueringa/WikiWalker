@@ -2,6 +2,8 @@
 
 #include "ArticleCollection.h"
 
+#include "Article.h"
+
 ArticleCollection::~ArticleCollection()
 {
     /* this is still kinda ugly, since other pointers may exist...

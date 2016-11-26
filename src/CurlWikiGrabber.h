@@ -5,8 +5,6 @@
 
 #include <string>
 #include <curl/curl.h>
-#include "WalkerException.h"
-#include "Article.h"
 
 //! Class responsible for grabbing the contents / links of an article
 class CurlWikiGrabber
