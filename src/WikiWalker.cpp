@@ -3,10 +3,13 @@
 #include "WikiWalker.h"
 
 #include <iostream>
+#include <fstream>
 
 #include "JsonToArticleConverter.h"
 #include "CurlUrlCreator.h"
 #include "Article.h"
+#include "WalkerException.h"
+#include "ToJsonWriter.h"
 
 void WikiWalker::startWalking(std::string url)
 {
@@ -77,4 +80,25 @@ void WikiWalker::startWalking(std::string url)
     } else {
         std::cerr << "Error fetching article" << std::endl;
     }
+}
+
+void WikiWalker::writeCache(std::string cacheFile)
+{
+    ToJsonWriter w;
+
+    std::ofstream cache(cacheFile, std::ios::trunc);
+
+    if(!cache.is_open()) {
+        throw WalkerException("Error writing to cache file. Check permissions.");
+    }
+
+    w.output(articleSet, cache);
+
+    if(cache.fail() || cache.bad()) {
+        cache.close();
+        throw WalkerException("I/O eception when writing to cache file");
+    }
+
+    cache.flush();
+    cache.close();
 }

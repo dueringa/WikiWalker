@@ -38,14 +38,26 @@ int main(int argc, char** argv)
     }
 
     std::string url = cmdp.getValue("url");
+    WikiWalker w;
 
     try {
-        WikiWalker w;
         w.startWalking(url);
     } catch(std::exception& e) {
         cout << "Error " << e.what() << endl;
         return -1;
     }
+
+    try {
+        if(cmdp.hasSet("json-cache")) {
+            std::string cachefile = cmdp.getValue("json-cache");
+            w.writeCache(cachefile);
+        }
+    }
+    catch(std::exception& e) {
+        cout << "Error: " << e.what() << endl;
+    }
+
+
 
     return 0;
 }
