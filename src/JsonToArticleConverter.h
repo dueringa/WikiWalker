@@ -1,3 +1,5 @@
+//! \file JsonToArticleConverter.h
+
 #ifndef _JSONTOARTICLECONVERTER_H
 #define _JSONTOARTICLECONVERTER_H
 

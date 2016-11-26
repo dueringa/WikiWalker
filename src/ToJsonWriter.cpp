@@ -1,3 +1,5 @@
+//! \file ToJsonWriter.cpp
+
 #include "ToJsonWriter.h"
 
 #include <json/json.h>

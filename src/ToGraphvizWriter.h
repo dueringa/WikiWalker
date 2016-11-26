@@ -1,3 +1,5 @@
+//! \file ToGraphvizWriter.h
+
 #ifndef _TOGRAPHVIZWRITER_H
 #define _TOGRAPHVIZWRITER_H
 

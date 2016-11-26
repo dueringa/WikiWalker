@@ -1,3 +1,5 @@
+//! \file WikiWalker.h
+
 #ifndef _WIKIWALKER_H
 #define _WIKIWALKER_H
 

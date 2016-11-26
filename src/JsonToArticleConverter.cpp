@@ -1,3 +1,5 @@
+//! \file JsonToArticleConverter.cpp
+
 #include "JsonToArticleConverter.h"
 #include "WalkerException.h"
 

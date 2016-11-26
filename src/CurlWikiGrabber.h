@@ -1,3 +1,5 @@
+//! \file CurlWikiGrabber.h
+
 #ifndef _CURL_WIKI_GRABBER_H
 #define _CURL_WIKI_GRABBER_H
 

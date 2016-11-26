@@ -1,3 +1,5 @@
+//! \file ToJsonWriter.h
+
 #ifndef _TOJSONWRITER_H
 #define _TOJSONWRITER_H
 

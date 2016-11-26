@@ -1,3 +1,5 @@
+//! \file CurlUrlCreator.cpp
+
 #include "CurlUrlCreator.h"
 
 CurlUrlCreator::CurlUrlCreator(std::string baseUrl)

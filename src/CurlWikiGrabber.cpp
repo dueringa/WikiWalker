@@ -1,3 +1,5 @@
+//! \file CurlWikiGrabber.cpp
+
 #include "CurlWikiGrabber.h"
 
 #ifndef DEBUG

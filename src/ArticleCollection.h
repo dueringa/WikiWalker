@@ -1,3 +1,5 @@
+//! \file ArticleCollection.h
+
 #ifndef _ARTICLE_COLLECTION_H
 #define _ARTICLE_COLLECTION_H
 

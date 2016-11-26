@@ -1,3 +1,5 @@
+//! \file ToGraphvizWriter.cpp
+
 #include "ToGraphvizWriter.h"
 
 #include <string>
