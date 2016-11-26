@@ -1,3 +1,5 @@
+//! \file Article.h
+
 #ifndef _ARTICLE_H
 #define _ARTICLE_H
 

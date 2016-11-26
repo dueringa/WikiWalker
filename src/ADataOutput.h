@@ -1,3 +1,5 @@
+//! \file ADataOutput.h
+
 #ifndef _ADATAOUTPUT_H
 #define _ADATAOUTPUT_H
 

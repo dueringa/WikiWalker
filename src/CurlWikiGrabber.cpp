@@ -1,4 +1,7 @@
+//! \file CurlWikiGrabber.cpp
+
 #include "CurlWikiGrabber.h"
+#include "WalkerException.h"
 
 #ifndef DEBUG
 #define NDEBUG

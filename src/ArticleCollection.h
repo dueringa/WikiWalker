@@ -1,9 +1,12 @@
+//! \file ArticleCollection.h
+
 #ifndef _ARTICLE_COLLECTION_H
 #define _ARTICLE_COLLECTION_H
 
 #include <map>
 
-#include "Article.h"
+// forward-declare, since we only store pointer
+class Article;
 
 /*! Collection of available articles.
  *  This should be used as "cache".

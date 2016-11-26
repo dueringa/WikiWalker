@@ -1,7 +1,8 @@
+//! \file JsonToArticleConverter.h
+
 #ifndef _JSONTOARTICLECONVERTER_H
 #define _JSONTOARTICLECONVERTER_H
 
-#include "Article.h"
 #include "ArticleCollection.h"
 
 //! convert links in json form to article

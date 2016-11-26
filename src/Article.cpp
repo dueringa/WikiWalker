@@ -1,3 +1,5 @@
+//! \file Article.cpp
+
 #include "Article.h"
 #include "WalkerException.h"
 #include <algorithm>

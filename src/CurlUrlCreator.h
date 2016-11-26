@@ -1,3 +1,5 @@
+//! \file CurlUrlCreator.h
+
 #ifndef _CURLURLCREATOR_H
 #define _CURLURLCREATOR_H
 

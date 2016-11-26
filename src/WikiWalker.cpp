@@ -1,9 +1,12 @@
+//! \file WikiWalker.cpp
+
 #include "WikiWalker.h"
 
 #include <iostream>
 
 #include "JsonToArticleConverter.h"
 #include "CurlUrlCreator.h"
+#include "Article.h"
 
 void WikiWalker::startWalking(std::string url)
 {

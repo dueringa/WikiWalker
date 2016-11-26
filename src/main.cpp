@@ -1,3 +1,5 @@
+//! \file main.cpp
+
 #include <iostream>
 
 #include <boost/program_options.hpp>

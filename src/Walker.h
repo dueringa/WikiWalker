@@ -1,3 +1,5 @@
+//! \file Walker.h
+
 #ifndef _WALKER_H
 #define _WALKER_H
 

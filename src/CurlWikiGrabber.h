@@ -1,10 +1,10 @@
+//! \file CurlWikiGrabber.h
+
 #ifndef _CURL_WIKI_GRABBER_H
 #define _CURL_WIKI_GRABBER_H
 
 #include <string>
 #include <curl/curl.h>
-#include "WalkerException.h"
-#include "Article.h"
 
 //! Class responsible for grabbing the contents / links of an article
 class CurlWikiGrabber

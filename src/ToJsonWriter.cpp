@@ -1,6 +1,10 @@
+//! \file ToJsonWriter.cpp
+
 #include "ToJsonWriter.h"
 
 #include <json/json.h>
+
+#include "Article.h"
 
 /*! Get article links in an array.
  * Basically undoing the Wikipedia to article conversion...

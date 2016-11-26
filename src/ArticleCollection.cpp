@@ -1,4 +1,8 @@
+//! \file ArticleCollection.cpp
+
 #include "ArticleCollection.h"
+
+#include "Article.h"
 
 ArticleCollection::~ArticleCollection()
 {

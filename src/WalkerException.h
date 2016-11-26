@@ -1,3 +1,5 @@
+//! \file WalkerException.h
+
 #ifndef _WALKEREXCEPTION_H
 #define _WALKEREXCEPTION_H
 

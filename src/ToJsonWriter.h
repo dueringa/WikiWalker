@@ -1,9 +1,9 @@
+//! \file ToJsonWriter.h
+
 #ifndef _TOJSONWRITER_H
 #define _TOJSONWRITER_H
 
 #include <string>
-#include "Article.h"
-#include "ArticleCollection.h"
 #include "ADataOutput.h"
 
 /*! Output module: write to json.
