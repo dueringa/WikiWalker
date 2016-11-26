@@ -26,9 +26,19 @@ ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string jso
             articleCache.add(a);
         }
 
-        for(auto linkedArticle :
-                document.get(title, Json::Value::nullSingleton())
-                        .get("forward_links", Json::Value::nullSingleton())) {
+        auto links = document
+                        .get(title, Json::Value::nullSingleton())
+                        .get("forward_links", Json::Value::nullSingleton());
+
+        if(links.isNull()) {
+            /* don't need to set article analyzed to false,
+             * since that's the default */
+            continue;
+        }
+
+        a->setAnalyzed(true);
+
+        for(auto linkedArticle : links) {
             std::string linkedTitle = linkedArticle.asString();
             Article *la = articleCache.get(linkedTitle);
 
