@@ -32,19 +32,22 @@ int main(int argc, char** argv)
         return 0;
     }
 
-    if(!cmdp.hasSet("url")) {
-        cerr << "Missing URL" << endl;
+    bool isUrlSet = cmdp.hasSet("url");
+    bool isCacheSet = cmdp.hasSet("json-cache");
+    bool isDotSet = cmdp.hasSet("dot-out");
+    bool validRunConfig = isUrlSet || (isDotSet && isCacheSet);
+
+    if(!validRunConfig) {
+        cerr << "Must either specify at least URL, "
+             << "or dot and cache file." << endl;
         cmdp.printHelp();
         return 1;
     }
-    bool isDotSet = cmdp.hasSet("dot-out");
-
 
     bool read_failed = false;
-    std::string url = cmdp.getValue("url");
     WikiWalker w;
 
-    if(cmdp.hasSet("json-cache")) {
+    if(isCacheSet) {
         try {
             std::string cachefile = cmdp.getValue("json-cache");
             w.readCache(cachefile);
@@ -54,14 +57,17 @@ int main(int argc, char** argv)
         }
     }
 
-    try {
-        w.startWalking(url);
-    } catch(std::exception& e) {
-        cout << "Error " << e.what() << endl;
-        return -1;
+    if(isUrlSet) {
+        try {
+            std::string url = cmdp.getValue("url");
+            w.startWalking(url);
+        } catch(std::exception& e) {
+            cout << "Error " << e.what() << endl;
+            return -1;
+        }
     }
 
-    if(cmdp.hasSet("json-cache")) {
+    if(isCacheSet) {
         if(read_failed) {
             cout << "Reading from cache failed, won't overwrite" << endl;
         } else {
@@ -93,5 +99,6 @@ int main(int argc, char** argv)
             file.close();
         }
     }
+
     return 0;
 }
