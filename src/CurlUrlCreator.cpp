@@ -24,7 +24,7 @@ CurlUrlCreator& CurlUrlCreator::addParameter(std::string param, std::string valu
     return *this;
 }
 
-std::string CurlUrlCreator::buildUrl()
+std::string CurlUrlCreator::buildUrl() const
 {
     std::string ret = _baseUrl;
     ret.append("?");
