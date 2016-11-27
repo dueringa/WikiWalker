@@ -31,7 +31,7 @@ set ( CXX_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/CollectionTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverterTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreatorTests.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/JsonToArticleConverterTests.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverterTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriterTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriterTests.cpp

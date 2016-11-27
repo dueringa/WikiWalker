@@ -4,7 +4,7 @@
 #include "../src/Article.h"
 #include "../src/WalkerException.h"
 
-SUITE(JsonToArticleConverterTests)
+SUITE(WikimediaJsonToArticleConverterTests)
 {
     TEST(JsonDataWithOneLinkedArticle)
     {
