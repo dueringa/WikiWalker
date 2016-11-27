@@ -25,7 +25,7 @@ public:
      * \param articleTitle The title of the article
      */
     Article(std::string articleTitle)
-        : title(articleTitle), analyzed(false) {}
+        : title(articleTitle), analyzed(false), marked(false) {}
 
     /*! Get the title of the article
      * \return title of the article
