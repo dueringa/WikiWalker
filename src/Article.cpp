@@ -6,7 +6,7 @@
 
 size_t Article::getNumLinks() const
 {
-    if(!analyzed && !links.size()) {
+    if(!analyzed && links.empty()) {
         throw WalkerException("Article not analyzed yet!");
     }
 

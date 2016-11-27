@@ -39,7 +39,7 @@ public:
     /*! Creates the URL
      *  \return Complete GET URL.
      */
-    std::string buildUrl();
+    std::string buildUrl() const;
 
     ~CurlUrlCreator();
 
