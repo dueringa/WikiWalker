@@ -68,15 +68,16 @@ int main(int argc, char** argv)
     }
 
     if(isCacheSet) {
+        std::string cachefile = cmdp.getValue("json-cache");
         if(read_failed) {
-            cout << "Reading from cache failed, won't overwrite" << endl;
-        } else {
-            try {
-                std::string cachefile = cmdp.getValue("json-cache");
-                w.writeCache(cachefile);
-            } catch(std::exception& e) {
-                cout << "Error: " << e.what() << endl;
-            }
+            cachefile.append("_");
+            cout << "Reading from cache failed, write to "
+                 << cachefile << endl;
+        }
+        try {
+            w.writeCache(cachefile);
+        } catch(std::exception& e) {
+            cout << "Error: " << e.what() << endl;
         }
     }
 
