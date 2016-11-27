@@ -8,6 +8,12 @@
 //! Base class for article analyzers
 class Walker
 {
+public:
+    const ArticleCollection& getCollection() const
+    {
+        return articleSet;
+    }
+
 protected:
     //! article collection, used as cache, for walked articles
     ArticleCollection articleSet;
