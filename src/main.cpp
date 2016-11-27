@@ -1,10 +1,12 @@
 //! \file main.cpp
 
 #include <iostream>
+#include <fstream>
 
 #include "WikiWalker.h"
 #include "version.h"
 #include "BoostPoCommandLineParser.h"
+#include "ToGraphvizWriter.h"
 
 using namespace std;
 
@@ -35,6 +37,8 @@ int main(int argc, char** argv)
         cmdp.printHelp();
         return 1;
     }
+    bool isDotSet = cmdp.hasSet("dot-out");
+
 
     bool read_failed = false;
     std::string url = cmdp.getValue("url");
@@ -70,5 +74,24 @@ int main(int argc, char** argv)
         }
     }
 
+    if(isDotSet) {
+        const ArticleCollection& ac = w.getCollection();
+        std::string outfile = cmdp.getValue("dot-out");
+        ToGraphvizWriter tgw;
+        ofstream file(outfile, ios::trunc | ios::out);
+
+        if(file.fail()) {
+            cerr << "Error opening dot out file for writing" << endl;
+        } else {
+            tgw.output(ac, file);
+            file.flush();
+
+            if(file.bad() || file.fail()) {
+                cerr << "Error during writing dot out file." << endl;
+            }
+
+            file.close();
+        }
+    }
     return 0;
 }
