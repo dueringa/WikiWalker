@@ -9,6 +9,8 @@
 class CommandLineParser
 {
 public:
+    virtual ~CommandLineParser() {};
+
     /*! Parses command line args and stores results internally.
      * May throw an exception in case of error
      * \param argc number of arguments
