@@ -27,13 +27,16 @@ public:
     Article(std::string articleTitle)
         : title(articleTitle), analyzed(false) {}
 
-    //! Get the title of the article
+    /*! Get the title of the article
+     * \return title of the article
+     */
     std::string getTitle() const {
         return title;
     }
 
     /*! get the number of links the article has.
      * This throws an exception if state has not been set to anaylzed.
+     * \return number of links the article has.
      * \see setAnalyzed
      * \see addLink
      */

@@ -1,4 +1,4 @@
-//! \file JsonToArticleConverter.h
+//! \file WikimediaJsonToArticleConverter.h
 
 #ifndef _JSONTOARTICLECONVERTER_H
 #define _JSONTOARTICLECONVERTER_H
@@ -6,11 +6,11 @@
 #include "ArticleCollection.h"
 
 //! convert links in json form to article
-class JsonToArticleConverter
+class WikimediaJsonToArticleConverter
 {
 public:
     //! create a new instance
-    JsonToArticleConverter()
+    WikimediaJsonToArticleConverter()
         : moreData(false), continueString("") {}
 
     /*! convert JSON data to Article
@@ -22,7 +22,8 @@ public:
     Article* convertToArticle(std::string json, ArticleCollection& articleCache);
 
     /*!Returns whether there's more data to fetch.
-    * JSON data says there's more links to fetch
+    * JSON data says there's more links to fetch.
+    * \return whether there's more data to fetch.
     */
     bool hasMoreData() const
     {

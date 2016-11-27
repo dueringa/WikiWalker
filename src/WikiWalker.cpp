@@ -3,10 +3,15 @@
 #include "WikiWalker.h"
 
 #include <iostream>
+#include <fstream>
+#include <cassert>
 
-#include "JsonToArticleConverter.h"
+#include "WikimediaJsonToArticleConverter.h"
 #include "CurlUrlCreator.h"
 #include "Article.h"
+#include "WalkerException.h"
+#include "ToJsonWriter.h"
+#include "CacheJsonToArticleConverter.h"
 
 void WikiWalker::startWalking(std::string url)
 {
@@ -54,7 +59,7 @@ void WikiWalker::startWalking(std::string url)
     std::string json = grabber.grabUrl(creator.buildUrl());
 
     if(json != "") {
-        JsonToArticleConverter conv;
+        WikimediaJsonToArticleConverter conv;
         Article* article = conv.convertToArticle(json, articleSet);
 
         while(conv.hasMoreData() && conv.getContinuationData() != "") {
@@ -77,4 +82,50 @@ void WikiWalker::startWalking(std::string url)
     } else {
         std::cerr << "Error fetching article" << std::endl;
     }
+}
+
+void WikiWalker::readCache(std::string cacheFile)
+{
+    CacheJsonToArticleConverter cjta;
+    std::ifstream cache(cacheFile);
+
+    if(!cache.is_open()) {
+        throw WalkerException("Error reading from cache file."
+            " Check permissions, and whether file exists.");
+    }
+
+    std::string json;
+
+    //! \todo what happend with megabyte-big data? looks like str.max_size is the limit
+    std::getline(cache, json);
+
+    assert(cache.eof());
+
+    if(cache.fail()) {
+        cache.close();
+        throw WalkerException("Error reading from file");
+    }
+
+    cjta.convertToArticle(json, articleSet);
+}
+
+void WikiWalker::writeCache(std::string cacheFile)
+{
+    ToJsonWriter w;
+
+    std::ofstream cache(cacheFile, std::ios::trunc);
+
+    if(!cache.is_open()) {
+        throw WalkerException("Error writing to cache file. Check permissions.");
+    }
+
+    w.output(articleSet, cache);
+
+    if(cache.fail() || cache.bad()) {
+        cache.close();
+        throw WalkerException("I/O eception when writing to cache file");
+    }
+
+    cache.flush();
+    cache.close();
 }

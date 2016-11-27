@@ -30,7 +30,14 @@ std::string ToJsonWriter::convertToJson(const Article* a)
     Json::Value val(Json::ValueType::objectValue);
 
     Json::Value linkObj(Json::ValueType::objectValue);
-    linkObj["forward_links"] = getArticleLinks(a);
+
+    if(a->isAnalyzed()) {
+        linkObj["forward_links"] = getArticleLinks(a);
+    }
+    else {
+        linkObj["forward_links"] = Json::Value::nullSingleton();
+    }
+
     val[a->getTitle()] = linkObj;
 
     Json::FastWriter jsw;
@@ -45,7 +52,14 @@ std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
 
     for(auto ar : ac) {
         Json::Value linkObj(Json::ValueType::objectValue);
-        linkObj["forward_links"] = getArticleLinks(ar.second);
+
+        if(ar.second->isAnalyzed()) {
+            linkObj["forward_links"] = getArticleLinks(ar.second);
+        }
+        else {
+            linkObj["forward_links"] = Json::Value::nullSingleton();
+        }
+
         val[ar.first] = linkObj;
     }
 

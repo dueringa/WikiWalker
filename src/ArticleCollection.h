@@ -66,7 +66,9 @@ public:
 
     ~ArticleCollection();
 
+    //! deleted copy constructor. Because it stores raw pointers.
     ArticleCollection(const ArticleCollection&) = delete;
+    //! deleted copy assignment. Because it stores raw pointers.
     ArticleCollection& operator=(const ArticleCollection&) = delete;
 
 private:

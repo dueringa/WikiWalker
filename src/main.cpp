@@ -37,14 +37,41 @@ int main(int argc, char** argv)
         return 1;
     }
 
+    bool read_failed = false;
     std::string url = cmdp.getValue("url");
+    WikiWalker w;
+
+    if(cmdp.hasSet("json-cache")) {
+        try {
+            std::string cachefile = cmdp.getValue("json-cache");
+            w.readCache(cachefile);
+        }
+        catch(std::exception& e) {
+            std::cout << e.what() << endl;
+            read_failed = true;
+        }
+    }
 
     try {
-        WikiWalker w;
         w.startWalking(url);
     } catch(std::exception& e) {
         cout << "Error " << e.what() << endl;
         return -1;
+    }
+
+    if(cmdp.hasSet("json-cache")) {
+        if(read_failed) {
+            cout << "Reading from cache failed, won't overwrite" << endl;
+        }
+        else {
+            try {
+                std::string cachefile = cmdp.getValue("json-cache");
+                w.writeCache(cachefile);
+            }
+            catch(std::exception& e) {
+                cout << "Error: " << e.what() << endl;
+            }
+        }
     }
 
     return 0;
