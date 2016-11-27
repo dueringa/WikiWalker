@@ -11,3 +11,6 @@
  - [ ] support getopt as command line parser
  - [ ] make CacheJson... an "input", as well as wikipedia. then, let class ??
        read first from cache file, then from Wikipedia.
+ - [ ] handle rate limiting
+   * [ ] depth with generators
+   * [ ] Wikipedia Bot authentication
