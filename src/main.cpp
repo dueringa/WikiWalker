@@ -14,8 +14,7 @@ int main(int argc, char** argv)
 
     try {
         cmdp.parse(argc, argv);
-    }
-    catch(std::exception& e) {
+    } catch(std::exception& e) {
         cerr << endl << e.what() << endl;
         cmdp.printHelp();
         return -1;
@@ -45,8 +44,7 @@ int main(int argc, char** argv)
         try {
             std::string cachefile = cmdp.getValue("json-cache");
             w.readCache(cachefile);
-        }
-        catch(std::exception& e) {
+        } catch(std::exception& e) {
             std::cout << e.what() << endl;
             read_failed = true;
         }
@@ -62,13 +60,11 @@ int main(int argc, char** argv)
     if(cmdp.hasSet("json-cache")) {
         if(read_failed) {
             cout << "Reading from cache failed, won't overwrite" << endl;
-        }
-        else {
+        } else {
             try {
                 std::string cachefile = cmdp.getValue("json-cache");
                 w.writeCache(cachefile);
-            }
-            catch(std::exception& e) {
+            } catch(std::exception& e) {
                 cout << "Error: " << e.what() << endl;
             }
         }

@@ -33,8 +33,7 @@ std::string ToJsonWriter::convertToJson(const Article* a)
 
     if(a->isAnalyzed()) {
         linkObj["forward_links"] = getArticleLinks(a);
-    }
-    else {
+    } else {
         linkObj["forward_links"] = Json::Value::nullSingleton();
     }
 
@@ -55,8 +54,7 @@ std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
 
         if(ar.second->isAnalyzed()) {
             linkObj["forward_links"] = getArticleLinks(ar.second);
-        }
-        else {
+        } else {
             linkObj["forward_links"] = Json::Value::nullSingleton();
         }
 
@@ -74,7 +72,8 @@ void ToJsonWriter::output(const Article* article, std::ostream& outstream)
     outstream << convertToJson(article);
 }
 
-void ToJsonWriter::output(const ArticleCollection& collection, std::ostream& outstream)
+void ToJsonWriter::output(const ArticleCollection& collection,
+                          std::ostream& outstream)
 {
     outstream << convertToJson(collection);
 }

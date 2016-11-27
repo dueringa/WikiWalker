@@ -30,7 +30,8 @@ public:
     /*! Get the title of the article
      * \return title of the article
      */
-    std::string getTitle() const {
+    std::string getTitle() const
+    {
         return title;
     }
 

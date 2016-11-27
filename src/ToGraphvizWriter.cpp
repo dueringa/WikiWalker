@@ -23,7 +23,7 @@ void ToGraphvizWriter::writeFooter(std::ostream& os)
  * However, when writing an #ArticleCollection, all articles are included, so
  * all attibutes will be written.
  */
-void ToGraphvizWriter::writeArticle(const Article *a, std::ostream& os)
+void ToGraphvizWriter::writeArticle(const Article* a, std::ostream& os)
 {
     // marked articles are printed as box
     if(a->isMarked()) {

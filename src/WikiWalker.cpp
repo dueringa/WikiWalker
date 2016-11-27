@@ -21,12 +21,14 @@ void WikiWalker::startWalking(std::string url)
     std::string domain = "wikipedia.org/";
     std::string findUrl = domain + "wiki/";
     size_t domainpos = url.find(findUrl);
+
     if(domainpos == std::string::npos) {
         throw WalkerException("Must be an Wikipedia URL");
     }
 
     // ugly URL checking
     size_t subdomainpos = url.find("http://");
+
     if(subdomainpos != std::string::npos) {
         if(subdomainpos != 0) {
             throw WalkerException("http:// must be at the beginning of the URL");
@@ -38,8 +40,7 @@ void WikiWalker::startWalking(std::string url)
             if(subdomainpos != 0) {
                 throw WalkerException("https:// must be at the beginning of the URL");
             }
-        }
-        else {
+        } else {
             apiBaseUrl = "https://";
         }
     }
@@ -78,7 +79,8 @@ void WikiWalker::startWalking(std::string url)
             }
         }
 
-        std::cout << "Article " << article->getTitle() << " has " << article->getNumLinks() << " links" << std::endl;
+        std::cout << "Article " << article->getTitle() << " has " << article->getNumLinks()
+                  << " links" << std::endl;
     } else {
         std::cerr << "Error fetching article" << std::endl;
     }
@@ -91,7 +93,7 @@ void WikiWalker::readCache(std::string cacheFile)
 
     if(!cache.is_open()) {
         throw WalkerException("Error reading from cache file."
-            " Check permissions, and whether file exists.");
+                              " Check permissions, and whether file exists.");
     }
 
     std::string json;

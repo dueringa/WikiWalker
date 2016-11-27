@@ -15,6 +15,7 @@ ArticleCollection::~ArticleCollection()
          * delete and erase */
         delete it->second;
     }
+
     articleSet.clear();
 }
 

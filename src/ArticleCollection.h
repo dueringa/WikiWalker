@@ -23,11 +23,11 @@ public:
     //! constant iterator type
     typedef storage_type::const_iterator const_iterator;
 
-   /*! add article to collection.
-     * \param article article to add
-     * \return true if insertion took place
-     *          false if it failed (e.g. another article with the same title already exists
-     */
+    /*! add article to collection.
+      * \param article article to add
+      * \return true if insertion took place
+      *          false if it failed (e.g. another article with the same title already exists
+      */
     bool add(Article* article);
 
     //! get number of articles in collection

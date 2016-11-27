@@ -8,7 +8,7 @@
 #endif
 #include <cassert>
 
-static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
+static size_t write_callback(char* ptr, size_t size, size_t nmemb, void* userdata)
 {
     static_cast<std::string*>(userdata)->append(ptr, size * nmemb);
     return size * nmemb;
@@ -17,6 +17,7 @@ static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdat
 CurlWikiGrabber::CurlWikiGrabber()
 {
     int error = curl_global_init(CURL_GLOBAL_ALL);
+
     if(error) {
         throw WalkerException("CURL init failed");
     }
@@ -25,7 +26,7 @@ CurlWikiGrabber::CurlWikiGrabber()
 //! \todo Curl return code checking
 std::string CurlWikiGrabber::grabUrl(std::string url) const
 {
-    CURL *handle = curl_easy_init();
+    CURL* handle = curl_easy_init();
 
     if(NULL == handle) {
         throw WalkerException("error initiating curl");

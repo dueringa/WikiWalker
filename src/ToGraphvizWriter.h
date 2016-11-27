@@ -15,7 +15,7 @@ public:
 private:
     void writeHeader(std::ostream& os);
     void writeFooter(std::ostream& os);
-    void writeArticle(const Article *a, std::ostream& os);
+    void writeArticle(const Article* a, std::ostream& os);
 };
 
 #endif // _TOGRAPHVIZWRITER_H

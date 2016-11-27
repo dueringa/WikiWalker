@@ -7,7 +7,8 @@
 #include "WalkerException.h"
 #include "Article.h"
 
-ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string json, ArticleCollection& articleCache)
+ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string json,
+        ArticleCollection& articleCache)
 {
     Json::Reader reader;
     Json::Value document;
@@ -18,10 +19,10 @@ ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string jso
     }
 
     // get all "main" articles first
-    for(auto &titleElement : document.getMemberNames()) {
+    for(auto& titleElement : document.getMemberNames()) {
         std::string title = titleElement;
 
-        Article *a = articleCache.get(title);
+        Article* a = articleCache.get(title);
 
         if(a == nullptr) {
             a = new Article(title);
@@ -42,7 +43,7 @@ ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string jso
 
         for(auto linkedArticle : links) {
             std::string linkedTitle = linkedArticle.asString();
-            Article *la = articleCache.get(linkedTitle);
+            Article* la = articleCache.get(linkedTitle);
 
             if(la == nullptr) {
                 la = new Article(linkedTitle);

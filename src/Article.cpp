@@ -28,7 +28,7 @@ bool Article::addLink(Article* article)
     auto pos = find(links.begin(), links.end(), article);
 
     if(pos != links.end()) {
-      return false;
+        return false;
     }
 
     links.push_back(article);
@@ -37,18 +37,22 @@ bool Article::addLink(Article* article)
     return true;
 }
 
-void Article::setAnalyzed(bool analyzedState) {
+void Article::setAnalyzed(bool analyzedState)
+{
     analyzed = analyzedState;
 }
 
-bool Article::isAnalyzed() const {
+bool Article::isAnalyzed() const
+{
     return analyzed;
 }
 
-void Article::setMarked(bool _marked) {
+void Article::setMarked(bool _marked)
+{
     marked = _marked;
 }
 
-bool Article::isMarked() const {
+bool Article::isMarked() const
+{
     return marked;
 }
