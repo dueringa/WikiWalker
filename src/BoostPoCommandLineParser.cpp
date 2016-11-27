@@ -11,7 +11,7 @@ BoostPoCommandLineParser::BoostPoCommandLineParser() :
     cmdOptions.add_options()
       ("version,v", "produce version message")
       ("help,h", "produce help message")
-      ("dot-out,o", po::value<std::string>(), "file for dot output (unused)")
+      ("dot-out,o", po::value<std::string>(), "file for dot output")
       ("json-cache,j", po::value<std::string>(), "file for json cache file")
     ;
 
