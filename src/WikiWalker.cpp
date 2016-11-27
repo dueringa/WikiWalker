@@ -91,9 +91,9 @@ void WikiWalker::readCache(std::string cacheFile)
     CacheJsonToArticleConverter cjta;
     std::ifstream cache(cacheFile);
 
+    // assumption: having write-only access to a file is so rare that I don't care
     if(!cache.is_open()) {
-        throw WalkerException("Error reading from cache file."
-                              " Check permissions, and whether file exists.");
+        return;
     }
 
     std::string json;
