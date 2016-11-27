@@ -16,7 +16,15 @@ public:
      */
     void startWalking(std::string url);
 
+    /*! Read data from cache file.
+     * Used for initialization.
+     * \param cache file name of the cache.
+     */
     void readCache(std::string cache);
+
+    /*! Write data to cache file.
+     * \param cache file name of the cache.
+     */
     void writeCache(std::string cache);
 
 private:

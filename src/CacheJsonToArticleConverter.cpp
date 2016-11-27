@@ -1,3 +1,5 @@
+//! \file CacheJsonToArticleConverter.cpp
+
 #include "CacheJsonToArticleConverter.h"
 
 #include <json/json.h>

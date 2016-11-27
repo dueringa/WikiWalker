@@ -1,3 +1,5 @@
+//! \file CacheJsonToArticleConverter.h
+
 #ifndef _CACHEJSONTOARTICLECONVERTER_H
 #define _CACHEJSONTOARTICLECONVERTER_H
 

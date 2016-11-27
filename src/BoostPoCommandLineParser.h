@@ -10,6 +10,7 @@
 
 namespace po = boost::program_options;
 
+//! Command line parser using Boost::program_options
 class BoostPoCommandLineParser : public CommandLineParser
 {
 public:
