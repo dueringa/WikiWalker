@@ -65,6 +65,7 @@ set ( CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
