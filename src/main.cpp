@@ -5,14 +5,19 @@
 
 #include "WikiWalker.h"
 #include "version.h"
-#include "BoostPoCommandLineParser.h"
 #include "ToGraphvizWriter.h"
+
+#include "config.h"
 
 using namespace std;
 
 int main(int argc, char** argv)
 {
+#if defined(USE_BOOST_PO)
     BoostPoCommandLineParser cmdp;
+#elif defined(USE_GETOPT)
+    GetoptCommandLineParser cmdp;
+#endif
 
     try {
         cmdp.parse(argc, argv);
