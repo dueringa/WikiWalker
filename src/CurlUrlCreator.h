@@ -16,6 +16,12 @@ public:
     //! Create a new instance, given a base URL
     CurlUrlCreator(std::string baseUrl);
 
+    //! delete copy constructor, because of CURL handle
+    CurlUrlCreator(const CurlUrlCreator&) = delete;
+
+    //! delete copy assignment, because of CURL handle
+    CurlUrlCreator& operator=(const CurlUrlCreator&) = delete;
+
     /*! Add GET parameters to URL.
      *  If parameter keys are specified multiple times, later occurrences
      *  overwrite earlier ones.
