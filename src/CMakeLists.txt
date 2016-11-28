@@ -29,17 +29,43 @@ configure_file(
 )
 
 find_package(CURL REQUIRED)
+
 find_package(Boost
-	REQUIRED
 	COMPONENTS program_options
 )
+
+# if boost found
+if(Boost_PROGRAM_OPTIONS_FOUND)
+	option(USE_BOOST_PO  "Use Boost::program_options as command line parser" ON)
+endif(Boost_PROGRAM_OPTIONS_FOUND)
+
+message("Checking whether getopt is available.")
+include(CheckFunctionExists)
+include(CheckIncludeFile)
+check_function_exists(getopt_long  HAS_GETOPT_FUNCTION)
+check_include_file(getopt.h  HAS_GETOPT_HEADER)
+
+if(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
+	option(USE_GETOPT "Use getopt as command line parser" ON)
+endif(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
+
+if(USE_GETOPT AND USE_BOOST_PO)
+	message(SEND_ERROR "Can't use both getopt and boost, set one option only")
+elseif(NOT (USE_GETOPT OR USE_BOOST_PO))
+	message(SEND_ERROR "Must use either getopt or boost. Make sure either is available and set one option")
+endif(USE_GETOPT AND USE_BOOST_PO)
 
 ## huh, path spec is relative to... ???
 include_directories(
 	../lib/jsoncpp/
 	${CURL_INCLUDE_DIRS}
 	${CMAKE_CURRENT_BINARY_DIR}
-	${Boost_INCLUDE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+configure_file(
+	"${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
+	"${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 
 # Compiler options
@@ -49,8 +75,6 @@ add_definitions(-Wextra)
 add_definitions(-Wshadow)
 add_definitions(-std=c++11)
 add_definitions(-Werror=return-type)
-
-# Linker options
 
 # Define the CXX sources
 set ( CXX_SRCS
@@ -64,16 +88,34 @@ set ( CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
-add_executable(walker ${CXX_SRCS})
+if(USE_BOOST_PO)
+	set(CMDP_SRC
+		${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
+	)
+elseif(USE_GETOPT)
+	set(CMDP_SRC
+		${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
+	)
+endif(USE_BOOST_PO)
+
+add_executable(walker ${CXX_SRCS} ${CMDP_SRC})
 
 target_link_libraries(walker
 	${CURL_LIBRARIES}
-	${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
 )
+
+# if boost wanted
+if(USE_BOOST_PO)
+	include_directories(
+		${Boost_INCLUDE_DIR}
+	)
+	target_link_libraries(walker
+		${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
+	)
+endif(USE_BOOST_PO)
 
 install (TARGETS walker DESTINATION bin)
 
