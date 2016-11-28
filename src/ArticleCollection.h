@@ -4,6 +4,7 @@
 #define _ARTICLE_COLLECTION_H
 
 #include <map>
+#include <string>
 
 // forward-declare, since we only store pointer
 class Article;
