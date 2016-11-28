@@ -14,3 +14,4 @@
  - [ ] handle rate limiting
    * [ ] depth with generators
    * [ ] Wikipedia Bot authentication
+ - [ ] curl transmit compression?

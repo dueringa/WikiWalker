@@ -18,3 +18,7 @@ unflatten -l5 file.dot | dot ...
 ```
 
 Where `5` is the "depth" the links get distributed to.
+
+## Features
+
+ - independent of systemd :p
