@@ -17,6 +17,8 @@ Since graphs can get very wide, it's recommended to `unflatten` the graph first:
 unflatten -l5 file.dot | dot ...
 ```
 
+Also, have a look at gephi: https://gephi.org.
+
 Where `5` is the "depth" the links get distributed to.
 
 ## Features
