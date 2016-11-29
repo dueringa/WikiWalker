@@ -6,6 +6,9 @@
 
 #include "Article.h"
 
+// uh-oh...
+#include <regex>
+
 void ToGraphvizWriter::writeHeader(std::ostream& os)
 {
     os << "digraph G {";
@@ -25,18 +28,27 @@ void ToGraphvizWriter::writeFooter(std::ostream& os)
  */
 void ToGraphvizWriter::writeArticle(const Article* a, std::ostream& os)
 {
+    std::string atitle = a->getTitle();
+
+    // search for quotes
+    std::regex re("\"");
+    // replace by escaped quote
+    atitle = std::regex_replace(atitle, re, "\\\"");
+
     // marked articles are printed as box
     if(a->isMarked()) {
-        os << "\"" << a->getTitle() << "\" [shape=box];" << std::endl;
+        os << "\"" << atitle << "\" [shape=box];" << std::endl;
     }
 
     if(!a->isAnalyzed()) {
-        os << "\"" << a->getTitle() << "\" [fillcolor=gray,style=filled];" << std::endl;
+        os << "\"" << atitle << "\" [fillcolor=gray,style=filled];" << std::endl;
     }
 
     // unanalyzed articles are printed greyed out
     for(auto al = a->linkBegin(); al != a->linkEnd(); al++) {
-        os << "\"" << a->getTitle() << "\" -> \"" << (*al)->getTitle() << "\";" << std::endl;
+        std::string alinkedtitle = (*al)->getTitle();
+        os << "\"" << atitle << "\" -> \""
+            << std::regex_replace(alinkedtitle, re, "\\\"") << "\";" << std::endl;
     }
 }
 
