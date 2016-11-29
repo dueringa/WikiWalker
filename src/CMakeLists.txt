@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 project(WikiWalker)
 
-SET(walker_version "v0.1.1")
+SET(walker_version "v0.1.2")
 
 execute_process(
 	COMMAND	git -C ${CMAKE_CURRENT_SOURCE_DIR} describe --always --dirty --tags
