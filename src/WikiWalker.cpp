@@ -61,26 +61,32 @@ void WikiWalker::startWalking(std::string url)
 
     if(json != "") {
         WikimediaJsonToArticleConverter conv;
-        Article* article = conv.convertToArticle(json, articleSet);
+        conv.convertToArticle(json, articleSet);
 
         while(conv.hasMoreData() && conv.getContinuationData() != "") {
             creator.addParameter("plcontinue", conv.getContinuationData());
 
             json = grabber.grabUrl(creator.buildUrl());
-            Article* article2 = conv.convertToArticle(json, articleSet);
-
-            if(article != article2) {
-                for(auto x = article2->linkBegin(); x != article2->linkEnd(); x++) {
-                    article->addLink(*x);
-                }
-
-                // delete duplicate article
-                delete article2;
-            }
+            conv.convertToArticle(json, articleSet);
         }
+    } else {
+        std::cerr << "Error fetching article" << std::endl;
+    }
 
-        std::cout << "Article " << article->getTitle() << " has " << article->getNumLinks()
-                  << " links" << std::endl;
+    creator.addParameter("generator", "links").addParameter("plnamespace", "0")
+           .addParameter("gpllimit", "max");
+    json = grabber.grabUrl(creator.buildUrl());
+
+    if(json != "") {
+        WikimediaJsonToArticleConverter conv;
+        conv.convertToArticle(json, articleSet);
+
+        while(conv.hasMoreData() && conv.getContinuationData() != "") {
+            creator.addParameter("plcontinue", conv.getContinuationData());
+
+            json = grabber.grabUrl(creator.buildUrl());
+            conv.convertToArticle(json, articleSet);
+        }
     } else {
         std::cerr << "Error fetching article" << std::endl;
     }

@@ -7,7 +7,7 @@
 #include <json/json.h>
 
 //! \todo really ugly workaround, passing in the ArticleCollection instance... :/
-Article* WikimediaJsonToArticleConverter::convertToArticle(std::string json,
+void WikimediaJsonToArticleConverter::convertToArticle(std::string json,
         ArticleCollection& articleCache)
 {
     Json::Reader reader;
@@ -22,40 +22,43 @@ Article* WikimediaJsonToArticleConverter::convertToArticle(std::string json,
                             .get("pages", Json::Value::nullSingleton());
 
     // only get first page
-    auto wantedPage = allPages.get(allPages.getMemberNames()[0],
-                                   Json::Value::nullSingleton());
+    for(auto currentPageTitle : allPages.getMemberNames())
+    {
+        auto wantedPage = allPages.get(currentPageTitle,
+                                       Json::Value::nullSingleton());
 
-    if(wantedPage.isMember("missing")) {
-        throw WalkerException("Article doesn't exist");
-    } else if(wantedPage.isMember("invalid")) {
-        throw WalkerException("Invalid article");
-    }
-
-    //! get normalized title not necessary, "title" is already
-    std::string wantedArticleTitle = wantedPage.get("title",
-                                     Json::Value::nullSingleton()).asString();
-    Article* wantedArticle = articleCache.get(wantedArticleTitle);
-
-    if(wantedArticle == nullptr) {
-        wantedArticle = new Article(wantedArticleTitle);
-    }
-
-    articleCache.add(wantedArticle);
-
-    // add links
-    for(const auto& linked : wantedPage.get("links", Json::Value::nullSingleton())) {
-        auto linkedPageTitle = linked.get("title", Json::Value::nullSingleton()).asString();
-        auto par = articleCache.get(linkedPageTitle);
-
-        if(par == nullptr) {
-            par = new Article(linkedPageTitle);
-            articleCache.add(par);
+        if(wantedPage.isMember("missing")) {
+            throw WalkerException("Article doesn't exist");
+        } else if(wantedPage.isMember("invalid")) {
+            throw WalkerException("Invalid article");
         }
 
-        wantedArticle->addLink(par);
-    }
+        //! get normalized title not necessary, "title" is already
+        std::string wantedArticleTitle = wantedPage.get("title",
+                                         Json::Value::nullSingleton()).asString();
+        Article* wantedArticle = articleCache.get(wantedArticleTitle);
 
-    wantedArticle->setAnalyzed(true);
+        if(wantedArticle == nullptr) {
+            wantedArticle = new Article(wantedArticleTitle);
+        }
+
+        articleCache.add(wantedArticle);
+
+        // add links
+        for(const auto& linked : wantedPage.get("links", Json::Value::nullSingleton())) {
+            auto linkedPageTitle = linked.get("title", Json::Value::nullSingleton()).asString();
+            auto par = articleCache.get(linkedPageTitle);
+
+            if(par == nullptr) {
+                par = new Article(linkedPageTitle);
+                articleCache.add(par);
+            }
+
+            wantedArticle->addLink(par);
+        }
+
+        wantedArticle->setAnalyzed(true);
+    }
 
     if(!document.isMember("batchcomplete")) {
         moreData = true;
@@ -67,6 +70,4 @@ Article* WikimediaJsonToArticleConverter::convertToArticle(std::string json,
         moreData = false;
         continueString = "";
     }
-
-    return wantedArticle;
 }

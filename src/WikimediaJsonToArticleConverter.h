@@ -19,7 +19,7 @@ public:
      * \param articleCache reference to global (ew) article collection
      * \returns pointer to generated article. YOU free it!
      */
-    Article* convertToArticle(std::string json, ArticleCollection& articleCache);
+    void convertToArticle(std::string json, ArticleCollection& articleCache);
 
     /*!Returns whether there's more data to fetch.
     * JSON data says there's more links to fetch.
