@@ -50,7 +50,7 @@ if(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
 endif(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
 
 if(USE_GETOPT AND USE_BOOST_PO)
-	message(SEND_ERROR "Can't use both getopt and boost, set one option only")
+	message(SEND_ERROR "Can't use both getopt and boost, set one option only (USE_BOOST_PO or USE_GETOPT)")
 elseif(NOT (USE_GETOPT OR USE_BOOST_PO))
 	message(SEND_ERROR "Must use either getopt or boost. Make sure either is available and set one option")
 endif(USE_GETOPT AND USE_BOOST_PO)
