@@ -12,6 +12,11 @@
 class ToJsonWriter : public ADataOutput
 {
 public:
+    //! Output JSON data to output stream
+    virtual void output(const Article*, std::ostream&);
+    //! Output JSON data to output stream
+    virtual void output(const ArticleCollection&, std::ostream&);
+private:
     /*! Convert article to string representation of JSON representation.
      * \param a pointer to article to be converted
      * \return json as string
@@ -27,11 +32,6 @@ public:
      * {"title":{"forward_links":[...]}, "title2":{"forward_links":[...]}, ...}
      */
     std::string convertToJson(const ArticleCollection& ac);
-
-    //! Output JSON data to output stream
-    virtual void output(const Article*, std::ostream&);
-    //! Output JSON data to output stream
-    virtual void output(const ArticleCollection&, std::ostream&);
 };
 
 #endif // _TOJSONWRITER_H
