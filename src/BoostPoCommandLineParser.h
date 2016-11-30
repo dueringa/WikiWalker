@@ -3,7 +3,7 @@
 #ifndef _BOOSTPOCOMMANDLINEPARSER_H
 #define _BOOSTPOCOMMANDLINEPARSER_H
 
-#include "CommandLineParser.h"
+#include "ACommandLineParser.h"
 
 #include <boost/program_options.hpp>
 #include <boost/exception/diagnostic_information.hpp>
@@ -11,7 +11,7 @@
 namespace po = boost::program_options;
 
 //! Command line parser using Boost::program_options
-class BoostPoCommandLineParser : public CommandLineParser
+class BoostPoCommandLineParser : public ACommandLineParser
 {
 public:
     BoostPoCommandLineParser();

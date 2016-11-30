@@ -1,15 +1,15 @@
-//! \file CommandLineParser.h
+//! \file ACommandLineParser.h
 
-#ifndef _COMMANDLINEPARSER_H
-#define _COMMANDLINEPARSER_H
+#ifndef _ACOMMANDLINEPARSER_H
+#define _ACOMMANDLINEPARSER_H
 
 #include <string>
 
 //! Abstract base class for parsing command line arguments
-class CommandLineParser
+class ACommandLineParser
 {
 public:
-    virtual ~CommandLineParser() {};
+    virtual ~ACommandLineParser() {};
 
     /*! Parses command line args and stores results internally.
      * May throw an exception in case of error
@@ -35,4 +35,4 @@ public:
     virtual void printHelp() = 0;
 };
 
-#endif // _COMMANDLINEPARSER_H
+#endif // _ACOMMANDLINEPARSER_H

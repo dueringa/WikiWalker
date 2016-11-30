@@ -1,11 +1,11 @@
 #ifndef _GETOPTCOMMANDLINEPARSER_H
 #define _GETOPTCOMMANDLINEPARSER_H
 
-#include "CommandLineParser.h"
+#include "ACommandLineParser.h"
 
 #include <map>
 
-class GetoptCommandLineParser : public CommandLineParser
+class GetoptCommandLineParser : public ACommandLineParser
 {
 public:
     virtual ~GetoptCommandLineParser();
