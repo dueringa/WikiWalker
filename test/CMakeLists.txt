@@ -3,7 +3,10 @@ project(wikiwalker)
 
 find_package(PkgConfig)
 find_package(CURL REQUIRED)
-pkg_check_modules(UT REQUIRED unittest++)
+pkg_check_modules(UT unittest++)
+
+set(UT_INCLUDE_DIRS "" CACHE PATH "unittest++ include path")
+set(UT_LDFLAGS "" CACHE STRING "unittest++ library flag")
 
 include_directories(
 	${UT_INCLUDE_DIRS}
