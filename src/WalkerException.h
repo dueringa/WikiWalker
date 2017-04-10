@@ -5,7 +5,7 @@
 
 #include <string>
 
-//! (base) class for exceptions in uvok/WikiWalker
+//! (base) class for exceptions in WikiWalker
 class WalkerException : public std::exception
 {
 public:
