@@ -10,7 +10,7 @@
  * Child classes are responsible for converting the article structure
  * to other formats.
  */
-class ADataOutput
+class DataOutputBase
 {
 public:
     /*! Output an article to an outstream.
@@ -27,7 +27,7 @@ public:
      */
     virtual void output(const ArticleCollection& ac, std::ostream& os) = 0;
 
-    virtual ~ADataOutput() {}
+    virtual ~DataOutputBase() {}
 };
 
 #endif // _ADATAOUTPUT_H

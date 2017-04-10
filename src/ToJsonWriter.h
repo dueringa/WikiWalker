@@ -4,12 +4,12 @@
 #define _TOJSONWRITER_H
 
 #include <string>
-#include "ADataOutput.h"
+#include "DataOutputBase.h"
 
 /*! Output module: write to json.
  * "ugly", non-human-readable JSON, though.
  */
-class ToJsonWriter : public ADataOutput
+class ToJsonWriter : public DataOutputBase
 {
 public:
     //! Output JSON data to output stream

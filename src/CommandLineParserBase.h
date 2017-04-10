@@ -6,10 +6,10 @@
 #include <string>
 
 //! Abstract base class for parsing command line arguments
-class ACommandLineParser
+class CommandLineParserBase
 {
 public:
-    virtual ~ACommandLineParser() {};
+    virtual ~CommandLineParserBase() {};
 
     /*! Parses command line args and stores results internally.
      * May throw an exception in case of error

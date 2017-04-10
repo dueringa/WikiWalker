@@ -3,11 +3,11 @@
 #ifndef _TOGRAPHVIZWRITER_H
 #define _TOGRAPHVIZWRITER_H
 
-#include "ADataOutput.h"
+#include "DataOutputBase.h"
 
 /*! Writing to a file in dot format
  */
-class ToGraphvizWriter : public ADataOutput
+class ToGraphvizWriter : public DataOutputBase
 {
 public:
     virtual void output(const Article* a, std::ostream& os);
