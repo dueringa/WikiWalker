@@ -70,25 +70,28 @@ configure_file(
 
 # Compiler options
 # TODO: What's the difference between this and SET_SOURCE_FILES_PROPERTIES?
-add_definitions(-Wall)
-add_definitions(-Wextra)
-add_definitions(-Wshadow)
+# TODO: Sadly, won't activate on llvm...
+IF(CMAKE_COMPILER_IS_GNUCXX)
+	add_definitions(-Wall)
+	add_definitions(-Wextra)
+	add_definitions(-Wshadow)
+	add_definitions(-Werror=return-type)
+ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 add_definitions(-std=c++11)
-add_definitions(-Werror=return-type)
 
 # Define the CXX sources
 set ( CXX_SRCS
-    ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
 if(USE_BOOST_PO)
