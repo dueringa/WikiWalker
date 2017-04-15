@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.1.0)
 project(wikiwalker)
 
 find_package(PkgConfig)
@@ -13,8 +13,6 @@ include_directories(
 	${CURL_INCLUDE_DIRS}
 	${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/
 )
-
-add_definitions(-std=c++11)
 
 #ugly: have to specify sources again, and they will be built again
 set( TESTED_SRCS
@@ -44,6 +42,9 @@ add_executable(run_tests
 	${TESTED_SRCS}
 	${CXX_SRCS}
 )
+
+set_property(TARGET run_tests PROPERTY CXX_STANDARD 11)
+set_property(TARGET run_tests PROPERTY CXX_STANDARD_REQUIRED ON)
 
 target_link_libraries(run_tests
 	${UT_LDFLAGS}

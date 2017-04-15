@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.1.0)
 project(WikiWalker)
 
 SET(walker_version "v0.1.2")
@@ -77,7 +77,6 @@ IF(CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions(-Wshadow)
 	add_definitions(-Werror=return-type)
 ENDIF(CMAKE_COMPILER_IS_GNUCXX)
-add_definitions(-std=c++11)
 
 # Define the CXX sources
 set ( CXX_SRCS
@@ -105,6 +104,9 @@ elseif(USE_GETOPT)
 endif(USE_BOOST_PO)
 
 add_executable(walker ${CXX_SRCS} ${CMDP_SRC})
+
+set_property(TARGET walker PROPERTY CXX_STANDARD 11)
+set_property(TARGET walker PROPERTY CXX_STANDARD_REQUIRED ON)
 
 target_link_libraries(walker
 	${CURL_LIBRARIES}
