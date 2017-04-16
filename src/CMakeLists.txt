@@ -71,16 +71,6 @@ configure_file(
     "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 
-# Compiler options
-# TODO: What's the difference between this and SET_SOURCE_FILES_PROPERTIES?
-# TODO: Sadly, won't activate on llvm...
-if(CMAKE_COMPILER_IS_GNUCXX)
-    add_definitions(-Wall)
-    add_definitions(-Wextra)
-    add_definitions(-Wshadow)
-    add_definitions(-Werror=return-type)
-endif(CMAKE_COMPILER_IS_GNUCXX)
-
 # Define the CXX sources
 set(CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
@@ -107,6 +97,14 @@ elseif(USE_GETOPT)
 endif(USE_BOOST_PO)
 
 add_executable(walker ${CXX_SRCS} ${CMDP_SRC})
+
+# Compiler options
+# TODO: Sadly, won't activate on llvm...
+if(CMAKE_COMPILER_IS_GNUCXX)
+# TODO: is PRIVATE correct?
+target_compile_options(walker PRIVATE -Wall
+                       -Wextra -Wshadow -Werror=return-type)
+endif(CMAKE_COMPILER_IS_GNUCXX)
 
 set_property(TARGET walker PROPERTY CXX_STANDARD 11)
 set_property(TARGET walker PROPERTY CXX_STANDARD_REQUIRED ON)
