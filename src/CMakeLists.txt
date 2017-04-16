@@ -1,42 +1,43 @@
 cmake_minimum_required(VERSION 3.1.0)
 project(WikiWalker)
 
-SET(walker_version "v0.1.2")
+set(walker_version "v0.1.2")
 
 execute_process(
-	COMMAND	git -C ${CMAKE_CURRENT_SOURCE_DIR} describe --always --dirty --tags
-	RESULT_VARIABLE GIT_RETCODE
-	OUTPUT_VARIABLE GIT_OUTPUT_VERSION
-	ERROR_VARIABLE GIT_RAN_ERROR
-	OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND
+    git -C ${CMAKE_CURRENT_SOURCE_DIR} describe --always --dirty --tags
+    RESULT_VARIABLE GIT_RETCODE
+    OUTPUT_VARIABLE GIT_OUTPUT_VERSION
+    ERROR_VARIABLE GIT_RAN_ERROR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
 #message("Git result: ${GIT_RETCODE} / ${GIT_OUTPUT_VERSION} / ${GIT_RAN_ERROR}")
 
 # exit status 0 means successful
-if (GIT_RETCODE)
-	set(GIT_RAN_SUCCESSFULLY 0)
-else (GIT_RETCODE)
-	set(GIT_RAN_SUCCESSFULLY 1)
-endif (GIT_RETCODE)
+if(GIT_RETCODE)
+    set(GIT_RAN_SUCCESSFULLY 0)
+else(GIT_RETCODE)
+    set(GIT_RAN_SUCCESSFULLY 1)
+endif(GIT_RETCODE)
 
 # also, project_...?
 # overwriting version.h in ok (?), I want the generated one to be preferred
 # and I guess include_directories in only appended...
 configure_file(
-	"${CMAKE_CURRENT_SOURCE_DIR}/version.h.in"
-	"${CMAKE_CURRENT_BINARY_DIR}/version.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/version.h.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/version.h"
 )
 
 find_package(CURL REQUIRED)
 
 find_package(Boost
-	COMPONENTS program_options
+    COMPONENTS program_options
 )
 
 # if boost found
 if(Boost_PROGRAM_OPTIONS_FOUND)
-	option(USE_BOOST_PO  "Use Boost::program_options as command line parser" ON)
+    option(USE_BOOST_PO  "Use Boost::program_options as command line parser" ON)
 endif(Boost_PROGRAM_OPTIONS_FOUND)
 
 message("Checking whether getopt is available.")
@@ -46,61 +47,63 @@ check_function_exists(getopt_long  HAS_GETOPT_FUNCTION)
 check_include_file(getopt.h  HAS_GETOPT_HEADER)
 
 if(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
-	option(USE_GETOPT "Use getopt as command line parser" ON)
+    option(USE_GETOPT "Use getopt as command line parser" ON)
 endif(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
 
 if(USE_GETOPT AND USE_BOOST_PO)
-	message(SEND_ERROR "Can't use both getopt and boost, set one option only (USE_BOOST_PO or USE_GETOPT)")
+    message(SEND_ERROR "Can't use both getopt and boost, set one \
+option only (USE_BOOST_PO or USE_GETOPT)")
 elseif(NOT (USE_GETOPT OR USE_BOOST_PO))
-	message(SEND_ERROR "Must use either getopt or boost. Make sure either is available and set one option")
+    message(SEND_ERROR "Must use either getopt or boost. Make sure \
+either is available and set one option")
 endif(USE_GETOPT AND USE_BOOST_PO)
 
 ## huh, path spec is relative to... ???
 include_directories(
-	../lib/jsoncpp/
-	${CURL_INCLUDE_DIRS}
-	${CMAKE_CURRENT_BINARY_DIR}
-	${CMAKE_CURRENT_SOURCE_DIR}
+    ../lib/jsoncpp/
+    ${CURL_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 configure_file(
-	"${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
-	"${CMAKE_CURRENT_BINARY_DIR}/config.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 
 # Compiler options
 # TODO: What's the difference between this and SET_SOURCE_FILES_PROPERTIES?
 # TODO: Sadly, won't activate on llvm...
-IF(CMAKE_COMPILER_IS_GNUCXX)
-	add_definitions(-Wall)
-	add_definitions(-Wextra)
-	add_definitions(-Wshadow)
-	add_definitions(-Werror=return-type)
-ENDIF(CMAKE_COMPILER_IS_GNUCXX)
+if(CMAKE_COMPILER_IS_GNUCXX)
+    add_definitions(-Wall)
+    add_definitions(-Wextra)
+    add_definitions(-Wshadow)
+    add_definitions(-Werror=return-type)
+endif(CMAKE_COMPILER_IS_GNUCXX)
 
 # Define the CXX sources
-set ( CXX_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverter.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
+set(CXX_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
 if(USE_BOOST_PO)
-	set(CMDP_SRC
-		${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
-	)
+    set(CMDP_SRC
+        ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
+    )
 elseif(USE_GETOPT)
-	set(CMDP_SRC
-		${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
-	)
+    set(CMDP_SRC
+        ${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
+    )
 endif(USE_BOOST_PO)
 
 add_executable(walker ${CXX_SRCS} ${CMDP_SRC})
@@ -109,21 +112,21 @@ set_property(TARGET walker PROPERTY CXX_STANDARD 11)
 set_property(TARGET walker PROPERTY CXX_STANDARD_REQUIRED ON)
 
 target_link_libraries(walker
-	${CURL_LIBRARIES}
+    ${CURL_LIBRARIES}
 )
 
 # if boost wanted
 if(USE_BOOST_PO)
-	include_directories(
-		${Boost_INCLUDE_DIR}
-	)
-	target_link_libraries(walker
-		${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
-	)
+    include_directories(
+        ${Boost_INCLUDE_DIR}
+    )
+    target_link_libraries(walker
+        ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
+    )
 endif(USE_BOOST_PO)
 
-install (TARGETS walker DESTINATION bin)
+install(TARGETS walker DESTINATION bin)
 
 enable_testing()
 add_test(NAME versiondisplay
-	COMMAND walker -v)
+    COMMAND walker -v)
