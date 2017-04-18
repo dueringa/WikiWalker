@@ -45,6 +45,7 @@ add_executable(run_tests
 
 set_property(TARGET run_tests PROPERTY CXX_STANDARD 11)
 set_property(TARGET run_tests PROPERTY CXX_STANDARD_REQUIRED ON)
+set_property(TARGET walker PROPERTY CXX_EXTENSIONS OFF)
 
 target_link_libraries(run_tests
     ${UT_LDFLAGS}
