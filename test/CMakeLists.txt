@@ -15,6 +15,7 @@ include_directories(
 )
 
 #ugly: have to specify sources again, and they will be built again
+#object libraries? https://cmake.org/cmake/help/v3.1/manual/cmake-buildsystem.7.html#object-libraries
 set(TESTED_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/Article.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/ToJsonWriter.cpp
@@ -45,7 +46,7 @@ add_executable(run_tests
 
 set_property(TARGET run_tests PROPERTY CXX_STANDARD 11)
 set_property(TARGET run_tests PROPERTY CXX_STANDARD_REQUIRED ON)
-set_property(TARGET walker PROPERTY CXX_EXTENSIONS OFF)
+set_property(TARGET run_tests PROPERTY CXX_EXTENSIONS OFF)
 
 target_link_libraries(run_tests
     ${UT_LDFLAGS}
