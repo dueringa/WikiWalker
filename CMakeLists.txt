@@ -5,14 +5,14 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-option(WITH_TESTS "also build tests" OFF)
+option(WW_WITH_TESTS "also build tests" OFF)
 
 # Projects
 add_subdirectory(${CMAKE_SOURCE_DIR}/src)
 
-if(WITH_TESTS)
-add_subdirectory(${CMAKE_SOURCE_DIR}/test)
-endif(WITH_TESTS)
+if(WW_WITH_TESTS)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/test)
+endif(WW_WITH_TESTS)
 
 add_custom_target(
     doc
