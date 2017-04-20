@@ -35,9 +35,14 @@ find_package(Boost
     COMPONENTS program_options
 )
 
+set(WW_COMMANDLINEPARSER "" CACHE STRING "Command line parser to use (boostpo or getopt)")
+
+# empty list, otherwise we end up appending forever
+set_property(CACHE WW_COMMANDLINEPARSER PROPERTY STRINGS)
+
 # if boost found
 if(Boost_PROGRAM_OPTIONS_FOUND)
-    option(WW_USE_BOOST_PO  "Use Boost::program_options as command line parser" ON)
+    set_property(CACHE WW_COMMANDLINEPARSER APPEND PROPERTY STRINGS "boostpo")
 endif(Boost_PROGRAM_OPTIONS_FOUND)
 
 message("Checking whether getopt is available.")
@@ -47,16 +52,17 @@ check_function_exists(getopt_long  HAS_GETOPT_FUNCTION)
 check_include_file(getopt.h  HAS_GETOPT_HEADER)
 
 if(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
-    option(WW_USE_GETOPT "Use getopt as command line parser" ON)
+    set_property(CACHE WW_COMMANDLINEPARSER APPEND PROPERTY STRINGS "getopt")
 endif(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
 
-if(WW_USE_GETOPT AND WW_USE_BOOST_PO)
-    message(SEND_ERROR "Can't use both getopt and boost, set one \
-option only (WW_USE_BOOST_PO or WW_USE_GETOPT)")
-elseif(NOT (WW_USE_GETOPT OR WW_USE_BOOST_PO))
+if("${WW_COMMANDLINEPARSER}" STREQUAL "boostpo")
+    set(useboostpo TRUE)
+elseif("${WW_COMMANDLINEPARSER}" STREQUAL "getopt")
+    set(usegetopt TRUE)
+else()
     message(SEND_ERROR "Must use either getopt or boost. Make sure \
-either is available and set one option")
-endif(WW_USE_GETOPT AND WW_USE_BOOST_PO)
+either is available and set WW_COMMANDLINEPARSER")
+endif()
 
 ## huh, path spec is relative to... ???
 include_directories(
@@ -86,15 +92,15 @@ set(CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
-if(WW_USE_BOOST_PO)
+if(${useboostpo})
     set(CMDP_SRC
         ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
     )
-elseif(WW_USE_GETOPT)
+elseif(${usegetopt})
     set(CMDP_SRC
         ${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
     )
-endif(WW_USE_BOOST_PO)
+endif()
 
 add_executable(walker ${CXX_SRCS} ${CMDP_SRC})
 
@@ -115,14 +121,14 @@ target_link_libraries(walker
 )
 
 # if boost wanted
-if(WW_USE_BOOST_PO)
+if(${useboostpo})
     include_directories(
         ${Boost_INCLUDE_DIR}
     )
     target_link_libraries(walker
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
     )
-endif(WW_USE_BOOST_PO)
+endif()
 
 install(TARGETS walker DESTINATION bin)
 
