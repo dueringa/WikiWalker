@@ -1,14 +1,14 @@
 #ifndef _CONFIG_H_GEN
 #define _CONFIG_H_GEN
 
-#cmakedefine USE_BOOST_PO
-#cmakedefine USE_GETOPT
+#cmakedefine WW_USE_BOOST_PO
+#cmakedefine WW_USE_GETOPT
 
-#ifdef USE_BOOST_PO
+#ifdef WW_USE_BOOST_PO
 #include "BoostPoCommandLineParser.h"
 #endif
 
-#ifdef USE_GETOPT
+#ifdef WW_USE_GETOPT
 #include "GetoptCommandLineParser.h"
 #endif
 
