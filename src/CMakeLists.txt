@@ -120,7 +120,7 @@ if(WW_USE_BOOST_PO)
         ${Boost_INCLUDE_DIR}
     )
     target_link_libraries(walker
-        ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
+        ${Boost_PROGRAM_OPTIONS_LIBRARY}
     )
 endif(WW_USE_BOOST_PO)
 
