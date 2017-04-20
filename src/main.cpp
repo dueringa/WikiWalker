@@ -13,9 +13,9 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-#if defined(USE_BOOST_PO)
+#if defined(WW_USE_BOOST_PO)
     BoostPoCommandLineParser cmdp;
-#elif defined(USE_GETOPT)
+#elif defined(WW_USE_GETOPT)
     GetoptCommandLineParser cmdp;
 #endif
 
