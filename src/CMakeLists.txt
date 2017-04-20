@@ -56,9 +56,9 @@ if(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
 endif(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
 
 if("${WW_COMMANDLINEPARSER}" STREQUAL "boostpo")
-    set(useboostpo TRUE)
+    set(WW_USE_BOOST_PO TRUE)
 elseif("${WW_COMMANDLINEPARSER}" STREQUAL "getopt")
-    set(usegetopt TRUE)
+    set(WW_USE_GETOPT TRUE)
 else()
     message(SEND_ERROR "Must use either getopt or boost. Make sure \
 either is available and set WW_COMMANDLINEPARSER")
@@ -92,11 +92,11 @@ set(CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
-if(${useboostpo})
+if(${WW_USE_BOOST_PO})
     set(CMDP_SRC
         ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
     )
-elseif(${usegetopt})
+elseif(${WW_USE_GETOPT})
     set(CMDP_SRC
         ${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
     )
@@ -121,7 +121,7 @@ target_link_libraries(walker
 )
 
 # if boost wanted
-if(${useboostpo})
+if(${WW_USE_BOOST_PO})
     include_directories(
         ${Boost_INCLUDE_DIR}
     )
