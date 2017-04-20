@@ -87,16 +87,16 @@ set(CXX_SRCS
 )
 
 if(WW_USE_BOOST_PO)
-    set(CMDP_SRC
+    list(APPEND CXX_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
     )
 elseif(WW_USE_GETOPT)
-    set(CMDP_SRC
+    list(APPEND CXX_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
     )
 endif(WW_USE_BOOST_PO)
 
-add_executable(walker ${CXX_SRCS} ${CMDP_SRC})
+add_executable(walker ${CXX_SRCS})
 
 # Compiler options
 # TODO: Sadly, won't activate on llvm...
