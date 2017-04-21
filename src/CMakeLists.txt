@@ -3,6 +3,10 @@ project(WikiWalker)
 
 set(walker_version "v0.1.2")
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 execute_process(
     COMMAND
     git -C ${CMAKE_CURRENT_SOURCE_DIR} describe --always --dirty --tags
@@ -89,7 +93,6 @@ set(CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
 if(${WW_USE_BOOST_PO})
@@ -102,7 +105,11 @@ elseif(${WW_USE_GETOPT})
     )
 endif()
 
-add_executable(walker ${CXX_SRCS})
+add_library(jsoncpp OBJECT
+    ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp)
+
+add_executable(walker ${CXX_SRCS}
+    $<TARGET_OBJECTS:jsoncpp>)
 
 # Compiler options
 # TODO: Sadly, won't activate on llvm...
@@ -111,10 +118,6 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 target_compile_options(walker PRIVATE -Wall
                        -Wextra -Wshadow -Werror=return-type)
 endif(CMAKE_COMPILER_IS_GNUCXX)
-
-set_property(TARGET walker PROPERTY CXX_STANDARD 11)
-set_property(TARGET walker PROPERTY CXX_STANDARD_REQUIRED ON)
-set_property(TARGET walker PROPERTY CXX_EXTENSIONS OFF)
 
 target_link_libraries(walker
     ${CURL_LIBRARIES}
