@@ -28,7 +28,7 @@ std::string CurlWikiGrabber::grabUrl(std::string url) const
 {
     CURL* handle = curl_easy_init();
 
-    if(NULL == handle) {
+    if(nullptr == handle) {
         throw WalkerException("error initiating curl");
     }
 
@@ -58,7 +58,7 @@ std::string CurlWikiGrabber::grabUrl(std::string url) const
 
     curl_easy_cleanup(handle);
 
-    handle = NULL;
+    handle = nullptr;
 
     if(httpcode != 200) {
         return "";

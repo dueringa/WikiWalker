@@ -7,11 +7,11 @@
 #include "WalkerException.h"
 
 static struct option options[] = {
-    {"help", no_argument, NULL, 'h'},
-    {"version", no_argument, NULL, 'v'},
-    {"dot-out", required_argument, NULL, 'o'},
-    {"json-cache", required_argument, NULL, 'j'},
-    {0, 0, 0, 0},
+    {"help", no_argument, nullptr, 'h'},
+    {"version", no_argument, nullptr, 'v'},
+    {"dot-out", required_argument, nullptr, 'o'},
+    {"json-cache", required_argument, nullptr, 'j'},
+    {nullptr, 0, nullptr, 0},
 };
 
 GetoptCommandLineParser::~GetoptCommandLineParser()

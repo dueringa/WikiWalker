@@ -13,9 +13,9 @@ class ToJsonWriter : public DataOutputBase
 {
 public:
     //! Output JSON data to output stream
-    virtual void output(const Article*, std::ostream&);
+    virtual void output(const Article*, std::ostream&) override;
     //! Output JSON data to output stream
-    virtual void output(const ArticleCollection&, std::ostream&);
+    virtual void output(const ArticleCollection&, std::ostream&) override;
 private:
     /*! Convert article to string representation of JSON representation.
      * \param a pointer to article to be converted
