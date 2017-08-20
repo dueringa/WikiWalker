@@ -1,6 +1,7 @@
 #include <UnitTest++.h>
 
 #include <algorithm>
+#include <vector>
 
 #include "../src/Article.h"
 #include "../src/WalkerException.h"
