@@ -49,14 +49,16 @@ X = no
  - (5) Articles could have cyclic references, STL is not clever enough to detect this
  - (6) won't be unique, articles link among themselves
  - (7) only weak pointers doesn't make much sense. also, we need at least 1 shared
- - (8) combination doesn't make sense
+ - (8) combination doesn't make sense, and doesn't compile
 
 Maybe:
 
- - (9) What is the run time penalty for locking a weak_ptr to a shared_ptr?
+ - (9) What is the run time penalty for locking a weak_ptr to a shared_ptr? - Also, I might
+   can't use the article class by itself then… though that's probably not even possible
  - (10) Weeelll.. theoretically, this looks like a bad idea, since as soon as the ArticleCollection
    is gone, all raw pointers in Article are invalid. But on the other hand: by my current
    program design, the Articles (with their raw pointers to other articles) won't outlive
    the ArticleCollection. As soon as the ArticleCollection is "dead", all Articles are as well.
    Might be the same scennario as (9), only I won't need the penalty (?) of locking the weak_ptrs.
    This would be really preferrable to the current implementation (with manual cleanup).
+
