@@ -25,11 +25,14 @@ Article::ArticleLinkConstIterator Article::linkEnd() const
 
 bool Article::addLink(Article::stored_type article)
 {
+    //! TODO: figure out how to find duplicates with weak_ptr
+    /*
     auto pos = find(links.begin(), links.end(), article);
 
     if(pos != links.end()) {
         return false;
     }
+    */
 
     links.push_back(article);
     analyzed = true;

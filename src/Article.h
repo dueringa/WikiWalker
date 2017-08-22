@@ -14,7 +14,7 @@ class Article
 {
 public:
     //! What are we storing exacly
-    typedef const Article* stored_type;
+    typedef std::weak_ptr<const Article> stored_type;
     //! representation of links to other articles
     typedef std::vector<stored_type>  storage;
     //! representation of iterator over links
