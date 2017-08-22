@@ -23,7 +23,7 @@ Article::ArticleLinkConstIterator Article::linkEnd() const
     return links.cend();
 }
 
-bool Article::addLink(const Article* article)
+bool Article::addLink(Article::stored_type article)
 {
     auto pos = find(links.begin(), links.end(), article);
 
