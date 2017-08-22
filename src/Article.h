@@ -15,7 +15,7 @@ class Article
 {
 public:
     //! representation of links to other articles
-    typedef std::list<Article*>  storage;
+    typedef std::list<const Article*>  storage;
     //! representation of iterator over links
     typedef storage::iterator ArticleLinkIterator;
     //! representation of const iterator over links
@@ -53,7 +53,7 @@ public:
      * \see setAnalyzed
      * \see isAnalyzed
      */
-    bool addLink(Article* article);
+    bool addLink(const Article* article);
 
     /*! Set article to be analyzed.
      * State is automatically set by #addLink, but if
