@@ -22,10 +22,10 @@ ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string jso
     for(auto& titleElement : document.getMemberNames()) {
         std::string title = titleElement;
 
-        Article* a = articleCache.get(title);
+        auto a = articleCache.get(title);
 
         if(a == nullptr) {
-            a = new Article(title);
+            a = std::make_shared<Article>(title);
             articleCache.add(a);
         }
 
@@ -43,10 +43,10 @@ ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string jso
 
         for(auto linkedArticle : links) {
             std::string linkedTitle = linkedArticle.asString();
-            Article* la = articleCache.get(linkedTitle);
+            std::shared_ptr<Article> la = articleCache.get(linkedTitle);
 
             if(la == nullptr) {
-                la = new Article(linkedTitle);
+                la = std::make_shared<Article>(linkedTitle);
                 articleCache.add(la);
             }
 
