@@ -3,6 +3,8 @@
 #include "../src/CacheJsonToArticleConverter.h"
 #include "../src/Article.h"
 
+#include <memory>
+
 SUITE(CacheJsonToArticleConverterTests)
 {
     TEST(GetArticleWithoutLinks_Unanalyzed)
@@ -15,7 +17,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
         CHECK_EQUAL(1, ac.getNumArticles());
 
-        Article* a = ac.get("Farm");
+        auto a = ac.get("Farm");
         CHECK(a != nullptr);
         CHECK_EQUAL(false, a->isAnalyzed());
     }
@@ -30,7 +32,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
         CHECK_EQUAL(1, ac.getNumArticles());
 
-        Article* a = ac.get("Farm");
+        auto a = ac.get("Farm");
         CHECK(a != nullptr);
 
         CHECK_EQUAL(true, a->isAnalyzed());
@@ -47,7 +49,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
         CHECK_EQUAL(2, ac.getNumArticles());
 
-        Article* a = ac.get("Farm");
+        auto a = ac.get("Farm");
         CHECK(a != nullptr);
 
         CHECK_EQUAL(1, a->getNumLinks());
@@ -63,7 +65,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
         CHECK_EQUAL(4, ac.getNumArticles());
 
-        Article* a = ac.get("Farm");
+        auto a = ac.get("Farm");
         CHECK(a != nullptr);
 
         CHECK_EQUAL(3, a->getNumLinks());
@@ -89,7 +91,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
         CHECK_EQUAL(1, ac.getNumArticles());
 
-        Article* a = ac.get("Foo");
+        auto a = ac.get("Foo");
         CHECK(a != nullptr);
         CHECK_EQUAL(false, a->isAnalyzed());
     }
@@ -104,7 +106,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
         CHECK_EQUAL(1, ac.getNumArticles());
 
-        Article* a = ac.get("Foo");
+        auto a = ac.get("Foo");
         CHECK(a != nullptr);
         CHECK_EQUAL(true, a->isAnalyzed());
         CHECK_EQUAL(0, a->getNumLinks());
