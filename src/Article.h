@@ -5,7 +5,6 @@
 
 #include <string>
 
-// forward_list has no size :(
 #include <vector>
 
 /*!
