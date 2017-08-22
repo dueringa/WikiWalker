@@ -5,6 +5,7 @@
 
 #include <map>
 #include <string>
+#include <memory>
 
 // forward-declare, since we only store pointer
 class Article;
@@ -16,7 +17,7 @@ class ArticleCollection
 {
 public:
     //! The way that articles are stored inside
-    typedef std::map<std::string, Article*> storage_type;
+    typedef std::map<std::string, std::shared_ptr<Article> > storage_type;
 
     //! iterator type
     typedef storage_type::iterator iterator;
@@ -29,7 +30,7 @@ public:
       * \return true if insertion took place
       *          false if it failed (e.g. another article with the same title already exists
       */
-    bool add(Article* article);
+    bool add(std::shared_ptr<Article> article);
 
     //! get number of articles in collection
     size_t getNumArticles() const
@@ -41,7 +42,7 @@ public:
      * \param title title of the article to request
      * \return pointer to article, or nullptr, if not found
      */
-    Article* get(std::string title);
+    std::shared_ptr<Article> get(std::string title);
 
     ArticleCollection() {}
 
@@ -64,8 +65,6 @@ public:
      * \returns constant iterator to element after last article
      */
     const_iterator end() const;
-
-    ~ArticleCollection();
 
     //! deleted copy constructor. Because it stores raw pointers.
     ArticleCollection(const ArticleCollection&) = delete;
