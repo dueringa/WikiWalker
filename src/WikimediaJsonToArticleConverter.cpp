@@ -7,7 +7,8 @@
 #include <json/json.h>
 
 //! \todo really ugly workaround, passing in the ArticleCollection instance... :/
-Article* WikimediaJsonToArticleConverter::convertToArticle(std::string json,
+std::shared_ptr<Article> WikimediaJsonToArticleConverter::convertToArticle(
+        std::string json,
         ArticleCollection& articleCache)
 {
     Json::Reader reader;
@@ -34,21 +35,22 @@ Article* WikimediaJsonToArticleConverter::convertToArticle(std::string json,
     //! get normalized title not necessary, "title" is already
     std::string wantedArticleTitle = wantedPage.get("title",
                                      Json::Value::nullSingleton()).asString();
-    Article* wantedArticle = articleCache.get(wantedArticleTitle);
+    auto wantedArticle = articleCache.get(wantedArticleTitle);
 
     if(wantedArticle == nullptr) {
-        wantedArticle = new Article(wantedArticleTitle);
+        wantedArticle = std::make_shared<Article>(wantedArticleTitle);
     }
 
     articleCache.add(wantedArticle);
 
     // add links
+    std::shared_ptr<Article> par;
     for(const auto& linked : wantedPage.get("links", Json::Value::nullSingleton())) {
         auto linkedPageTitle = linked.get("title", Json::Value::nullSingleton()).asString();
-        auto par = articleCache.get(linkedPageTitle);
+        par = articleCache.get(linkedPageTitle);
 
         if(par == nullptr) {
-            par = new Article(linkedPageTitle);
+            par = std::make_shared<Article>(linkedPageTitle);
             articleCache.add(par);
         }
 
