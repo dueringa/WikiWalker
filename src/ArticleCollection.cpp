@@ -4,6 +4,8 @@
 
 #include "Article.h"
 
+/*! TODO: I'm not exactly happy with returning a shared_ptr. Return
+ * reference instead? - but how to say "not found" then? */
 std::shared_ptr<Article> ArticleCollection::get(std::string title)
 {
     auto it = articleSet.find(title);
