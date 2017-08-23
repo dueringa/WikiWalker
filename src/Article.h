@@ -13,10 +13,8 @@
 class Article
 {
 public:
-    //! What are we storing exacly
-    typedef std::weak_ptr<const Article> stored_type;
     //! representation of links to other articles
-    typedef std::vector<stored_type>  storage;
+    typedef std::vector<std::weak_ptr<const Article> >  storage;
     //! representation of iterator over links
     typedef storage::iterator ArticleLinkIterator;
     //! representation of const iterator over links
@@ -54,7 +52,7 @@ public:
      * \see setAnalyzed
      * \see isAnalyzed
      */
-    bool addLink(stored_type article);
+    bool addLink(std::weak_ptr<const Article> article);
 
     /*! Set article to be analyzed.
      * State is automatically set by #addLink, but if

@@ -23,21 +23,23 @@ Article::ArticleLinkConstIterator Article::linkEnd() const
     return links.cend();
 }
 
-bool Article::addLink(Article::stored_type article)
+bool Article::addLink(std::weak_ptr<const Article> article)
 {
-    //! TODO: figure out how to find duplicates with weak_ptr
-    /*
-    auto pos = find(links.begin(), links.end(), article);
+    auto newTitle = article.lock()->getTitle();
 
-    if(pos != links.end()) {
-        return false;
+    // check for duplicates using title
+    bool isNewLink = std::none_of(links.cbegin(), links.cend(),
+        [&newTitle](const std::weak_ptr<const Article> x) {
+            return x.lock()->getTitle() == newTitle;
+        }
+    );
+
+    if(isNewLink) {
+        links.push_back(article);
+        analyzed = true;
     }
-    */
 
-    links.push_back(article);
-    analyzed = true;
-
-    return true;
+    return isNewLink;
 }
 
 void Article::setAnalyzed(bool analyzedState)
