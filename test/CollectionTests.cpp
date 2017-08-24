@@ -1,4 +1,4 @@
-#include <UnitTest++.h>
+#include <UnitTest++/UnitTest++.h>
 
 #include "../src/ArticleCollection.h"
 #include "../src/Article.h"

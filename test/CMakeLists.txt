@@ -5,6 +5,15 @@ find_package(PkgConfig)
 find_package(CURL REQUIRED)
 pkg_check_modules(UT unittest++)
 
+find_package(UnitTest++ REQUIRED)
+
+if(UnitTest++_FOUND)
+    message("Found")
+else()
+    message("Not found")
+endif()
+
+message("${UTPP_INCLUDE_DIRS}")
 set(UT_INCLUDE_DIRS "" CACHE PATH "unittest++ include path")
 set(UT_LDFLAGS "" CACHE STRING "unittest++ library flag")
 
@@ -12,6 +21,7 @@ include_directories(
     ${UT_INCLUDE_DIRS}
     ${CURL_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/
+    ${UTPP_INCLUDE_DIRS}
 )
 
 #ugly: have to specify sources again, and they will be built again
