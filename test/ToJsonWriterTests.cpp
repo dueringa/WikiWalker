@@ -4,6 +4,7 @@
 #include "../src/Article.h"
 
 #include <sstream>
+#include <memory>
 
 SUITE(ArticleToJsonWriterTests)
 {
@@ -37,7 +38,8 @@ SUITE(ArticleToJsonWriterTests)
         Article a("Farm");
         std::ostringstream oss;
 
-        a.addLink(new Article("Animal"));
+        auto linked = std::make_shared<Article>("Animal");
+        a.addLink(linked);
 
         atj.output(&a, oss);
         CHECK_EQUAL("{\"Farm\":{\"forward_links\":[\"Animal\"]}}", oss.str());
@@ -49,9 +51,13 @@ SUITE(ArticleToJsonWriterTests)
         Article a("Farm");
         std::ostringstream oss;
 
-        a.addLink(new Article("Animal"));
-        a.addLink(new Article("Pig"));
-        a.addLink(new Article("Equality"));
+        auto al1 = std::make_shared<Article>("Animal"),
+            al2 = std::make_shared<Article>("Pig"),
+            al3 = std::make_shared<Article>("Equality");
+
+        a.addLink(al1);
+        a.addLink(al2);
+        a.addLink(al3);
 
         atj.output(&a, oss);
 
@@ -76,7 +82,8 @@ SUITE(ArticleToJsonWriterTests)
         ArticleCollection ac;
         std::ostringstream oss;
 
-        ac.add(new Article("Foo"));
+        auto linked = std::make_shared<Article>("Foo");
+        ac.add(linked);
 
         atj.output(ac, oss);
 
@@ -88,7 +95,7 @@ SUITE(ArticleToJsonWriterTests)
         ArticleCollection ac;
         std::ostringstream oss;
 
-        auto a = new Article("Foo");
+        auto a = std::make_shared<Article>("Foo");
         a->setAnalyzed(true);
         ac.add(a);
 

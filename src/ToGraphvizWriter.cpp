@@ -46,9 +46,13 @@ void ToGraphvizWriter::writeArticle(const Article* a, std::ostream& os)
 
     // unanalyzed articles are printed greyed out
     for(auto al = a->linkBegin(); al != a->linkEnd(); al++) {
-        std::string alinkedtitle = (*al)->getTitle();
-        os << "\"" << atitle << "\" -> \""
-            << std::regex_replace(alinkedtitle, re, "\\\"") << "\";" << std::endl;
+        auto lck_article = al->lock();
+        if(lck_article != nullptr) {
+            std::string alinkedtitle = lck_article->getTitle();
+            os << "\"" << atitle << "\" -> \""
+                << std::regex_replace(alinkedtitle, re, "\\\"")
+                << "\";" << std::endl;
+        }
     }
 }
 
@@ -66,7 +70,7 @@ void ToGraphvizWriter::output(const ArticleCollection& ac, std::ostream& os)
     writeHeader(os);
 
     for(auto a : ac) {
-        writeArticle(a.second, os);
+        writeArticle(a.second.get(), os);
     }
 
     writeFooter(os);

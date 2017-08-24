@@ -1,11 +1,13 @@
 #include <UnitTest++.h>
 
 #include <fstream>
+#include <memory>
 
 #include "../src/ToGraphvizWriter.h"
 #include "../src/Article.h"
 
 // these test always pass, unless exceptions occur
+//! TODO: try to initialize some variables only in one place
 
 SUITE(ArticleToGraphvizWriterTests)
 {
@@ -14,9 +16,14 @@ SUITE(ArticleToGraphvizWriterTests)
         std::ofstream outfile("_artlinks.dot", std::ofstream::out | std::ofstream::trunc);
         ToGraphvizWriter atj;
         Article a("Farm");
-        a.addLink(new Article("Animal"));
-        a.addLink(new Article("Pig"));
-        a.addLink(new Article("Equality"));
+
+        auto al1 = std::make_shared<Article>("Animal"),
+            al2 = std::make_shared<Article>("Pig"),
+            al3 = std::make_shared<Article>("Equality");
+
+        a.addLink(al1);
+        a.addLink(al2);
+        a.addLink(al3);
         atj.output(&a, outfile);
         outfile.flush();
         outfile.close();
@@ -28,18 +35,18 @@ SUITE(ArticleToGraphvizWriterTests)
         ToGraphvizWriter atj;
         ArticleCollection ac;
 
-        auto farm = new Article("Farm");
+        auto farm = std::make_shared<Article>("Farm");
         ac.add(farm);
 
-        auto animal = new Article("Animal");
+        auto animal = std::make_shared<Article>("Animal");
         farm->addLink(animal);
         ac.add(animal);
 
-        auto pig = new Article("Pig");
+        auto pig = std::make_shared<Article>("Pig");
         farm->addLink(pig);
         ac.add(pig);
 
-        auto equa = new Article("Equality");
+        auto equa = std::make_shared<Article>("Equality");
         farm->addLink(equa);
         ac.add(equa);
 
@@ -55,14 +62,14 @@ SUITE(ArticleToGraphvizWriterTests)
         ToGraphvizWriter atj;
         ArticleCollection ac;
 
-        auto farm = new Article("Farm");
+        auto farm = std::make_shared<Article>("Farm");
         ac.add(farm);
 
-        auto animal = new Article("Animal");
+        auto animal = std::make_shared<Article>("Animal");
         farm->addLink(animal);
         ac.add(animal);
 
-        auto pig = new Article("Pig");
+        auto pig = std::make_shared<Article>("Pig");
         pig->setMarked(true);
         farm->addLink(pig);
         ac.add(pig);
@@ -70,7 +77,7 @@ SUITE(ArticleToGraphvizWriterTests)
         pig->addLink(animal);
         animal->addLink(pig);
 
-        auto equa = new Article("Equality");
+        auto equa = std::make_shared<Article>("Equality");
         farm->addLink(equa);
         ac.add(equa);
 
@@ -85,29 +92,29 @@ SUITE(ArticleToGraphvizWriterTests)
         ToGraphvizWriter atj;
         ArticleCollection ac;
 
-        auto farm = new Article("Farm");
+        auto farm = std::make_shared<Article>("Farm");
         ac.add(farm);
 
-        auto animal = new Article("Animal");
+        auto animal = std::make_shared<Article>("Animal");
         farm->addLink(animal);
         ac.add(animal);
 
-        auto pig = new Article("Pig");
+        auto pig = std::make_shared<Article>("Pig");
         farm->addLink(pig);
         ac.add(pig);
 
-        auto equa = new Article("Equality");
+        auto equa = std::make_shared<Article>("Equality");
         farm->addLink(equa);
         ac.add(equa);
 
-        auto rights = new Article("Rights");
+        auto rights = std::make_shared<Article>("Rights");
         equa->addLink(rights);
         ac.add(rights);
 
-        auto cat = new Article("Cat");
+        auto cat = std::make_shared<Article>("Cat");
         ac.add(cat);
         animal->addLink(cat);
-        auto dog = new Article("Dog");
+        auto dog = std::make_shared<Article>("Dog");
         ac.add(dog);
         animal->addLink(dog);
 

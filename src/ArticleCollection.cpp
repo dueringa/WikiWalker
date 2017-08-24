@@ -4,22 +4,9 @@
 
 #include "Article.h"
 
-ArticleCollection::~ArticleCollection()
-{
-    /* this is still kinda ugly, since other pointers may exist...
-     * also, deleting stack-created articles is going to get ugly
-     * (although you shouldn't have pointers to stack variables
-     * anyway... */
-    for(auto it = articleSet.rbegin(); it != articleSet.rend(); it++) {
-        /* reverse iteration, forward one could cause us trouble if we
-         * delete and erase */
-        delete it->second;
-    }
-
-    articleSet.clear();
-}
-
-Article* ArticleCollection::get(std::string title)
+/*! \todo I'm not exactly happy with returning a shared_ptr. Return
+ * reference instead? - but how to say "not found" then? */
+std::shared_ptr<Article> ArticleCollection::get(std::string title)
 {
     auto it = articleSet.find(title);
 
@@ -29,7 +16,8 @@ Article* ArticleCollection::get(std::string title)
 
     return it->second;
 }
-bool ArticleCollection::add(Article* article)
+
+bool ArticleCollection::add(std::shared_ptr<Article> article)
 {
     auto ret = articleSet.insert(std::make_pair(article->getTitle(), article));
     return ret.second;

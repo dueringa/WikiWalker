@@ -18,8 +18,11 @@ static Json::Value getArticleLinks(const Article* article)
     Json::Value array(Json::ValueType::arrayValue);
 
     for(auto ali = article->linkBegin(); ali != article->linkEnd(); ali++) {
-        std::string tit = (*ali)->getTitle();
-        array.append(Json::Value(tit));
+        auto a = ali->lock();
+        if(a != nullptr) {
+            std::string tit = a->getTitle();
+            array.append(Json::Value(tit));
+        }
     }
 
     return array;
@@ -53,7 +56,7 @@ std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
         Json::Value linkObj(Json::ValueType::objectValue);
 
         if(ar.second->isAnalyzed()) {
-            linkObj["forward_links"] = getArticleLinks(ar.second);
+            linkObj["forward_links"] = getArticleLinks(ar.second.get());
         } else {
             linkObj["forward_links"] = Json::Value::nullSingleton();
         }

@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <vector>
+#include <memory>
+#include <iterator>
 
 #include "../src/Article.h"
 #include "../src/WalkerException.h"
@@ -28,7 +30,8 @@ SUITE(ArticleTests)
     {
         Article a("Foo");
 
-        a.addLink(new Article("Barmiz"));
+        auto link = std::make_shared<Article>("Barmiz");
+        a.addLink(link);
 
         CHECK_EQUAL(a.isAnalyzed(), true);
         CHECK_EQUAL(1, a.getNumLinks());
@@ -38,7 +41,7 @@ SUITE(ArticleTests)
     {
         Article a("Foo");
 
-        auto arl = new Article("Barmiz");
+        auto arl = std::make_shared<Article>("Barmiz");
         CHECK(a.addLink(arl));
         CHECK(!a.addLink(arl));
 
@@ -51,9 +54,18 @@ SUITE(ArticleTests)
         Article a("Foo");
 
         std::vector<std::string> titles { "Barmiz", "Kodopa", "Minting" };
+        // must keep them in scope
+        std::vector<std::shared_ptr<Article> > articleLinks;
 
-        for(auto s : titles) {
-            a.addLink(new Article(s));
+        std::transform(titles.begin(),
+                        titles.end(),
+                        std::back_inserter(articleLinks),
+                        [](std::string s)
+                          { return std::make_shared<Article>(s); }
+                        );
+
+        for(auto s : articleLinks) {
+            a.addLink(s);
         }
 
         CHECK_EQUAL(a.isAnalyzed(), true);
@@ -62,7 +74,7 @@ SUITE(ArticleTests)
         int num = 0;
         for(auto x = a.linkBegin(); x != a.linkEnd(); x++) {
             num++;
-            auto atitle = (*x)->getTitle();
+            auto atitle = x->lock()->getTitle();
             auto findpos = std::find(titles.cbegin(), titles.cend(), atitle);
             bool isFound = (titles.end() != findpos);
             CHECK(isFound);

@@ -4,8 +4,8 @@
 #define _ARTICLE_H
 
 #include <string>
-
 #include <vector>
+#include <memory>
 
 /*!
  * represents a Wikipedia (Mediawiki) article and its links
@@ -14,7 +14,7 @@ class Article
 {
 public:
     //! representation of links to other articles
-    typedef std::vector<const Article*>  storage;
+    typedef std::vector<std::weak_ptr<const Article> >  storage;
     //! representation of iterator over links
     typedef storage::iterator ArticleLinkIterator;
     //! representation of const iterator over links
@@ -52,7 +52,7 @@ public:
      * \see setAnalyzed
      * \see isAnalyzed
      */
-    bool addLink(const Article* article);
+    bool addLink(std::weak_ptr<const Article> article);
 
     /*! Set article to be analyzed.
      * State is automatically set by #addLink, but if

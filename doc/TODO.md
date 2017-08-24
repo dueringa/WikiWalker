@@ -15,4 +15,3 @@
    * [ ] depth with generators
    * [ ] Wikipedia Bot authentication
  - [ ] curl transmit compression?
- - [ ] design change: let Article store a vector of just strings of linked articles
