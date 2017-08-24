@@ -36,7 +36,7 @@ std::shared_ptr<Article> WikimediaJsonToArticleConverter::convertToArticle(
     std::string wantedArticleTitle = wantedPage.get("title",
                                      Json::Value::nullSingleton()).asString();
 
-    //! TODO: find a better solution than get-compare-add
+    //! \todo find a better solution than get-compare-add
     auto wantedArticle = articleCache.get(wantedArticleTitle);
 
     if(wantedArticle == nullptr) {

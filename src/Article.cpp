@@ -28,7 +28,7 @@ bool Article::addLink(std::weak_ptr<const Article> article)
     auto newTitle = article.lock()->getTitle();
 
     // check for duplicates using title
-    //! TODO: Or rather compare pointers again?
+    //! \todo Or rather compare pointers again?
     bool isNewLink = std::none_of(links.cbegin(), links.cend(),
         [&newTitle](const std::weak_ptr<const Article> x) {
             return x.lock()->getTitle() == newTitle;

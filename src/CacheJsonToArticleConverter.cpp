@@ -22,7 +22,7 @@ ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string jso
     for(auto& titleElement : document.getMemberNames()) {
         std::string title = titleElement;
 
-        //! TODO: find a better solution than get-compare-add
+        //! \todo find a better solution than get-compare-add
         auto a = articleCache.get(title);
 
         if(a == nullptr) {

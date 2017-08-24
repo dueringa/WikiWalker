@@ -1,4 +1,4 @@
-//! \file ADataOutput.h
+//! \file DataOutputBase.h
 
 #ifndef _ADATAOUTPUT_H
 #define _ADATAOUTPUT_H
@@ -18,7 +18,7 @@ public:
      * \param os out stream to putput to.
      * YOU are responsible for opening and closing the stream
      */
-     /*! TODO: pass reference instead? or weak_ptr? or shared_ptr?
+     /*! \todo pass reference instead? or weak_ptr? or shared_ptr?
       * I have no idea... */
     virtual void output(const Article* a, std::ostream& os) = 0;
 
