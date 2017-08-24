@@ -1,6 +1,6 @@
 #include <algorithm>
 
-#include <UnitTest++.h>
+#include <UnitTest++/UnitTest++.h>
 
 #include "../src/CurlUrlCreator.h"
 

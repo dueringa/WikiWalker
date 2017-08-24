@@ -9,6 +9,12 @@ cache file is read, combined with the Wikipedia data, and stored again.
 
 Cmake is used as build system. You need curl and boost::program_options.
 
+### Note for Debian / Ubuntu(?) users
+
+Debian ships an old version of UniTest++, which also uses a custom pkg-config file
+Unfortunately, this is completely incomtatible with e.g. Gentoo, and the current
+version on GitHub, see unittest-cpp/unittest-cpp#145.
+
 ## Generating graphs with graphviz
 
 Since graphs can get very wide, it's recommended to `unflatten` the graph first:
