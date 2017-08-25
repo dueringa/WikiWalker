@@ -17,19 +17,6 @@ include_directories(
     ${UTPP_INCLUDE_DIRS}
 )
 
-#ugly: have to specify sources again, and they will be built again
-#object libraries? https://cmake.org/cmake/help/v3.1/manual/cmake-buildsystem.7.html#object-libraries
-set(TESTED_SRCS
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/Article.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/ToJsonWriter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/ToGraphvizWriter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/CurlUrlCreator.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/WikimediaJsonToArticleConverter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/CacheJsonToArticleConverter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/ArticleCollection.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
-)
-
 # Define the CXX sources
 set(CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleTests.cpp
@@ -40,10 +27,12 @@ set(CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriterTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriterTests.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
 add_executable(run_tests
-    ${TESTED_SRCS}
+    $<TARGET_OBJECTS:WikiWalkerSource>
     ${CXX_SRCS}
 )
 

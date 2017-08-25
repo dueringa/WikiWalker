@@ -78,17 +78,20 @@ configure_file(
 )
 
 # Define the CXX sources
-set(CXX_SRCS
+add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
+)
+
+set(CXX_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
@@ -102,7 +105,7 @@ elseif(${WW_USE_GETOPT})
     )
 endif()
 
-add_executable(walker ${CXX_SRCS})
+add_executable(walker ${CXX_SRCS} $<TARGET_OBJECTS:WikiWalkerSource>)
 
 # Compiler options
 # TODO: Sadly, won't activate on llvm...
@@ -112,9 +115,9 @@ target_compile_options(walker PRIVATE -Wall
                        -Wextra -Wshadow -Werror=return-type)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
-set_property(TARGET walker PROPERTY CXX_STANDARD 11)
-set_property(TARGET walker PROPERTY CXX_STANDARD_REQUIRED ON)
-set_property(TARGET walker PROPERTY CXX_EXTENSIONS OFF)
+set_property(TARGET walker WikiWalkerSource PROPERTY CXX_STANDARD 11)
+set_property(TARGET walker WikiWalkerSource PROPERTY CXX_STANDARD_REQUIRED ON)
+set_property(TARGET walker WikiWalkerSource PROPERTY CXX_EXTENSIONS OFF)
 
 target_link_libraries(walker
     ${CURL_LIBRARIES}
