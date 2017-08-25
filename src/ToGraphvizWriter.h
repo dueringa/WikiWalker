@@ -1,7 +1,7 @@
 //! \file ToGraphvizWriter.h
 
-#ifndef _TOGRAPHVIZWRITER_H
-#define _TOGRAPHVIZWRITER_H
+#ifndef TOGRAPHVIZWRITER_H
+#define TOGRAPHVIZWRITER_H
 
 #include "DataOutputBase.h"
 
@@ -18,4 +18,4 @@ private:
     void writeArticle(const Article* a, std::ostream& os);
 };
 
-#endif // _TOGRAPHVIZWRITER_H
+#endif // TOGRAPHVIZWRITER_H

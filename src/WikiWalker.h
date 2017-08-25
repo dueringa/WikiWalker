@@ -1,7 +1,7 @@
 //! \file WikiWalker.h
 
-#ifndef _WIKIWALKER_H
-#define _WIKIWALKER_H
+#ifndef WIKIWALKER_H
+#define WIKIWALKER_H
 
 #include <string>
 #include "Walker.h"
@@ -32,4 +32,4 @@ private:
 
 };
 
-#endif // _WIKIWALKER_H
+#endif // WIKIWALKER_H

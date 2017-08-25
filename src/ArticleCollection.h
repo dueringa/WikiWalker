@@ -1,7 +1,7 @@
 //! \file ArticleCollection.h
 
-#ifndef _ARTICLE_COLLECTION_H
-#define _ARTICLE_COLLECTION_H
+#ifndef ARTICLE_COLLECTION_H
+#define ARTICLE_COLLECTION_H
 
 #include <map>
 #include <string>
@@ -77,4 +77,4 @@ private:
     storage_type articleSet;
 };
 
-#endif // _ARTICLE_COLLECTION_H
+#endif // ARTICLE_COLLECTION_H

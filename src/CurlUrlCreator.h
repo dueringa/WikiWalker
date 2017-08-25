@@ -1,7 +1,7 @@
 //! \file CurlUrlCreator.h
 
-#ifndef _CURLURLCREATOR_H
-#define _CURLURLCREATOR_H
+#ifndef CURLURLCREATOR_H
+#define CURLURLCREATOR_H
 
 #include <string>
 #include <unordered_map>
@@ -50,4 +50,4 @@ private:
 
 };
 
-#endif /* _CURLURLCREATOR_H */
+#endif // CURLURLCREATOR_H

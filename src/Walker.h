@@ -1,7 +1,7 @@
 //! \file Walker.h
 
-#ifndef _WALKER_H
-#define _WALKER_H
+#ifndef WALKER_H
+#define WALKER_H
 
 #include "ArticleCollection.h"
 
@@ -19,4 +19,4 @@ protected:
     ArticleCollection articleSet;
 };
 
-#endif // _WALKER_H
+#endif // WALKER_H

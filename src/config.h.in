@@ -1,5 +1,5 @@
-#ifndef _CONFIG_H_GEN
-#define _CONFIG_H_GEN
+#ifndef CONFIG_H_GEN
+#define CONFIG_H_GEN
 
 #cmakedefine WW_USE_BOOST_PO
 #cmakedefine WW_USE_GETOPT
@@ -12,4 +12,4 @@
 #include "GetoptCommandLineParser.h"
 #endif
 
-#endif // _CONFIG_H_GEN
+#endif // CONFIG_H_GEN

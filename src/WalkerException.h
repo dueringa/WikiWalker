@@ -1,7 +1,7 @@
 //! \file WalkerException.h
 
-#ifndef _WALKEREXCEPTION_H
-#define _WALKEREXCEPTION_H
+#ifndef WALKEREXCEPTION_H
+#define WALKEREXCEPTION_H
 
 #include <string>
 
@@ -19,7 +19,7 @@ public:
     WalkerException(std::string exmessage)
         : message(exmessage) {}
 
-    virtual ~WalkerException() throw() {}
+    virtual ~WalkerException() noexcept {}
 
     //! get exception message
     const char* what() const noexcept override
@@ -31,4 +31,4 @@ private:
     std::string message;
 };
 
-#endif // _WALKEREXCEPTION_H
+#endif // WALKEREXCEPTION_H

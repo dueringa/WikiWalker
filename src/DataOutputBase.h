@@ -1,7 +1,7 @@
 //! \file DataOutputBase.h
 
-#ifndef _ADATAOUTPUT_H
-#define _ADATAOUTPUT_H
+#ifndef ADATAOUTPUT_H
+#define ADATAOUTPUT_H
 
 #include <ostream>
 #include "ArticleCollection.h"
@@ -32,4 +32,4 @@ public:
     virtual ~DataOutputBase() {}
 };
 
-#endif // _ADATAOUTPUT_H
+#endif // ADATAOUTPUT_H

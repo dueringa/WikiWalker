@@ -1,5 +1,5 @@
-#ifndef _GETOPTCOMMANDLINEPARSER_H
-#define _GETOPTCOMMANDLINEPARSER_H
+#ifndef GETOPTCOMMANDLINEPARSER_H
+#define GETOPTCOMMANDLINEPARSER_H
 
 #include "CommandLineParserBase.h"
 
@@ -18,4 +18,4 @@ private:
     std::map<std::string, std::string> setOptions;
 };
 
-#endif // _GETOPTCOMMANDLINEPARSER_H
+#endif // GETOPTCOMMANDLINEPARSER_H

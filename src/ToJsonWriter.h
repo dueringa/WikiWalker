@@ -1,7 +1,7 @@
 //! \file ToJsonWriter.h
 
-#ifndef _TOJSONWRITER_H
-#define _TOJSONWRITER_H
+#ifndef TOJSONWRITER_H
+#define TOJSONWRITER_H
 
 #include <string>
 #include "DataOutputBase.h"
@@ -34,4 +34,4 @@ private:
     std::string convertToJson(const ArticleCollection& ac);
 };
 
-#endif // _TOJSONWRITER_H
+#endif // TOJSONWRITER_H

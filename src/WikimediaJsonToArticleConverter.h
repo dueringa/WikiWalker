@@ -1,7 +1,7 @@
 //! \file WikimediaJsonToArticleConverter.h
 
-#ifndef _JSONTOARTICLECONVERTER_H
-#define _JSONTOARTICLECONVERTER_H
+#ifndef JSONTOARTICLECONVERTER_H
+#define JSONTOARTICLECONVERTER_H
 
 #include "ArticleCollection.h"
 

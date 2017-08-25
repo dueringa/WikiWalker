@@ -1,7 +1,7 @@
 //! \file BoostPoCommandLineParser.h
 
-#ifndef _BOOSTPOCOMMANDLINEPARSER_H
-#define _BOOSTPOCOMMANDLINEPARSER_H
+#ifndef BOOSTPOCOMMANDLINEPARSER_H
+#define BOOSTPOCOMMANDLINEPARSER_H
 
 #include "CommandLineParserBase.h"
 
@@ -29,4 +29,4 @@ private:
 
 };
 
-#endif // _BOOSTPOCOMMANDLINEPARSER_H
+#endif // BOOSTPOCOMMANDLINEPARSER_H

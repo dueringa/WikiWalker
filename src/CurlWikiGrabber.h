@@ -1,7 +1,7 @@
 //! \file CurlWikiGrabber.h
 
-#ifndef _CURL_WIKI_GRABBER_H
-#define _CURL_WIKI_GRABBER_H
+#ifndef CURL_WIKI_GRABBER_H
+#define CURL_WIKI_GRABBER_H
 
 #include <string>
 #include <curl/curl.h>
@@ -27,4 +27,4 @@ public:
     std::string grabUrl(std::string url) const;
 };
 
-#endif // _CURL_WIKI_GRABBER_H
+#endif // CURL_WIKI_GRABBER_H

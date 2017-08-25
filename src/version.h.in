@@ -1,5 +1,5 @@
-#ifndef _VERSION_H_GEN
-#define _VERSION_H_GEN
+#ifndef VERSION_H_GEN
+#define VERSION_H_GEN
 
 #cmakedefine GIT_RAN_SUCCESSFULLY
 
@@ -12,4 +12,4 @@ constexpr char _WW_VERSION[] = "@walker_version@";
 
 
 
-#endif // _VERSION_H_GEN
+#endif // VERSION_H_GEN

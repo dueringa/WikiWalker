@@ -1,7 +1,7 @@
 //! \file ACommandLineParser.h
 
-#ifndef _ACOMMANDLINEPARSER_H
-#define _ACOMMANDLINEPARSER_H
+#ifndef ACOMMANDLINEPARSER_H
+#define ACOMMANDLINEPARSER_H
 
 #include <string>
 
@@ -9,7 +9,7 @@
 class CommandLineParserBase
 {
 public:
-    virtual ~CommandLineParserBase() {};
+    virtual ~CommandLineParserBase() {}
 
     /*! Parses command line args and stores results internally.
      * May throw an exception in case of error
@@ -35,4 +35,4 @@ public:
     virtual void printHelp() = 0;
 };
 
-#endif // _ACOMMANDLINEPARSER_H
+#endif // ACOMMANDLINEPARSER_H

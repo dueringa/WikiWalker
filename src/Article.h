@@ -1,7 +1,7 @@
 //! \file Article.h
 
-#ifndef _ARTICLE_H
-#define _ARTICLE_H
+#ifndef ARTICLE_H
+#define ARTICLE_H
 
 #include <string>
 #include <vector>
@@ -91,4 +91,4 @@ private:
     bool marked;
 };
 
-#endif //_ARTICLE_H
+#endif // ARTICLE_H

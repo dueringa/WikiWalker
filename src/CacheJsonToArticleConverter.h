@@ -1,7 +1,7 @@
 //! \file CacheJsonToArticleConverter.h
 
-#ifndef _CACHEJSONTOARTICLECONVERTER_H
-#define _CACHEJSONTOARTICLECONVERTER_H
+#ifndef CACHEJSONTOARTICLECONVERTER_H
+#define CACHEJSONTOARTICLECONVERTER_H
 
 #include "ArticleCollection.h"
 
@@ -21,4 +21,4 @@ public:
                                         ArticleCollection& articleCache);
 };
 
-#endif // _CACHEJSONTOARTICLECONVERTER_H
+#endif // CACHEJSONTOARTICLECONVERTER_H
