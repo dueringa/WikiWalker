@@ -12,14 +12,12 @@ execute_process(
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-#message("Git result: ${GIT_RETCODE} / ${GIT_OUTPUT_VERSION} / ${GIT_RAN_ERROR}")
-
 # exit status 0 means successful
 if(GIT_RETCODE)
     set(GIT_RAN_SUCCESSFULLY 0)
-else(GIT_RETCODE)
+else() # GIT_RETCODE
     set(GIT_RAN_SUCCESSFULLY 1)
-endif(GIT_RETCODE)
+endif() #GIT_RETCODE
 
 # also, project_...?
 # overwriting version.h in ok (?), I want the generated one to be preferred
@@ -43,7 +41,7 @@ set_property(CACHE WW_COMMANDLINEPARSER PROPERTY STRINGS)
 # if boost found
 if(Boost_PROGRAM_OPTIONS_FOUND)
     set_property(CACHE WW_COMMANDLINEPARSER APPEND PROPERTY STRINGS "boostpo")
-endif(Boost_PROGRAM_OPTIONS_FOUND)
+endif() #Boost_PROGRAM_OPTIONS_FOUND
 
 message("Checking whether getopt is available.")
 include(CheckFunctionExists)
@@ -53,7 +51,7 @@ check_include_file(getopt.h  HAS_GETOPT_HEADER)
 
 if(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
     set_property(CACHE WW_COMMANDLINEPARSER APPEND PROPERTY STRINGS "getopt")
-endif(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
+endif() #HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER
 
 if("${WW_COMMANDLINEPARSER}" STREQUAL "boostpo")
     set(WW_USE_BOOST_PO TRUE)
@@ -110,9 +108,8 @@ endif()
 # TODO: Sadly, won't activate on llvm...
 if(CMAKE_COMPILER_IS_GNUCXX)
 # TODO: is PRIVATE correct?
-target_compile_options(walker PRIVATE -Wall
-                       -Wextra -Wshadow -Werror=return-type)
-endif(CMAKE_COMPILER_IS_GNUCXX)
+target_compile_options(walker PRIVATE -Wall -Wextra -Wshadow -Werror=return-type)
+endif() # CMAKE_COMPILER_IS_GNUCXX
 
 set_property(TARGET walker WikiWalkerSource PROPERTY CXX_STANDARD 11)
 set_property(TARGET walker WikiWalkerSource PROPERTY CXX_STANDARD_REQUIRED ON)

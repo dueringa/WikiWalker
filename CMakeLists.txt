@@ -12,7 +12,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/src)
 
 if(WW_WITH_TESTS)
     add_subdirectory(${CMAKE_SOURCE_DIR}/test)
-endif(WW_WITH_TESTS)
+endif() #WW_WITH_TESTS
 
 add_custom_target(
     doc
