@@ -77,7 +77,7 @@ configure_file(
     "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 
-# Define the CXX sources
+# Define commonly used source files (with tests)
 add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
@@ -90,22 +90,21 @@ add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
 )
 
-set(CXX_SRCS
+add_executable(walker
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
+    $<TARGET_OBJECTS:WikiWalkerSource>
 )
 
 if(${WW_USE_BOOST_PO})
-    list(APPEND CXX_SRCS
+    target_sources (walker PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
     )
 elseif(${WW_USE_GETOPT})
-    list(APPEND CXX_SRCS
+    target_sources (walker PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
     )
 endif()
-
-add_executable(walker ${CXX_SRCS} $<TARGET_OBJECTS:WikiWalkerSource>)
 
 # Compiler options
 # TODO: Sadly, won't activate on llvm...

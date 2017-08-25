@@ -17,8 +17,8 @@ include_directories(
     ${UTPP_INCLUDE_DIRS}
 )
 
-# Define the CXX sources
-set(CXX_SRCS
+add_executable(run_tests
+    $<TARGET_OBJECTS:WikiWalkerSource>
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CollectionTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverterTests.cpp
@@ -29,11 +29,6 @@ set(CXX_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriterTests.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
-)
-
-add_executable(run_tests
-    $<TARGET_OBJECTS:WikiWalkerSource>
-    ${CXX_SRCS}
 )
 
 set_property(TARGET run_tests PROPERTY CXX_STANDARD 11)
