@@ -42,7 +42,7 @@ public:
      * \param title title of the article to request
      * \return pointer to article, or nullptr, if not found
      */
-    std::shared_ptr<Article> get(std::string title);
+    std::shared_ptr<Article> get(const std::string& title);
 
     ArticleCollection() {}
 

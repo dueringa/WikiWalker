@@ -15,7 +15,7 @@ CurlUrlCreator::~CurlUrlCreator()
     curl_global_cleanup();
 }
 
-CurlUrlCreator& CurlUrlCreator::addParameter(std::string param, std::string value)
+CurlUrlCreator& CurlUrlCreator::addParameter(const std::string& param, const std::string& value)
 {
     // overwrite
     char* eval = curl_easy_escape(handle, value.c_str(), 0);

@@ -25,7 +25,7 @@ public:
      * \param articleCache reference to global (ew) article collection
      * \returns pointer to generated article. YOU free it!
      */
-    std::shared_ptr<Article> convertToArticle(std::string json,
+    std::shared_ptr<Article> convertToArticle(const std::string& json,
         ArticleCollection& articleCache);
 
     /*!Returns whether there's more data to fetch.

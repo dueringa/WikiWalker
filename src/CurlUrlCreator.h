@@ -31,7 +31,7 @@ public:
      *               it will be double-escaped.
      *  \return reference to self, so method chaining is possible.
      */
-    CurlUrlCreator& addParameter(std::string param, std::string value);
+    CurlUrlCreator& addParameter(const std::string& param, const std::string& value);
 
     //! Reset parameters
     void reset();

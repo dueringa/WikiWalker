@@ -9,7 +9,7 @@ SUITE(CacheJsonToArticleConverterTests)
 {
     TEST(GetArticleWithoutLinks_Unanalyzed)
     {
-        std::string json = "{\"Farm\":{\"forward_links\":null}}";
+        std::string json = R"({"Farm":{"forward_links":null}})";
 
         ArticleCollection ac;
         CacheJsonToArticleConverter cjta;
@@ -24,7 +24,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     TEST(GetArticleWithoutLinks_Analyzed)
     {
-        std::string json = "{\"Farm\":{\"forward_links\":[]}}";
+        std::string json = R"({"Farm":{"forward_links":[]}})";
 
         ArticleCollection ac;
         CacheJsonToArticleConverter cjta;
@@ -41,7 +41,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     TEST(GetArticleWithOneLink)
     {
-        std::string json = "{\"Farm\":{\"forward_links\":[\"Animal\"]}}";
+        std::string json = R"({"Farm":{"forward_links":["Animal"]}})";
 
         ArticleCollection ac;
         CacheJsonToArticleConverter cjta;
@@ -57,7 +57,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     TEST(GetArticleWithMultipleLinks)
     {
-        std::string json = "{\"Farm\":{\"forward_links\":[\"Animal\",\"Pig\",\"Equality\"]}}";
+        std::string json = R"({"Farm":{"forward_links":["Animal","Pig","Equality"]}})";
 
         ArticleCollection ac;
         CacheJsonToArticleConverter cjta;
@@ -83,7 +83,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     TEST(WriteArticleCollection_OneArticleWithoutLinks_Unanalyzed)
     {
-        std::string json = "{\"Foo\":{\"forward_links\":null}}";
+        std::string json = R"({"Foo":{"forward_links":null}})";
 
         ArticleCollection ac;
         CacheJsonToArticleConverter cjta;
@@ -98,7 +98,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     TEST(WriteArticleCollection_OneArticleWithoutLinks_Analyzed)
     {
-        std::string json = "{\"Foo\":{\"forward_links\":[]}}";
+        std::string json = R"({"Foo":{"forward_links":[]}})";
 
         ArticleCollection ac;
         CacheJsonToArticleConverter cjta;

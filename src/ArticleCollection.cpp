@@ -6,7 +6,7 @@
 
 /*! \todo I'm not exactly happy with returning a shared_ptr. Return
  * reference instead? - but how to say "not found" then? */
-std::shared_ptr<Article> ArticleCollection::get(std::string title)
+std::shared_ptr<Article> ArticleCollection::get(const std::string& title)
 {
     auto it = articleSet.find(title);
 

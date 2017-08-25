@@ -33,7 +33,7 @@ std::string BoostPoCommandLineParser::getValue(std::string option)
 
 bool BoostPoCommandLineParser::hasSet(std::string flag)
 {
-    return vm.count(flag);
+    return vm.count(flag) != 0u;
 }
 
 void BoostPoCommandLineParser::parse(int argc, char** argv)

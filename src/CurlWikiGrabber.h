@@ -24,7 +24,7 @@ public:
      * \param url URL of the article
      * \returns article JSON data
      */
-    std::string grabUrl(std::string url) const;
+    std::string grabUrl(const std::string& url) const;
 };
 
 #endif // CURL_WIKI_GRABBER_H

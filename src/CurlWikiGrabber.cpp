@@ -18,13 +18,13 @@ CurlWikiGrabber::CurlWikiGrabber()
 {
     int error = curl_global_init(CURL_GLOBAL_ALL);
 
-    if(error) {
+    if(error != 0) {
         throw WalkerException("CURL init failed");
     }
 }
 
 //! \todo Curl return code checking
-std::string CurlWikiGrabber::grabUrl(std::string url) const
+std::string CurlWikiGrabber::grabUrl(const std::string& url) const
 {
     CURL* handle = curl_easy_init();
 

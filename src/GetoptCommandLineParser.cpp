@@ -14,9 +14,7 @@ static struct option options[] = {
     {nullptr, 0, nullptr, 0},
 };
 
-GetoptCommandLineParser::~GetoptCommandLineParser()
-{
-}
+GetoptCommandLineParser::~GetoptCommandLineParser() = default;
 
 std::string GetoptCommandLineParser::getValue(std::string option)
 {
@@ -66,7 +64,7 @@ void GetoptCommandLineParser::parse(int argc, char** argv)
     }
 }
 
-static void helpFormatter(std::string option, std::string description)
+static void helpFormatter(const std::string& option, const std::string& description)
 {
     std::cout << std::setw(5) << ""
                 << std::left << std::setw(20) << option << "  "

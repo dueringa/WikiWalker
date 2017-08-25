@@ -8,7 +8,7 @@
 
 //! \todo really ugly workaround, passing in the ArticleCollection instance... :/
 std::shared_ptr<Article> WikimediaJsonToArticleConverter::convertToArticle(
-        std::string json,
+        const std::string& json,
         ArticleCollection& articleCache)
 {
     Json::Reader reader;

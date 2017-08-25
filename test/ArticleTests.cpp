@@ -64,7 +64,7 @@ SUITE(ArticleTests)
                           { return std::make_shared<Article>(s); }
                         );
 
-        for(auto s : articleLinks) {
+        for(const auto& s : articleLinks) {
             a.addLink(s);
         }
 

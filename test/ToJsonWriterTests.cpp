@@ -3,8 +3,8 @@
 #include "../src/ToJsonWriter.h"
 #include "../src/Article.h"
 
-#include <sstream>
 #include <memory>
+#include <sstream>
 
 SUITE(ArticleToJsonWriterTests)
 {

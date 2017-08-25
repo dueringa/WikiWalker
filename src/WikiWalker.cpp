@@ -13,9 +13,9 @@
 #include "ToJsonWriter.h"
 #include "CacheJsonToArticleConverter.h"
 
-void WikiWalker::startWalking(std::string url)
+void WikiWalker::startWalking(const std::string& url)
 {
-    std::string apiBaseUrl = "";
+    std::string apiBaseUrl;
 
     // this must be included in the URL.
     std::string domain = "wikipedia.org/";
@@ -83,7 +83,7 @@ void WikiWalker::startWalking(std::string url)
     }
 }
 
-void WikiWalker::readCache(std::string cacheFile)
+void WikiWalker::readCache(const std::string& cacheFile)
 {
     CacheJsonToArticleConverter cjta;
     std::ifstream cache(cacheFile);
@@ -108,7 +108,7 @@ void WikiWalker::readCache(std::string cacheFile)
     cjta.convertToArticle(json, articleSet);
 }
 
-void WikiWalker::writeCache(std::string cacheFile)
+void WikiWalker::writeCache(const std::string& cacheFile)
 {
     ToJsonWriter w;
 

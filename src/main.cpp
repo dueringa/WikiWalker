@@ -4,8 +4,8 @@
 #include <fstream>
 
 #include "WikiWalker.h"
-#include "version.h"
 #include "ToGraphvizWriter.h"
+#include "version.h"
 
 #include "config.h"
 

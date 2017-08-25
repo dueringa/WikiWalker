@@ -7,7 +7,7 @@
 #include "WalkerException.h"
 #include "Article.h"
 
-ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string json,
+ArticleCollection& CacheJsonToArticleConverter::convertToArticle(const std::string& json,
         ArticleCollection& articleCache)
 {
     Json::Reader reader;
@@ -42,7 +42,7 @@ ArticleCollection& CacheJsonToArticleConverter::convertToArticle(std::string jso
 
         a->setAnalyzed(true);
 
-        for(auto linkedArticle : links) {
+        for(const auto& linkedArticle : links) {
             std::string linkedTitle = linkedArticle.asString();
             std::shared_ptr<Article> la = articleCache.get(linkedTitle);
 

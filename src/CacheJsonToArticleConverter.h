@@ -17,7 +17,7 @@ public:
      *          also look up existing articles there.
      * \returns reference to passed article collection.
      */
-    ArticleCollection& convertToArticle(std::string json,
+    ArticleCollection& convertToArticle(const std::string& json,
                                         ArticleCollection& articleCache);
 };
 

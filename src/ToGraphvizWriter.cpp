@@ -31,17 +31,17 @@ void ToGraphvizWriter::writeArticle(const Article* a, std::ostream& os)
     std::string atitle = a->getTitle();
 
     // search for quotes
-    std::regex re("\"");
+    std::regex re(R"(")");
     // replace by escaped quote
-    atitle = std::regex_replace(atitle, re, "\\\"");
+    atitle = std::regex_replace(atitle, re, R"(\")");
 
     // marked articles are printed as box
     if(a->isMarked()) {
-        os << "\"" << atitle << "\" [shape=box];" << std::endl;
+        os << R"(")" << atitle << R"(" [shape=box];)" << std::endl;
     }
 
     if(!a->isAnalyzed()) {
-        os << "\"" << atitle << "\" [fillcolor=gray,style=filled];" << std::endl;
+        os << R"(")" << atitle << R"(" [fillcolor=gray,style=filled];)" << std::endl;
     }
 
     // unanalyzed articles are printed greyed out
@@ -49,9 +49,9 @@ void ToGraphvizWriter::writeArticle(const Article* a, std::ostream& os)
         auto lck_article = al->lock();
         if(lck_article != nullptr) {
             std::string alinkedtitle = lck_article->getTitle();
-            os << "\"" << atitle << "\" -> \""
-                << std::regex_replace(alinkedtitle, re, "\\\"")
-                << "\";" << std::endl;
+            os << R"(")" << atitle << R"(" -> ")"
+                << std::regex_replace(alinkedtitle, re, R"(\")")
+                << R"(";)" << std::endl;
         }
     }
 }

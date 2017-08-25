@@ -8,7 +8,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
 {
     TEST(JsonDataWithOneLinkedArticle)
     {
-        std::string testdata = "{\"batchcomplete\":\"\",\"servedby\":\"mw1197\",\"query\":{\"pages\":{\"36669940\":{\"pageid\":36669940,\"ns\":0,\"title\":\"3PTT\",\"links\":[{\"ns\":0,\"title\":\"Switch\"}]}}}}";
+        std::string testdata = R"({"batchcomplete":"","servedby":"mw1197","query":{"pages":{"36669940":{"pageid":36669940,"ns":0,"title":"3PTT","links":[{"ns":0,"title":"Switch"}]}}}})";
 
         ArticleCollection ac;
         WikimediaJsonToArticleConverter conv;
@@ -22,7 +22,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
 
     TEST(JsonDataWithInvalidArticle_Throws)
     {
-        std::string testdata = "{\"batchcomplete\":\"\",\"servedby\":\"mw1208\",\"query\":{\"pages\":{\"-1\":{\"ns\":0,\"title\":\"FoObAr\",\"missing\":\"\"}}}}";
+        std::string testdata = R"({"batchcomplete":"","servedby":"mw1208","query":{"pages":{"-1":{"ns":0,"title":"FoObAr","missing":""}}}})";
 
         ArticleCollection ac;
         WikimediaJsonToArticleConverter conv;
@@ -31,7 +31,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
 
     TEST(JsonData_MoreLinks_HasContinueData)
     {
-        std::string testdata = "{\"continue\":{\"plcontinue\":\"34419161|0|Jharkhand\",\"continue\":\"||\"},\"servedby\":\"mw1283\",\"query\":{\"pages\":{\"34419161\":{\"pageid\":34419161,\"ns\":0,\"title\":\"Satar, Deoghar\",\"links\":[{\"ns\":0,\"title\":\"Deoghar district\"}]}}}}";
+        std::string testdata = R"({"continue":{"plcontinue":"34419161|0|Jharkhand","continue":"||"},"servedby":"mw1283","query":{"pages":{"34419161":{"pageid":34419161,"ns":0,"title":"Satar, Deoghar","links":[{"ns":0,"title":"Deoghar district"}]}}}})";
 
         ArticleCollection ac;
         WikimediaJsonToArticleConverter conv;

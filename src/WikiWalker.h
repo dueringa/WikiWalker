@@ -14,18 +14,18 @@ public:
     /*! given an URL, start collecting links
      * \param url start point for analysis
      */
-    void startWalking(std::string url);
+    void startWalking(const std::string& url);
 
     /*! Read data from cache file.
      * Used for initialization.
      * \param cache file name of the cache.
      */
-    void readCache(std::string cache);
+    void readCache(const std::string& cacheFile);
 
     /*! Write data to cache file.
      * \param cache file name of the cache.
      */
-    void writeCache(std::string cache);
+    void writeCache(const std::string& cacheFile);
 
 private:
     CurlWikiGrabber grabber;
