@@ -14,11 +14,11 @@ class Article
 {
 public:
     //! representation of links to other articles
-    typedef std::vector<std::weak_ptr<const Article> >  storage;
+    using storage = std::vector<std::weak_ptr<const Article> > ;
     //! representation of iterator over links
-    typedef storage::iterator ArticleLinkIterator;
+    using ArticleLinkIterator = storage::iterator;
     //! representation of const iterator over links
-    typedef storage::const_iterator ArticleLinkConstIterator;
+    using ArticleLinkConstIterator = storage::const_iterator;
 
     /*! Create a new article from a title
      * \param articleTitle The title of the article

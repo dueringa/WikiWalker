@@ -17,13 +17,13 @@ class ArticleCollection
 {
 public:
     //! The way that articles are stored inside
-    typedef std::map<std::string, std::shared_ptr<Article> > storage_type;
+    using storage_type = std::map<std::string, std::shared_ptr<Article> >;
 
     //! iterator type
-    typedef storage_type::iterator iterator;
+    using iterator = storage_type::iterator;
 
     //! constant iterator type
-    typedef storage_type::const_iterator const_iterator;
+    using const_iterator = storage_type::const_iterator;
 
     /*! add article to collection.
       * \param article article to add
