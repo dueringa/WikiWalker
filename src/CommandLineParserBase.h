@@ -9,7 +9,8 @@
 class CommandLineParserBase
 {
 public:
-    virtual ~CommandLineParserBase() {}
+    //! virtual base class d'tor
+    virtual ~CommandLineParserBase() = default;
 
     /*! Parses command line args and stores results internally.
      * May throw an exception in case of error

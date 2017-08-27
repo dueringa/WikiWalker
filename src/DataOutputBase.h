@@ -29,7 +29,8 @@ public:
      */
     virtual void output(const ArticleCollection& ac, std::ostream& os) = 0;
 
-    virtual ~DataOutputBase() {}
+    //! virtual base class d'tor
+    virtual ~DataOutputBase() = default;
 };
 
 #endif // ADATAOUTPUT_H

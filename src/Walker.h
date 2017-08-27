@@ -14,6 +14,9 @@ public:
         return articleSet;
     }
 
+    //! virtual base class destructor
+    virtual ~Walker() = default;
+
 protected:
     //! article collection, used as cache, for walked articles
     ArticleCollection articleSet;
