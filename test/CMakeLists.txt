@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1.0)
-project(wikiwalker)
+project(WikiWalker)
 
 #for pkg-config based stuff
 #find_package(PkgConfig)
