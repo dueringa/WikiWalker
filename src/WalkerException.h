@@ -4,9 +4,10 @@
 #define WALKEREXCEPTION_H
 
 #include <string>
+#include <stdexcept>
 
 //! (base) class for exceptions in WikiWalker
-class WalkerException : public std::exception
+class WalkerException : public std::runtime_error
 {
 public:
     /*! Create a Walker exception with a message.
@@ -17,18 +18,7 @@ public:
      * \param exmessage The exception message.
      */
     WalkerException(std::string exmessage)
-        : message(exmessage) {}
-
-    virtual ~WalkerException() noexcept {}
-
-    //! get exception message
-    const char* what() const noexcept override
-    {
-        return message.c_str();
-    }
-
-private:
-    std::string message;
+        : runtime_error(exmessage) {}
 };
 
 #endif // WALKEREXCEPTION_H
