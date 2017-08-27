@@ -47,3 +47,5 @@ Debug/
 *.orig
 
 /test/*.dot
+
+/build
