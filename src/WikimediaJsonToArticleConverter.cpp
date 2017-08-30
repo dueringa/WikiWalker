@@ -6,71 +6,73 @@
 
 #include <json/json.h>
 
-//! \todo really ugly workaround, passing in the ArticleCollection instance... :/
+//! \todo really ugly workaround, passing in the ArticleCollection instance...
+//! :/
 std::shared_ptr<Article> WikimediaJsonToArticleConverter::convertToArticle(
-        const std::string& json,
-        ArticleCollection& articleCache)
+    const std::string& json,
+    ArticleCollection& articleCache)
 {
-    Json::Reader reader;
-    Json::Value document;
-    bool success = reader.parse(json, document, false);
+  Json::Reader reader;
+  Json::Value document;
+  bool success = reader.parse(json, document, false);
 
-    if(!success) {
-        throw WalkerException("Error parsing JSON");
+  if(!success) {
+    throw WalkerException("Error parsing JSON");
+  }
+
+  auto allPages = document.get("query", Json::Value::nullSingleton())
+                      .get("pages", Json::Value::nullSingleton());
+
+  // only get first page
+  auto wantedPage =
+      allPages.get(allPages.getMemberNames()[0], Json::Value::nullSingleton());
+
+  if(wantedPage.isMember("missing")) {
+    throw WalkerException("Article doesn't exist");
+  } else if(wantedPage.isMember("invalid")) {
+    throw WalkerException("Invalid article");
+  }
+
+  //! get normalized title not necessary, "title" is already
+  std::string wantedArticleTitle =
+      wantedPage.get("title", Json::Value::nullSingleton()).asString();
+
+  //! \todo find a better solution than get-compare-add
+  auto wantedArticle = articleCache.get(wantedArticleTitle);
+
+  if(wantedArticle == nullptr) {
+    wantedArticle = std::make_shared<Article>(wantedArticleTitle);
+  }
+
+  articleCache.add(wantedArticle);
+
+  // add links
+  std::shared_ptr<Article> par;
+  for(const auto& linked :
+      wantedPage.get("links", Json::Value::nullSingleton())) {
+    auto linkedPageTitle =
+        linked.get("title", Json::Value::nullSingleton()).asString();
+    par = articleCache.get(linkedPageTitle);
+
+    if(par == nullptr) {
+      par = std::make_shared<Article>(linkedPageTitle);
+      articleCache.add(par);
     }
 
-    auto allPages = document.get("query", Json::Value::nullSingleton())
-                            .get("pages", Json::Value::nullSingleton());
+    wantedArticle->addLink(par);
+  }
 
-    // only get first page
-    auto wantedPage = allPages.get(allPages.getMemberNames()[0],
-                                   Json::Value::nullSingleton());
+  wantedArticle->setAnalyzed(true);
 
-    if(wantedPage.isMember("missing")) {
-        throw WalkerException("Article doesn't exist");
-    } else if(wantedPage.isMember("invalid")) {
-        throw WalkerException("Invalid article");
-    }
+  if(!document.isMember("batchcomplete")) {
+    moreData       = true;
+    continueString = document.get("continue", Json::Value::nullSingleton())
+                         .get("plcontinue", Json::Value::nullSingleton())
+                         .asString();
+  } else {
+    moreData       = false;
+    continueString = "";
+  }
 
-    //! get normalized title not necessary, "title" is already
-    std::string wantedArticleTitle = wantedPage.get("title",
-                                     Json::Value::nullSingleton()).asString();
-
-    //! \todo find a better solution than get-compare-add
-    auto wantedArticle = articleCache.get(wantedArticleTitle);
-
-    if(wantedArticle == nullptr) {
-        wantedArticle = std::make_shared<Article>(wantedArticleTitle);
-    }
-
-    articleCache.add(wantedArticle);
-
-    // add links
-    std::shared_ptr<Article> par;
-    for(const auto& linked : wantedPage.get("links", Json::Value::nullSingleton())) {
-        auto linkedPageTitle = linked.get("title", Json::Value::nullSingleton()).asString();
-        par = articleCache.get(linkedPageTitle);
-
-        if(par == nullptr) {
-            par = std::make_shared<Article>(linkedPageTitle);
-            articleCache.add(par);
-        }
-
-        wantedArticle->addLink(par);
-    }
-
-    wantedArticle->setAnalyzed(true);
-
-    if(!document.isMember("batchcomplete")) {
-        moreData = true;
-        continueString =
-          document.get("continue", Json::Value::nullSingleton())
-                  .get("plcontinue", Json::Value::nullSingleton())
-                    .asString();
-    } else {
-        moreData = false;
-        continueString = "";
-    }
-
-    return wantedArticle;
+  return wantedArticle;
 }

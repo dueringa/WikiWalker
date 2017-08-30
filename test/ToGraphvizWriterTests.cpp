@@ -11,115 +11,118 @@
 
 SUITE(ArticleToGraphvizWriterTests)
 {
-    TEST(WriteArticleWithMultipleLinks)
-    {
-        std::ofstream outfile("_artlinks.dot", std::ofstream::out | std::ofstream::trunc);
-        ToGraphvizWriter atj;
-        Article a("Farm");
+  TEST(WriteArticleWithMultipleLinks)
+  {
+    std::ofstream outfile("_artlinks.dot",
+                          std::ofstream::out | std::ofstream::trunc);
+    ToGraphvizWriter atj;
+    Article a("Farm");
 
-        auto al1 = std::make_shared<Article>("Animal"),
-            al2 = std::make_shared<Article>("Pig"),
-            al3 = std::make_shared<Article>("Equality");
+    auto al1 = std::make_shared<Article>("Animal"),
+         al2 = std::make_shared<Article>("Pig"),
+         al3 = std::make_shared<Article>("Equality");
 
-        a.addLink(al1);
-        a.addLink(al2);
-        a.addLink(al3);
-        atj.output(&a, outfile);
-        outfile.flush();
-        outfile.close();
-    }
+    a.addLink(al1);
+    a.addLink(al2);
+    a.addLink(al3);
+    atj.output(&a, outfile);
+    outfile.flush();
+    outfile.close();
+  }
 
-    TEST(WriteArticleCollectionDepthOne)
-    {
-        std::ofstream outfile("_artctree.dot", std::ofstream::out | std::ofstream::trunc);
-        ToGraphvizWriter atj;
-        ArticleCollection ac;
+  TEST(WriteArticleCollectionDepthOne)
+  {
+    std::ofstream outfile("_artctree.dot",
+                          std::ofstream::out | std::ofstream::trunc);
+    ToGraphvizWriter atj;
+    ArticleCollection ac;
 
-        auto farm = std::make_shared<Article>("Farm");
-        ac.add(farm);
+    auto farm = std::make_shared<Article>("Farm");
+    ac.add(farm);
 
-        auto animal = std::make_shared<Article>("Animal");
-        farm->addLink(animal);
-        ac.add(animal);
+    auto animal = std::make_shared<Article>("Animal");
+    farm->addLink(animal);
+    ac.add(animal);
 
-        auto pig = std::make_shared<Article>("Pig");
-        farm->addLink(pig);
-        ac.add(pig);
+    auto pig = std::make_shared<Article>("Pig");
+    farm->addLink(pig);
+    ac.add(pig);
 
-        auto equa = std::make_shared<Article>("Equality");
-        farm->addLink(equa);
-        ac.add(equa);
+    auto equa = std::make_shared<Article>("Equality");
+    farm->addLink(equa);
+    ac.add(equa);
 
-        atj.output(ac, outfile);
-        outfile.flush();
-        outfile.close();
-    }
+    atj.output(ac, outfile);
+    outfile.flush();
+    outfile.close();
+  }
 
-    TEST(WriteArticleCollectionDepthOne_WithInterlinks)
-    {
-        std::ofstream outfile("_artctree_interlink.dot",
-                                std::ofstream::out | std::ofstream::trunc);
-        ToGraphvizWriter atj;
-        ArticleCollection ac;
+  TEST(WriteArticleCollectionDepthOne_WithInterlinks)
+  {
+    std::ofstream outfile("_artctree_interlink.dot",
+                          std::ofstream::out | std::ofstream::trunc);
+    ToGraphvizWriter atj;
+    ArticleCollection ac;
 
-        auto farm = std::make_shared<Article>("Farm");
-        ac.add(farm);
+    auto farm = std::make_shared<Article>("Farm");
+    ac.add(farm);
 
-        auto animal = std::make_shared<Article>("Animal");
-        farm->addLink(animal);
-        ac.add(animal);
+    auto animal = std::make_shared<Article>("Animal");
+    farm->addLink(animal);
+    ac.add(animal);
 
-        auto pig = std::make_shared<Article>("Pig");
-        pig->setMarked(true);
-        farm->addLink(pig);
-        ac.add(pig);
+    auto pig = std::make_shared<Article>("Pig");
+    pig->setMarked(true);
+    farm->addLink(pig);
+    ac.add(pig);
 
-        pig->addLink(animal);
-        animal->addLink(pig);
+    pig->addLink(animal);
+    animal->addLink(pig);
 
-        auto equa = std::make_shared<Article>("Equality");
-        farm->addLink(equa);
-        ac.add(equa);
+    auto equa = std::make_shared<Article>("Equality");
+    farm->addLink(equa);
+    ac.add(equa);
 
-        atj.output(ac, outfile);
-        outfile.flush();
-        outfile.close();
-    }
+    atj.output(ac, outfile);
+    outfile.flush();
+    outfile.close();
+  }
 
-    TEST(WriteArticleCollectionDepthTwo)
-    {
-        std::ofstream outfile("_artc_deeptree.dot", std::ofstream::out | std::ofstream::trunc);
-        ToGraphvizWriter atj;
-        ArticleCollection ac;
+  TEST(WriteArticleCollectionDepthTwo)
+  {
+    std::ofstream outfile("_artc_deeptree.dot",
+                          std::ofstream::out | std::ofstream::trunc);
+    ToGraphvizWriter atj;
+    ArticleCollection ac;
 
-        auto farm = std::make_shared<Article>("Farm");
-        ac.add(farm);
+    auto farm = std::make_shared<Article>("Farm");
+    ac.add(farm);
 
-        auto animal = std::make_shared<Article>("Animal");
-        farm->addLink(animal);
-        ac.add(animal);
+    auto animal = std::make_shared<Article>("Animal");
+    farm->addLink(animal);
+    ac.add(animal);
 
-        auto pig = std::make_shared<Article>("Pig");
-        farm->addLink(pig);
-        ac.add(pig);
+    auto pig = std::make_shared<Article>("Pig");
+    farm->addLink(pig);
+    ac.add(pig);
 
-        auto equa = std::make_shared<Article>("Equality");
-        farm->addLink(equa);
-        ac.add(equa);
+    auto equa = std::make_shared<Article>("Equality");
+    farm->addLink(equa);
+    ac.add(equa);
 
-        auto rights = std::make_shared<Article>("Rights");
-        equa->addLink(rights);
-        ac.add(rights);
+    auto rights = std::make_shared<Article>("Rights");
+    equa->addLink(rights);
+    ac.add(rights);
 
-        auto cat = std::make_shared<Article>("Cat");
-        ac.add(cat);
-        animal->addLink(cat);
-        auto dog = std::make_shared<Article>("Dog");
-        ac.add(dog);
-        animal->addLink(dog);
+    auto cat = std::make_shared<Article>("Cat");
+    ac.add(cat);
+    animal->addLink(cat);
+    auto dog = std::make_shared<Article>("Dog");
+    ac.add(dog);
+    animal->addLink(dog);
 
-        atj.output(ac, outfile);
-        outfile.flush();
-        outfile.close();
-    }
+    atj.output(ac, outfile);
+    outfile.flush();
+    outfile.close();
+  }
 }

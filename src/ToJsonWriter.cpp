@@ -15,68 +15,68 @@
  */
 static Json::Value getArticleLinks(const Article* article)
 {
-    Json::Value array(Json::ValueType::arrayValue);
+  Json::Value array(Json::ValueType::arrayValue);
 
-    for(auto ali = article->linkBegin(); ali != article->linkEnd(); ali++) {
-        auto a = ali->lock();
-        if(a != nullptr) {
-            std::string tit = a->getTitle();
-            array.append(Json::Value(tit));
-        }
+  for(auto ali = article->linkBegin(); ali != article->linkEnd(); ali++) {
+    auto a = ali->lock();
+    if(a != nullptr) {
+      std::string tit = a->getTitle();
+      array.append(Json::Value(tit));
     }
+  }
 
-    return array;
+  return array;
 }
 
 std::string ToJsonWriter::convertToJson(const Article* a)
 {
-    Json::Value val(Json::ValueType::objectValue);
+  Json::Value val(Json::ValueType::objectValue);
 
-    Json::Value linkObj(Json::ValueType::objectValue);
+  Json::Value linkObj(Json::ValueType::objectValue);
 
-    if(a->isAnalyzed()) {
-        linkObj["forward_links"] = getArticleLinks(a);
-    } else {
-        linkObj["forward_links"] = Json::Value::nullSingleton();
-    }
+  if(a->isAnalyzed()) {
+    linkObj["forward_links"] = getArticleLinks(a);
+  } else {
+    linkObj["forward_links"] = Json::Value::nullSingleton();
+  }
 
-    val[a->getTitle()] = linkObj;
+  val[a->getTitle()] = linkObj;
 
-    Json::FastWriter jsw;
-    jsw.omitEndingLineFeed();
+  Json::FastWriter jsw;
+  jsw.omitEndingLineFeed();
 
-    return jsw.write(val);
+  return jsw.write(val);
 }
 
 std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
 {
-    Json::Value val(Json::ValueType::objectValue);
+  Json::Value val(Json::ValueType::objectValue);
 
-    for(auto ar : ac) {
-        Json::Value linkObj(Json::ValueType::objectValue);
+  for(auto ar : ac) {
+    Json::Value linkObj(Json::ValueType::objectValue);
 
-        if(ar.second->isAnalyzed()) {
-            linkObj["forward_links"] = getArticleLinks(ar.second.get());
-        } else {
-            linkObj["forward_links"] = Json::Value::nullSingleton();
-        }
-
-        val[ar.first] = linkObj;
+    if(ar.second->isAnalyzed()) {
+      linkObj["forward_links"] = getArticleLinks(ar.second.get());
+    } else {
+      linkObj["forward_links"] = Json::Value::nullSingleton();
     }
 
-    Json::FastWriter jsw;
-    jsw.omitEndingLineFeed();
+    val[ar.first] = linkObj;
+  }
 
-    return jsw.write(val);
+  Json::FastWriter jsw;
+  jsw.omitEndingLineFeed();
+
+  return jsw.write(val);
 }
 
 void ToJsonWriter::output(const Article* article, std::ostream& outstream)
 {
-    outstream << convertToJson(article);
+  outstream << convertToJson(article);
 }
 
 void ToJsonWriter::output(const ArticleCollection& collection,
                           std::ostream& outstream)
 {
-    outstream << convertToJson(collection);
+  outstream << convertToJson(collection);
 }

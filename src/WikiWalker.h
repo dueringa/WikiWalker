@@ -11,25 +11,24 @@
 class WikiWalker : public Walker
 {
 public:
-    /*! given an URL, start collecting links
-     * \param url start point for analysis
-     */
-    void startWalking(const std::string& url);
+  /*! given an URL, start collecting links
+   * \param url start point for analysis
+   */
+  void startWalking(const std::string& url);
 
-    /*! Read data from cache file.
-     * Used for initialization.
-     * \param cache file name of the cache.
-     */
-    void readCache(const std::string& cacheFile);
+  /*! Read data from cache file.
+   * Used for initialization.
+   * \param cache file name of the cache.
+   */
+  void readCache(const std::string& cacheFile);
 
-    /*! Write data to cache file.
-     * \param cache file name of the cache.
-     */
-    void writeCache(const std::string& cacheFile);
+  /*! Write data to cache file.
+   * \param cache file name of the cache.
+   */
+  void writeCache(const std::string& cacheFile);
 
 private:
-    CurlWikiGrabber grabber;
-
+  CurlWikiGrabber grabber;
 };
 
-#endif // WIKIWALKER_H
+#endif  // WIKIWALKER_H

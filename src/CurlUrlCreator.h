@@ -13,41 +13,41 @@
 class CurlUrlCreator
 {
 public:
-    //! Create a new instance, given a base URL
-    CurlUrlCreator(std::string baseUrl);
+  //! Create a new instance, given a base URL
+  CurlUrlCreator(std::string baseUrl);
 
-    //! delete copy constructor, because of CURL handle
-    CurlUrlCreator(const CurlUrlCreator&) = delete;
+  //! delete copy constructor, because of CURL handle
+  CurlUrlCreator(const CurlUrlCreator&) = delete;
 
-    //! delete copy assignment, because of CURL handle
-    CurlUrlCreator& operator=(const CurlUrlCreator&) = delete;
+  //! delete copy assignment, because of CURL handle
+  CurlUrlCreator& operator=(const CurlUrlCreator&) = delete;
 
-    /*! Add GET parameters to URL.
-     *  If parameter keys are specified multiple times, later occurrences
-     *  overwrite earlier ones.
-     *  \param param the parameter name
-     *  \param value the parameter value - UNESCAPED!
-     *               This will be done by curl. If you already escape
-     *               it will be double-escaped.
-     *  \return reference to self, so method chaining is possible.
-     */
-    CurlUrlCreator& addParameter(const std::string& param, const std::string& value);
+  /*! Add GET parameters to URL.
+   *  If parameter keys are specified multiple times, later occurrences
+   *  overwrite earlier ones.
+   *  \param param the parameter name
+   *  \param value the parameter value - UNESCAPED!
+   *               This will be done by curl. If you already escape
+   *               it will be double-escaped.
+   *  \return reference to self, so method chaining is possible.
+   */
+  CurlUrlCreator& addParameter(const std::string& param,
+                               const std::string& value);
 
-    //! Reset parameters
-    void reset();
+  //! Reset parameters
+  void reset();
 
-    /*! Creates the URL
-     *  \return Complete GET URL.
-     */
-    std::string buildUrl() const;
+  /*! Creates the URL
+   *  \return Complete GET URL.
+   */
+  std::string buildUrl() const;
 
-    ~CurlUrlCreator();
+  ~CurlUrlCreator();
 
 private:
-    std::string _baseUrl;
-    std::unordered_map<std::string, std::string> args;
-    CURL* handle;
-
+  std::string _baseUrl;
+  std::unordered_map<std::string, std::string> args;
+  CURL* handle;
 };
 
-#endif // CURLURLCREATOR_H
+#endif  // CURLURLCREATOR_H

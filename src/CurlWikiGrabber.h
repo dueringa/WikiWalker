@@ -10,21 +10,21 @@
 class CurlWikiGrabber
 {
 public:
-    /*! Create a new instance.
-     * Might throw an exception, if curl intialization failed
-     */
-    CurlWikiGrabber();
+  /*! Create a new instance.
+   * Might throw an exception, if curl intialization failed
+   */
+  CurlWikiGrabber();
 
-    ~CurlWikiGrabber()
-    {
-        curl_global_cleanup();
-    }
+  ~CurlWikiGrabber()
+  {
+    curl_global_cleanup();
+  }
 
-    /*! given an URL, return article JSON data
-     * \param url URL of the article
-     * \returns article JSON data
-     */
-    std::string grabUrl(const std::string& url) const;
+  /*! given an URL, return article JSON data
+   * \param url URL of the article
+   * \returns article JSON data
+   */
+  std::string grabUrl(const std::string& url) const;
 };
 
-#endif // CURL_WIKI_GRABBER_H
+#endif  // CURL_WIKI_GRABBER_H

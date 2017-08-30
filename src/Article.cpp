@@ -6,59 +6,60 @@
 
 size_t Article::getNumLinks() const
 {
-    if(!analyzed && links.empty()) {
-        throw WalkerException("Article not analyzed yet!");
-    }
+  if(!analyzed && links.empty()) {
+    throw WalkerException("Article not analyzed yet!");
+  }
 
-    return links.size();
+  return links.size();
 }
 
 Article::ArticleLinkConstIterator Article::linkBegin() const
 {
-    return links.cbegin();
+  return links.cbegin();
 }
 
 Article::ArticleLinkConstIterator Article::linkEnd() const
 {
-    return links.cend();
+  return links.cend();
 }
 
 bool Article::addLink(std::weak_ptr<const Article> article)
 {
-    auto newTitle = article.lock()->getTitle();
+  auto newTitle = article.lock()->getTitle();
 
-    // check for duplicates using title
-    //! \todo Or rather compare pointers again?
-    bool isNewLink = std::none_of(links.cbegin(), links.cend(),
-        [&newTitle](const std::weak_ptr<const Article> x) {
-            return x.lock()->getTitle() == newTitle;
-        }
-    );
+  // check for duplicates using title
+  //! \todo Or rather compare pointers again?
+  bool isNewLink =
+      std::none_of(links.cbegin(),
+                   links.cend(),
+                   [&newTitle](const std::weak_ptr<const Article> x) {
+                     return x.lock()->getTitle() == newTitle;
+                   });
 
-    if(isNewLink) {
-        links.push_back(article);
-        analyzed = true;
-    }
+  if(isNewLink) {
+    links.push_back(article);
+    analyzed = true;
+  }
 
-    return isNewLink;
+  return isNewLink;
 }
 
 void Article::setAnalyzed(bool analyzedState)
 {
-    analyzed = analyzedState;
+  analyzed = analyzedState;
 }
 
 bool Article::isAnalyzed() const
 {
-    return analyzed;
+  return analyzed;
 }
 
 void Article::setMarked(bool _marked)
 {
-    marked = _marked;
+  marked = _marked;
 }
 
 bool Article::isMarked() const
 {
-    return marked;
+  return marked;
 }

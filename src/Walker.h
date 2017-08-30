@@ -9,17 +9,17 @@
 class Walker
 {
 public:
-    const ArticleCollection& getCollection() const
-    {
-        return articleSet;
-    }
+  const ArticleCollection& getCollection() const
+  {
+    return articleSet;
+  }
 
-    //! virtual base class destructor
-    virtual ~Walker() = default;
+  //! virtual base class destructor
+  virtual ~Walker() = default;
 
 protected:
-    //! article collection, used as cache, for walked articles
-    ArticleCollection articleSet;
+  //! article collection, used as cache, for walked articles
+  ArticleCollection articleSet;
 };
 
-#endif // WALKER_H
+#endif  // WALKER_H

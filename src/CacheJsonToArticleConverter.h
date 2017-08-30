@@ -11,14 +11,14 @@
 class CacheJsonToArticleConverter
 {
 public:
-    /*! Convert JSON data from cache file into an article collection.
-     * \param json JSON data
-     * \param articleCache Article collection to add articles to. Will
-     *          also look up existing articles there.
-     * \returns reference to passed article collection.
-     */
-    ArticleCollection& convertToArticle(const std::string& json,
-                                        ArticleCollection& articleCache);
+  /*! Convert JSON data from cache file into an article collection.
+   * \param json JSON data
+   * \param articleCache Article collection to add articles to. Will
+   *          also look up existing articles there.
+   * \returns reference to passed article collection.
+   */
+  ArticleCollection& convertToArticle(const std::string& json,
+                                      ArticleCollection& articleCache);
 };
 
-#endif // CACHEJSONTOARTICLECONVERTER_H
+#endif  // CACHEJSONTOARTICLECONVERTER_H

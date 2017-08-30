@@ -8,37 +8,37 @@
  * reference instead? - but how to say "not found" then? */
 std::shared_ptr<Article> ArticleCollection::get(const std::string& title)
 {
-    auto it = articleSet.find(title);
+  auto it = articleSet.find(title);
 
-    if(articleSet.end() == it) {
-        return nullptr;
-    }
+  if(articleSet.end() == it) {
+    return nullptr;
+  }
 
-    return it->second;
+  return it->second;
 }
 
 bool ArticleCollection::add(std::shared_ptr<Article> article)
 {
-    auto ret = articleSet.insert(std::make_pair(article->getTitle(), article));
-    return ret.second;
+  auto ret = articleSet.insert(std::make_pair(article->getTitle(), article));
+  return ret.second;
 }
 
 ArticleCollection::iterator ArticleCollection::begin()
 {
-    return articleSet.begin();
+  return articleSet.begin();
 }
 
 ArticleCollection::iterator ArticleCollection::end()
 {
-    return articleSet.end();
+  return articleSet.end();
 }
 
 ArticleCollection::const_iterator ArticleCollection::begin() const
 {
-    return articleSet.begin();
+  return articleSet.begin();
 }
 
 ArticleCollection::const_iterator ArticleCollection::end() const
 {
-    return articleSet.end();
+  return articleSet.end();
 }
