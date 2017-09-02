@@ -2,7 +2,7 @@
 
 #include <UnitTest++/UnitTest++.h>
 
-#include "../src/CurlUrlCreator.h"
+#include "CurlUrlCreator.h"
 
 SUITE(CurlUrlCreatorTests)
 {

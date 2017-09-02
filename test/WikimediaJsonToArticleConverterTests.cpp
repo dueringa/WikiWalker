@@ -1,8 +1,8 @@
 #include <UnitTest++/UnitTest++.h>
 
-#include "../src/WikimediaJsonToArticleConverter.h"
-#include "../src/Article.h"
-#include "../src/WalkerException.h"
+#include "Article.h"
+#include "WalkerException.h"
+#include "WikimediaJsonToArticleConverter.h"
 
 SUITE(WikimediaJsonToArticleConverterTests)
 {

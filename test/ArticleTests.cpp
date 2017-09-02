@@ -1,12 +1,12 @@
 #include <UnitTest++/UnitTest++.h>
 
 #include <algorithm>
-#include <vector>
-#include <memory>
 #include <iterator>
+#include <memory>
+#include <vector>
 
-#include "../src/Article.h"
-#include "../src/WalkerException.h"
+#include "Article.h"
+#include "WalkerException.h"
 
 SUITE(ArticleTests)
 {

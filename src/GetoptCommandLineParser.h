@@ -1,9 +1,9 @@
 #ifndef GETOPTCOMMANDLINEPARSER_H
 #define GETOPTCOMMANDLINEPARSER_H
 
-#include "CommandLineParserBase.h"
-
 #include <map>
+
+#include "CommandLineParserBase.h"
 
 class GetoptCommandLineParser : public CommandLineParserBase
 {

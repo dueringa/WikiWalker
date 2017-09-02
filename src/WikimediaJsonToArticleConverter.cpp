@@ -1,10 +1,11 @@
 //! \file WikimediaJsonToArticleConverter.cpp
 
 #include "WikimediaJsonToArticleConverter.h"
-#include "WalkerException.h"
-#include "Article.h"
 
 #include <json/json.h>
+
+#include "Article.h"
+#include "WalkerException.h"
 
 //! \todo really ugly workaround, passing in the ArticleCollection instance...
 //! :/

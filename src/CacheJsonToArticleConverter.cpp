@@ -4,8 +4,8 @@
 
 #include <json/json.h>
 
-#include "WalkerException.h"
 #include "Article.h"
+#include "WalkerException.h"
 
 ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
     const std::string& json,

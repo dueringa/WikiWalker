@@ -1,10 +1,10 @@
 //! \file main.cpp
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
-#include "WikiWalker.h"
 #include "ToGraphvizWriter.h"
+#include "WikiWalker.h"
 #include "version.h"
 
 #include "config.h"

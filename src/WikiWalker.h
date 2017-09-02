@@ -4,8 +4,8 @@
 #define WIKIWALKER_H
 
 #include <string>
-#include "Walker.h"
 #include "CurlWikiGrabber.h"
+#include "Walker.h"
 
 //! main "app" class
 class WikiWalker : public Walker

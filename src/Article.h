@@ -3,9 +3,9 @@
 #ifndef ARTICLE_H
 #define ARTICLE_H
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 /*!
  * represents a Wikipedia (Mediawiki) article and its links

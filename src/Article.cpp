@@ -1,8 +1,10 @@
 //! \file Article.cpp
 
 #include "Article.h"
-#include "WalkerException.h"
+
 #include <algorithm>
+
+#include "WalkerException.h"
 
 size_t Article::getNumLinks() const
 {

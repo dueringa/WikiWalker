@@ -14,6 +14,7 @@ include_directories(
     ${UT_INCLUDE_DIRS}
     ${CURL_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/
     ${UTPP_INCLUDE_DIRS}
 )
 

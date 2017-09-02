@@ -1,12 +1,12 @@
 //! \file CurlWikiGrabber.cpp
 
 #include "CurlWikiGrabber.h"
-#include "WalkerException.h"
 
-#ifndef DEBUG
-#define NDEBUG
-#endif
 #include <cassert>
+
+#include <curl/curl.h>
+
+#include "WalkerException.h"
 
 static size_t write_callback(char* ptr,
                              size_t size,
@@ -24,6 +24,11 @@ CurlWikiGrabber::CurlWikiGrabber()
   if(error != 0) {
     throw WalkerException("CURL init failed");
   }
+}
+
+CurlWikiGrabber::~CurlWikiGrabber()
+{
+  curl_global_cleanup();
 }
 
 //! \todo Curl return code checking

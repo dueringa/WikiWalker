@@ -1,8 +1,8 @@
 #include "GetoptCommandLineParser.h"
 
 #include <getopt.h>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 #include "WalkerException.h"
 

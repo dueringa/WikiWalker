@@ -1,10 +1,10 @@
-#include <UnitTest++/UnitTest++.h>
-
 #include <fstream>
 #include <memory>
 
-#include "../src/ToGraphvizWriter.h"
-#include "../src/Article.h"
+#include <UnitTest++/UnitTest++.h>
+
+#include "Article.h"
+#include "ToGraphvizWriter.h"
 
 // these test always pass, unless exceptions occur
 //! TODO: try to initialize some variables only in one place

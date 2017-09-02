@@ -4,7 +4,6 @@
 #define CURL_WIKI_GRABBER_H
 
 #include <string>
-#include <curl/curl.h>
 
 //! Class responsible for grabbing the contents / links of an article
 class CurlWikiGrabber
@@ -15,10 +14,7 @@ public:
    */
   CurlWikiGrabber();
 
-  ~CurlWikiGrabber()
-  {
-    curl_global_cleanup();
-  }
+  ~CurlWikiGrabber();
 
   /*! given an URL, return article JSON data
    * \param url URL of the article

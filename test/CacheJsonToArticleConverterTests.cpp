@@ -1,9 +1,9 @@
+#include <memory>
+
 #include <UnitTest++/UnitTest++.h>
 
-#include "../src/CacheJsonToArticleConverter.h"
-#include "../src/Article.h"
-
-#include <memory>
+#include "Article.h"
+#include "CacheJsonToArticleConverter.h"
 
 SUITE(CacheJsonToArticleConverterTests)
 {

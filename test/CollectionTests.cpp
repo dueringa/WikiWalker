@@ -1,9 +1,9 @@
+#include <memory>
+
 #include <UnitTest++/UnitTest++.h>
 
-#include "../src/ArticleCollection.h"
-#include "../src/Article.h"
-
-#include <memory>
+#include "Article.h"
+#include "ArticleCollection.h"
 
 SUITE(CollectionTests)
 {

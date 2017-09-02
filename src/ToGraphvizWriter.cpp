@@ -3,11 +3,10 @@
 #include "ToGraphvizWriter.h"
 
 #include <string>
-
-#include "Article.h"
-
 // uh-oh...
 #include <regex>
+
+#include "Article.h"
 
 void ToGraphvizWriter::writeHeader(std::ostream& os)
 {

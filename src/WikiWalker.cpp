@@ -2,16 +2,16 @@
 
 #include "WikiWalker.h"
 
-#include <iostream>
-#include <fstream>
 #include <cassert>
+#include <fstream>
+#include <iostream>
 
-#include "WikimediaJsonToArticleConverter.h"
-#include "CurlUrlCreator.h"
 #include "Article.h"
-#include "WalkerException.h"
-#include "ToJsonWriter.h"
 #include "CacheJsonToArticleConverter.h"
+#include "CurlUrlCreator.h"
+#include "ToJsonWriter.h"
+#include "WalkerException.h"
+#include "WikimediaJsonToArticleConverter.h"
 
 void WikiWalker::startWalking(const std::string& url)
 {

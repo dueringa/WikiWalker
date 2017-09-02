@@ -3,8 +3,8 @@
 #ifndef WALKEREXCEPTION_H
 #define WALKEREXCEPTION_H
 
-#include <string>
 #include <stdexcept>
+#include <string>
 
 //! (base) class for exceptions in WikiWalker
 class WalkerException : public std::runtime_error

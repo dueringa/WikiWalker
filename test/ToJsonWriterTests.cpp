@@ -1,10 +1,10 @@
 #include <UnitTest++/UnitTest++.h>
 
-#include "../src/ToJsonWriter.h"
-#include "../src/Article.h"
-
 #include <memory>
 #include <sstream>
+
+#include "Article.h"
+#include "ToJsonWriter.h"
 
 SUITE(ArticleToJsonWriterTests)
 {
