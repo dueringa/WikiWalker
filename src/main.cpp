@@ -9,8 +9,6 @@
 
 #include "config.h"
 
-using namespace std;
-
 int main(int argc, char** argv)
 {
 #if defined(WW_USE_BOOST_PO)
@@ -22,7 +20,7 @@ int main(int argc, char** argv)
   try {
     cmdp.parse(argc, argv);
   } catch(std::exception& e) {
-    cerr << endl << e.what() << endl;
+    std::cerr << std::endl << e.what() << std::endl;
     cmdp.printHelp();
     return -1;
   }
@@ -43,8 +41,8 @@ int main(int argc, char** argv)
   bool validRunConfig = isUrlSet || (isDotSet && isCacheSet);
 
   if(!validRunConfig) {
-    cerr << "Must either specify at least URL, "
-         << "or dot and cache file." << endl;
+    std::cerr << "Must either specify at least URL, "
+              << "or dot and cache file." << std::endl;
     cmdp.printHelp();
     return 1;
   }
@@ -57,7 +55,7 @@ int main(int argc, char** argv)
       std::string cachefile = cmdp.getValue("json-cache");
       w.readCache(cachefile);
     } catch(std::exception& e) {
-      std::cout << e.what() << endl;
+      std::cout << e.what() << std::endl;
       read_failed = true;
     }
   }
@@ -67,7 +65,7 @@ int main(int argc, char** argv)
       std::string url = cmdp.getValue("url");
       w.startWalking(url);
     } catch(std::exception& e) {
-      cout << "Error " << e.what() << endl;
+      std::cout << "Error " << e.what() << std::endl;
       return -1;
     }
   }
@@ -76,12 +74,13 @@ int main(int argc, char** argv)
     std::string cachefile = cmdp.getValue("json-cache");
     if(read_failed) {
       cachefile.append("_");
-      cout << "Reading from cache failed, write to " << cachefile << endl;
+      std::cout << "Reading from cache failed, write to " << cachefile
+                << std::endl;
     }
     try {
       w.writeCache(cachefile);
     } catch(std::exception& e) {
-      cout << "Error: " << e.what() << endl;
+      std::cout << "Error: " << e.what() << std::endl;
     }
   }
 
@@ -89,16 +88,16 @@ int main(int argc, char** argv)
     const ArticleCollection& ac = w.getCollection();
     std::string outfile         = cmdp.getValue("dot-out");
     ToGraphvizWriter tgw;
-    ofstream file(outfile, ios::trunc | ios::out);
+    std::ofstream file(outfile, std::ios::trunc | std::ios::out);
 
     if(file.fail()) {
-      cerr << "Error opening dot out file for writing" << endl;
+      std::cerr << "Error opening dot out file for writing" << std::endl;
     } else {
       tgw.output(ac, file);
       file.flush();
 
       if(file.bad() || file.fail()) {
-        cerr << "Error during writing dot out file." << endl;
+        std::cerr << "Error during writing dot out file." << std::endl;
       }
 
       file.close();
