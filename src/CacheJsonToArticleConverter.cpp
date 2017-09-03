@@ -2,6 +2,8 @@
 
 #include "CacheJsonToArticleConverter.h"
 
+#include <memory>
+
 #include <json/json.h>
 
 #include "Article.h"

@@ -6,6 +6,7 @@
 #include "ArticleCollection.h"
 
 #include <memory>
+#include <string>
 
 //! convert links in json form to article
 class WikimediaJsonToArticleConverter

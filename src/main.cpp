@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <string>
 
 #include "ToGraphvizWriter.h"
 #include "WikiWalker.h"

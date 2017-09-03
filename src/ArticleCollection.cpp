@@ -2,6 +2,8 @@
 
 #include "ArticleCollection.h"
 
+#include <utility>
+
 #include "Article.h"
 
 /*! \todo I'm not exactly happy with returning a shared_ptr. Return

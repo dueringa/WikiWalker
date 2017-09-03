@@ -3,6 +3,8 @@
 #ifndef BOOSTPOCOMMANDLINEPARSER_H
 #define BOOSTPOCOMMANDLINEPARSER_H
 
+#include <string>
+
 #include "CommandLineParserBase.h"
 
 #include <boost/exception/diagnostic_information.hpp>

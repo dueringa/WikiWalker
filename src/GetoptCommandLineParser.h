@@ -2,6 +2,7 @@
 #define GETOPTCOMMANDLINEPARSER_H
 
 #include <map>
+#include <string>
 
 #include "CommandLineParserBase.h"
 

@@ -3,6 +3,8 @@
 #ifndef CACHEJSONTOARTICLECONVERTER_H
 #define CACHEJSONTOARTICLECONVERTER_H
 
+#include <string>
+
 #include "ArticleCollection.h"
 
 /*! Read Article from JSON cache file.
