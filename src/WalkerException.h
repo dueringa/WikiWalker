@@ -17,7 +17,7 @@ public:
    *
    * \param exmessage The exception message.
    */
-  WalkerException(std::string exmessage) : runtime_error(exmessage)
+  explicit WalkerException(std::string exmessage) : runtime_error(exmessage)
   {
   }
 };

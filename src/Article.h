@@ -23,7 +23,7 @@ public:
   /*! Create a new article from a title
    * \param articleTitle The title of the article
    */
-  Article(std::string articleTitle)
+  explicit Article(std::string articleTitle)
       : title(articleTitle), analyzed(false), marked(false)
   {
   }
