@@ -10,8 +10,8 @@
 class ToGraphvizWriter : public DataOutputBase
 {
 public:
-  virtual void output(const Article* a, std::ostream& os) override;
-  virtual void output(const ArticleCollection& ac, std::ostream& os) override;
+  void output(const Article* a, std::ostream& os) override;
+  void output(const ArticleCollection& ac, std::ostream& os) override;
 
 private:
   void writeHeader(std::ostream& os);

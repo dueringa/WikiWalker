@@ -11,10 +11,10 @@ class GetoptCommandLineParser : public CommandLineParserBase
 public:
   virtual ~GetoptCommandLineParser();
 
-  virtual std::string getValue(std::string option);
-  virtual bool hasSet(std::string flag);
-  virtual void parse(int argc, char** argv);
-  virtual void printHelp();
+  std::string getValue(std::string option) override;
+  bool hasSet(std::string flag) override;
+  void parse(int argc, char** argv) override;
+  void printHelp() override;
 
 private:
   std::map<std::string, std::string> setOptions;

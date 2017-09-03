@@ -18,10 +18,10 @@ class BoostPoCommandLineParser : public CommandLineParserBase
 public:
   BoostPoCommandLineParser();
 
-  virtual std::string getValue(std::string option) override;
-  virtual bool hasSet(std::string flag) override;
-  virtual void parse(int argc, char** argv) override;
-  virtual void printHelp() override;
+  std::string getValue(std::string option) override;
+  bool hasSet(std::string flag) override;
+  void parse(int argc, char** argv) override;
+  void printHelp() override;
 
 private:
   po::options_description cmdOptions;
