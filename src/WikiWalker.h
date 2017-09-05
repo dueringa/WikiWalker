@@ -18,12 +18,12 @@ public:
 
   /*! Read data from cache file.
    * Used for initialization.
-   * \param cache file name of the cache.
+   * \param cacheFile file name of the cache.
    */
   void readCache(const std::string& cacheFile);
 
   /*! Write data to cache file.
-   * \param cache file name of the cache.
+   * \param cacheFile file name of the cache.
    */
   void writeCache(const std::string& cacheFile);
 

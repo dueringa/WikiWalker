@@ -9,6 +9,10 @@
 class Walker
 {
 public:
+  /*! get the ArticleCollection with stored articles
+   * \returns const reference to collection with stored reference
+   * \todo looks code-smelly, is this really neccessary?
+   */
   const ArticleCollection& getCollection() const
   {
     return articleSet;

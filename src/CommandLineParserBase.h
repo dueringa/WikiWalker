@@ -1,4 +1,4 @@
-//! \file ACommandLineParser.h
+//! \file CommandLineParserBase.h
 
 #ifndef ACOMMANDLINEPARSER_H
 #define ACOMMANDLINEPARSER_H

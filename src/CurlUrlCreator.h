@@ -13,7 +13,9 @@
 class CurlUrlCreator
 {
 public:
-  //! Create a new instance, given a base URL
+  /*! Create a new instance, given a base URL
+   * \param baseUrl Base URL that will be used for adding parameters
+   */
   explicit CurlUrlCreator(std::string baseUrl);
 
   //! delete copy constructor, because of CURL handle

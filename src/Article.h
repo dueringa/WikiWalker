@@ -65,7 +65,9 @@ public:
    */
   void setAnalyzed(bool analyzed);
 
-  //! Get state if article was analyzed (for out links)
+  /*! Get state if article was analyzed (for out links).
+   * \returns whether article was analyzed for outgoing links
+   */
   bool isAnalyzed() const;
 
   /*! Set article to be marked.
@@ -80,10 +82,14 @@ public:
    */
   bool isMarked() const;
 
-  /*! Get const_iterator to first linked article */
+  /*! Get const_iterator to first linked article
+   * \returns const iterator to beginning of linked articles
+   */
   ArticleLinkConstIterator linkBegin() const;
 
-  /*! Get const_iterator to last linked article */
+  /*! Get const_iterator to last linked article
+   * \returns const iterator to end of linked articles (behind last one)
+   */
   ArticleLinkConstIterator linkEnd() const;
 
 private:

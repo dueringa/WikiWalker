@@ -33,7 +33,9 @@ public:
    */
   bool add(std::shared_ptr<Article> article);
 
-  //! get number of articles in collection
+  /*! get number of articles in collection
+   * \returns number of articles in collection
+   */
   size_t getNumArticles() const
   {
     return articleSet.size();

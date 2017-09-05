@@ -6,6 +6,7 @@
 
 #include "CommandLineParserBase.h"
 
+//! command line parser using getopt functions
 class GetoptCommandLineParser : public CommandLineParserBase
 {
 public:
