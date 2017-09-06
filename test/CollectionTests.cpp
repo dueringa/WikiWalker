@@ -58,4 +58,19 @@ SUITE(CollectionTests)
     w.add(la1);
     CHECK(w.get("Queen") == nullptr);
   }
+
+  ArticleCollection GetArticleCollection()
+  {
+    ArticleCollection ac;
+    ac.add(std::make_shared<Article>("Foo"));
+    ac.add(std::make_shared<Article>("Bar"));
+    return ac;
+  }
+
+  TEST(ArticleCollection_CreationViaMoveConstructor)
+  {
+    auto ac = GetArticleCollection();
+    CHECK_EQUAL(2, ac.getNumArticles());
+    CHECK(ac.get("Foo") != nullptr);
+  }
 }

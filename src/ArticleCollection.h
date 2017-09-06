@@ -71,10 +71,21 @@ public:
    */
   const_iterator end() const;
 
-  //! deleted copy constructor. Because it stores raw pointers.
+  /*! deleted copy constructor. Because it stores pointers and I don't want to
+   *  do deep copying.
+   */
   ArticleCollection(const ArticleCollection&) = delete;
-  //! deleted copy assignment. Because it stores raw pointers.
+
+  /*! deleted copy assignment.  Because it stores pointers and I don't want to
+   * do deep copying.
+   */
   ArticleCollection& operator=(const ArticleCollection&) = delete;
+
+  //! default move constructor
+  ArticleCollection(ArticleCollection&&) = default;
+
+  //! default move assignment
+  ArticleCollection& operator=(ArticleCollection&&) = default;
 
 private:
   // we need to avoid duplicate article instances.
