@@ -7,6 +7,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 option(WW_WITH_TESTS "also build tests" OFF)
 
+enable_testing()
+
 # Projects
 add_subdirectory(${CMAKE_SOURCE_DIR}/src)
 

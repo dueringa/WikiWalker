@@ -41,3 +41,5 @@ target_link_libraries(run_tests
     ${CURL_LIBRARIES}
     "UnitTest++"
 )
+
+add_test(NAME unittest COMMAND run_tests)
