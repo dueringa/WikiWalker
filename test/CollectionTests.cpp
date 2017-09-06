@@ -75,4 +75,25 @@ SUITE(CollectionTests)
     CHECK_EQUAL(2, ac.getNumArticles());
     CHECK(ac.get("Foo") != nullptr);
   }
+
+  TEST(ArticleCollection_TestMerge)
+  {
+    ArticleCollection ac1;
+    ac1.add(std::make_shared<Article>("ManaMana"));
+    ac1.add(std::make_shared<Article>("Dragon"));
+    ac1.add(std::make_shared<Article>("Cereals"));
+
+    {
+      ArticleCollection ac2;
+      ac2.add(std::make_shared<Article>("Dragon"));
+      ac2.add(std::make_shared<Article>("Git"));
+      ac2.add(std::make_shared<Article>("Stroustrup"));
+      ac1.merge(ac2);
+
+      CHECK_EQUAL(5, ac1.getNumArticles());
+      CHECK_EQUAL(3, ac2.getNumArticles());
+    }
+    // check again after scope is left
+    CHECK_EQUAL(5, ac1.getNumArticles());
+  }
 }

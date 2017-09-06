@@ -30,6 +30,8 @@ namespace WikiWalker
     //! constant iterator type
     using const_iterator = storage_type::const_iterator;
 
+    ArticleCollection() = default;
+
     /*! add article to collection.
      * \param article article to add
      * \return true if insertion took place
@@ -46,15 +48,18 @@ namespace WikiWalker
       return articleSet.size();
     }
 
+    /*! merge another ArticleCollection into the current one
+     * \param[in] other collection to merge into the current one
+     * \detail articles already present in current collection will be ignored.
+     * other collection is left unmodified.
+     */
+    void merge(const ArticleCollection& other);
+
     /*! get pointer to article.
      * \param title title of the article to request
      * \return pointer to article, or nullptr, if not found
      */
     std::shared_ptr<Article> get(const std::string& title);
-
-    ArticleCollection()
-    {
-    }
 
     /*! Returns an iterator to the first article in the collection.
      * \returns iterator to the first article
