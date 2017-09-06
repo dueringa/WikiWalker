@@ -86,6 +86,7 @@ add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WikipediaSource.cpp
 )
 
 add_executable(walker
