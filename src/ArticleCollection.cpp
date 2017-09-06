@@ -25,6 +25,11 @@ bool ArticleCollection::add(std::shared_ptr<Article> article)
   return ret.second;
 }
 
+void ArticleCollection::merge(const ArticleCollection& other)
+{
+  articleSet.insert(other.begin(), other.end());
+}
+
 ArticleCollection::iterator ArticleCollection::begin()
 {
   return articleSet.begin();

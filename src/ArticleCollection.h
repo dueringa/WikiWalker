@@ -41,15 +41,18 @@ public:
     return articleSet.size();
   }
 
+  /*! merge another ArticleCollection into the current one
+   * \param[in] other collection to merge into the current one
+   * \detail articles already present in current collection will be ignored.
+   * other collection is left unmodified.
+   */
+  void merge(const ArticleCollection& other);
+
   /*! get pointer to article.
    * \param title title of the article to request
    * \return pointer to article, or nullptr, if not found
    */
   std::shared_ptr<Article> get(const std::string& title);
-
-  ArticleCollection()
-  {
-  }
 
   /*! Returns an iterator to the first article in the collection.
    * \returns iterator to the first article
@@ -72,6 +75,8 @@ public:
    * \returns constant iterator to element after last article
    */
   const_iterator end() const;
+
+  ArticleCollection() = default;
 
   /*! deleted copy constructor. Because it stores pointers and I don't want to
    *  do deep copying.
