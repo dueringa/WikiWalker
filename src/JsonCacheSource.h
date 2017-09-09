@@ -16,7 +16,15 @@ public:
    */
   JsonCacheSource(std::string pathToFile);
 
+  /*! read data from file specified in constructor.
+   * \returns ArticleCollection created from articles in file
+   * \details if file doesn't exist, or can't read from it, returns empty
+   * ArticleCollection
+   */
   ArticleCollection fetch() override;
+
+private:
+  std::string fileName;
 };
 
 #endif  // JSONCACHESOURCE_H_
