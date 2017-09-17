@@ -16,6 +16,15 @@ class Article;
 class ArticleCollection
 {
 public:
+  //! strategy for merging ArticleCollections
+  enum class MergeStrategy {
+    //! ignore duplicates, always keep current entry
+    IgnoreDuplicates,
+    //! always overwrite with articles from other collection
+    AlwaysOverwrite,
+    // todo: ArticleWithMoreLinks
+  };
+
   //! The way that articles are stored inside
   using storage_type = std::map<std::string, std::shared_ptr<Article>>;
 
@@ -43,10 +52,11 @@ public:
 
   /*! merge another ArticleCollection into the current one
    * \param[in] other collection to merge into the current one
+   * \param[in] strategy merge stratgy to use
    * \detail articles already present in current collection will be ignored.
    * other collection is left unmodified.
    */
-  void merge(const ArticleCollection& other);
+  void merge(const ArticleCollection& other, MergeStrategy strategy);
 
   /*! get pointer to article.
    * \param title title of the article to request

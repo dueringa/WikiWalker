@@ -86,7 +86,7 @@ SUITE(CollectionTests)
       ac2.add(std::make_shared<Article>("Dragon"));
       ac2.add(std::make_shared<Article>("Git"));
       ac2.add(std::make_shared<Article>("Stroustrup"));
-      ac1.merge(ac2);
+      ac1.merge(ac2, ArticleCollection::MergeStrategy::IgnoreDuplicates);
 
       CHECK_EQUAL(5, ac1.getNumArticles());
       CHECK_EQUAL(3, ac2.getNumArticles());

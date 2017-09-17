@@ -91,7 +91,7 @@ void WikiWalker::startWalking(const std::string& url)
 void WikiWalker::readCache(const std::string& cacheFile)
 {
   JsonCacheSource ac(cacheFile);
-  articleSet.merge(ac.fetch());
+  articleSet.merge(ac.fetch(), ArticleCollection::MergeStrategy::IgnoreDuplicates);
 }
 
 void WikiWalker::writeCache(const std::string& cacheFile)
