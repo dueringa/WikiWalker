@@ -22,7 +22,8 @@ public:
     IgnoreDuplicates,
     //! always overwrite with articles from other collection
     AlwaysOverwrite,
-    // todo: ArticleWithMoreLinks
+    //! use the article with more links
+    UseArticleWithMoreLinks
   };
 
   //! The way that articles are stored inside
