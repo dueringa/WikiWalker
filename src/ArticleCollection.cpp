@@ -5,6 +5,7 @@
 #include <utility>
 
 #include "Article.h"
+#include "WalkerException.h"
 
 using namespace WikiWalker;
 
@@ -27,9 +28,16 @@ bool ArticleCollection::add(std::shared_ptr<Article> article)
   return ret.second;
 }
 
-void ArticleCollection::merge(const ArticleCollection& other)
+void ArticleCollection::merge(const ArticleCollection& other,
+                              ArticleCollection::MergeStrategy strategy)
 {
-  articleSet.insert(other.begin(), other.end());
+  switch(strategy) {
+    case ArticleCollection::MergeStrategy::IgnoreDuplicates:
+      articleSet.insert(other.begin(), other.end());
+      break;
+    default:
+      throw WalkerException("Not supported");
+  }
 }
 
 ArticleCollection::iterator ArticleCollection::begin()
