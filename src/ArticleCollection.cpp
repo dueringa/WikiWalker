@@ -40,6 +40,28 @@ void ArticleCollection::merge(const ArticleCollection& other,
         articleSet[art.first] = art.second;
       }
       break;
+    case ArticleCollection::MergeStrategy::UseArticleWithMoreLinks:
+      for(const auto& art : other) {
+        auto articleInThis = articleSet[art.first];
+        auto& otherArt     = art.second;
+
+        if(articleInThis == nullptr ||
+           (!articleInThis->isAnalyzed() && otherArt->isAnalyzed())) {
+          articleSet[art.first] = art.second;
+          continue;
+        }
+
+        if(!otherArt->isAnalyzed()) {
+          continue;
+        }
+
+        auto linksInThis  = articleInThis->getNumLinks();
+        auto linksInOther = otherArt->getNumLinks();
+        if(linksInOther > linksInThis) {
+          articleSet[art.first] = art.second;
+        }
+      }
+      break;
     default:
       throw WalkerException("Not supported");
   }
