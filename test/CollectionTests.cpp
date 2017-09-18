@@ -224,6 +224,44 @@ SUITE(CollectionTests)
     }
   }
 
+  void checkMoreLinks(ArticleCollection & ac)
+  {
+    auto ptr = ac.get("Dragon");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(3, ptr->getNumLinks());
+
+    ptr = ac.get("Cat");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(2, ptr->getNumLinks());
+
+    ptr = ac.get("Window");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(2, ptr->getNumLinks());
+  }
+
+  TEST(ArticleCollection_TestMergeMoreLinks)
+  {
+    {
+      ArticleCollection a1, a2;
+      createArticlesAndFillFirst(a1);
+      createArticlesAndFillSecond(a2);
+      a1.merge(a2, ArticleCollection::MergeStrategy::UseArticleWithMoreLinks);
+      CHECK_EQUAL(15, a1.getNumArticles());
+
+      checkMoreLinks(a1);
+    }
+    {
+      ArticleCollection a1, a2;
+      createArticlesAndFillFirst(a1);
+      createArticlesAndFillSecond(a2);
+      // reverse merge
+      a2.merge(a1, ArticleCollection::MergeStrategy::UseArticleWithMoreLinks);
+      CHECK_EQUAL(15, a2.getNumArticles());
+
+      checkMoreLinks(a2);
+    }
+  }
+
   TEST(ArticleCollection_TestMerge)
   {
     ArticleCollection ac1;
