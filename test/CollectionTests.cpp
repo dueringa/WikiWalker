@@ -151,6 +151,42 @@ SUITE(CollectionTests)
     ac.add(b9);
   }
 
+  // check when first half is preferred
+  void checkFirst(ArticleCollection & c1)
+  {
+    CHECK_EQUAL(15, c1.getNumArticles());
+
+    auto ptr = c1.get("Dragon");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(3, ptr->getNumLinks());
+
+    ptr = c1.get("Cat");
+    CHECK(ptr != nullptr);
+    CHECK_THROW(ptr->getNumLinks(), WalkerException);
+
+    ptr = c1.get("Window");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(1, ptr->getNumLinks());
+  }
+
+  // check second half is preferred
+  void checkSecond(ArticleCollection & c2)
+  {
+    CHECK_EQUAL(15, c2.getNumArticles());
+
+    auto ptr = c2.get("Dragon");
+    CHECK(ptr != nullptr);
+    CHECK_THROW(ptr->getNumLinks(), WalkerException);
+
+    ptr = c2.get("Cat");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(2, ptr->getNumLinks());
+
+    ptr = c2.get("Window");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(2, ptr->getNumLinks());
+  }
+
   TEST(ArticleCollection_TestMergeIgnore)
   {
     {
@@ -158,20 +194,7 @@ SUITE(CollectionTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       a1.merge(a2, ArticleCollection::MergeStrategy::IgnoreDuplicates);
-
-      CHECK_EQUAL(15, a1.getNumArticles());
-
-      auto ptr = a1.get("Dragon");
-      CHECK(ptr != nullptr);
-      CHECK_EQUAL(3, ptr->getNumLinks());
-
-      ptr = a1.get("Cat");
-      CHECK(ptr != nullptr);
-      CHECK_THROW(ptr->getNumLinks(), WalkerException);
-
-      ptr = a1.get("Window");
-      CHECK(ptr != nullptr);
-      CHECK_EQUAL(1, ptr->getNumLinks());
+      checkFirst(a1);
     }
     {
       ArticleCollection a1, a2;
@@ -179,19 +202,27 @@ SUITE(CollectionTests)
       createArticlesAndFillSecond(a2);
       // reverse merge
       a2.merge(a1, ArticleCollection::MergeStrategy::IgnoreDuplicates);
-      CHECK_EQUAL(15, a2.getNumArticles());
+      checkSecond(a2);
+    }
+  }
 
-      auto ptr = a2.get("Dragon");
-      CHECK(ptr != nullptr);
-      CHECK_THROW(ptr->getNumLinks(), WalkerException);
-
-      ptr = a2.get("Cat");
-      CHECK(ptr != nullptr);
-      CHECK_EQUAL(2, ptr->getNumLinks());
-
-      ptr = a2.get("Window");
-      CHECK(ptr != nullptr);
-      CHECK_EQUAL(2, ptr->getNumLinks());
+  // overwrite behaves "exactly the opposite" of ignore
+  TEST(ArticleCollection_TestMergeOverwrite)
+  {
+    {
+      ArticleCollection a1, a2;
+      createArticlesAndFillFirst(a1);
+      createArticlesAndFillSecond(a2);
+      a1.merge(a2, ArticleCollection::MergeStrategy::AlwaysOverwrite);
+      checkSecond(a1);
+    }
+    {
+      ArticleCollection a1, a2;
+      createArticlesAndFillFirst(a1);
+      createArticlesAndFillSecond(a2);
+      // reverse merge
+      a2.merge(a1, ArticleCollection::MergeStrategy::AlwaysOverwrite);
+      checkFirst(a2);
     }
   }
 

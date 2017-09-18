@@ -35,6 +35,11 @@ void ArticleCollection::merge(const ArticleCollection& other,
     case ArticleCollection::MergeStrategy::IgnoreDuplicates:
       articleSet.insert(other.begin(), other.end());
       break;
+    case ArticleCollection::MergeStrategy::AlwaysOverwrite:
+      for(const auto& art : other) {
+        articleSet[art.first] = art.second;
+      }
+      break;
     default:
       throw WalkerException("Not supported");
   }
