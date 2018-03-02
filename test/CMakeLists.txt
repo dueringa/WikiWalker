@@ -18,7 +18,7 @@ include_directories(
     ${UTPP_INCLUDE_DIRS}
 )
 
-add_executable(run_tests
+add_executable(execute_tests
     $<TARGET_OBJECTS:WikiWalkerSource>
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CollectionTests.cpp
@@ -32,14 +32,14 @@ add_executable(run_tests
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
-set_property(TARGET run_tests PROPERTY CXX_STANDARD 11)
-set_property(TARGET run_tests PROPERTY CXX_STANDARD_REQUIRED ON)
-set_property(TARGET run_tests PROPERTY CXX_EXTENSIONS OFF)
+set_property(TARGET execute_tests PROPERTY CXX_STANDARD 11)
+set_property(TARGET execute_tests PROPERTY CXX_STANDARD_REQUIRED ON)
+set_property(TARGET execute_tests PROPERTY CXX_EXTENSIONS OFF)
 
-target_link_libraries(run_tests
+target_link_libraries(execute_tests
     ${UT_LDFLAGS}
     ${CURL_LIBRARIES}
     "UnitTest++"
 )
 
-add_test(NAME unittest COMMAND run_tests)
+add_test(NAME unittest COMMAND execute_tests)
