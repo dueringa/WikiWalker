@@ -1,13 +1,14 @@
 cmake_minimum_required(VERSION 3.1.0)
-project(WikiWalker)
+project(WikiWalker VERSION 0.1.2)
 
-set(walker_version "v0.1.2")
+set(walker_version "v${PROJECT_VERSION}")
 
 ADD_CUSTOM_TARGET(
     gitversion
     ${CMAKE_COMMAND}
     -D SRC=${CMAKE_CURRENT_SOURCE_DIR}
     -D BIN=${CMAKE_CURRENT_BINARY_DIR}
+    -D walker_version=${walker_version}
     -P ${CMAKE_CURRENT_SOURCE_DIR}/version.cmake
 )
 
