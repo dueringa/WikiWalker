@@ -93,15 +93,13 @@ void WikiWalker::readCache(const std::string& cacheFile)
   std::ifstream cache(cacheFile);
 
   // assumption: having write-only access to a file is so rare that I don't care
+  // also, currently the file is used for both read and write, so initially it
+  // won't exist.
   if(!cache.is_open()) {
     return;
   }
 
-  std::string json;
-
-  //! \todo what happend with megabyte-big data? looks like str.max_size is the
-  //! limit
-  std::getline(cache, json);
+  cjta.convertToArticle(cache, articleSet);
 
   assert(cache.eof());
 
@@ -109,8 +107,6 @@ void WikiWalker::readCache(const std::string& cacheFile)
     cache.close();
     throw WalkerException("Error reading from file");
   }
-
-  cjta.convertToArticle(json, articleSet);
 }
 
 void WikiWalker::writeCache(const std::string& cacheFile)

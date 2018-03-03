@@ -10,7 +10,7 @@
 #include "WalkerException.h"
 
 ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
-    const std::string& json,
+    std::istream& json,
     ArticleCollection& articleCache)
 {
   Json::Reader reader;
@@ -59,6 +59,14 @@ ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
 
   return articleCache;
   /*
-      a->setAnalyzed(true); ?
-  */
+   * a->setAnalyzed(true); ?
+   */
+}
+
+ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
+    const std::string& json,
+    ArticleCollection& articleCache)
+{
+  std::istringstream jsonStream(json);
+  return convertToArticle(jsonStream, articleCache);
 }
