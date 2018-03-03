@@ -4,9 +4,8 @@
 
 #include <iostream>
 
-BoostPoCommandLineParser::BoostPoCommandLineParser() :
-    cmdOptions("Allowed options"),
-    input("Input URLs")
+BoostPoCommandLineParser::BoostPoCommandLineParser()
+    : cmdOptions("Allowed options"), input("Input URLs")
 {
   cmdOptions.add_options()
     ("version,v", "produce version message")

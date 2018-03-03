@@ -28,7 +28,7 @@ public:
   /*! get argument of switch (if available)
    * \param option command line switch without leading dash
    * \returns value as string
-  */
+   */
   virtual std::string getValue(std::string option) = 0;
 
   /*! Print usage help
