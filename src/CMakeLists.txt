@@ -3,28 +3,12 @@ project(WikiWalker)
 
 set(walker_version "v0.1.2")
 
-execute_process(
-    COMMAND
-    git -C ${CMAKE_CURRENT_SOURCE_DIR} describe --always --dirty --tags
-    RESULT_VARIABLE GIT_RETCODE
-    OUTPUT_VARIABLE GIT_OUTPUT_VERSION
-    ERROR_VARIABLE GIT_RAN_ERROR
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-
-# exit status 0 means successful
-if(GIT_RETCODE)
-    set(GIT_RAN_SUCCESSFULLY 0)
-else() # GIT_RETCODE
-    set(GIT_RAN_SUCCESSFULLY 1)
-endif() #GIT_RETCODE
-
-# also, project_...?
-# overwriting version.h in ok (?), I want the generated one to be preferred
-# and I guess include_directories in only appended...
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/version.h.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/version.h"
+ADD_CUSTOM_TARGET(
+    gitversion
+    ${CMAKE_COMMAND}
+    -D SRC=${CMAKE_CURRENT_SOURCE_DIR}
+    -D BIN=${CMAKE_CURRENT_BINARY_DIR}
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/version.cmake
 )
 
 find_package(CURL REQUIRED)
@@ -137,3 +121,5 @@ install(TARGETS walker DESTINATION bin)
 enable_testing()
 add_test(NAME versiondisplay
     COMMAND walker -v)
+
+ADD_DEPENDENCIES(walker gitversion)
