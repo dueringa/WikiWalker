@@ -18,6 +18,7 @@ endif() #WW_WITH_TESTS
 
 add_custom_target(
     doc
-    doxygen
+    COMMAND doxygen
+    COMMAND echo "Documentation built in ${CMAKE_SOURCE_DIR}/doc/"
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/doc/
 )
