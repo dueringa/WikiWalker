@@ -42,10 +42,9 @@ std::string ToJsonWriter::convertToJson(const Article* a)
 
   val[a->getTitle()] = linkObj;
 
-  Json::FastWriter jsw;
-  jsw.omitEndingLineFeed();
-
-  return jsw.write(val);
+  Json::StreamWriterBuilder swb;
+  swb["indentation"] = "";
+  return Json::writeString(swb, val);
 }
 
 std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
@@ -64,10 +63,9 @@ std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
     val[ar.first] = linkObj;
   }
 
-  Json::FastWriter jsw;
-  jsw.omitEndingLineFeed();
-
-  return jsw.write(val);
+  Json::StreamWriterBuilder swb;
+  swb["indentation"] = "";
+  return Json::writeString(swb, val);
 }
 
 void ToJsonWriter::output(const Article* article, std::ostream& outstream)
