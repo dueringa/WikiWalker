@@ -1,5 +1,21 @@
 cmake_minimum_required(VERSION 3.1.0)
 project(WikiWalker)
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules")
+
+option(WW_WITH_CODECOV "also build code coverage" OFF)
+
+if(WW_WITH_CODECOV)
+    include(CodeCoverage)
+    append_coverage_compiler_flags()
+
+    setup_target_for_coverage(
+        NAME testrunner_coverage
+        EXECUTABLE execute_tests
+        DEPENDENCIES execute_tests
+    )
+endif()
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
