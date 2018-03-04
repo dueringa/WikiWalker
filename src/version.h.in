@@ -9,7 +9,4 @@ constexpr char _WW_VERSION[] = "@GIT_OUTPUT_VERSION@";
 constexpr char _WW_VERSION[] = "@walker_version@";
 #endif // GIT_RAN_SUCCESSFULLY
 
-
-
-
 #endif // VERSION_H_GEN
