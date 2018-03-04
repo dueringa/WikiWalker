@@ -3,7 +3,7 @@ project(WikiWalker VERSION 0.1.2)
 
 set(walker_version "v${PROJECT_VERSION}")
 
-ADD_CUSTOM_TARGET(
+add_custom_target(
     gitversion
     ${CMAKE_COMMAND}
     -D SRC=${CMAKE_CURRENT_SOURCE_DIR}
@@ -18,7 +18,9 @@ find_package(Boost
     COMPONENTS program_options
 )
 
-set(WW_COMMANDLINEPARSER "" CACHE STRING "Command line parser to use (boostpo or getopt)")
+set(ww_cmdparse_helpstring "Command line parser to use (boostpo or getopt)")
+
+set(WW_COMMANDLINEPARSER "" CACHE STRING ${ww_cmdparse_helpstring})
 
 # empty list, otherwise we end up appending forever
 set_property(CACHE WW_COMMANDLINEPARSER PROPERTY STRINGS)
@@ -26,6 +28,11 @@ set_property(CACHE WW_COMMANDLINEPARSER PROPERTY STRINGS)
 # if boost found
 if(Boost_PROGRAM_OPTIONS_FOUND)
     set_property(CACHE WW_COMMANDLINEPARSER APPEND PROPERTY STRINGS "boostpo")
+    # set default value to boostpo
+    if(WW_COMMANDLINEPARSER STREQUAL "")
+        set(WW_COMMANDLINEPARSER "boostpo" CACHE STRING
+            ${ww_cmdparse_helpstring} FORCE)
+    endif()
 endif() #Boost_PROGRAM_OPTIONS_FOUND
 
 message("Checking whether getopt is available.")
@@ -36,6 +43,11 @@ check_include_file(getopt.h  HAS_GETOPT_HEADER)
 
 if(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
     set_property(CACHE WW_COMMANDLINEPARSER APPEND PROPERTY STRINGS "getopt")
+    # set default value to getopt
+    if(WW_COMMANDLINEPARSER STREQUAL "")
+        set(WW_COMMANDLINEPARSER "getopt" CACHE STRING
+            ${ww_cmdparse_helpstring} FORCE)
+    endif()
 endif() #HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER
 
 if("${WW_COMMANDLINEPARSER}" STREQUAL "boostpo")
@@ -80,11 +92,11 @@ add_executable(walker
 )
 
 if(${WW_USE_BOOST_PO})
-    target_sources (walker PRIVATE
+    target_sources(walker PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
     )
 elseif(${WW_USE_GETOPT})
-    target_sources (walker PRIVATE
+    target_sources(walker PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
     )
 endif()
@@ -93,7 +105,8 @@ endif()
 # TODO: Sadly, won't activate on llvm...
 if(CMAKE_COMPILER_IS_GNUCXX)
 # TODO: is PRIVATE correct?
-target_compile_options(walker PRIVATE -Wall -Wextra -Wshadow -Werror=return-type)
+target_compile_options(walker PRIVATE
+    -Wall -Wextra -Wshadow -Werror=return-type)
 endif() # CMAKE_COMPILER_IS_GNUCXX
 
 set_property(TARGET walker WikiWalkerSource PROPERTY CXX_STANDARD 11)
@@ -120,4 +133,4 @@ enable_testing()
 add_test(NAME versiondisplay
     COMMAND walker -v)
 
-ADD_DEPENDENCIES(walker gitversion)
+add_dependencies(walker gitversion)
