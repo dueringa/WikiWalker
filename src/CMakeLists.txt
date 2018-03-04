@@ -26,7 +26,6 @@ set_property(CACHE WW_COMMANDLINEPARSER PROPERTY STRINGS)
 # if boost found
 if(Boost_PROGRAM_OPTIONS_FOUND)
     set_property(CACHE WW_COMMANDLINEPARSER APPEND PROPERTY STRINGS "boostpo")
-    set(WW_COMMANDLINEPARSER "boostpo")
 endif() #Boost_PROGRAM_OPTIONS_FOUND
 
 message("Checking whether getopt is available.")
@@ -37,8 +36,6 @@ check_include_file(getopt.h  HAS_GETOPT_HEADER)
 
 if(HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER)
     set_property(CACHE WW_COMMANDLINEPARSER APPEND PROPERTY STRINGS "getopt")
-    # won't overwrite possibly existing value
-    set(WW_COMMANDLINEPARSER "getopt")
 endif() #HAS_GETOPT_FUNCTION AND HAS_GETOPT_HEADER
 
 if("${WW_COMMANDLINEPARSER}" STREQUAL "boostpo")
