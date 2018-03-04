@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.1.0)
 project(WikiWalker)
 
-#for pkg-config based stuff
-#find_package(PkgConfig)
-#pkg_check_modules(UT UnitTest++)
-#set(UT_INCLUDE_DIRS "" CACHE PATH "unittest++ include path")
-#set(UT_LDFLAGS "" CACHE STRING "unittest++ library flag")
-
 find_package(CURL REQUIRED)
 find_package(UnitTest++ REQUIRED)
 
