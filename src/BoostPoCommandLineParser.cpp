@@ -7,7 +7,7 @@
 BoostPoCommandLineParser::BoostPoCommandLineParser()
     : cmdOptions("Allowed options"), input("Input URLs")
 {
-  auto& o = cmdOptions.add_options();
+  auto o = cmdOptions.add_options();
   o("version,v", "produce version message");
   o("help,h", "produce help message");
   o("dot-out,o",
