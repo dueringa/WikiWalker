@@ -102,12 +102,29 @@ elseif(${WW_USE_GETOPT})
 endif()
 
 # Compiler options
-# TODO: Sadly, won't activate on llvm...
-if(CMAKE_COMPILER_IS_GNUCXX)
-# TODO: is PRIVATE correct?
-target_compile_options(walker PRIVATE
-    -Wall -Wextra -Wshadow -Werror=return-type)
-endif() # CMAKE_COMPILER_IS_GNUCXX
+option(WW_EXTENDED_WARNINGS "Enable extended compiler warnings for gcc / clang")
+
+if(WW_EXTENDED_WARNINGS)
+    if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "[Cc]lang")
+        target_compile_options(WikiWalkerSource PRIVATE
+            -Wall -Wextra -Wshadow -Werror=return-type)
+        target_compile_options(walker PRIVATE
+            -Wall -Wextra -Wshadow -Werror=return-type)
+    endif() # clang or gcc
+
+    if(CMAKE_CXX_COMPILER_ID MATCHES "[Cc]lang")
+        target_compile_options(WikiWalkerSource PRIVATE
+            -Weverything -Wno-c++98-compat -Wno-padded)
+        target_compile_options(walker PRIVATE
+            -Weverything -Wno-c++98-compat -Wno-padded)
+    endif() # clang
+    
+    if(MSVC)
+        # Wall emits too many "(not) inlined" warnings
+        target_compile_options(WikiWalkerSource PRIVATE /W4)
+        target_compile_options(walker PRIVATE /W4)
+    endif() #MSVC
+endif() # WW_EXTENDED_WARNINGS
 
 set_property(TARGET walker WikiWalkerSource PROPERTY CXX_STANDARD 11)
 set_property(TARGET walker WikiWalkerSource PROPERTY CXX_STANDARD_REQUIRED ON)
