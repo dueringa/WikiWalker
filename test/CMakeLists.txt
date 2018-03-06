@@ -26,11 +26,8 @@ add_executable(execute_tests
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
 )
 
-set_property(TARGET execute_tests PROPERTY CXX_STANDARD 11)
-set_property(TARGET execute_tests PROPERTY CXX_STANDARD_REQUIRED ON)
-set_property(TARGET execute_tests PROPERTY CXX_EXTENSIONS OFF)
-
 target_link_libraries(execute_tests
+    jsoncpp
     ${UT_LDFLAGS}
     ${CURL_LIBRARIES}
     "UnitTest++"

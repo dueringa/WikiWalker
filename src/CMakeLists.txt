@@ -61,7 +61,6 @@ endif()
 
 ## huh, path spec is relative to... ???
 include_directories(
-    ../lib/jsoncpp/
     ${CURL_INCLUDE_DIRS}
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -85,9 +84,12 @@ add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
 )
 
+target_include_directories(WikiWalkerSource BEFORE PRIVATE
+    $<TARGET_PROPERTY:jsoncpp,INCLUDE_DIRECTORIES>
+)
+
 add_executable(walker
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
     $<TARGET_OBJECTS:WikiWalkerSource>
 )
 
@@ -126,12 +128,9 @@ if(WW_EXTENDED_WARNINGS)
     endif() #MSVC
 endif() # WW_EXTENDED_WARNINGS
 
-set_property(TARGET walker WikiWalkerSource PROPERTY CXX_STANDARD 11)
-set_property(TARGET walker WikiWalkerSource PROPERTY CXX_STANDARD_REQUIRED ON)
-set_property(TARGET walker WikiWalkerSource PROPERTY CXX_EXTENSIONS OFF)
-
 target_link_libraries(walker
     ${CURL_LIBRARIES}
+    jsoncpp
 )
 
 # if boost wanted
