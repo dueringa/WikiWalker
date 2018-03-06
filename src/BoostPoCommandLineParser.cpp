@@ -7,17 +7,20 @@
 BoostPoCommandLineParser::BoostPoCommandLineParser()
     : cmdOptions("Allowed options"), input("Input URLs")
 {
-  cmdOptions.add_options()
-    ("version,v", "produce version message")
-    ("help,h", "produce help message")
-    ("dot-out,o", po::value<std::string>()->value_name("dotfile"), "file for dot output")
-    ("json-cache,j", po::value<std::string>()->value_name("cache"), "file for json cache file")
-  ;
+  auto& o = cmdOptions.add_options();
+  o("version,v", "produce version message");
+  o("help,h", "produce help message");
+  o("dot-out,o",
+    po::value<std::string>()->value_name("dotfile"),
+    "file for dot output");
+  o("json-cache,j",
+    po::value<std::string>()->value_name("cache"),
+    "file for json cache file");
 
-  input.add_options()
-    ("url", po::value<std::string>(), "URL")
-    //("url", po::value<vector<string>>(), "URL")
-    ;
+  o = input.add_options();
+  o("url", po::value<std::string>(), "URL")
+      //("url", po::value<vector<string>>(), "URL")
+      ;
 
   cmdline_options.add(cmdOptions).add(input);
 
