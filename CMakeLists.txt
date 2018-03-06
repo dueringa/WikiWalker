@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.1.0)
 project(WikiWalker)
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 option(WW_WITH_CODECOV "also build code coverage" OFF)
@@ -26,6 +30,8 @@ option(WW_WITH_TESTS "also build tests" OFF)
 enable_testing()
 
 # Projects
+add_subdirectory(${CMAKE_SOURCE_DIR}/lib)
+
 add_subdirectory(${CMAKE_SOURCE_DIR}/src)
 
 if(WW_WITH_TESTS)
