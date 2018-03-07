@@ -28,6 +28,7 @@ add_executable(execute_tests
 
 target_link_libraries(execute_tests
     jsoncpp
+    lurlparser
     ${UT_LDFLAGS}
     ${CURL_LIBRARIES}
     "UnitTest++"
