@@ -6,7 +6,7 @@ set(walker_version "v${PROJECT_VERSION}")
 add_custom_target(
     gitversion
     ${CMAKE_COMMAND}
-    -D SRC=${CMAKE_CURRENT_SOURCE_DIR}
+    -D SRC=${CMAKE_CURRENT_SOURCE_DIR}/../inc/
     -D BIN=${CMAKE_CURRENT_BINARY_DIR}
     -D walker_version=${walker_version}
     -P ${CMAKE_CURRENT_SOURCE_DIR}/version.cmake
@@ -59,15 +59,8 @@ else()
 either is available and set WW_COMMANDLINEPARSER")
 endif()
 
-## huh, path spec is relative to... ???
-include_directories(
-    ${CURL_INCLUDE_DIRS}
-    ${CMAKE_CURRENT_BINARY_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
 configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../inc/config.h.in"
     "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 
@@ -85,8 +78,10 @@ add_library(WikiWalkerSource OBJECT
 )
 
 target_include_directories(WikiWalkerSource BEFORE PRIVATE
+    ${CURL_INCLUDE_DIRS}
     $<TARGET_PROPERTY:jsoncpp,INTERFACE_INCLUDE_DIRECTORIES>
     $<TARGET_PROPERTY:lurlparser,INTERFACE_INCLUDE_DIRECTORIES>
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/
 )
 
 add_executable(walker
@@ -137,13 +132,18 @@ target_link_libraries(walker
 
 # if boost wanted
 if(${WW_USE_BOOST_PO})
-    include_directories(
+    target_include_directories(walker PRIVATE
         ${Boost_INCLUDE_DIR}
     )
     target_link_libraries(walker
         ${Boost_PROGRAM_OPTIONS_LIBRARY}
     )
 endif()
+
+target_include_directories(walker PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
 
 install(TARGETS walker DESTINATION bin)
 

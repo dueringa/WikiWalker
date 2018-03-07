@@ -4,14 +4,6 @@ project(WikiWalker)
 find_package(CURL REQUIRED)
 find_package(UnitTest++ REQUIRED)
 
-include_directories(
-    ${UT_INCLUDE_DIRS}
-    ${CURL_INCLUDE_DIRS}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/
-    ${UTPP_INCLUDE_DIRS}
-)
-
 add_executable(execute_tests
     $<TARGET_OBJECTS:WikiWalkerSource>
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleTests.cpp
@@ -24,6 +16,14 @@ add_executable(execute_tests
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriterTests.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
+)
+
+target_include_directories(execute_tests
+    PRIVATE
+    ${UT_INCLUDE_DIRS}
+    ${CURL_INCLUDE_DIRS}
+    ${UTPP_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/
 )
 
 target_link_libraries(execute_tests
