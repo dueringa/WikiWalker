@@ -49,7 +49,7 @@ void WikiWalker::startWalking(const std::string& url)
   CurlUrlCreator creator(apiBaseUrl);
 
   // extract Wikipedia title
-  std::string title = path.substr(pathMustStartWith.length,
+  std::string title = path.substr(pathMustStartWith.length(),
                                   path.length() - pathMustStartWith.length());
 
   creator.addParameter("action", "query")
