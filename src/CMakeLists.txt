@@ -131,6 +131,7 @@ endif() # WW_EXTENDED_WARNINGS
 target_link_libraries(walker
     ${CURL_LIBRARIES}
     jsoncpp
+    lurlparser
 )
 
 # if boost wanted
