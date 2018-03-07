@@ -86,6 +86,7 @@ add_library(WikiWalkerSource OBJECT
 
 target_include_directories(WikiWalkerSource BEFORE PRIVATE
     $<TARGET_PROPERTY:jsoncpp,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:lurlparser,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
 add_executable(walker

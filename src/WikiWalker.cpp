@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "LUrlParser.h"
+
 #include "Article.h"
 #include "CacheJsonToArticleConverter.h"
 #include "CurlUrlCreator.h"
@@ -15,43 +17,40 @@
 
 void WikiWalker::startWalking(const std::string& url)
 {
-  std::string apiBaseUrl;
+  // try parsing URL
+  auto parsedUrl = LUrlParser::clParseURL::ParseURL(url);
+  if(!parsedUrl.IsValid()) {
+    // if URL with no protocol is passed, use HTTPS
+    std::string protocol = "https://";
+    parsedUrl            = LUrlParser::clParseURL::ParseURL(protocol + url);
 
-  // this must be included in the URL.
-  std::string domain  = "wikipedia.org/";
-  std::string findUrl = domain + "wiki/";
-  size_t domainpos    = url.find(findUrl);
+    if(!parsedUrl.IsValid()) {
+      throw WalkerException("Invalid URL");
+    }
+  }
 
-  if(domainpos == std::string::npos) {
+  size_t domainpos              = parsedUrl.m_Host.find("wikipedia.org");
+  std::string path              = parsedUrl.m_Path;
+  std::string pathMustStartWith = "wiki/";
+  size_t pathpos                = path.find(pathMustStartWith);
+
+  // Host must contain wikipedia.org, path must begin with /wiki/
+  if(domainpos == std::string::npos || pathpos != 0) {
     throw WalkerException("Must be an Wikipedia URL");
   }
 
-  // ugly URL checking
-  size_t subdomainpos = url.find("http://");
+  std::string apiBaseUrl;
 
-  if(subdomainpos != std::string::npos) {
-    if(subdomainpos != 0) {
-      throw WalkerException("http:// must be at the beginning of the URL");
-    }
-  } else {
-    subdomainpos = url.find("https://");
-
-    if(subdomainpos != std::string::npos) {
-      if(subdomainpos != 0) {
-        throw WalkerException("https:// must be at the beginning of the URL");
-      }
-    } else {
-      apiBaseUrl = "https://";
-    }
-  }
-
-  apiBaseUrl.append(url.substr(0, domainpos + domain.length()))
-      .append("w/api.php");
+  apiBaseUrl = parsedUrl.m_Scheme;
+  apiBaseUrl.append("://");
+  apiBaseUrl.append(parsedUrl.m_Host);
+  apiBaseUrl.append("/w/api.php");
 
   CurlUrlCreator creator(apiBaseUrl);
 
   // extract Wikipedia title
-  std::string title = url.substr(domainpos + findUrl.length());
+  std::string title = path.substr(pathMustStartWith.length,
+                                  path.length() - pathMustStartWith.length());
 
   creator.addParameter("action", "query")
       .addParameter("format", "json")
