@@ -5,25 +5,27 @@
 
 #include "ArticleCollection.h"
 
-//! Base class for article analyzers
-class Walker
+namespace WikiWalker
 {
-public:
-  /*! get the ArticleCollection with stored articles
-   * \returns const reference to collection with stored reference
-   * \todo looks code-smelly, is this really neccessary?
-   */
-  const ArticleCollection& getCollection() const
+  //! Base class for article analyzers
+  class Walker
   {
-    return articleSet;
-  }
+  public:
+    /*! get the ArticleCollection with stored articles
+     * \returns const reference to collection with stored reference
+     * \todo looks code-smelly, is this really neccessary?
+     */
+    const ArticleCollection& getCollection() const
+    {
+      return articleSet;
+    }
 
-  //! virtual base class destructor
-  virtual ~Walker() = default;
+    //! virtual base class destructor
+    virtual ~Walker() = default;
 
-protected:
-  //! article collection, used as cache, for walked articles
-  ArticleCollection articleSet;
-};
-
+  protected:
+    //! article collection, used as cache, for walked articles
+    ArticleCollection articleSet;
+  };
+}
 #endif  // WALKER_H

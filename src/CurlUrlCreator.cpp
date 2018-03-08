@@ -2,6 +2,8 @@
 
 #include "CurlUrlCreator.h"
 
+using namespace WikiWalker;
+
 CurlUrlCreator::CurlUrlCreator(std::string baseUrl) : _baseUrl(baseUrl)
 {
   curl_global_init(CURL_GLOBAL_ALL);

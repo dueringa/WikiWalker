@@ -8,6 +8,8 @@
 
 SUITE(ArticleToJsonWriterTests)
 {
+  using namespace WikiWalker;
+
   TEST(WriteUnanalyzedArticleWithoutLinks_LinksIsNull)
   {
     ToJsonWriter atj;

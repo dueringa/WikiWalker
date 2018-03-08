@@ -10,6 +10,8 @@
 
 SUITE(ArticleTests)
 {
+  using namespace WikiWalker;
+
   TEST(Article_GetNumLinks_Uninited_ThrowsException)
   {
     Article a("Foo");

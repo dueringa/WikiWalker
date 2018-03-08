@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+using namespace WikiWalker;
+
 BoostPoCommandLineParser::BoostPoCommandLineParser()
     : cmdOptions("Allowed options"), input("Input URLs")
 {

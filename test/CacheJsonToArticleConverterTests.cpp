@@ -7,6 +7,8 @@
 
 SUITE(CacheJsonToArticleConverterTests)
 {
+  using namespace WikiWalker;
+
   TEST(GetArticleWithoutLinks_Unanalyzed)
   {
     std::string json = R"({"Farm":{"forward_links":null}})";

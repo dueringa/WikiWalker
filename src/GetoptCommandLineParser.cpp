@@ -8,6 +8,8 @@
 
 #include "WalkerException.h"
 
+using namespace WikiWalker;
+
 static struct option options[] = {
     {"help", no_argument, nullptr, 'h'},
     {"version", no_argument, nullptr, 'v'},

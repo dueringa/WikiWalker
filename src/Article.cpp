@@ -6,6 +6,8 @@
 
 #include "WalkerException.h"
 
+using namespace WikiWalker;
+
 size_t Article::getNumLinks() const
 {
   if(!analyzed && links.empty()) {

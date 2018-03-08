@@ -15,7 +15,9 @@
 #include "WalkerException.h"
 #include "WikimediaJsonToArticleConverter.h"
 
-void WikiWalker::startWalking(const std::string& url)
+// since the class is names like the namespace, this is a bit awkward...
+
+void WikiWalker::WikiWalker::startWalking(const std::string& url)
 {
   // try parsing URL
   auto parsedUrl = LUrlParser::clParseURL::ParseURL(url);
@@ -86,7 +88,7 @@ void WikiWalker::startWalking(const std::string& url)
   }
 }
 
-void WikiWalker::readCache(const std::string& cacheFile)
+void WikiWalker::WikiWalker::readCache(const std::string& cacheFile)
 {
   CacheJsonToArticleConverter cjta;
   std::ifstream cache(cacheFile);
@@ -108,7 +110,7 @@ void WikiWalker::readCache(const std::string& cacheFile)
   }
 }
 
-void WikiWalker::writeCache(const std::string& cacheFile)
+void WikiWalker::WikiWalker::writeCache(const std::string& cacheFile)
 {
   ToJsonWriter w;
 

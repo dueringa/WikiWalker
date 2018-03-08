@@ -6,6 +6,8 @@
 
 #include "Article.h"
 
+using namespace WikiWalker;
+
 /*! Get article links in an array.
  * Basically undoing the Wikipedia to article conversion...
  * \param article pointer to article which links should be extracted

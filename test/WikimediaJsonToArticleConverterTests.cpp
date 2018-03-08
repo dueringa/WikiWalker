@@ -6,6 +6,8 @@
 
 SUITE(WikimediaJsonToArticleConverterTests)
 {
+  using namespace WikiWalker;
+
   TEST(JsonDataWithOneLinkedArticle)
   {
     std::string testdata =

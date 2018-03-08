@@ -9,6 +9,8 @@
 #include "Article.h"
 #include "WalkerException.h"
 
+using namespace WikiWalker;
+
 ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
     std::istream& json,
     ArticleCollection& articleCache)

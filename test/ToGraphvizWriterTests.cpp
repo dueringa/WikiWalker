@@ -11,6 +11,8 @@
 
 SUITE(ArticleToGraphvizWriterTests)
 {
+  using namespace WikiWalker;
+
   TEST(WriteArticleWithMultipleLinks)
   {
     std::ofstream outfile("_artlinks.dot",

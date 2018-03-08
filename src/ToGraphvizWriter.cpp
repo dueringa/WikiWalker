@@ -8,6 +8,8 @@
 
 #include "Article.h"
 
+using namespace WikiWalker;
+
 void ToGraphvizWriter::writeHeader(std::ostream& os)
 {
   os << "digraph G {";

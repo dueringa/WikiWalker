@@ -8,6 +8,8 @@
 
 #include "WalkerException.h"
 
+using namespace WikiWalker;
+
 static size_t write_callback(char* ptr,
                              size_t size,
                              size_t nmemb,

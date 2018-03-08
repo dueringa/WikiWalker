@@ -5,22 +5,24 @@
 
 #include <string>
 
-//! Class responsible for grabbing the contents / links of an article
-class CurlWikiGrabber
+namespace WikiWalker
 {
-public:
-  /*! Create a new instance.
-   * Might throw an exception, if curl intialization failed
-   */
-  CurlWikiGrabber();
+  //! Class responsible for grabbing the contents / links of an article
+  class CurlWikiGrabber
+  {
+  public:
+    /*! Create a new instance.
+     * Might throw an exception, if curl intialization failed
+     */
+    CurlWikiGrabber();
 
-  ~CurlWikiGrabber();
+    ~CurlWikiGrabber();
 
-  /*! given an URL, return article JSON data
-   * \param url URL of the article
-   * \returns article JSON data
-   */
-  std::string grabUrl(const std::string& url) const;
-};
-
+    /*! given an URL, return article JSON data
+     * \param url URL of the article
+     * \returns article JSON data
+     */
+    std::string grabUrl(const std::string& url) const;
+  };
+}
 #endif  // CURL_WIKI_GRABBER_H

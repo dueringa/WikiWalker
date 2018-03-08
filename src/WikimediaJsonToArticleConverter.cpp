@@ -7,6 +7,8 @@
 #include "Article.h"
 #include "WalkerException.h"
 
+using namespace WikiWalker;
+
 //! \todo really ugly workaround, passing in the ArticleCollection instance...
 //! :/
 std::shared_ptr<Article> WikimediaJsonToArticleConverter::convertToArticle(

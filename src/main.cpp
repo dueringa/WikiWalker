@@ -13,9 +13,9 @@
 int main(int argc, char** argv)
 {
 #if defined(WW_USE_BOOST_PO)
-  BoostPoCommandLineParser cmdp;
+  WikiWalker::BoostPoCommandLineParser cmdp;
 #elif defined(WW_USE_GETOPT)
-  GetoptCommandLineParser cmdp;
+  WikiWalker::GetoptCommandLineParser cmdp;
 #endif
 
   try {
@@ -49,7 +49,7 @@ int main(int argc, char** argv)
   }
 
   bool read_failed = false;
-  WikiWalker w;
+  WikiWalker::WikiWalker w;
 
   if(isCacheSet) {
     try {
@@ -86,9 +86,9 @@ int main(int argc, char** argv)
   }
 
   if(isDotSet) {
-    const ArticleCollection& ac = w.getCollection();
-    std::string outfile         = cmdp.getValue("dot-out");
-    ToGraphvizWriter tgw;
+    const WikiWalker::ArticleCollection& ac = w.getCollection();
+    std::string outfile                     = cmdp.getValue("dot-out");
+    WikiWalker::ToGraphvizWriter tgw;
     std::ofstream file(outfile, std::ios::trunc | std::ios::out);
 
     if(file.fail()) {

@@ -7,6 +7,8 @@
 
 SUITE(CollectionTests)
 {
+  using namespace WikiWalker;
+
   TEST(MakeSureNoDuplicateArticlesExist)
   {
     ArticleCollection w;

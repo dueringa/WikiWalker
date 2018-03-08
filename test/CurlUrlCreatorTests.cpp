@@ -6,6 +6,8 @@
 
 SUITE(CurlUrlCreatorTests)
 {
+  using namespace WikiWalker;
+
   TEST(InitInstanceWithoutAddingParamsReturnsBaseUrl)
   {
     CurlUrlCreator cucu("http://example.com/get");
