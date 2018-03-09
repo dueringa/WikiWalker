@@ -152,6 +152,22 @@ SUITE(CollectionMergeTests)
     CHECK_EQUAL(2, ptr->getNumLinks());
   }
 
+  /*!
+   *
+   * see #checkFirst, only for non-conflicting items
+   */
+  void checkNonConflictingItems(ArticleCollection & c)
+  {
+    // check non-conflicting items, too
+    auto ptr = c.get("Apple");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(1, ptr->getNumLinks());
+
+    ptr = c.get("Wood");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(1, ptr->getNumLinks());
+  }
+
   TEST(ArticleCollection_TestMergeIgnore)
   {
     {
@@ -160,6 +176,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillSecond(a2);
       a1.merge(a2, ArticleCollection::MergeStrategy::IgnoreDuplicates);
       checkConflicts_DataFromFirstSetPreferred(a1);
+      checkNonConflictingItems(a1);
     }
     {
       ArticleCollection a1, a2;
@@ -168,6 +185,7 @@ SUITE(CollectionMergeTests)
       // reverse merge
       a2.merge(a1, ArticleCollection::MergeStrategy::IgnoreDuplicates);
       checkConflicts_DataFromSecondSetPreferred(a2);
+      checkNonConflictingItems(a2);
     }
   }
 
@@ -180,6 +198,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillSecond(a2);
       a1.merge(a2, ArticleCollection::MergeStrategy::AlwaysOverwrite);
       checkConflicts_DataFromSecondSetPreferred(a1);
+      checkNonConflictingItems(a1);
     }
     {
       ArticleCollection a1, a2;
@@ -188,6 +207,7 @@ SUITE(CollectionMergeTests)
       // reverse merge
       a2.merge(a1, ArticleCollection::MergeStrategy::AlwaysOverwrite);
       checkConflicts_DataFromFirstSetPreferred(a2);
+      checkNonConflictingItems(a2);
     }
   }
 
