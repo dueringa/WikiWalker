@@ -11,7 +11,7 @@
 namespace WikiWalker
 {
   /*! Read Article from JSON cache file.
-   * This class does the opposite to #ToJsonWriter.
+   * This class does the opposite to #WikiWalker::ToJsonWriter
    */
   class CacheJsonToArticleConverter
   {

@@ -61,7 +61,7 @@ namespace WikiWalker
     /*! merge another ArticleCollection into the current one
      * \param[in] other collection to merge into the current one
      * \param[in] strategy merge stratgy to use
-     * \detail other collection is left unmodified.
+     * \details other collection is left unmodified.
      */
     void merge(const ArticleCollection& other, MergeStrategy strategy);
 
