@@ -44,3 +44,9 @@ add_custom_target(
     COMMAND echo "Documentation built in ${CMAKE_SOURCE_DIR}/doc/"
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/doc/
 )
+
+add_custom_target(
+    clang-format-source
+    COMMAND clang-format -i inc/*.h src/*.cpp test/*.cpp
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
