@@ -132,7 +132,7 @@ SUITE(CollectionMergeTests)
   }
 
   /*!
-   * see #checkFirst, only for the second set
+   * see #checkConflicts_DataFromFirstSetPreferred, only for the second set
    */
   void checkConflicts_DataFromSecondSetPreferred(ArticleCollection & c2)
   {
@@ -153,8 +153,7 @@ SUITE(CollectionMergeTests)
   }
 
   /*!
-   *
-   * see #checkFirst, only for non-conflicting items
+   * see #checkConflicts_DataFromFirstSetPreferred, only for non-conflicting items
    */
   void checkNonConflictingItems(ArticleCollection & c)
   {
@@ -211,7 +210,10 @@ SUITE(CollectionMergeTests)
     }
   }
 
-  void checkMoreLinks(ArticleCollection & ac)
+  /*!
+   * see #checkConflicts_DataFromFirstSetPreferred, only for items with most links
+   */
+  void checkConflicts_DataWithMoreLinksPreferred(ArticleCollection & ac)
   {
     auto ptr = ac.get("Dragon");
     CHECK(ptr != nullptr);
@@ -235,7 +237,8 @@ SUITE(CollectionMergeTests)
       a1.merge(a2, ArticleCollection::MergeStrategy::UseArticleWithMoreLinks);
       CHECK_EQUAL(15, a1.getNumArticles());
 
-      checkMoreLinks(a1);
+      checkConflicts_DataWithMoreLinksPreferred(a1);
+      checkNonConflictingItems(a1);
     }
     {
       ArticleCollection a1, a2;
@@ -245,7 +248,8 @@ SUITE(CollectionMergeTests)
       a2.merge(a1, ArticleCollection::MergeStrategy::UseArticleWithMoreLinks);
       CHECK_EQUAL(15, a2.getNumArticles());
 
-      checkMoreLinks(a2);
+      checkConflicts_DataWithMoreLinksPreferred(a2);
+      checkNonConflictingItems(a2);
     }
   }
 
