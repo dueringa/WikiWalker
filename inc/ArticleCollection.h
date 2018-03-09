@@ -21,6 +21,16 @@ namespace WikiWalker
   class ArticleCollection
   {
   public:
+    //! strategy for merging ArticleCollections
+    enum class MergeStrategy {
+      //! ignore duplicates, always keep current entry
+      IgnoreDuplicates,
+      //! always overwrite with articles from other collection
+      AlwaysOverwrite,
+      //! use the article with more links
+      UseArticleWithMoreLinks
+    };
+
     //! The way that articles are stored inside
     using storage_type = std::map<std::string, std::shared_ptr<Article>>;
 
@@ -29,6 +39,8 @@ namespace WikiWalker
 
     //! constant iterator type
     using const_iterator = storage_type::const_iterator;
+
+    ArticleCollection() = default;
 
     /*! add article to collection.
      * \param article article to add
@@ -46,15 +58,18 @@ namespace WikiWalker
       return articleSet.size();
     }
 
+    /*! merge another ArticleCollection into the current one
+     * \param[in] other collection to merge into the current one
+     * \param[in] strategy merge stratgy to use
+     * \detail other collection is left unmodified.
+     */
+    void merge(const ArticleCollection& other, MergeStrategy strategy);
+
     /*! get pointer to article.
      * \param title title of the article to request
      * \return pointer to article, or nullptr, if not found
      */
     std::shared_ptr<Article> get(const std::string& title);
-
-    ArticleCollection()
-    {
-    }
 
     /*! Returns an iterator to the first article in the collection.
      * \returns iterator to the first article

@@ -8,6 +8,7 @@ add_executable(execute_tests
     $<TARGET_OBJECTS:WikiWalkerSource>
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CollectionTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CollectionMergeTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverterTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreatorTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverterTests.cpp
