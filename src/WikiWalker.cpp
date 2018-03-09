@@ -11,6 +11,7 @@
 #include "Article.h"
 #include "CacheJsonToArticleConverter.h"
 #include "CurlUrlCreator.h"
+#include "StringUtils.h"
 #include "ToJsonWriter.h"
 #include "WalkerException.h"
 #include "WikimediaJsonToArticleConverter.h"
@@ -34,10 +35,9 @@ void WikiWalker::WikiWalker::startWalking(const std::string& url)
   size_t domainpos              = parsedUrl.m_Host.find("wikipedia.org");
   std::string path              = parsedUrl.m_Path;
   std::string pathMustStartWith = "wiki/";
-  size_t pathpos                = path.find(pathMustStartWith);
 
   // Host must contain wikipedia.org, path must begin with /wiki/
-  if(domainpos == std::string::npos || pathpos != 0) {
+  if(domainpos == std::string::npos || !StringUtils::startsWith(path, pathMustStartWith)) {
     throw WalkerException("Must be an Wikipedia URL");
   }
 
