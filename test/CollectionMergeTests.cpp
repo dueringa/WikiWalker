@@ -10,12 +10,15 @@ SUITE(CollectionMergeTests)
 {
   using namespace WikiWalker;
 
-  // dragon -> treasure
-  //        -> fire
-  //        -> flying
-  // cat    -> -
-  // apple  -> fruit
-  // window -> outside
+  /*!
+   * Create test data of the following structure:
+   * dragon -> treasure
+   *        -> fire
+   *        -> flying
+   * cat    -> -
+   * apple  -> fruit
+   * window -> outside
+   */
   void createArticlesAndFillFirst(ArticleCollection & ac)
   {
     auto a1 = std::make_shared<Article>("Dragon");
@@ -47,12 +50,16 @@ SUITE(CollectionMergeTests)
     ac.add(a9);
   }
 
-  // dragon -> -
-  // cat    -> milk
-  //        -> lazy
-  // wood   -> house
-  // window -> glass
-  //        -> cleaning
+  /*!
+   * Create test data of the following structure:
+   *
+   * dragon -> -
+   * cat    -> milk
+   *        -> lazy
+   * wood   -> house
+   * window -> glass
+   *        -> cleaning
+   */
   void createArticlesAndFillSecond(ArticleCollection & ac)
   {
     auto b1 = std::make_shared<Article>("Dragon");
@@ -84,11 +91,33 @@ SUITE(CollectionMergeTests)
     ac.add(b9);
   }
 
-  // check when first half is preferred
-  void checkFirst(ArticleCollection & c1)
+  /*! check whether data from first set is preferred
+   *
+   * Overview of the combined structure-
+   *
+   * dragon -> treasure | dragon -> -
+   *        -> fire     |
+   *        -> flying   |
+   *                    |
+   * cat    -> -        | cat    -> milk
+   *                    |        -> lazy
+   *                    |
+   * apple  -> fruit    |
+   *                    |
+   *                    | wood   -> house
+   *                    |
+   * window -> outside  | window -> glass
+   *                    |        -> cleaning
+   *
+   *
+   * So we have 15 articles in total, and either side of the links may exist
+   */
+  void checkConflicts_DataFromFirstSetPreferred(ArticleCollection & c1)
   {
+    // 15 articles in total, no matter what
     CHECK_EQUAL(15, c1.getNumArticles());
 
+    // data from createArticlesAndFillFirst won
     auto ptr = c1.get("Dragon");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(3, ptr->getNumLinks());
@@ -102,11 +131,14 @@ SUITE(CollectionMergeTests)
     CHECK_EQUAL(1, ptr->getNumLinks());
   }
 
-  // check second half is preferred
-  void checkSecond(ArticleCollection & c2)
+  /*!
+   * see #checkFirst, only for the second set
+   */
+  void checkConflicts_DataFromSecondSetPreferred(ArticleCollection & c2)
   {
     CHECK_EQUAL(15, c2.getNumArticles());
 
+    // data from createArticlesAndFillSecond won
     auto ptr = c2.get("Dragon");
     CHECK(ptr != nullptr);
     CHECK_THROW(ptr->getNumLinks(), WalkerException);
@@ -127,7 +159,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       a1.merge(a2, ArticleCollection::MergeStrategy::IgnoreDuplicates);
-      checkFirst(a1);
+      checkConflicts_DataFromFirstSetPreferred(a1);
     }
     {
       ArticleCollection a1, a2;
@@ -135,7 +167,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillSecond(a2);
       // reverse merge
       a2.merge(a1, ArticleCollection::MergeStrategy::IgnoreDuplicates);
-      checkSecond(a2);
+      checkConflicts_DataFromSecondSetPreferred(a2);
     }
   }
 
@@ -147,7 +179,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       a1.merge(a2, ArticleCollection::MergeStrategy::AlwaysOverwrite);
-      checkSecond(a1);
+      checkConflicts_DataFromSecondSetPreferred(a1);
     }
     {
       ArticleCollection a1, a2;
@@ -155,7 +187,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillSecond(a2);
       // reverse merge
       a2.merge(a1, ArticleCollection::MergeStrategy::AlwaysOverwrite);
-      checkFirst(a2);
+      checkConflicts_DataFromFirstSetPreferred(a2);
     }
   }
 
