@@ -153,7 +153,8 @@ SUITE(CollectionMergeTests)
   }
 
   /*!
-   * see #checkConflicts_DataFromFirstSetPreferred, only for non-conflicting items
+   * see #checkConflicts_DataFromFirstSetPreferred, only for non-conflicting
+   * items
    */
   void checkNonConflictingItems(ArticleCollection & c)
   {
@@ -211,7 +212,8 @@ SUITE(CollectionMergeTests)
   }
 
   /*!
-   * see #checkConflicts_DataFromFirstSetPreferred, only for items with most links
+   * see #checkConflicts_DataFromFirstSetPreferred, only for items with most
+   * links
    */
   void checkConflicts_DataWithMoreLinksPreferred(ArticleCollection & ac)
   {
