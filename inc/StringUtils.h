@@ -8,9 +8,8 @@
 namespace WikiWalker
 {
   //! A collection of string utilities
-  class StringUtils
+  namespace StringUtils
   {
-  public:
     /*!
      * Checks whether a string begins with another string.
      * \param stringToTest the string that should be tested
@@ -18,7 +17,7 @@ namespace WikiWalker
      * \returns true if first string begins with the second one, otherwise
      * false. Also returns false if either string is empty.
      */
-    static bool startsWith(std::string stringToTest, std::string beginning);
+    bool startsWith(std::string stringToTest, std::string beginning);
   };
 }
 
