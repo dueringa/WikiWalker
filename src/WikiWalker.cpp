@@ -37,8 +37,16 @@ void WikiWalker::WikiWalker::startWalking(const std::string& url)
   std::string pathMustStartWith = "wiki/";
 
   // Host must contain wikipedia.org, path must begin with /wiki/
-  if(domainpos == std::string::npos || !StringUtils::startsWith(path, pathMustStartWith)) {
+  if(domainpos == std::string::npos ||
+     !StringUtils::startsWith(path, pathMustStartWith)) {
     throw WalkerException("Must be an Wikipedia URL");
+  }
+  // extract Wikipedia title
+  std::string title = path.substr(pathMustStartWith.length(),
+                                  path.length() - pathMustStartWith.length());
+
+  if(title.empty()) {
+    throw WalkerException("Must be an Wikipedia URL - Article missing");
   }
 
   std::string apiBaseUrl;
@@ -49,10 +57,6 @@ void WikiWalker::WikiWalker::startWalking(const std::string& url)
   apiBaseUrl.append("/w/api.php");
 
   CurlUrlCreator creator(apiBaseUrl);
-
-  // extract Wikipedia title
-  std::string title = path.substr(pathMustStartWith.length(),
-                                  path.length() - pathMustStartWith.length());
 
   creator.addParameter("action", "query")
       .addParameter("format", "json")
