@@ -71,7 +71,7 @@ std::string CurlWikiGrabber::grabUrl(const std::string& url) const
   handle = nullptr;
 
   if(httpcode != 200) {
-    return "";
+    throw WalkerException("Error getting article. HTTP error.");
   }
 
   return gotContent;

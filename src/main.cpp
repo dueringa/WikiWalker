@@ -66,7 +66,7 @@ int main(int argc, char** argv)
       std::string url = cmdp.getValue("url");
       w.startWalking(url);
     } catch(std::exception& e) {
-      std::cout << "Error " << e.what() << std::endl;
+      std::cout << "Error: " << e.what() << std::endl;
       return -1;
     }
   }
