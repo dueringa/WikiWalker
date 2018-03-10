@@ -11,7 +11,8 @@ namespace WikiWalker
 {
   //! \todo really ugly workaround, passing in the ArticleCollection instance...
   //! :/
-  std::shared_ptr<Article> WikimediaJsonToArticleConverter::convertToArticle(
+  WikimediaJsonToArticleConverter::ContinuationStatus
+  WikimediaJsonToArticleConverter::convertToArticle(
       const std::string& json,
       ArticleCollection& articleCache)
   {
@@ -67,6 +68,8 @@ namespace WikiWalker
 
     wantedArticle->setAnalyzed(true);
 
+    bool moreData;
+
     if(!document.isMember("batchcomplete")) {
       moreData       = true;
       continueString = document.get("continue", Json::Value::nullSingleton())
@@ -77,6 +80,7 @@ namespace WikiWalker
       continueString = "";
     }
 
-    return wantedArticle;
+    return moreData ? ContinuationStatus::ConversionNeedsMoreData
+                    : ContinuationStatus::ConversionCompleted;
   }
 }

@@ -14,8 +14,16 @@ namespace WikiWalker
   class WikimediaJsonToArticleConverter
   {
   public:
+    //! Represents the state of the json to article conversion
+    enum class ContinuationStatus {
+      //! the conversion is completed
+      ConversionCompleted,
+      //! the conversion indicated more data is needed
+      ConversionNeedsMoreData
+    };
+
     //! create a new instance
-    WikimediaJsonToArticleConverter() : moreData(false), continueString("")
+    WikimediaJsonToArticleConverter() : continueString("")
     {
     }
 
@@ -24,10 +32,12 @@ namespace WikiWalker
      * article.
      * \param json json data
      * \param articleCache reference to global (ew) article collection
-     * \returns pointer to generated article. YOU free it!
+     * \returns the conversion status. If this is
+     * #ContinuationStatus::ConversionNeedsMoreData, get continuation data with
+     * #getContinuationData.
      */
-    std::shared_ptr<Article> convertToArticle(const std::string& json,
-                                              ArticleCollection& articleCache);
+    ContinuationStatus convertToArticle(const std::string& json,
+                                        ArticleCollection& articleCache);
 
     /*!Returns whether there's more data to fetch.
      * JSON data says there's more links to fetch.
@@ -38,8 +48,10 @@ namespace WikiWalker
       return moreData;
     }
 
-    /*! Get the continuation data, if #hasMoreData is true
-     * \return continution string
+    /*! Get the continuation data, if
+     * #ContinuationStat::ConversionNeedsMoreData was returned by
+     * #convertToArticle.
+     * \return continuation string
      */
     std::string getContinuationData() const
     {
@@ -47,8 +59,6 @@ namespace WikiWalker
     }
 
   private:
-    //! more data available
-    bool moreData;
     //! string required for API operation
     std::string continueString;
   };
