@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 
+#include "Article.h"
 #include "ToGraphvizWriter.h"
 #include "WikiWalker.h"
 #include "version.h"
@@ -102,6 +103,14 @@ int main(int argc, char** argv)
       }
 
       file.close();
+    }
+  }
+
+  for(auto& a : w.getCollection()) {
+    auto& art = a.second;
+    if(art->isAnalyzed()) {
+      std::cout << "Article " << a.first << " has " << art->getNumLinks()
+                << " links" << std::endl;
     }
   }
 

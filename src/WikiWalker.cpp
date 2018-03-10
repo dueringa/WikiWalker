@@ -82,7 +82,6 @@ namespace WikiWalker
         json             = grabber.grabUrl(creator.buildUrl());
         conversionStatus = conv.convertToArticle(json, articleSet);
       }
-
     } else {
       std::cerr << "Error fetching article" << std::endl;
     }
