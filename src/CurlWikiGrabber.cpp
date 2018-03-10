@@ -48,6 +48,9 @@ std::string CurlWikiGrabber::grabUrl(const std::string& url) const
   assert(crv == 0);
   crv = curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_callback);
   assert(crv == 0);
+  // allow redirects
+  crv = curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1);
+  assert(crv == 0);
 
   std::string gotContent;
   crv = curl_easy_setopt(handle, CURLOPT_WRITEDATA, &gotContent);
