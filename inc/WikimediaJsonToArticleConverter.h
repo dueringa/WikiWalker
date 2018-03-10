@@ -39,15 +39,6 @@ namespace WikiWalker
     ContinuationStatus convertToArticle(const std::string& json,
                                         ArticleCollection& articleCache);
 
-    /*!Returns whether there's more data to fetch.
-     * JSON data says there's more links to fetch.
-     * \return whether there's more data to fetch.
-     */
-    bool hasMoreData() const
-    {
-      return moreData;
-    }
-
     /*! Get the continuation data, if
      * #ContinuationStat::ConversionNeedsMoreData was returned by
      * #convertToArticle.
