@@ -6,77 +6,78 @@
 
 #include "Article.h"
 
-using namespace WikiWalker;
-
-/*! Get article links in an array.
- * Basically undoing the Wikipedia to article conversion...
- * \param article pointer to article which links should be extracted
- * \return Json::Value array with titles as string
- * \todo should / could be a member function, but then I'd have to expose
- * Json::Value, which is ugly and clutters up other classes...
- */
-static Json::Value getArticleLinks(const Article* article)
+namespace WikiWalker
 {
-  Json::Value array(Json::ValueType::arrayValue);
+  /*! Get article links in an array.
+   * Basically undoing the Wikipedia to article conversion...
+   * \param article pointer to article which links should be extracted
+   * \return Json::Value array with titles as string
+   * \todo should / could be a member function, but then I'd have to expose
+   * Json::Value, which is ugly and clutters up other classes...
+   */
+  static Json::Value getArticleLinks(const Article* article)
+  {
+    Json::Value array(Json::ValueType::arrayValue);
 
-  for(auto ali = article->linkBegin(); ali != article->linkEnd(); ali++) {
-    auto a = ali->lock();
-    if(a != nullptr) {
-      std::string tit = a->getTitle();
-      array.append(Json::Value(tit));
+    for(auto ali = article->linkBegin(); ali != article->linkEnd(); ali++) {
+      auto a = ali->lock();
+      if(a != nullptr) {
+        std::string tit = a->getTitle();
+        array.append(Json::Value(tit));
+      }
     }
+
+    return array;
   }
 
-  return array;
-}
+  std::string ToJsonWriter::convertToJson(const Article* a)
+  {
+    Json::Value val(Json::ValueType::objectValue);
 
-std::string ToJsonWriter::convertToJson(const Article* a)
-{
-  Json::Value val(Json::ValueType::objectValue);
-
-  Json::Value linkObj(Json::ValueType::objectValue);
-
-  if(a->isAnalyzed()) {
-    linkObj["forward_links"] = getArticleLinks(a);
-  } else {
-    linkObj["forward_links"] = Json::Value::nullSingleton();
-  }
-
-  val[a->getTitle()] = linkObj;
-
-  Json::StreamWriterBuilder swb;
-  swb["indentation"] = "";
-  return Json::writeString(swb, val);
-}
-
-std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
-{
-  Json::Value val(Json::ValueType::objectValue);
-
-  for(auto ar : ac) {
     Json::Value linkObj(Json::ValueType::objectValue);
 
-    if(ar.second->isAnalyzed()) {
-      linkObj["forward_links"] = getArticleLinks(ar.second.get());
+    if(a->isAnalyzed()) {
+      linkObj["forward_links"] = getArticleLinks(a);
     } else {
       linkObj["forward_links"] = Json::Value::nullSingleton();
     }
 
-    val[ar.first] = linkObj;
+    val[a->getTitle()] = linkObj;
+
+    Json::StreamWriterBuilder swb;
+    swb["indentation"] = "";
+    return Json::writeString(swb, val);
   }
 
-  Json::StreamWriterBuilder swb;
-  swb["indentation"] = "";
-  return Json::writeString(swb, val);
-}
+  std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
+  {
+    Json::Value val(Json::ValueType::objectValue);
 
-void ToJsonWriter::output(const Article* article, std::ostream& outstream)
-{
-  outstream << convertToJson(article);
-}
+    for(auto ar : ac) {
+      Json::Value linkObj(Json::ValueType::objectValue);
 
-void ToJsonWriter::output(const ArticleCollection& collection,
-                          std::ostream& outstream)
-{
-  outstream << convertToJson(collection);
+      if(ar.second->isAnalyzed()) {
+        linkObj["forward_links"] = getArticleLinks(ar.second.get());
+      } else {
+        linkObj["forward_links"] = Json::Value::nullSingleton();
+      }
+
+      val[ar.first] = linkObj;
+    }
+
+    Json::StreamWriterBuilder swb;
+    swb["indentation"] = "";
+    return Json::writeString(swb, val);
+  }
+
+  void ToJsonWriter::output(const Article* article, std::ostream& outstream)
+  {
+    outstream << convertToJson(article);
+  }
+
+  void ToJsonWriter::output(const ArticleCollection& collection,
+                            std::ostream& outstream)
+  {
+    outstream << convertToJson(collection);
+  }
 }

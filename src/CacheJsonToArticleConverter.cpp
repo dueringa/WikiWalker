@@ -9,66 +9,67 @@
 #include "Article.h"
 #include "WalkerException.h"
 
-using namespace WikiWalker;
-
-ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
-    std::istream& json,
-    ArticleCollection& articleCache)
+namespace WikiWalker
 {
-  Json::Reader reader;
-  Json::Value document;
-  bool success = reader.parse(json, document, false);
+  ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
+      std::istream& json,
+      ArticleCollection& articleCache)
+  {
+    Json::Reader reader;
+    Json::Value document;
+    bool success = reader.parse(json, document, false);
 
-  if(!success) {
-    throw WalkerException("Error parsing JSON");
-  }
-
-  // get all "main" articles first
-  for(auto& titleElement : document.getMemberNames()) {
-    std::string title = titleElement;
-
-    //! \todo find a better solution than get-compare-add
-    auto a = articleCache.get(title);
-
-    if(a == nullptr) {
-      a = std::make_shared<Article>(title);
-      articleCache.add(a);
+    if(!success) {
+      throw WalkerException("Error parsing JSON");
     }
 
-    auto links = document.get(title, Json::Value::nullSingleton())
-                     .get("forward_links", Json::Value::nullSingleton());
+    // get all "main" articles first
+    for(auto& titleElement : document.getMemberNames()) {
+      std::string title = titleElement;
 
-    if(links.isNull()) {
-      /* don't need to set article analyzed to false,
-       * since that's the default */
-      continue;
-    }
+      //! \todo find a better solution than get-compare-add
+      auto a = articleCache.get(title);
 
-    a->setAnalyzed(true);
-
-    for(const auto& linkedArticle : links) {
-      std::string linkedTitle     = linkedArticle.asString();
-      std::shared_ptr<Article> la = articleCache.get(linkedTitle);
-
-      if(la == nullptr) {
-        la = std::make_shared<Article>(linkedTitle);
-        articleCache.add(la);
+      if(a == nullptr) {
+        a = std::make_shared<Article>(title);
+        articleCache.add(a);
       }
 
-      a->addLink(la);
+      auto links = document.get(title, Json::Value::nullSingleton())
+                       .get("forward_links", Json::Value::nullSingleton());
+
+      if(links.isNull()) {
+        /* don't need to set article analyzed to false,
+         * since that's the default */
+        continue;
+      }
+
+      a->setAnalyzed(true);
+
+      for(const auto& linkedArticle : links) {
+        std::string linkedTitle     = linkedArticle.asString();
+        std::shared_ptr<Article> la = articleCache.get(linkedTitle);
+
+        if(la == nullptr) {
+          la = std::make_shared<Article>(linkedTitle);
+          articleCache.add(la);
+        }
+
+        a->addLink(la);
+      }
     }
+
+    return articleCache;
+    /*
+     * a->setAnalyzed(true); ?
+     */
   }
 
-  return articleCache;
-  /*
-   * a->setAnalyzed(true); ?
-   */
-}
-
-ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
-    const std::string& json,
-    ArticleCollection& articleCache)
-{
-  std::istringstream jsonStream(json);
-  return convertToArticle(jsonStream, articleCache);
+  ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
+      const std::string& json,
+      ArticleCollection& articleCache)
+  {
+    std::istringstream jsonStream(json);
+    return convertToArticle(jsonStream, articleCache);
+  }
 }
