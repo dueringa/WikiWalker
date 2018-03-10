@@ -28,7 +28,7 @@ std::shared_ptr<Article> WikimediaJsonToArticleConverter::convertToArticle(
 
   // only get first page
   auto wantedPage =
-      allPages.get(allPages.getMemberNames()[0], Json::Value::nullSingleton());
+      allPages.get((Json::ArrayIndex)0, Json::Value::nullSingleton());
 
   if(wantedPage.isMember("missing")) {
     throw WalkerException("Article doesn't exist");

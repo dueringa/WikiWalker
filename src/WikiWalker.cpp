@@ -63,7 +63,7 @@ void WikiWalker::WikiWalker::startWalking(const std::string& url)
       .addParameter("prop", "links")
       .addParameter("pllimit", "max")
       .addParameter("plnamespace", "0")
-      .addParameter("formatversion", "1");
+      .addParameter("formatversion", "2");
   creator.addParameter("titles", title);
 
   std::string json = grabber.grabUrl(creator.buildUrl());
