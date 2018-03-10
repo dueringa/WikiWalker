@@ -1,4 +1,5 @@
 # WikiWalker
+
 Given a Wikipedia article, build a graph of article links
 
 Input can be any Wikipedia URL. The results can be stored in a JSON cache file.
@@ -7,7 +8,7 @@ file is read, combined with the Wikipedia data, and stored again.
 
 ## Building
 
-CMake is used as build system. You need curl and boost::program_options.
+CMake is used as build system. You need curl and (boost::program_options or getopt).
 
 ### Note for Debian / Ubuntu(?) users
 
@@ -21,7 +22,8 @@ current version on GitHub, see also
 Why would you want to do that?
 
 You'll need
-* curl from https://curl.haxx.se/ - build from source following the instructions
+
+* [curl](https://curl.haxx.se/) - build from source following the instructions
   in winbuild
 * Boost libraries from www.boost.org
 
@@ -36,9 +38,7 @@ to build and install libraries under Windows, and make them findable by cmake.
 
 Since graphs can get very wide, it's recommended to `unflatten` the graph first:
 
-```
-unflatten -l5 file.dot | dot ...
-```
+    unflatten -l5 file.dot | dot ...
 
 Also, have a look at [Gephi](https://gephi.org).
 
@@ -46,11 +46,10 @@ Where `5` is the "depth" the links get distributed to.
 
 ## Features
 
- - independent of systemd :p
+* independent of systemd :p
 
 ## Formatting
 
 The root directory contains a .clang-format, which can be used to reformat the
-source code with clang-format. BoostPoC.l.p. is, unfortunately, formatted in
-some weird way which makes the initialization of the commands pretty
-unreadable. So this re-formatting should not be committed.
+source code with clang-format. Alernatively, use the cmake target
+`clang-format-source`.
