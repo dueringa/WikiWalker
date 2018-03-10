@@ -44,7 +44,8 @@ std::string CurlWikiGrabber::grabUrl(const std::string& url) const
 
   CURLcode crv = curl_easy_setopt(handle, CURLOPT_URL, url.c_str());
   assert(crv == 0);
-  crv = curl_easy_setopt(handle, CURLOPT_USERAGENT, "WikiWalker/ test program");
+  crv = curl_easy_setopt(
+      handle, CURLOPT_USERAGENT, "WikiWalker / github.com/dueringa/WikiWalker");
   assert(crv == 0);
   crv = curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_callback);
   assert(crv == 0);
