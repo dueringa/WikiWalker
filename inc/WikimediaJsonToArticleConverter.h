@@ -1,7 +1,7 @@
 //! \file WikimediaJsonToArticleConverter.h
 
-#ifndef JSONTOARTICLECONVERTER_H
-#define JSONTOARTICLECONVERTER_H
+#ifndef WIKIMEDIAJSONTOARTICLECONVERTER_H
+#define WIKIMEDIAJSONTOARTICLECONVERTER_H
 
 #include "ArticleCollection.h"
 
@@ -10,7 +10,10 @@
 
 namespace WikiWalker
 {
-  //! convert links in json form to article
+  /*! converts a JSON reply from the Wikimedia query links request.
+   * This class only supports JSON format 2! JSON format 1 is not supported
+   * anymore.
+   */
   class WikimediaJsonToArticleConverter
   {
   public:
@@ -27,14 +30,17 @@ namespace WikiWalker
     {
     }
 
-    /*! convert JSON data to Article
-     * convert string containing json data, which represents the links, to an
-     * article.
+    /*! convert JSON data to Article.
+     * convert a string containing json data containing the reply of a Wikimedia
+     * query links request in JSON format 2 to an article with links and puts it
+     * in an ArticleCollection.
      * \param json json data
-     * \param articleCache reference to global (ew) article collection
+     * \param articleCache reference to an article collection that gets filled
      * \returns the conversion status. If this is
      * #ContinuationStatus::ConversionNeedsMoreData, get continuation data with
      * #getContinuationData.
+     * \internal currently only converts the first article, even if multiple
+     * ones are in the JSON array.
      */
     ContinuationStatus convertToArticle(const std::string& json,
                                         ArticleCollection& articleCache);
@@ -54,4 +60,4 @@ namespace WikiWalker
     std::string continueString;
   };
 }
-#endif /* _JSONTOARTICLECONVERTER_H */
+#endif /* WIKIMEDIAJSONTOARTICLECONVERTER_H */
