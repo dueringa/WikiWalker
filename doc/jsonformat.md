@@ -141,3 +141,25 @@
           "plcontinue" : "8283280|0|1807"
        }
     }
+
+## Continue generator
+
+/w/api.php?action=query&format=json&prop=links&titles=$whatever&generator=links&formatversion=2&plnamespace=0&pllimit=$whatever&gplnamespace=0
+
+    {
+        "continue": {
+            "plcontinue": "19978|0|Fort_William_Henry_Harrison",
+            "continue": "||"
+        },
+        "query": {
+            "pages": [
+                {
+                ...
+                },
+                // contains all pages with pageid, ns and title, bzt without links
+                {
+                ...
+                }
+            ]
+        }
+    }
