@@ -72,23 +72,16 @@ namespace WikiWalker
 
     if(json != "") {
       WikimediaJsonToArticleConverter conv;
-      auto article = conv.convertToArticle(json, articleSet);
+      auto conversionStatus = conv.convertToArticle(json, articleSet);
 
-      while(conv.hasMoreData() && conv.getContinuationData() != "") {
+      while(WikimediaJsonToArticleConverter::ContinuationStatus::
+                    ConversionNeedsMoreData == conversionStatus &&
+            conv.getContinuationData() != "") {
         creator.addParameter("plcontinue", conv.getContinuationData());
 
-        json          = grabber.grabUrl(creator.buildUrl());
-        auto article2 = conv.convertToArticle(json, articleSet);
-
-        if(article != article2) {
-          for(auto x = article2->linkBegin(); x != article2->linkEnd(); x++) {
-            article->addLink(*x);
-          }
-        }
+        json             = grabber.grabUrl(creator.buildUrl());
+        conversionStatus = conv.convertToArticle(json, articleSet);
       }
-
-      std::cout << "Article " << article->getTitle() << " has "
-                << article->getNumLinks() << " links" << std::endl;
     } else {
       std::cerr << "Error fetching article" << std::endl;
     }

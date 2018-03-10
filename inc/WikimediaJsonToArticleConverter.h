@@ -1,7 +1,7 @@
 //! \file WikimediaJsonToArticleConverter.h
 
-#ifndef JSONTOARTICLECONVERTER_H
-#define JSONTOARTICLECONVERTER_H
+#ifndef WIKIMEDIAJSONTOARTICLECONVERTER_H
+#define WIKIMEDIAJSONTOARTICLECONVERTER_H
 
 #include "ArticleCollection.h"
 
@@ -10,36 +10,45 @@
 
 namespace WikiWalker
 {
-  //! convert links in json form to article
+  /*! converts a JSON reply from the Wikimedia query links request.
+   * This class only supports JSON format 2! JSON format 1 is not supported
+   * anymore.
+   */
   class WikimediaJsonToArticleConverter
   {
   public:
+    //! Represents the state of the json to article conversion
+    enum class ContinuationStatus {
+      //! the conversion is completed
+      ConversionCompleted,
+      //! the conversion indicated more data is needed
+      ConversionNeedsMoreData
+    };
+
     //! create a new instance
-    WikimediaJsonToArticleConverter() : moreData(false), continueString("")
+    WikimediaJsonToArticleConverter() : continueString("")
     {
     }
 
-    /*! convert JSON data to Article
-     * convert string containing json data, which represents the links, to an
-     * article.
+    /*! convert JSON data to Article.
+     * convert a string containing json data containing the reply of a Wikimedia
+     * query links request in JSON format 2 to an article with links and puts it
+     * in an ArticleCollection.
      * \param json json data
-     * \param articleCache reference to global (ew) article collection
-     * \returns pointer to generated article. YOU free it!
+     * \param articleCache reference to an article collection that gets filled
+     * \returns the conversion status. If this is
+     * #ContinuationStatus::ConversionNeedsMoreData, get continuation data with
+     * #getContinuationData.
+     * \internal currently only converts the first article, even if multiple
+     * ones are in the JSON array.
      */
-    std::shared_ptr<Article> convertToArticle(const std::string& json,
-                                              ArticleCollection& articleCache);
+    ContinuationStatus convertToArticle(const std::string& json,
+                                        ArticleCollection& articleCache);
 
-    /*!Returns whether there's more data to fetch.
-     * JSON data says there's more links to fetch.
-     * \return whether there's more data to fetch.
-     */
-    bool hasMoreData() const
-    {
-      return moreData;
-    }
-
-    /*! Get the continuation data, if #hasMoreData is true
-     * \return continution string
+    /*! Get the continuation data, if
+     * #ContinuationStat::ConversionNeedsMoreData was returned by
+     * #convertToArticle.
+     * \return continuation string
      */
     std::string getContinuationData() const
     {
@@ -47,10 +56,8 @@ namespace WikiWalker
     }
 
   private:
-    //! more data available
-    bool moreData;
     //! string required for API operation
     std::string continueString;
   };
 }
-#endif /* _JSONTOARTICLECONVERTER_H */
+#endif /* WIKIMEDIAJSONTOARTICLECONVERTER_H */
