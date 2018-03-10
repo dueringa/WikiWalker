@@ -52,6 +52,8 @@ std::string CurlWikiGrabber::grabUrl(const std::string& url) const
   // allow redirects
   crv = curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1);
   assert(crv == 0);
+  crv = curl_easy_setopt(handle, CURLOPT_ACCEPT_ENCODING, "gzip");
+  assert(crv == 0);
 
   std::string gotContent;
   crv = curl_easy_setopt(handle, CURLOPT_WRITEDATA, &gotContent);
