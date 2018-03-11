@@ -127,7 +127,10 @@ int main(int argc, char** argv)
   } else {
     for(auto& a : w.getCollection()) {
       auto& art = a.second;
-      if(art->isAnalyzed()) {
+      if(art->isMarked()) {
+        std::cout << "Article " << a.first << " is invalid or doesn't exist"
+                  << std::endl;
+      } else if(art->isAnalyzed()) {
         std::cout << "Article " << a.first << " has " << art->getNumLinks()
                   << " links" << std::endl;
       }
