@@ -37,9 +37,8 @@ namespace WikiWalker
 
       if(wantedArticle == nullptr) {
         wantedArticle = std::make_shared<Article>(oneTitle);
+        articleCache.add(wantedArticle);
       }
-
-      articleCache.add(wantedArticle);
 
       if(onePage.isMember("missing") || onePage.isMember("invalid")) {
         wantedArticle->setMarked(true);
