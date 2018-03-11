@@ -14,6 +14,7 @@ namespace WikiWalker
   static struct option options[] = {
       {"help", no_argument, nullptr, 'h'},
       {"version", no_argument, nullptr, 'v'},
+      {"deep", no_argument, nullptr, 'd'},
       {"dot-out", required_argument, nullptr, 'o'},
       {"json-cache", required_argument, nullptr, 'j'},
       {nullptr, 0, nullptr, 0},
@@ -42,13 +43,16 @@ namespace WikiWalker
     int index = 0;
 
     int opt = 0;
-    while((opt = getopt_long(argc, argv, "vhj:o:", options, &index)) != -1) {
+    while((opt = getopt_long(argc, argv, "vhdj:o:", options, &index)) != -1) {
       switch(opt) {
         case 'h':
           setOptions.insert(std::make_pair("help", "1"));
           break;
         case 'v':
           setOptions.insert(std::make_pair("version", "1"));
+          break;
+        case 'd':
+          setOptions.insert(std::make_pair("deep", "1"));
           break;
         case 'j': {
           setOptions.insert(std::make_pair("json-cache", optarg));
@@ -86,6 +90,8 @@ namespace WikiWalker
 
     helpFormatter("-h, --help", "print program help");
     helpFormatter("-v, --version", "print program version");
+    helpFormatter("-d, --deep",
+                  "whether to fetch and analyze linked articles as well");
     helpFormatter("-j, --json-cache", "cache file in JSON format");
     helpFormatter("-o, --dot-out", "output file for dot/graphviz");
 
