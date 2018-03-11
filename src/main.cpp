@@ -13,6 +13,9 @@
 
 using CmdOpt = WikiWalker::CommandLineParserBase::CommandLineOptions;
 
+//! limit for printing article links / contents
+const int printLimit = 10;
+
 int main(int argc, char** argv)
 {
 #if defined(WW_USE_BOOST_PO)
@@ -116,11 +119,18 @@ int main(int argc, char** argv)
     }
   }
 
-  for(auto& a : w.getCollection()) {
-    auto& art = a.second;
-    if(art->isAnalyzed()) {
-      std::cout << "Article " << a.first << " has " << art->getNumLinks()
-                << " links" << std::endl;
+  size_t numArt = w.getCollection().getNumAnalyzedArticles();
+  if(numArt > 10) {
+    std::cout << "There are " << numArt << " analyzed articles."
+              << " Not printing them. (Limit: " << printLimit << ")."
+              << std::endl;
+  } else {
+    for(auto& a : w.getCollection()) {
+      auto& art = a.second;
+      if(art->isAnalyzed()) {
+        std::cout << "Article " << a.first << " has " << art->getNumLinks()
+                  << " links" << std::endl;
+      }
     }
   }
 
