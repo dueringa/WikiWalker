@@ -27,46 +27,44 @@ namespace WikiWalker
     auto allPages = document.get("query", Json::Value::nullSingleton())
                         .get("pages", Json::Value::nullSingleton());
 
-    // only get first page
-    auto wantedPage =
-        allPages.get((Json::ArrayIndex)0, Json::Value::nullSingleton());
-
-    if(wantedPage.isMember("missing")) {
-      throw WalkerException("Article doesn't exist");
-    } else if(wantedPage.isMember("invalid")) {
-      throw WalkerException("Invalid article");
-    }
-
-    //! get normalized title not necessary, "title" is already
-    std::string wantedArticleTitle =
-        wantedPage.get("title", Json::Value::nullSingleton()).asString();
-
-    //! \todo find a better solution than get-compare-add
-    auto wantedArticle = articleCache.get(wantedArticleTitle);
-
-    if(wantedArticle == nullptr) {
-      wantedArticle = std::make_shared<Article>(wantedArticleTitle);
-    }
-
-    articleCache.add(wantedArticle);
-
-    // add links
-    std::shared_ptr<Article> par;
-    for(const auto& linked :
-        wantedPage.get("links", Json::Value::nullSingleton())) {
-      auto linkedPageTitle =
-          linked.get("title", Json::Value::nullSingleton()).asString();
-      par = articleCache.get(linkedPageTitle);
-
-      if(par == nullptr) {
-        par = std::make_shared<Article>(linkedPageTitle);
-        articleCache.add(par);
+    for(auto& onePage : allPages) {
+      if(onePage.isMember("missing")) {
+        throw WalkerException("Article doesn't exist");
+      } else if(onePage.isMember("invalid")) {
+        throw WalkerException("Invalid article");
       }
 
-      wantedArticle->addLink(par);
-    }
+      //! get normalized title not necessary, "title" is already
+      std::string oneTitle =
+          onePage.get("title", Json::Value::nullSingleton()).asString();
 
-    wantedArticle->setAnalyzed(true);
+      //! \todo find a better solution than get-compare-add
+      auto wantedArticle = articleCache.get(oneTitle);
+
+      if(wantedArticle == nullptr) {
+        wantedArticle = std::make_shared<Article>(oneTitle);
+      }
+
+      articleCache.add(wantedArticle);
+
+      // add links
+      std::shared_ptr<Article> par;
+      for(const auto& linked :
+          onePage.get("links", Json::Value::nullSingleton())) {
+        auto linkedPageTitle =
+            linked.get("title", Json::Value::nullSingleton()).asString();
+        par = articleCache.get(linkedPageTitle);
+
+        if(par == nullptr) {
+          par = std::make_shared<Article>(linkedPageTitle);
+          articleCache.add(par);
+        }
+
+        wantedArticle->addLink(par);
+      }
+
+      wantedArticle->setAnalyzed(true);
+    }
 
     bool moreData;
 

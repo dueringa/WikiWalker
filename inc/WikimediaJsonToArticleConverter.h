@@ -39,8 +39,6 @@ namespace WikiWalker
      * \returns the conversion status. If this is
      * #ContinuationStatus::ConversionNeedsMoreData, get continuation data with
      * #getContinuationData.
-     * \internal currently only converts the first article, even if multiple
-     * ones are in the JSON array.
      */
     ContinuationStatus convertToArticle(const std::string& json,
                                         ArticleCollection& articleCache);
