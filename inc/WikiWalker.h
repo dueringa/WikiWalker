@@ -14,6 +14,11 @@ namespace WikiWalker
   class WikiWalker : public Walker
   {
   public:
+    //! Creates a new instance
+    WikiWalker() : Walker(), fetchGenerator(false), grabber()
+    {
+    }
+
     /*! given an URL, start collecting links
      * \param url start point for analysis
      */
