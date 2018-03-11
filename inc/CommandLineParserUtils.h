@@ -25,6 +25,8 @@ namespace WikiWalker
           return "json-cache";
         case CommandLineParserBase::CommandLineOptions::DotOut:
           return "dot-out";
+          case CommandLineParserBase::CommandLineOptions::FetchDeep:
+          return "deep";
         default:
           return "";
       }
