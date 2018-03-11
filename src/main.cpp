@@ -75,6 +75,10 @@ int main(int argc, char** argv)
     }
   }
 
+  if(isDeepSet) {
+    w.setDeep(true);
+  }
+
   if(isUrlSet) {
     try {
       std::string url = cmdp.getValue(CmdOpt::URL);
