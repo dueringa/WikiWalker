@@ -19,7 +19,7 @@ namespace WikiWalker
      *
      * \param exmessage The exception message.
      */
-    explicit WalkerException(std::string exmessage) : runtime_error(exmessage)
+    explicit WalkerException(const std::string& exmessage) : runtime_error(exmessage)
     {
     }
   };
