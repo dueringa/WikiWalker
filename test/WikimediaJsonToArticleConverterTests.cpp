@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <UnitTest++/UnitTest++.h>
 
 #include "Article.h"
@@ -50,5 +52,38 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->getNumLinks());
     CHECK_EQUAL(2, ac.getNumArticles());
+  }
+
+  namespace TestPredicate
+  {
+    // you gotta love C++ syntax / types, right?
+    bool precicateIsAnalyzed(ArticleCollection::storage_type::reference x)
+    {
+      auto art = x.second;
+      if(art == nullptr) {
+        return false;
+      }
+      return art->isAnalyzed();
+    }
+  }
+
+  TEST(JsonData_ContainsMultipleArticles)
+  {
+    std::string testdata =
+        R"#({"batchcomplete": true,"query": {"normalized": [{"fromencoded": false,"from": "Zanfina_Ismajli","to": "Zanfina Ismajli"},{"fromencoded": false,"from": "Kleite_(Tochter_des_Danaos)","to": "Kleite (Tochter des Danaos)"}],"pages": [{"pageid": 2834303,"ns": 0,"title": "Zanfina Ismajli","links": [{"ns": 0,"title": "10. Mai"},{"ns": 0,"title": "1985"}]},{"pageid": 8086803,"ns": 0,"title": "Kleite (Tochter des Danaos)","links": [{"ns": 0,"title": "Aigyptos"},{"ns": 0,"title": "Altgriechische Sprache"}]}]},"limits": {"links": 500}})#";
+    WikimediaJsonToArticleConverter conv;
+    ArticleCollection ac;
+    auto cont = conv.convertToArticle(testdata, ac);
+    CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
+              ConversionCompleted == cont);
+
+    size_t analyzedCount =
+        std::count_if(ac.begin(), ac.end(), TestPredicate::precicateIsAnalyzed);
+    CHECK_EQUAL(2, analyzedCount);
+    auto ptr = ac.get("Zanfina Ismajli");
+    CHECK(ptr != nullptr);
+    ptr = ac.get("Kleite (Tochter des Danaos)");
+    CHECK(ptr != nullptr);
+    CHECK_EQUAL(6, ac.getNumArticles());
   }
 }
