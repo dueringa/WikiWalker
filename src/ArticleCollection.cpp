@@ -2,6 +2,7 @@
 
 #include "ArticleCollection.h"
 
+#include <algorithm>
 #include <utility>
 
 #include "Article.h"
@@ -85,5 +86,22 @@ namespace WikiWalker
   ArticleCollection::const_iterator ArticleCollection::end() const
   {
     return articleSet.end();
+  }
+
+  namespace Predicates
+  {
+    bool articleIsAnalyzed(ArticleCollection::storage_type::const_reference x)
+    {
+      auto art = x.second;
+      if(art == nullptr) {
+        return false;
+      }
+      return art->isAnalyzed();
+    }
+  }
+
+  size_t ArticleCollection::getNumAnalyzedArticles() const
+  {
+    return std::count_if(begin(), end(), Predicates::articleIsAnalyzed);
   }
 }
