@@ -34,6 +34,8 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/lib)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/src)
 
+add_subdirectory(${CMAKE_SOURCE_DIR}/util)
+
 if(WW_WITH_TESTS)
     add_subdirectory(${CMAKE_SOURCE_DIR}/test)
 endif() #WW_WITH_TESTS
