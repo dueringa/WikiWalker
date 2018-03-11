@@ -14,8 +14,9 @@ namespace WikiWalker
   public:
     virtual ~GetoptCommandLineParser();
 
-    std::string getValue(std::string option) override;
-    bool hasSet(std::string flag) override;
+    std::string getValue(
+        CommandLineParserBase::CommandLineOptions option) override;
+    bool hasSet(CommandLineParserBase::CommandLineOptions flag) override;
     void parse(int argc, char** argv) override;
     void printHelp() override;
 

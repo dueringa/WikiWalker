@@ -11,6 +11,8 @@
 
 #include "config.h"
 
+using CmdOpt = WikiWalker::CommandLineParserBase::CommandLineOptions;
+
 int main(int argc, char** argv)
 {
 #if defined(WW_USE_BOOST_PO)
@@ -27,19 +29,19 @@ int main(int argc, char** argv)
     return -1;
   }
 
-  if(cmdp.hasSet("version")) {
+  if(cmdp.hasSet(CmdOpt::Version)) {
     std::cout << "WikiWalker, version " << _WW_VERSION << std::endl;
     return 0;
   }
 
-  if(cmdp.hasSet("help")) {
+  if(cmdp.hasSet(CmdOpt::Help)) {
     cmdp.printHelp();
     return 0;
   }
 
-  bool isUrlSet       = cmdp.hasSet("url");
-  bool isCacheSet     = cmdp.hasSet("json-cache");
-  bool isDotSet       = cmdp.hasSet("dot-out");
+  bool isUrlSet       = cmdp.hasSet(CmdOpt::URL);
+  bool isCacheSet     = cmdp.hasSet(CmdOpt::JsonCache);
+  bool isDotSet       = cmdp.hasSet(CmdOpt::DotOut);
   bool validRunConfig = isUrlSet || (isDotSet && isCacheSet);
 
   if(!validRunConfig) {
@@ -54,7 +56,7 @@ int main(int argc, char** argv)
 
   if(isCacheSet) {
     try {
-      std::string cachefile = cmdp.getValue("json-cache");
+      std::string cachefile = cmdp.getValue(CmdOpt::JsonCache);
       w.readCache(cachefile);
     } catch(std::exception& e) {
       std::cout << e.what() << std::endl;
@@ -64,7 +66,7 @@ int main(int argc, char** argv)
 
   if(isUrlSet) {
     try {
-      std::string url = cmdp.getValue("url");
+      std::string url = cmdp.getValue(CmdOpt::URL);
       w.startWalking(url);
     } catch(std::exception& e) {
       std::cout << "Error: " << e.what() << std::endl;
@@ -73,7 +75,7 @@ int main(int argc, char** argv)
   }
 
   if(isCacheSet) {
-    std::string cachefile = cmdp.getValue("json-cache");
+    std::string cachefile = cmdp.getValue(CmdOpt::JsonCache);
     if(read_failed) {
       cachefile.append("_");
       std::cout << "Reading from cache failed, write to " << cachefile
@@ -88,7 +90,7 @@ int main(int argc, char** argv)
 
   if(isDotSet) {
     const WikiWalker::ArticleCollection& ac = w.getCollection();
-    std::string outfile                     = cmdp.getValue("dot-out");
+    std::string outfile                     = cmdp.getValue(CmdOpt::DotOut);
     WikiWalker::ToGraphvizWriter tgw;
     std::ofstream file(outfile, std::ios::trunc | std::ios::out);
 

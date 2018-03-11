@@ -6,6 +6,7 @@
 #include <iostream>
 #include <utility>
 
+#include "CommandLineParserUtils.h"
 #include "WalkerException.h"
 
 namespace WikiWalker
@@ -20,14 +21,18 @@ namespace WikiWalker
 
   GetoptCommandLineParser::~GetoptCommandLineParser() = default;
 
-  std::string GetoptCommandLineParser::getValue(std::string option)
+  std::string GetoptCommandLineParser::getValue(
+      CommandLineParserBase::CommandLineOptions option)
   {
-    return setOptions.find(option)->second;
+    return setOptions.find(CommandLineParserUtils::getStringFlag(option))
+        ->second;
   }
 
-  bool GetoptCommandLineParser::hasSet(std::string flag)
+  bool GetoptCommandLineParser::hasSet(
+      CommandLineParserBase::CommandLineOptions flag)
   {
-    return setOptions.find(flag) != setOptions.end();
+    return setOptions.find(CommandLineParserUtils::getStringFlag(flag)) !=
+           setOptions.end();
   }
 
   void GetoptCommandLineParser::parse(int argc, char** argv)

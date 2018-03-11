@@ -11,6 +11,20 @@ namespace WikiWalker
   class CommandLineParserBase
   {
   public:
+    //! possible command line flags
+    enum class CommandLineOptions {
+      //! version
+      Version,
+      //! help
+      Help,
+      //! URL argument
+      URL,
+      //! cache option
+      JsonCache,
+      //! raphviz output option
+      DotOut
+    };
+
     //! virtual base class d'tor
     virtual ~CommandLineParserBase() = default;
 
@@ -22,16 +36,16 @@ namespace WikiWalker
     virtual void parse(int argc, char** argv) = 0;
 
     /*! Query whether a specific flag was set on command line.
-     * \param flag Command line switch without leading dash
+     * \param flag Command line switch
      * \return whether specified flag was set on command line
      */
-    virtual bool hasSet(std::string flag) = 0;
+    virtual bool hasSet(CommandLineOptions flag) = 0;
 
     /*! get argument of switch (if available)
-     * \param option command line switch without leading dash
+     * \param option command line options
      * \returns value as string
      */
-    virtual std::string getValue(std::string option) = 0;
+    virtual std::string getValue(CommandLineOptions option) = 0;
 
     /*! Print usage help
      */

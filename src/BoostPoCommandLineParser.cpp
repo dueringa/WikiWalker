@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include "CommandLineParserUtils.h"
+
 namespace WikiWalker
 {
   BoostPoCommandLineParser::BoostPoCommandLineParser()
@@ -29,15 +31,17 @@ namespace WikiWalker
     p.add("url", 1);
   }
 
-  std::string BoostPoCommandLineParser::getValue(std::string option)
+  std::string BoostPoCommandLineParser::getValue(
+      CommandLineParserBase::CommandLineOptions option)
   {
     assert(hasSet(option));
-    return vm[option].as<std::string>();
+    return vm[CommandLineParserUtils::getStringFlag(option)].as<std::string>();
   }
 
-  bool BoostPoCommandLineParser::hasSet(std::string flag)
+  bool BoostPoCommandLineParser::hasSet(
+      CommandLineParserBase::CommandLineOptions flag)
   {
-    return vm.count(flag) != 0u;
+    return vm.count(CommandLineParserUtils::getStringFlag(flag)) != 0u;
   }
 
   void BoostPoCommandLineParser::parse(int argc, char** argv)
