@@ -27,7 +27,7 @@ namespace WikiWalker
     return links.cend();
   }
 
-  bool Article::addLink(std::weak_ptr<const Article> article)
+  bool Article::addLink(const std::weak_ptr<const Article> article)
   {
     auto newTitle = article.lock()->getTitle();
 
@@ -58,9 +58,9 @@ namespace WikiWalker
     return analyzed;
   }
 
-  void Article::setMarked(bool _marked)
+  void Article::setMarked(bool marking)
   {
-    marked = _marked;
+    marked = marking;
   }
 
   bool Article::isMarked() const
