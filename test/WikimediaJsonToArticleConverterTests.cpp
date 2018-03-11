@@ -54,19 +54,6 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK_EQUAL(2, ac.getNumArticles());
   }
 
-  namespace TestPredicate
-  {
-    // you gotta love C++ syntax / types, right?
-    bool precicateIsAnalyzed(ArticleCollection::storage_type::reference x)
-    {
-      auto art = x.second;
-      if(art == nullptr) {
-        return false;
-      }
-      return art->isAnalyzed();
-    }
-  }
-
   TEST(JsonData_ContainsMultipleArticles)
   {
     std::string testdata =
@@ -77,9 +64,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
               ConversionCompleted == cont);
 
-    size_t analyzedCount =
-        std::count_if(ac.begin(), ac.end(), TestPredicate::precicateIsAnalyzed);
-    CHECK_EQUAL(2, analyzedCount);
+    CHECK_EQUAL(2, ac.getNumAnalyzedArticles());
     auto ptr = ac.get("Zanfina Ismajli");
     CHECK(ptr != nullptr);
     ptr = ac.get("Kleite (Tochter des Danaos)");

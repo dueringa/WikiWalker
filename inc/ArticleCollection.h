@@ -58,6 +58,11 @@ namespace WikiWalker
       return articleSet.size();
     }
 
+    /*! get number of anlyzed articles in collection
+     * \returns number of analyzed articles in collection
+     */
+    size_t getNumAnalyzedArticles() const;
+
     /*! merge another ArticleCollection into the current one
      * \param[in] other collection to merge into the current one
      * \param[in] strategy merge stratgy to use
