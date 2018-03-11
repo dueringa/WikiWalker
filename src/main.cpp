@@ -42,11 +42,19 @@ int main(int argc, char** argv)
   bool isUrlSet       = cmdp.hasSet(CmdOpt::URL);
   bool isCacheSet     = cmdp.hasSet(CmdOpt::JsonCache);
   bool isDotSet       = cmdp.hasSet(CmdOpt::DotOut);
+  bool isDeepSet      = cmdp.hasSet(CmdOpt::FetchDeep);
   bool validRunConfig = isUrlSet || (isDotSet && isCacheSet);
 
   if(!validRunConfig) {
     std::cerr << "Must either specify at least URL, "
               << "or dot and cache file." << std::endl;
+    cmdp.printHelp();
+    return 1;
+  }
+
+  if(isUrlSet && isDeepSet && !isCacheSet) {
+    std::cerr << "Please specify a cache file when using \"deep\" option"
+              << std::endl;
     cmdp.printHelp();
     return 1;
   }
