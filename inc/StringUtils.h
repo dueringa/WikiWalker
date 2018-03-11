@@ -17,8 +17,9 @@ namespace WikiWalker
      * \returns true if first string begins with the second one, otherwise
      * false. Also returns false if either string is empty.
      */
-    bool startsWith(std::string stringToTest, std::string beginning);
-  };
-}
+    bool startsWith(const std::string& stringToTest,
+                    const std::string& beginning);
+  }  //  namespace StringUtils
+}  //  namespace WikiWalker
 
 #endif /* STRINGUTILS_H */
