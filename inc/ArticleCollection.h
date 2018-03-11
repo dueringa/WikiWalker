@@ -42,6 +42,8 @@ namespace WikiWalker
 
     ArticleCollection() = default;
 
+    ~ArticleCollection() = default;
+
     /*! add article to collection.
      * \param article article to add
      * \return true if insertion took place

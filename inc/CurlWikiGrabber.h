@@ -18,6 +18,16 @@ namespace WikiWalker
 
     ~CurlWikiGrabber();
 
+    //! Explicitely delete copy constructor, because curl handle
+    CurlWikiGrabber(const CurlWikiGrabber& other) = delete;
+    //! Explicitely delete move constructor, because curl handle
+    CurlWikiGrabber(CurlWikiGrabber&& other) = delete;
+
+    //! Explicitely delete copy assignment operator, because curl handle
+    CurlWikiGrabber& operator=(const CurlWikiGrabber& other) = delete;
+    //! Explicitely delete move assignment operator, because curl handle
+    CurlWikiGrabber& operator=(CurlWikiGrabber&& other) = delete;
+
     /*! given an URL, return article JSON data
      * \param url URL of the article
      * \returns article JSON data
