@@ -220,3 +220,18 @@
             "links": 500
         }
     }
+
+## missing articles
+
+    {
+        "query": {
+            "pages": [
+                {
+                    "ns": 0,
+                    "title": "Drahtsäge",
+                    "missing": true
+                }
+                // ...
+            ]
+        }
+    }

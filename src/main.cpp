@@ -13,6 +13,9 @@
 
 using CmdOpt = WikiWalker::CommandLineParserBase::CommandLineOptions;
 
+//! limit for printing article links / contents
+const int printLimit = 10;
+
 int main(int argc, char** argv)
 {
 #if defined(WW_USE_BOOST_PO)
@@ -42,11 +45,19 @@ int main(int argc, char** argv)
   bool isUrlSet       = cmdp.hasSet(CmdOpt::URL);
   bool isCacheSet     = cmdp.hasSet(CmdOpt::JsonCache);
   bool isDotSet       = cmdp.hasSet(CmdOpt::DotOut);
+  bool isDeepSet      = cmdp.hasSet(CmdOpt::FetchDeep);
   bool validRunConfig = isUrlSet || (isDotSet && isCacheSet);
 
   if(!validRunConfig) {
     std::cerr << "Must either specify at least URL, "
               << "or dot and cache file." << std::endl;
+    cmdp.printHelp();
+    return 1;
+  }
+
+  if(isUrlSet && isDeepSet && !isCacheSet) {
+    std::cerr << "Please specify a cache file when using \"deep\" option"
+              << std::endl;
     cmdp.printHelp();
     return 1;
   }
@@ -62,6 +73,10 @@ int main(int argc, char** argv)
       std::cout << e.what() << std::endl;
       read_failed = true;
     }
+  }
+
+  if(isDeepSet) {
+    w.setDeep(true);
   }
 
   if(isUrlSet) {
@@ -108,11 +123,21 @@ int main(int argc, char** argv)
     }
   }
 
-  for(auto& a : w.getCollection()) {
-    auto& art = a.second;
-    if(art->isAnalyzed()) {
-      std::cout << "Article " << a.first << " has " << art->getNumLinks()
-                << " links" << std::endl;
+  size_t numArt = w.getCollection().getNumAnalyzedArticles();
+  if(numArt > 10) {
+    std::cout << "There are " << numArt << " analyzed articles."
+              << " Not printing them. (Limit: " << printLimit << ")."
+              << std::endl;
+  } else {
+    for(auto& a : w.getCollection()) {
+      auto& art = a.second;
+      if(art->isMarked()) {
+        std::cout << "Article " << a.first << " is invalid or doesn't exist"
+                  << std::endl;
+      } else if(art->isAnalyzed()) {
+        std::cout << "Article " << a.first << " has " << art->getNumLinks()
+                  << " links" << std::endl;
+      }
     }
   }
 

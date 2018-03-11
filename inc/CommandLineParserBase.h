@@ -21,8 +21,10 @@ namespace WikiWalker
       URL,
       //! cache option
       JsonCache,
-      //! raphviz output option
-      DotOut
+      //! Graphviz output option
+      DotOut,
+      //! whether to use "deep mode"
+      FetchDeep
     };
 
     //! virtual base class d'tor

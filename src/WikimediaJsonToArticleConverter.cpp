@@ -28,12 +28,6 @@ namespace WikiWalker
                         .get("pages", Json::Value::nullSingleton());
 
     for(auto& onePage : allPages) {
-      if(onePage.isMember("missing")) {
-        throw WalkerException("Article doesn't exist");
-      } else if(onePage.isMember("invalid")) {
-        throw WalkerException("Invalid article");
-      }
-
       //! get normalized title not necessary, "title" is already
       std::string oneTitle =
           onePage.get("title", Json::Value::nullSingleton()).asString();
@@ -43,9 +37,14 @@ namespace WikiWalker
 
       if(wantedArticle == nullptr) {
         wantedArticle = std::make_shared<Article>(oneTitle);
+        articleCache.add(wantedArticle);
       }
 
-      articleCache.add(wantedArticle);
+      if(onePage.isMember("missing") || onePage.isMember("invalid")) {
+        wantedArticle->setMarked(true);
+        wantedArticle->setAnalyzed(true);
+        continue;
+      }
 
       // add links
       std::shared_ptr<Article> par;
