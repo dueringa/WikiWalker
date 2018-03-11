@@ -77,4 +77,4 @@ namespace WikiWalker
 
     writeFooter(os);
   }
-}
+}  // namespace WikiWalker

@@ -83,7 +83,7 @@ namespace WikiWalker
 
     return gotContent;
   }
-}
+}  // namespace WikiWalker
 
 // note to self: API
 // https://en.wikipedia.org/w/api.php

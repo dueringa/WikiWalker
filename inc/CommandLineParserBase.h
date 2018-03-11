@@ -37,5 +37,5 @@ namespace WikiWalker
      */
     virtual void printHelp() = 0;
   };
-}
+}  // namespace WikiWalker
 #endif  // ACOMMANDLINEPARSER_H

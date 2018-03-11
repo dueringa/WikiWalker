@@ -37,5 +37,5 @@ namespace WikiWalker
      */
     std::string convertToJson(const ArticleCollection& ac);
   };
-}
+}  // namespace WikiWalker
 #endif  // TOJSONWRITER_H

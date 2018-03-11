@@ -129,4 +129,4 @@ namespace WikiWalker
     cache.flush();
     cache.close();
   }
-}
+}  // namespace WikiWalker

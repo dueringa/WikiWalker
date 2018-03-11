@@ -20,5 +20,5 @@ namespace WikiWalker
     void writeFooter(std::ostream& os);
     void writeArticle(const Article* a, std::ostream& os);
   };
-}
+}  // namespace WikiWalker
 #endif  // TOGRAPHVIZWRITER_H

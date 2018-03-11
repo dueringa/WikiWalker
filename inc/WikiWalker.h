@@ -32,5 +32,5 @@ namespace WikiWalker
   private:
     CurlWikiGrabber grabber;
   };
-}
+}  // namespace WikiWalker
 #endif  // WIKIWALKER_H

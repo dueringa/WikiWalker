@@ -23,5 +23,5 @@ namespace WikiWalker
     {
     }
   };
-}
+}  // namespace WikiWalker
 #endif  // WALKEREXCEPTION_H

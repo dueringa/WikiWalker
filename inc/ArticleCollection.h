@@ -11,7 +11,7 @@
 namespace WikiWalker
 {
   class Article;
-}
+}  //  namespace WikiWalker
 
 namespace WikiWalker
 {
@@ -118,5 +118,5 @@ namespace WikiWalker
     // we do this by associating an article title with its instance
     storage_type articleSet;
   };
-}
+}  // namespace WikiWalker
 #endif  // ARTICLE_COLLECTION_H

@@ -56,4 +56,4 @@ namespace WikiWalker
     std::cout << "Usage: walker [options] URL" << std::endl;
     std::cout << cmdOptions << std::endl;
   }
-}
+}  // namespace WikiWalker

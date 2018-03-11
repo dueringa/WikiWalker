@@ -67,4 +67,4 @@ namespace WikiWalker
   {
     return marked;
   }
-}
+}  // namespace WikiWalker

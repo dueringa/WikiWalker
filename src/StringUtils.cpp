@@ -19,4 +19,4 @@ namespace WikiWalker
     // suffice to compare n characters, where n is length of beginning
     return stringToTest.substr(0, beginning.length()) == beginning;
   }
-}
+}  // namespace WikiWalker

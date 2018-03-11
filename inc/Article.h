@@ -100,5 +100,5 @@ namespace WikiWalker
     bool analyzed;
     bool marked;
   };
-}
+}  // namespace WikiWalker
 #endif  // ARTICLE_H

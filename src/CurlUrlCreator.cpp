@@ -44,4 +44,4 @@ namespace WikiWalker
   {
     args.clear();
   }
-}
+}  // namespace WikiWalker

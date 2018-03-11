@@ -24,5 +24,5 @@ namespace WikiWalker
      */
     std::string grabUrl(const std::string& url) const;
   };
-}
+}  // namespace WikiWalker
 #endif  // CURL_WIKI_GRABBER_H

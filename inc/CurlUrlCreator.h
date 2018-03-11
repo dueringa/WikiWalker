@@ -53,5 +53,5 @@ namespace WikiWalker
     std::unordered_map<std::string, std::string> args;
     CURL* handle;
   };
-}
+}  // namespace WikiWalker
 #endif  // CURLURLCREATOR_H

@@ -81,4 +81,4 @@ namespace WikiWalker
     return moreData ? ContinuationStatus::ConversionNeedsMoreData
                     : ContinuationStatus::ConversionCompleted;
   }
-}
+}  // namespace WikiWalker

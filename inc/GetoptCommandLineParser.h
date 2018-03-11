@@ -22,5 +22,5 @@ namespace WikiWalker
   private:
     std::map<std::string, std::string> setOptions;
   };
-}
+}  // namespace WikiWalker
 #endif  // GETOPTCOMMANDLINEPARSER_H
