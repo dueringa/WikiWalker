@@ -19,6 +19,14 @@ namespace WikiWalker
      */
     void startWalking(const std::string& url);
 
+    /*! fetch not only requested article, but also linked ones.
+     * \param depth whether to fetch linked articles as well
+     */
+    void setDeep(bool depth)
+    {
+      fetchGenerator = depth;
+    }
+
     /*! Read data from cache file.
      * Used for initialization.
      * \param cacheFile file name of the cache.
@@ -32,6 +40,7 @@ namespace WikiWalker
 
   private:
     CurlWikiGrabber grabber;
+    bool fetchGenerator;
   };
 }  // namespace WikiWalker
 #endif  // WIKIWALKER_H

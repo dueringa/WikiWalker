@@ -85,6 +85,27 @@ namespace WikiWalker
     } else {
       std::cerr << "Error fetching article" << std::endl;
     }
+
+    if(fetchGenerator) {
+      creator.addParameter("generator", "links")
+          .addParameter("plnamespace", "0")
+          .addParameter("gpllimit", "max");
+      json = grabber.grabUrl(creator.buildUrl());
+
+      if(!json.empty()) {
+        WikimediaJsonToArticleConverter conv;
+        auto conversionStatus = conv.convertToArticle(json, articleSet);
+
+        while(WikimediaJsonToArticleConverter::ContinuationStatus::
+                      ConversionNeedsMoreData == conversionStatus &&
+              conv.getContinuationData() != "") {
+          creator.addParameter("plcontinue", conv.getContinuationData());
+
+          json             = grabber.grabUrl(creator.buildUrl());
+          conversionStatus = conv.convertToArticle(json, articleSet);
+        }
+      }
+    }
   }
 
   void WikiWalker::readCache(const std::string& cacheFile)
