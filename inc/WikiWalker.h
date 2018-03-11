@@ -4,6 +4,7 @@
 #define WIKIWALKER_H
 
 #include <string>
+
 #include "CurlWikiGrabber.h"
 #include "Walker.h"
 

@@ -4,6 +4,7 @@
 #define TOJSONWRITER_H
 
 #include <string>
+
 #include "DataOutputBase.h"
 
 namespace WikiWalker

@@ -4,6 +4,7 @@
 #define ADATAOUTPUT_H
 
 #include <ostream>
+
 #include "ArticleCollection.h"
 
 namespace WikiWalker
