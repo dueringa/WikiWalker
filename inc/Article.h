@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace WikiWalker
@@ -26,7 +27,7 @@ namespace WikiWalker
      * \param articleTitle The title of the article
      */
     explicit Article(std::string articleTitle)
-        : title(articleTitle), analyzed(false), marked(false)
+        : title(std::move(articleTitle)), analyzed(false), marked(false)
     {
     }
 
@@ -56,7 +57,7 @@ namespace WikiWalker
      * \see setAnalyzed
      * \see isAnalyzed
      */
-    bool addLink(std::weak_ptr<const Article> article);
+    bool addLink(const std::weak_ptr<const Article> article);
 
     /*! Set article to be analyzed.
      * State is automatically set by #addLink, but if
@@ -65,7 +66,7 @@ namespace WikiWalker
      * \param analyzed whether article has been analyzed
      * \see addLink
      */
-    void setAnalyzed(bool analyzed);
+    void setAnalyzed(bool analyzedState);
 
     /*! Get state if article was analyzed (for out links).
      * \returns whether article was analyzed for outgoing links
@@ -75,9 +76,9 @@ namespace WikiWalker
     /*! Set article to be marked.
      * Some kind of "marking" for output usage. May be start point,
      * may be end point, may be point of special interest.
-     * \param marked whether article os marked
+     * \param marking whether article is marked
      */
-    void setMarked(bool marked);
+    void setMarked(bool marking);
 
     /*! Get state whether article was marked.
      * \returns Whether article is marked.
@@ -100,5 +101,5 @@ namespace WikiWalker
     bool analyzed;
     bool marked;
   };
-}
+}  // namespace WikiWalker
 #endif  // ARTICLE_H

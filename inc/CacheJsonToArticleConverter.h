@@ -34,5 +34,5 @@ namespace WikiWalker
     ArticleCollection& convertToArticle(std::istream& json,
                                         ArticleCollection& articleCache);
   };
-}
+}  // namespace WikiWalker
 #endif  // CACHEJSONTOARTICLECONVERTER_H

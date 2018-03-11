@@ -27,5 +27,5 @@ namespace WikiWalker
     //! article collection, used as cache, for walked articles
     ArticleCollection articleSet;
   };
-}
+}  // namespace WikiWalker
 #endif  // WALKER_H

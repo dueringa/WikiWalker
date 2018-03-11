@@ -98,10 +98,10 @@ namespace WikiWalker
       }
       return art->isAnalyzed();
     }
-  }
+  }  // namespace Predicates
 
   size_t ArticleCollection::getNumAnalyzedArticles() const
   {
     return std::count_if(begin(), end(), Predicates::articleIsAnalyzed);
   }
-}
+}  // namespace WikiWalker

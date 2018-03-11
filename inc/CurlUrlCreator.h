@@ -5,6 +5,7 @@
 
 #include <string>
 #include <unordered_map>
+
 #include <curl/curl.h>
 
 namespace WikiWalker
@@ -23,8 +24,14 @@ namespace WikiWalker
     //! delete copy constructor, because of CURL handle
     CurlUrlCreator(const CurlUrlCreator&) = delete;
 
+    //! delete move constructor, because of CURL handle
+    CurlUrlCreator(CurlUrlCreator&&) = delete;
+
     //! delete copy assignment, because of CURL handle
     CurlUrlCreator& operator=(const CurlUrlCreator&) = delete;
+
+    //! delete move assignment, because of CURL handle
+    CurlUrlCreator& operator=(CurlUrlCreator&&) = delete;
 
     /*! Add GET parameters to URL.
      *  If parameter keys are specified multiple times, later occurrences
@@ -53,5 +60,5 @@ namespace WikiWalker
     std::unordered_map<std::string, std::string> args;
     CURL* handle;
   };
-}
+}  // namespace WikiWalker
 #endif  // CURLURLCREATOR_H

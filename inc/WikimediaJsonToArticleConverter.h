@@ -57,5 +57,5 @@ namespace WikiWalker
     //! string required for API operation
     std::string continueString;
   };
-}
+}  // namespace WikiWalker
 #endif /* WIKIMEDIAJSONTOARTICLECONVERTER_H */

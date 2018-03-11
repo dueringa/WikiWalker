@@ -70,13 +70,13 @@ namespace WikiWalker
 
     std::string json = grabber.grabUrl(creator.buildUrl());
 
-    if(json != "") {
+    if(!json.empty()) {
       WikimediaJsonToArticleConverter conv;
       auto conversionStatus = conv.convertToArticle(json, articleSet);
 
       while(WikimediaJsonToArticleConverter::ContinuationStatus::
                     ConversionNeedsMoreData == conversionStatus &&
-            conv.getContinuationData() != "") {
+            !conv.getContinuationData().empty()) {
         creator.addParameter("plcontinue", conv.getContinuationData());
 
         json             = grabber.grabUrl(creator.buildUrl());
@@ -129,4 +129,4 @@ namespace WikiWalker
     cache.flush();
     cache.close();
   }
-}
+}  // namespace WikiWalker

@@ -4,7 +4,8 @@
 
 namespace WikiWalker
 {
-  bool StringUtils::startsWith(std::string stringToTest, std::string beginning)
+  bool StringUtils::startsWith(const std::string& stringToTest,
+                               const std::string& beginning)
   {
     if(stringToTest.empty() || beginning.empty()) {
       return false;
@@ -16,10 +17,6 @@ namespace WikiWalker
     }
 
     // suffice to compare n characters, where n is length of beginning
-    if(stringToTest.substr(0, beginning.length()).compare(beginning) == 0) {
-      return true;
-    }
-
-    return false;
+    return stringToTest.substr(0, beginning.length()) == beginning;
   }
-}
+}  // namespace WikiWalker

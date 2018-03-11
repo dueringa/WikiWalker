@@ -4,6 +4,7 @@
 #define WIKIWALKER_H
 
 #include <string>
+
 #include "CurlWikiGrabber.h"
 #include "Walker.h"
 
@@ -32,5 +33,5 @@ namespace WikiWalker
   private:
     CurlWikiGrabber grabber;
   };
-}
+}  // namespace WikiWalker
 #endif  // WIKIWALKER_H

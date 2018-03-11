@@ -32,5 +32,5 @@ namespace WikiWalker
     po::variables_map vm;
     po::positional_options_description p;
   };
-}
+}  // namespace WikiWalker
 #endif  // BOOSTPOCOMMANDLINEPARSER_H

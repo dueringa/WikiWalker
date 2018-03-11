@@ -80,4 +80,4 @@ namespace WikiWalker
   {
     outstream << convertToJson(collection);
   }
-}
+}  // namespace WikiWalker

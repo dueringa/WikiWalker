@@ -72,4 +72,4 @@ namespace WikiWalker
     std::istringstream jsonStream(json);
     return convertToArticle(jsonStream, articleCache);
   }
-}
+}  // namespace WikiWalker

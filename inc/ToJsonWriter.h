@@ -4,6 +4,7 @@
 #define TOJSONWRITER_H
 
 #include <string>
+
 #include "DataOutputBase.h"
 
 namespace WikiWalker
@@ -14,10 +15,20 @@ namespace WikiWalker
   class ToJsonWriter : public DataOutputBase
   {
   public:
-    //! Output JSON data to output stream
-    void output(const Article*, std::ostream&) override;
-    //! Output JSON data to output stream
-    void output(const ArticleCollection&, std::ostream&) override;
+    /*! Output JSON data to output stream
+     * \param a pointer to article to be output
+     * \param os out stream to putput to.
+     * YOU are responsible for opening and closing the stream
+     */
+    void output(const Article* article, std::ostream& outstream) override;
+
+    /*! Output JSON data to output stream
+     * \param ac reference to article collection to be output
+     * \param os out stream to putput to
+     * YOU are responsible for opening and closing the stream
+     */
+    void output(const ArticleCollection& collection,
+                std::ostream& outstream) override;
 
   private:
     /*! Convert article to string representation of JSON representation.
@@ -37,5 +48,5 @@ namespace WikiWalker
      */
     std::string convertToJson(const ArticleCollection& ac);
   };
-}
+}  // namespace WikiWalker
 #endif  // TOJSONWRITER_H

@@ -11,7 +11,7 @@
 namespace WikiWalker
 {
   class Article;
-}
+}  //  namespace WikiWalker
 
 namespace WikiWalker
 {
@@ -41,6 +41,8 @@ namespace WikiWalker
     using const_iterator = storage_type::const_iterator;
 
     ArticleCollection() = default;
+
+    ~ArticleCollection() = default;
 
     /*! add article to collection.
      * \param article article to add
@@ -118,5 +120,5 @@ namespace WikiWalker
     // we do this by associating an article title with its instance
     storage_type articleSet;
   };
-}
+}  // namespace WikiWalker
 #endif  // ARTICLE_COLLECTION_H

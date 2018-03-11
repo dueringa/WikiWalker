@@ -4,6 +4,7 @@
 #define ADATAOUTPUT_H
 
 #include <ostream>
+
 #include "ArticleCollection.h"
 
 namespace WikiWalker
@@ -34,5 +35,5 @@ namespace WikiWalker
     //! virtual base class d'tor
     virtual ~DataOutputBase() = default;
   };
-}
+}  // namespace WikiWalker
 #endif  // ADATAOUTPUT_H
