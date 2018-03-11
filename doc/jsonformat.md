@@ -163,3 +163,60 @@
             ]
         }
     }
+
+## multiple titles
+
+    {
+        "batchcomplete": true,
+        "query": {
+            "normalized": [
+                {
+                    "fromencoded": false,
+                    "from": "Zanfina_Ismajli",
+                    "to": "Zanfina Ismajli"
+                },
+                {
+                    "fromencoded": false,
+                    "from": "Kleite_(Tochter_des_Danaos)",
+                    "to": "Kleite (Tochter des Danaos)"
+                }
+            ],
+            "pages": [
+                {
+                    "pageid": 2834303,
+                    "ns": 0,
+                    "title": "Zanfina Ismajli",
+                    "links": [
+                        {
+                            "ns": 0,
+                            "title": "10. Mai"
+                        },
+                        {
+                            "ns": 0,
+                            "title": "1985"
+                        },
+                        // ...
+                    ]
+                },
+                {
+                    "pageid": 8086803,
+                    "ns": 0,
+                    "title": "Kleite (Tochter des Danaos)",
+                    "links": [
+                        {
+                            "ns": 0,
+                            "title": "Aigyptos"
+                        },
+                        {
+                            "ns": 0,
+                            "title": "Altgriechische Sprache"
+                        }
+                        // ...
+                    ]
+                }
+            ]
+        },
+        "limits": {
+            "links": 500
+        }
+    }
