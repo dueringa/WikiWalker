@@ -6,7 +6,8 @@
 
 namespace WikiWalker
 {
-  CurlUrlCreator::CurlUrlCreator(std::string baseUrl) : _baseUrl(std::move(baseUrl))
+  CurlUrlCreator::CurlUrlCreator(std::string baseUrl)
+      : _baseUrl(std::move(baseUrl))
   {
     curl_global_init(CURL_GLOBAL_ALL);
     handle = curl_easy_init();
