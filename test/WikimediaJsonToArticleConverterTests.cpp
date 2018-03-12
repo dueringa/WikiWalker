@@ -34,7 +34,12 @@ SUITE(WikimediaJsonToArticleConverterTests)
 
     ArticleCollection ac;
     WikimediaJsonToArticleConverter conv;
-    CHECK_THROW(conv.convertToArticle(testdata, ac), WalkerException);
+    auto ret = conv.convertToArticle(testdata, ac);
+    CHECK(ret == WikiWalker::WikimediaJsonToArticleConverter::
+                     ContinuationStatus::ConversionCompleted);
+    auto art = ac.get("FoObAr");
+    CHECK(art != nullptr);
+    CHECK(art->isMarked());
   }
 
   TEST(JsonData_MoreLinks_HasContinueData)
