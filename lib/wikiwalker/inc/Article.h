@@ -8,12 +8,14 @@
 #include <utility>
 #include <vector>
 
+#include "lww_export.h"
+
 namespace WikiWalker
 {
   /*!
    * represents a Wikipedia (Mediawiki) article and its links
    */
-  class Article
+  class LWW_EXPORT Article
   {
   public:
     //! representation of links to other articles

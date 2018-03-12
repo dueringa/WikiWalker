@@ -31,6 +31,7 @@ target_include_directories(execute_tests
 target_link_libraries(execute_tests
     jsoncpp
     lurlparser
+    lww
     ${UT_LDFLAGS}
     ${CURL_LIBRARIES}
     "UnitTest++"

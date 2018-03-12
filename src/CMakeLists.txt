@@ -74,7 +74,6 @@ add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StringUtils.cpp
 )
 
@@ -82,6 +81,7 @@ target_include_directories(WikiWalkerSource BEFORE PRIVATE
     ${CURL_INCLUDE_DIRS}
     $<TARGET_PROPERTY:jsoncpp,INTERFACE_INCLUDE_DIRECTORIES>
     $<TARGET_PROPERTY:lurlparser,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:lww,INTERFACE_INCLUDE_DIRECTORIES>
     ${CMAKE_CURRENT_SOURCE_DIR}/../inc/
 )
 
@@ -129,6 +129,7 @@ target_link_libraries(walker
     ${CURL_LIBRARIES}
     jsoncpp
     lurlparser
+    lww
 )
 
 # if boost wanted
