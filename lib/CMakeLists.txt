@@ -28,5 +28,7 @@ target_include_directories(lww PUBLIC
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
+install(TARGETS lww DESTINATION lib)
+
 target_include_directories(jsoncpp BEFORE PUBLIC jsoncpp)
 target_include_directories(lurlparser PUBLIC LUrlParser)
