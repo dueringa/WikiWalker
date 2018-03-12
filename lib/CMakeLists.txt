@@ -9,12 +9,25 @@ add_library(lurlparser STATIC
     ${CMAKE_CURRENT_SOURCE_DIR}/LUrlParser/LUrlParser.cpp
 )
 
+set(LIBVERSION_MAJOR 0)
+set(LIBVERSION_MINOR 1)
+set(LIBVERSION_PATCH 0)
+set(libversion ${LIBVERSION_MAJOR}.${LIBVERSION_MINOR}.${LIBVERSION_PATCH})
+
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/wikiwalker/inc/libwwconfigure.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/libwwconfigure.h
+ )
+
 # for the sake of IDE users, add the headers as well
 add_library(lww 
     ${CMAKE_CURRENT_SOURCE_DIR}/wikiwalker/Article.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/wikiwalker/inc/Article.h
     ${CMAKE_CURRENT_SOURCE_DIR}/wikiwalker/inc/WalkerException.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/wikiwalker/inc/libwwconfigure.h.in
 )
+
+set_target_properties(lww PROPERTIES SOVERSION ${libversion})
 
 get_target_property(libwwtype lww TYPE)
 include(GenerateExportHeader)
