@@ -27,10 +27,10 @@ add_library(lww
     ${CMAKE_CURRENT_SOURCE_DIR}/wikiwalker/inc/libwwconfigure.h.in
 )
 
-set_target_properties(lww PROPERTIES 
-    SOVERSION ${LIBVERSION_MAJOR}
-    VERSION ${libversion}
-)
+#set_target_properties(lww PROPERTIES 
+#    SOVERSION ${LIBVERSION_MAJOR}
+#    VERSION ${libversion}
+#)
 
 get_target_property(libwwtype lww TYPE)
 include(GenerateExportHeader)
