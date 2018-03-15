@@ -15,6 +15,7 @@ namespace WikiWalker
     o("version,v", "produce version message");
     o("help,h", "produce help message");
     o("deep,d", "whether to fetch and analyze linked articles as well.");
+    o("skip-ssl-verification", "whether to skip SSL verification");
     o("dot-out,o",
       po::value<std::string>()->value_name("dotfile"),
       "file for dot output");

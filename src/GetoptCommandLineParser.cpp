@@ -15,6 +15,7 @@ namespace WikiWalker
       {"help", no_argument, nullptr, 'h'},
       {"version", no_argument, nullptr, 'v'},
       {"deep", no_argument, nullptr, 'd'},
+      {"skip-ssl-verification", no_argument, nullptr, 255},
       {"dot-out", required_argument, nullptr, 'o'},
       {"json-cache", required_argument, nullptr, 'j'},
       {nullptr, 0, nullptr, 0},

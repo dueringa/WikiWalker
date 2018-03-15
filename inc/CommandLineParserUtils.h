@@ -27,6 +27,8 @@ namespace WikiWalker
           return "dot-out";
         case CommandLineParserBase::CommandLineOptions::FetchDeep:
           return "deep";
+        case CommandLineParserBase::CommandLineOptions::SkipSslVerification:
+          return "skip-ssl-verification";
         default:
           return "";
       }
