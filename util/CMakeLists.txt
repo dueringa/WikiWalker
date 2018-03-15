@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.1.0)
 project(WikiWalker)
 
 add_executable(cachefilter
+    EXCLUDE_FROM_ALL
     FilterAnalyzedArticles.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/ArticleCollection.cpp
