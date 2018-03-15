@@ -8,63 +8,63 @@
 
 namespace WikiWalker
 {
-  size_t Article::getNumLinks() const
+  size_t Article::numLinks() const
   {
-    if(!analyzed && links.empty()) {
+    if(!analyzed_ && links_.empty()) {
       throw WalkerException("Article not analyzed yet!");
     }
 
-    return links.size();
+    return links_.size();
   }
 
   Article::ArticleLinkConstIterator Article::linkBegin() const
   {
-    return links.cbegin();
+    return links_.cbegin();
   }
 
   Article::ArticleLinkConstIterator Article::linkEnd() const
   {
-    return links.cend();
+    return links_.cend();
   }
 
   bool Article::addLink(const std::weak_ptr<const Article> article)
   {
-    auto newTitle = article.lock()->getTitle();
+    auto newTitle = article.lock()->title();
 
     // check for duplicates using title
     //! \todo Or rather compare pointers again?
     bool isNewLink =
-        std::none_of(links.cbegin(),
-                     links.cend(),
+        std::none_of(links_.cbegin(),
+                     links_.cend(),
                      [&newTitle](const std::weak_ptr<const Article> x) {
-                       return x.lock()->getTitle() == newTitle;
+                       return x.lock()->title() == newTitle;
                      });
 
     if(isNewLink) {
-      links.push_back(article);
-      analyzed = true;
+      links_.push_back(article);
+      analyzed_ = true;
     }
 
     return isNewLink;
   }
 
-  void Article::setAnalyzed(bool analyzedState)
+  void Article::analyzed(bool analyzed)
   {
-    analyzed = analyzedState;
+    analyzed_ = analyzed;
   }
 
-  bool Article::isAnalyzed() const
+  bool Article::analyzed() const
   {
-    return analyzed;
+    return analyzed_;
   }
 
-  void Article::setMarked(bool marking)
+  void Article::marked(bool marked)
   {
-    marked = marking;
+    marked_ = marked;
   }
 
-  bool Article::isMarked() const
+  bool Article::marked() const
   {
-    return marked;
+    return marked_;
   }
 }  // namespace WikiWalker

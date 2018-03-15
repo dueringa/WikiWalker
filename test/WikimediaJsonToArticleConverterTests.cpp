@@ -23,7 +23,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK_EQUAL("", conv.getContinuationData());
     auto getArticle = ac.get("3PTT");
     CHECK(getArticle != nullptr);
-    CHECK_EQUAL(1, getArticle->getNumLinks());
+    CHECK_EQUAL(1, getArticle->numLinks());
     CHECK_EQUAL(2, ac.getNumArticles());
   }
 
@@ -39,7 +39,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
                      ContinuationStatus::ConversionCompleted);
     auto art = ac.get("FoObAr");
     CHECK(art != nullptr);
-    CHECK(art->isMarked());
+    CHECK(art->marked());
   }
 
   TEST(JsonData_MoreLinks_HasContinueData)
@@ -55,7 +55,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK_EQUAL("34419161|0|Jharkhand", conv.getContinuationData());
     auto getArticle = ac.get("Satar, Deoghar");
     CHECK(getArticle != nullptr);
-    CHECK_EQUAL(1, getArticle->getNumLinks());
+    CHECK_EQUAL(1, getArticle->numLinks());
     CHECK_EQUAL(2, ac.getNumArticles());
   }
 

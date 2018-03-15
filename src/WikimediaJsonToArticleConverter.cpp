@@ -41,8 +41,8 @@ namespace WikiWalker
       }
 
       if(onePage.isMember("missing") || onePage.isMember("invalid")) {
-        wantedArticle->setMarked(true);
-        wantedArticle->setAnalyzed(true);
+        wantedArticle->marked(true);
+        wantedArticle->analyzed(true);
         continue;
       }
 
@@ -62,7 +62,7 @@ namespace WikiWalker
         wantedArticle->addLink(par);
       }
 
-      wantedArticle->setAnalyzed(true);
+      wantedArticle->analyzed(true);
     }
 
     bool moreData;

@@ -22,7 +22,7 @@ namespace WikiWalker
     for(auto ali = article->linkBegin(); ali != article->linkEnd(); ali++) {
       auto a = ali->lock();
       if(a != nullptr) {
-        std::string tit = a->getTitle();
+        std::string tit = a->title();
         array.append(Json::Value(tit));
       }
     }
@@ -36,13 +36,13 @@ namespace WikiWalker
 
     Json::Value linkObj(Json::ValueType::objectValue);
 
-    if(a->isAnalyzed()) {
+    if(a->analyzed()) {
       linkObj["forward_links"] = getArticleLinks(a);
     } else {
       linkObj["forward_links"] = Json::Value::nullSingleton();
     }
 
-    val[a->getTitle()] = linkObj;
+    val[a->title()] = linkObj;
 
     Json::StreamWriterBuilder swb;
     swb["indentation"] = "";
@@ -56,7 +56,7 @@ namespace WikiWalker
     for(auto ar : ac) {
       Json::Value linkObj(Json::ValueType::objectValue);
 
-      if(ar.second->isAnalyzed()) {
+      if(ar.second->analyzed()) {
         linkObj["forward_links"] = getArticleLinks(ar.second.get());
       } else {
         linkObj["forward_links"] = Json::Value::nullSingleton();

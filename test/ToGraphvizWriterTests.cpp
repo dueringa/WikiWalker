@@ -74,7 +74,7 @@ SUITE(ArticleToGraphvizWriterTests)
     ac.add(animal);
 
     auto pig = std::make_shared<Article>("Pig");
-    pig->setMarked(true);
+    pig->marked(true);
     farm->addLink(pig);
     ac.add(pig);
 

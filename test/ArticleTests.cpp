@@ -15,16 +15,16 @@ SUITE(ArticleTests)
   TEST(Article_GetNumLinks_Uninited_ThrowsException)
   {
     Article a("Foo");
-    CHECK_EQUAL(a.isAnalyzed(), false);
-    CHECK_THROW(a.getNumLinks(), WalkerException);
+    CHECK_EQUAL(a.analyzed(), false);
+    CHECK_THROW(a.numLinks(), WalkerException);
   }
 
   TEST(Article_GetNumLinks_Inited_ReturnsNull)
   {
     Article a("Foo");
-    a.setAnalyzed(true);
-    CHECK_EQUAL(a.isAnalyzed(), true);
-    CHECK_EQUAL(0, a.getNumLinks());
+    a.analyzed(true);
+    CHECK_EQUAL(a.analyzed(), true);
+    CHECK_EQUAL(0, a.numLinks());
   }
 
   TEST(Article_AddLinks_OneLinkAdded)
@@ -34,8 +34,8 @@ SUITE(ArticleTests)
     auto link = std::make_shared<Article>("Barmiz");
     a.addLink(link);
 
-    CHECK_EQUAL(a.isAnalyzed(), true);
-    CHECK_EQUAL(1, a.getNumLinks());
+    CHECK_EQUAL(a.analyzed(), true);
+    CHECK_EQUAL(1, a.numLinks());
   }
 
   TEST(Article_AddLinks_DuplicateInstance)
@@ -46,8 +46,8 @@ SUITE(ArticleTests)
     CHECK(a.addLink(arl));
     CHECK(!a.addLink(arl));
 
-    CHECK_EQUAL(a.isAnalyzed(), true);
-    CHECK_EQUAL(1, a.getNumLinks());
+    CHECK_EQUAL(a.analyzed(), true);
+    CHECK_EQUAL(1, a.numLinks());
   }
 
   TEST(Article_Iterator_Test)
@@ -67,13 +67,13 @@ SUITE(ArticleTests)
       a.addLink(s);
     }
 
-    CHECK_EQUAL(a.isAnalyzed(), true);
-    CHECK_EQUAL(3, a.getNumLinks());
+    CHECK_EQUAL(a.analyzed(), true);
+    CHECK_EQUAL(3, a.numLinks());
 
     int num = 0;
     for(auto x = a.linkBegin(); x != a.linkEnd(); x++) {
       num++;
-      auto atitle  = x->lock()->getTitle();
+      auto atitle  = x->lock()->title();
       auto findpos = std::find(titles.cbegin(), titles.cend(), atitle);
       bool isFound = (titles.end() != findpos);
       CHECK(isFound);
@@ -85,10 +85,10 @@ SUITE(ArticleTests)
   TEST(Article_Marked_State)
   {
     Article a("Todo");
-    CHECK_EQUAL(false, a.isMarked());
-    a.setMarked(true);
-    CHECK_EQUAL(true, a.isMarked());
-    a.setMarked(false);
-    CHECK_EQUAL(false, a.isMarked());
+    CHECK_EQUAL(false, a.marked());
+    a.marked(true);
+    CHECK_EQUAL(true, a.marked());
+    a.marked(false);
+    CHECK_EQUAL(false, a.marked());
   }
 }

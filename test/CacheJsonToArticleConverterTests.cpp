@@ -21,7 +21,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
-    CHECK_EQUAL(false, a->isAnalyzed());
+    CHECK_EQUAL(false, a->analyzed());
   }
 
   TEST(GetArticleWithoutLinks_Analyzed)
@@ -37,8 +37,8 @@ SUITE(CacheJsonToArticleConverterTests)
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
 
-    CHECK_EQUAL(true, a->isAnalyzed());
-    CHECK_EQUAL(0, a->getNumLinks());
+    CHECK_EQUAL(true, a->analyzed());
+    CHECK_EQUAL(0, a->numLinks());
   }
 
   TEST(GetArticleWithOneLink)
@@ -54,7 +54,7 @@ SUITE(CacheJsonToArticleConverterTests)
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
 
-    CHECK_EQUAL(1, a->getNumLinks());
+    CHECK_EQUAL(1, a->numLinks());
   }
 
   TEST(GetArticleWithMultipleLinks)
@@ -71,7 +71,7 @@ SUITE(CacheJsonToArticleConverterTests)
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
 
-    CHECK_EQUAL(3, a->getNumLinks());
+    CHECK_EQUAL(3, a->numLinks());
   }
 
   TEST(WriteEmptyArticleCollection)
@@ -96,7 +96,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     auto a = ac.get("Foo");
     CHECK(a != nullptr);
-    CHECK_EQUAL(false, a->isAnalyzed());
+    CHECK_EQUAL(false, a->analyzed());
   }
 
   TEST(WriteArticleCollection_OneArticleWithoutLinks_Analyzed)
@@ -111,7 +111,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     auto a = ac.get("Foo");
     CHECK(a != nullptr);
-    CHECK_EQUAL(true, a->isAnalyzed());
-    CHECK_EQUAL(0, a->getNumLinks());
+    CHECK_EQUAL(true, a->analyzed());
+    CHECK_EQUAL(0, a->numLinks());
   }
 }

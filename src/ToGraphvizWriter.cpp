@@ -29,7 +29,7 @@ namespace WikiWalker
    */
   void ToGraphvizWriter::writeArticle(const Article* a, std::ostream& os)
   {
-    std::string atitle = a->getTitle();
+    std::string atitle = a->title();
 
     // search for quotes
     std::regex re(R"(")");
@@ -37,11 +37,11 @@ namespace WikiWalker
     atitle = std::regex_replace(atitle, re, R"(\")");
 
     // marked articles are printed as box
-    if(a->isMarked()) {
+    if(a->marked()) {
       os << R"(")" << atitle << R"(" [shape=box];)" << std::endl;
     }
 
-    if(!a->isAnalyzed()) {
+    if(!a->analyzed()) {
       os << R"(")" << atitle << R"(" [fillcolor=gray,style=filled];)"
          << std::endl;
     }
@@ -50,7 +50,7 @@ namespace WikiWalker
     for(auto al = a->linkBegin(); al != a->linkEnd(); al++) {
       auto lck_article = al->lock();
       if(lck_article != nullptr) {
-        std::string alinkedtitle = lck_article->getTitle();
+        std::string alinkedtitle = lck_article->title();
         os << R"(")" << atitle << R"(" -> ")"
            << std::regex_replace(alinkedtitle, re, R"(\")") << R"(";)"
            << std::endl;

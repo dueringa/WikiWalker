@@ -40,7 +40,7 @@ int main(int argc, char** argv)
   WikiWalker::ArticleCollection filteredColl;
   for(auto& anArticle : ac) {
     auto art = anArticle.second;
-    if(art->isAnalyzed()) {
+    if(art->analyzed()) {
       filteredColl.add(art);
     }
   }

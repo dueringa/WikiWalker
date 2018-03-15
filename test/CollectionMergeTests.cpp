@@ -120,15 +120,15 @@ SUITE(CollectionMergeTests)
     // data from createArticlesAndFillFirst won
     auto ptr = c1.get("Dragon");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(3, ptr->getNumLinks());
+    CHECK_EQUAL(3, ptr->numLinks());
 
     ptr = c1.get("Cat");
     CHECK(ptr != nullptr);
-    CHECK_THROW(ptr->getNumLinks(), WalkerException);
+    CHECK_THROW(ptr->numLinks(), WalkerException);
 
     ptr = c1.get("Window");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(1, ptr->getNumLinks());
+    CHECK_EQUAL(1, ptr->numLinks());
   }
 
   /*!
@@ -141,15 +141,15 @@ SUITE(CollectionMergeTests)
     // data from createArticlesAndFillSecond won
     auto ptr = c2.get("Dragon");
     CHECK(ptr != nullptr);
-    CHECK_THROW(ptr->getNumLinks(), WalkerException);
+    CHECK_THROW(ptr->numLinks(), WalkerException);
 
     ptr = c2.get("Cat");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(2, ptr->getNumLinks());
+    CHECK_EQUAL(2, ptr->numLinks());
 
     ptr = c2.get("Window");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(2, ptr->getNumLinks());
+    CHECK_EQUAL(2, ptr->numLinks());
   }
 
   /*!
@@ -161,11 +161,11 @@ SUITE(CollectionMergeTests)
     // check non-conflicting items, too
     auto ptr = c.get("Apple");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(1, ptr->getNumLinks());
+    CHECK_EQUAL(1, ptr->numLinks());
 
     ptr = c.get("Wood");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(1, ptr->getNumLinks());
+    CHECK_EQUAL(1, ptr->numLinks());
   }
 
   TEST(ArticleCollection_TestMergeIgnore)
@@ -219,15 +219,15 @@ SUITE(CollectionMergeTests)
   {
     auto ptr = ac.get("Dragon");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(3, ptr->getNumLinks());
+    CHECK_EQUAL(3, ptr->numLinks());
 
     ptr = ac.get("Cat");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(2, ptr->getNumLinks());
+    CHECK_EQUAL(2, ptr->numLinks());
 
     ptr = ac.get("Window");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(2, ptr->getNumLinks());
+    CHECK_EQUAL(2, ptr->numLinks());
   }
 
   TEST(ArticleCollection_TestMergeMoreLinks)

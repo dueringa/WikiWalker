@@ -27,7 +27,7 @@ SUITE(ArticleToJsonWriterTests)
     Article a("Farm");
     std::ostringstream oss;
 
-    a.setAnalyzed(true);
+    a.analyzed(true);
 
     atj.output(&a, oss);
 
@@ -99,7 +99,7 @@ SUITE(ArticleToJsonWriterTests)
     std::ostringstream oss;
 
     auto a = std::make_shared<Article>("Foo");
-    a->setAnalyzed(true);
+    a->analyzed(true);
     ac.add(a);
 
     atj.output(ac, oss);

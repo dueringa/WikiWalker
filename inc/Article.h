@@ -27,25 +27,25 @@ namespace WikiWalker
      * \param articleTitle The title of the article
      */
     explicit Article(std::string articleTitle)
-        : title(std::move(articleTitle)), analyzed(false), marked(false)
+        : title_(std::move(articleTitle)), analyzed_(false), marked_(false)
     {
     }
 
     /*! Get the title of the article
      * \return title of the article
      */
-    std::string getTitle() const
+    std::string title() const
     {
-      return title;
+      return title_;
     }
 
     /*! get the number of links the article has.
      * This throws an exception if state has not been set to anaylzed.
      * \return number of links the article has.
-     * \see setAnalyzed
+     * \see analyzed(bool)
      * \see addLink
      */
-    size_t getNumLinks() const;
+    size_t numLinks() const;
 
     /*! Add a link to another article.
      * \param[in] article Pointer to the article this article links
@@ -54,36 +54,36 @@ namespace WikiWalker
      * instance / pointer is already included.
      *
      * Automatically sets state to analyzed
-     * \see setAnalyzed
-     * \see isAnalyzed
+     * \see analyzed() const
+     * \see analyzed(bool)
      */
     bool addLink(const std::weak_ptr<const Article> article);
 
     /*! Set article to be analyzed.
      * State is automatically set by #addLink, but if
      * article has no outgoing links, this must be called,
-     * otherwise #getNumLinks will throw an exception
+     * otherwise #numLinks will throw an exception
      * \param analyzed whether article has been analyzed
      * \see addLink
      */
-    void setAnalyzed(bool analyzedState);
+    void analyzed(bool analyzed);
 
     /*! Get state if article was analyzed (for out links).
      * \returns whether article was analyzed for outgoing links
      */
-    bool isAnalyzed() const;
+    bool analyzed() const;
 
     /*! Set article to be marked.
      * Some kind of "marking" for output usage. May be start point,
      * may be end point, may be point of special interest.
-     * \param marking whether article is marked
+     * \param marked whether article is marked
      */
-    void setMarked(bool marking);
+    void marked(bool marked);
 
     /*! Get state whether article was marked.
      * \returns Whether article is marked.
      */
-    bool isMarked() const;
+    bool marked() const;
 
     /*! Get const_iterator to first linked article
      * \returns const iterator to beginning of linked articles
@@ -96,10 +96,10 @@ namespace WikiWalker
     ArticleLinkConstIterator linkEnd() const;
 
   private:
-    std::string title;
-    storage links;
-    bool analyzed;
-    bool marked;
+    std::string title_;
+    storage links_;
+    bool analyzed_;
+    bool marked_;
   };
 }  // namespace WikiWalker
 #endif  // ARTICLE_H

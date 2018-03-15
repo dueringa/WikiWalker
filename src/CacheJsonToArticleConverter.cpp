@@ -44,7 +44,7 @@ namespace WikiWalker
         continue;
       }
 
-      a->setAnalyzed(true);
+      a->analyzed(true);
 
       for(const auto& linkedArticle : links) {
         std::string linkedTitle     = linkedArticle.asString();
@@ -61,7 +61,7 @@ namespace WikiWalker
 
     return articleCache;
     /*
-     * a->setAnalyzed(true); ?
+     * a->analyzed(true); ?
      */
   }
 

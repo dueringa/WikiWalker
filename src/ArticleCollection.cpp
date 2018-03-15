@@ -25,7 +25,7 @@ namespace WikiWalker
 
   bool ArticleCollection::add(std::shared_ptr<Article> article)
   {
-    auto ret = articleSet.insert(std::make_pair(article->getTitle(), article));
+    auto ret = articleSet.insert(std::make_pair(article->title(), article));
     return ret.second;
   }
 
@@ -47,17 +47,17 @@ namespace WikiWalker
           auto& otherArt     = art.second;
 
           if(articleInThis == nullptr ||
-             (!articleInThis->isAnalyzed() && otherArt->isAnalyzed())) {
+             (!articleInThis->analyzed() && otherArt->analyzed())) {
             articleSet[art.first] = art.second;
             continue;
           }
 
-          if(!otherArt->isAnalyzed()) {
+          if(!otherArt->analyzed()) {
             continue;
           }
 
-          auto linksInThis  = articleInThis->getNumLinks();
-          auto linksInOther = otherArt->getNumLinks();
+          auto linksInThis  = articleInThis->numLinks();
+          auto linksInOther = otherArt->numLinks();
           if(linksInOther > linksInThis) {
             articleSet[art.first] = art.second;
           }
@@ -96,7 +96,7 @@ namespace WikiWalker
       if(art == nullptr) {
         return false;
       }
-      return art->isAnalyzed();
+      return art->analyzed();
     }
   }  // namespace Predicates
 
