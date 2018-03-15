@@ -7,7 +7,6 @@
 
 #include "CommandLineParserBase.h"
 
-#include <boost/exception/diagnostic_information.hpp>
 #include <boost/program_options.hpp>
 
 namespace po = boost::program_options;
