@@ -66,16 +66,32 @@ configure_file(
 
 # Define commonly used source files (with tests)
 add_library(WikiWalkerSource OBJECT
-    ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StringUtils.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
+
+    ${CMAKE_SOURCE_DIR}/inc/Article.h
+    ${CMAKE_SOURCE_DIR}/inc/ArticleCollection.h
+    ${CMAKE_SOURCE_DIR}/inc/CacheJsonToArticleConverter.h
+    ${CMAKE_SOURCE_DIR}/inc/CommandLineParserBase.h
+    ${CMAKE_SOURCE_DIR}/inc/CommandLineParserUtils.h
+    ${CMAKE_SOURCE_DIR}/inc/CurlUrlCreator.h
+    ${CMAKE_SOURCE_DIR}/inc/CurlWikiGrabber.h
+    ${CMAKE_SOURCE_DIR}/inc/DataOutputBase.h
+    ${CMAKE_SOURCE_DIR}/inc/StringUtils.h
+    ${CMAKE_SOURCE_DIR}/inc/ToGraphvizWriter.h
+    ${CMAKE_SOURCE_DIR}/inc/ToJsonWriter.h
+    ${CMAKE_SOURCE_DIR}/inc/Walker.h
+    ${CMAKE_SOURCE_DIR}/inc/WalkerException.h
+    ${CMAKE_SOURCE_DIR}/inc/WikiWalker.h
+    ${CMAKE_SOURCE_DIR}/inc/WikimediaJsonToArticleConverter.h
 )
 
 target_include_directories(WikiWalkerSource BEFORE PRIVATE
@@ -93,10 +109,12 @@ add_executable(walker
 if(${WW_USE_BOOST_PO})
     target_sources(walker PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/BoostPoCommandLineParser.cpp
+        ${CMAKE_SOURCE_DIR}/inc/BoostPoCommandLineParser.h
     )
 elseif(${WW_USE_GETOPT})
     target_sources(walker PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/GetoptCommandLineParser.cpp
+        ${CMAKE_SOURCE_DIR}/inc/GetoptCommandLineParser.h
     )
 endif()
 
