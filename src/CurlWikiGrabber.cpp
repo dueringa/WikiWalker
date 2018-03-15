@@ -59,6 +59,10 @@ namespace WikiWalker
     if(skipSslVerificationState) {
       crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYHOST, 0);
       assert(crv == 0);
+      crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYPEER, 0);
+      assert(crv == 0);
+      crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYSTATUS, 0);
+      assert(crv == 0);
     }
 
     std::string gotContent;
