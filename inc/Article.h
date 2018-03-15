@@ -27,7 +27,19 @@ namespace WikiWalker
      * \param articleTitle The title of the article
      */
     explicit Article(std::string articleTitle)
-        : title_(std::move(articleTitle)), analyzed_(false), marked_(false)
+        : Article(std::move(articleTitle), "")
+    {
+    }
+
+    /*! Create a new article from a title and a source
+     * \param articleTitle The title of the article
+     * \param articleSource The source of the article, e.g. the host of the URL
+     */
+    Article(std::string articleTitle, std::string articleSource)
+        : title_(std::move(articleTitle)),
+          analyzed_(false),
+          marked_(false),
+          source_(std::move(articleSource))
     {
     }
 
@@ -37,6 +49,14 @@ namespace WikiWalker
     std::string title() const
     {
       return title_;
+    }
+
+    /*! Get the source of the article
+     * \return source of the article
+     */
+    std::string source() const
+    {
+      return source_;
     }
 
     /*! get the number of links the article has.
@@ -97,6 +117,7 @@ namespace WikiWalker
 
   private:
     std::string title_;
+    std::string source_;
     storage links_;
     bool analyzed_;
     bool marked_;
