@@ -33,6 +33,16 @@ namespace WikiWalker
      * \returns article JSON data
      */
     std::string grabUrl(const std::string& url) const;
+
+    /*! Set whether to skip SSL verification.
+     * \param state whether to skip SSL verification
+     * this was added because vcpkg's libcurl doesn't have
+     * a default CA certificate lookup path.
+     */
+    void skipSslVerification(bool state);
+
+  private:
+    bool skipSslVerificationState;
   };
 }  // namespace WikiWalker
 #endif  // CURL_WIKI_GRABBER_H
