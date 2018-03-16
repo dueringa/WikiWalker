@@ -17,14 +17,14 @@ SUITE(WikimediaJsonToArticleConverterTests)
 
     ArticleCollection ac;
     WikimediaJsonToArticleConverter conv;
-    auto cont = conv.convertToArticle(testdata, ac);
+    auto cont = conv.convert(testdata, ac);
     CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
               ConversionCompleted == cont);
-    CHECK_EQUAL("", conv.getContinuationData());
+    CHECK_EQUAL("", conv.continuationData());
     auto getArticle = ac.get("3PTT");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->numLinks());
-    CHECK_EQUAL(2, ac.getNumArticles());
+    CHECK_EQUAL(2, ac.countArticles());
   }
 
   TEST(JsonDataWithInvalidArticle_Throws)
@@ -34,7 +34,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
 
     ArticleCollection ac;
     WikimediaJsonToArticleConverter conv;
-    auto ret = conv.convertToArticle(testdata, ac);
+    auto ret = conv.convert(testdata, ac);
     CHECK(ret == WikiWalker::WikimediaJsonToArticleConverter::
                      ContinuationStatus::ConversionCompleted);
     auto art = ac.get("FoObAr");
@@ -49,14 +49,14 @@ SUITE(WikimediaJsonToArticleConverterTests)
 
     ArticleCollection ac;
     WikimediaJsonToArticleConverter conv;
-    auto cont = conv.convertToArticle(testdata, ac);
+    auto cont = conv.convert(testdata, ac);
     CHECK(cont == WikimediaJsonToArticleConverter::ContinuationStatus::
                       ConversionNeedsMoreData);
-    CHECK_EQUAL("34419161|0|Jharkhand", conv.getContinuationData());
+    CHECK_EQUAL("34419161|0|Jharkhand", conv.continuationData());
     auto getArticle = ac.get("Satar, Deoghar");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->numLinks());
-    CHECK_EQUAL(2, ac.getNumArticles());
+    CHECK_EQUAL(2, ac.countArticles());
   }
 
   TEST(JsonData_ContainsMultipleArticles)
@@ -65,15 +65,15 @@ SUITE(WikimediaJsonToArticleConverterTests)
         R"#({"batchcomplete": true,"query": {"normalized": [{"fromencoded": false,"from": "Zanfina_Ismajli","to": "Zanfina Ismajli"},{"fromencoded": false,"from": "Kleite_(Tochter_des_Danaos)","to": "Kleite (Tochter des Danaos)"}],"pages": [{"pageid": 2834303,"ns": 0,"title": "Zanfina Ismajli","links": [{"ns": 0,"title": "10. Mai"},{"ns": 0,"title": "1985"}]},{"pageid": 8086803,"ns": 0,"title": "Kleite (Tochter des Danaos)","links": [{"ns": 0,"title": "Aigyptos"},{"ns": 0,"title": "Altgriechische Sprache"}]}]},"limits": {"links": 500}})#";
     WikimediaJsonToArticleConverter conv;
     ArticleCollection ac;
-    auto cont = conv.convertToArticle(testdata, ac);
+    auto cont = conv.convert(testdata, ac);
     CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
               ConversionCompleted == cont);
 
-    CHECK_EQUAL(2, ac.getNumAnalyzedArticles());
+    CHECK_EQUAL(2, ac.countAnalyzedArticles());
     auto ptr = ac.get("Zanfina Ismajli");
     CHECK(ptr != nullptr);
     ptr = ac.get("Kleite (Tochter des Danaos)");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(6, ac.getNumArticles());
+    CHECK_EQUAL(6, ac.countArticles());
   }
 }

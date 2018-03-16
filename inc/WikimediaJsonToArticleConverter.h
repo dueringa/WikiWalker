@@ -26,7 +26,7 @@ namespace WikiWalker
     };
 
     //! create a new instance
-    WikimediaJsonToArticleConverter() : continueString("")
+    WikimediaJsonToArticleConverter() : continueString_("")
     {
     }
 
@@ -38,24 +38,24 @@ namespace WikiWalker
      * \param articleCache reference to an article collection that gets filled
      * \returns the conversion status. If this is
      * #ContinuationStatus::ConversionNeedsMoreData, get continuation data with
-     * #getContinuationData.
+     * #continuationData.
      */
-    ContinuationStatus convertToArticle(const std::string& json,
-                                        ArticleCollection& articleCache);
+    ContinuationStatus convert(const std::string& json,
+                               ArticleCollection& articleCache);
 
     /*! Get the continuation data, if
      * #ContinuationStat::ConversionNeedsMoreData was returned by
-     * #convertToArticle.
+     * #convert.
      * \return continuation string
      */
-    std::string getContinuationData() const
+    std::string continuationData() const
     {
-      return continueString;
+      return continueString_;
     }
 
   private:
     //! string required for API operation
-    std::string continueString;
+    std::string continueString_;
   };
 }  // namespace WikiWalker
 #endif /* WIKIMEDIAJSONTOARTICLECONVERTER_H */

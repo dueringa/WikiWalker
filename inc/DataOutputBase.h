@@ -1,7 +1,7 @@
 //! \file DataOutputBase.h
 
-#ifndef ADATAOUTPUT_H
-#define ADATAOUTPUT_H
+#ifndef WIKIWALKER_ADATAOUTPUT_H
+#define WIKIWALKER_ADATAOUTPUT_H
 
 #include <ostream>
 
@@ -36,4 +36,4 @@ namespace WikiWalker
     virtual ~DataOutputBase() = default;
   };
 }  // namespace WikiWalker
-#endif  // ADATAOUTPUT_H
+#endif  // WIKIWALKER_ADATAOUTPUT_H

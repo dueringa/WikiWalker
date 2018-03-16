@@ -1,7 +1,7 @@
 //! \file ToGraphvizWriter.h
 
-#ifndef TOGRAPHVIZWRITER_H
-#define TOGRAPHVIZWRITER_H
+#ifndef WIKIWALKER_TOGRAPHVIZWRITER_H
+#define WIKIWALKER_TOGRAPHVIZWRITER_H
 
 #include "DataOutputBase.h"
 
@@ -25,11 +25,6 @@ namespace WikiWalker
      * YOU are responsible for opening and closing the stream
      */
     void output(const ArticleCollection& ac, std::ostream& os) override;
-
-  private:
-    void writeHeader(std::ostream& os);
-    void writeFooter(std::ostream& os);
-    void writeArticle(const Article* a, std::ostream& os);
   };
 }  // namespace WikiWalker
-#endif  // TOGRAPHVIZWRITER_H
+#endif  // WIKIWALKER_TOGRAPHVIZWRITER_H

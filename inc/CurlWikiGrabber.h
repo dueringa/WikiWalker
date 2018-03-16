@@ -1,7 +1,7 @@
 //! \file CurlWikiGrabber.h
 
-#ifndef CURL_WIKI_GRABBER_H
-#define CURL_WIKI_GRABBER_H
+#ifndef WIKIWALKER_CURL_WIKI_GRABBER_H
+#define WIKIWALKER_CURL_WIKI_GRABBER_H
 
 #include <string>
 
@@ -35,4 +35,4 @@ namespace WikiWalker
     std::string grabUrl(const std::string& url) const;
   };
 }  // namespace WikiWalker
-#endif  // CURL_WIKI_GRABBER_H
+#endif  // WIKIWALKER_CURL_WIKI_GRABBER_H
