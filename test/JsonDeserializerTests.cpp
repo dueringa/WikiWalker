@@ -4,9 +4,9 @@
 #include <UnitTest++/UnitTest++.h>
 
 #include "Article.h"
-#include "CacheJsonToArticleConverter.h"
+#include "JsonSerializer.h"
 
-SUITE(CacheJsonToArticleConverterTests)
+SUITE(JsonDeserializerTests)
 {
   using namespace WikiWalker;
 
@@ -16,8 +16,8 @@ SUITE(CacheJsonToArticleConverterTests)
     std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(1, ac.countArticles());
 
@@ -32,8 +32,8 @@ SUITE(CacheJsonToArticleConverterTests)
     std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(1, ac.countArticles());
 
@@ -50,8 +50,8 @@ SUITE(CacheJsonToArticleConverterTests)
     std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(2, ac.countArticles());
 
@@ -68,8 +68,8 @@ SUITE(CacheJsonToArticleConverterTests)
     std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(4, ac.countArticles());
 
@@ -85,8 +85,8 @@ SUITE(CacheJsonToArticleConverterTests)
     std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
     CHECK_EQUAL(0, ac.countArticles());
   }
 
@@ -96,8 +96,8 @@ SUITE(CacheJsonToArticleConverterTests)
     std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(1, ac.countArticles());
 
@@ -112,8 +112,8 @@ SUITE(CacheJsonToArticleConverterTests)
     std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(1, ac.countArticles());
 
