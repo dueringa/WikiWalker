@@ -56,9 +56,9 @@ namespace WikiWalker
     ~CurlUrlCreator();
 
   private:
-    std::string _baseUrl;
-    std::unordered_map<std::string, std::string> args;
-    CURL* handle;
+    std::string baseUrl_;
+    std::unordered_map<std::string, std::string> args_;
+    CURL* handle_;
   };
 }  // namespace WikiWalker
 #endif  // CURLURLCREATOR_H

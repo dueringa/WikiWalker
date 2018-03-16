@@ -7,15 +7,15 @@
 namespace WikiWalker
 {
   CurlUrlCreator::CurlUrlCreator(std::string baseUrl)
-      : _baseUrl(std::move(baseUrl))
+      : baseUrl_(std::move(baseUrl))
   {
     curl_global_init(CURL_GLOBAL_ALL);
-    handle = curl_easy_init();
+    handle_ = curl_easy_init();
   }
 
   CurlUrlCreator::~CurlUrlCreator()
   {
-    curl_easy_cleanup(handle);
+    curl_easy_cleanup(handle_);
     curl_global_cleanup();
   }
 
@@ -23,18 +23,18 @@ namespace WikiWalker
                                                const std::string& value)
   {
     // overwrite
-    char* eval  = curl_easy_escape(handle, value.c_str(), 0);
-    args[param] = eval;
+    char* eval  = curl_easy_escape(handle_, value.c_str(), 0);
+    args_[param] = eval;
     curl_free(eval);
     return *this;
   }
 
   std::string CurlUrlCreator::buildUrl() const
   {
-    std::string ret = _baseUrl;
+    std::string ret = baseUrl_;
     ret.append("?");
 
-    for(auto parpair : args) {
+    for(auto parpair : args_) {
       ret.append(parpair.first).append("=").append(parpair.second).append("&");
     }
 
@@ -45,6 +45,6 @@ namespace WikiWalker
 
   void CurlUrlCreator::reset()
   {
-    args.clear();
+    args_.clear();
   }
 }  // namespace WikiWalker
