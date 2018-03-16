@@ -9,8 +9,8 @@ add_executable(execute_tests
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CollectionTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CollectionMergeTests.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverterTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreatorTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/JsonDeserializerTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverterTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriterTests.cpp

@@ -7,7 +7,7 @@ add_executable(cachefilter
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/ArticleCollection.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/Article.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/CacheJsonToArticleConverter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/JsonSerializer.cpp
 )
 
 target_include_directories(cachefilter PRIVATE

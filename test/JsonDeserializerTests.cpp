@@ -1,21 +1,23 @@
 #include <memory>
+#include <sstream>
 
 #include <UnitTest++/UnitTest++.h>
 
 #include "Article.h"
-#include "CacheJsonToArticleConverter.h"
+#include "JsonSerializer.h"
 
-SUITE(CacheJsonToArticleConverterTests)
+SUITE(JsonDeserializerTests)
 {
   using namespace WikiWalker;
 
   TEST(GetArticleWithoutLinks_Unanalyzed)
   {
-    std::string json = R"({"Farm":{"forward_links":null}})";
+    std::string jsonString = R"({"Farm":{"forward_links":null}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(1, ac.countArticles());
 
@@ -26,11 +28,12 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(GetArticleWithoutLinks_Analyzed)
   {
-    std::string json = R"({"Farm":{"forward_links":[]}})";
+    std::string jsonString = R"({"Farm":{"forward_links":[]}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(1, ac.countArticles());
 
@@ -43,11 +46,12 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(GetArticleWithOneLink)
   {
-    std::string json = R"({"Farm":{"forward_links":["Animal"]}})";
+    std::string jsonString = R"({"Farm":{"forward_links":["Animal"]}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(2, ac.countArticles());
 
@@ -59,12 +63,13 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(GetArticleWithMultipleLinks)
   {
-    std::string json =
+    std::string jsonString =
         R"({"Farm":{"forward_links":["Animal","Pig","Equality"]}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(4, ac.countArticles());
 
@@ -76,21 +81,23 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(WriteEmptyArticleCollection)
   {
-    std::string json = "{}";
+    std::string jsonString = "{}";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
     CHECK_EQUAL(0, ac.countArticles());
   }
 
   TEST(WriteArticleCollection_OneArticleWithoutLinks_Unanalyzed)
   {
-    std::string json = R"({"Foo":{"forward_links":null}})";
+    std::string jsonString = R"({"Foo":{"forward_links":null}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(1, ac.countArticles());
 
@@ -101,11 +108,12 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(WriteArticleCollection_OneArticleWithoutLinks_Analyzed)
   {
-    std::string json = R"({"Foo":{"forward_links":[]}})";
+    std::string jsonString = R"({"Foo":{"forward_links":[]}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
-    CacheJsonToArticleConverter cjta;
-    cjta.convert(json, ac);
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
 
     CHECK_EQUAL(1, ac.countArticles());
 

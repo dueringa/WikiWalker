@@ -9,7 +9,7 @@
 #include "LUrlParser.h"
 
 #include "Article.h"
-#include "CacheJsonToArticleConverter.h"
+#include "JsonSerializer.h"
 #include "CurlUrlCreator.h"
 #include "JsonSerializer.h"
 #include "StringUtils.h"
@@ -110,7 +110,7 @@ namespace WikiWalker
 
   void WikiWalker::readCache(const std::string& cacheFile)
   {
-    CacheJsonToArticleConverter cjta;
+    JsonSerializer jser;
     std::ifstream cache(cacheFile);
 
     // assumption: having write-only access to a file is so rare that I don't
@@ -120,7 +120,7 @@ namespace WikiWalker
       return;
     }
 
-    cjta.convert(cache, articleSet_);
+    jser.deserialize(articleSet_, cache);
 
     assert(cache.eof());
 
