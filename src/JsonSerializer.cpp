@@ -3,8 +3,8 @@
 #include <json/json.h>
 
 #include "Article.h"
-#include "CacheJsonToArticleConverter.h"
 #include "JsonSerializer.h"
+#include "WalkerException.h"
 
 namespace WikiWalker
 {
@@ -66,7 +66,48 @@ namespace WikiWalker
   void JsonSerializer::deserialize(ArticleCollection& collection,
                                    std::istream& instream)
   {
-    CacheJsonToArticleConverter cjtac;
-    cjtac.convert(instream, collection);
+    Json::Reader reader;
+    Json::Value document;
+    bool success = reader.parse(instream, document, false);
+
+    if(!success) {
+      throw WalkerException("Error parsing JSON");
+    }
+
+    // get all "main" articles first
+    for(auto& titleElement : document.getMemberNames()) {
+      std::string title = titleElement;
+
+      //! \todo find a better solution than get-compare-add
+      auto a = collection.get(title);
+
+      if(a == nullptr) {
+        a = std::make_shared<Article>(title);
+        collection.add(a);
+      }
+
+      auto links = document.get(title, Json::Value::nullSingleton())
+                       .get("forward_links", Json::Value::nullSingleton());
+
+      if(links.isNull()) {
+        /* don't need to set article analyzed to false,
+         * since that's the default */
+        continue;
+      }
+
+      a->analyzed(true);
+
+      for(const auto& linkedArticle : links) {
+        std::string linkedTitle     = linkedArticle.asString();
+        std::shared_ptr<Article> la = collection.get(linkedTitle);
+
+        if(la == nullptr) {
+          la = std::make_shared<Article>(linkedTitle);
+          collection.add(la);
+        }
+
+        a->addLink(la);
+      }
+    }
   }
 }

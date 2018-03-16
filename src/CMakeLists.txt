@@ -68,7 +68,6 @@ configure_file(
 add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/JsonSerializer.cpp
@@ -79,7 +78,6 @@ add_library(WikiWalkerSource OBJECT
 
     ${CMAKE_SOURCE_DIR}/inc/Article.h
     ${CMAKE_SOURCE_DIR}/inc/ArticleCollection.h
-    ${CMAKE_SOURCE_DIR}/inc/CacheJsonToArticleConverter.h
     ${CMAKE_SOURCE_DIR}/inc/CommandLineParserBase.h
     ${CMAKE_SOURCE_DIR}/inc/CommandLineParserUtils.h
     ${CMAKE_SOURCE_DIR}/inc/CurlUrlCreator.h
