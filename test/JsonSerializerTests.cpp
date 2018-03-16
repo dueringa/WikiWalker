@@ -6,7 +6,6 @@
 
 #include "Article.h"
 #include "JsonSerializer.h"
-#include "ToJsonWriter.h"
 
 SUITE(ArticleJsonSerializerTests)
 {
@@ -14,19 +13,19 @@ SUITE(ArticleJsonSerializerTests)
 
   TEST(WriteUnanalyzedArticleWithoutLinks_LinksIsNull)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     std::ostringstream oss;
     ArticleCollection ac;
     ac.add(std::make_shared<Article>("Farm"));
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{\"Farm\":{\"forward_links\":null}}", oss.str());
   }
 
   TEST(WriteAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     std::ostringstream oss;
     ArticleCollection ac;
 
@@ -34,14 +33,14 @@ SUITE(ArticleJsonSerializerTests)
     ac.add(a);
     a->analyzed(true);
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{\"Farm\":{\"forward_links\":[]}}", oss.str());
   }
 
   TEST(WriteArticleWithOneLink)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     std::ostringstream oss;
     ArticleCollection ac;
 
@@ -52,13 +51,13 @@ SUITE(ArticleJsonSerializerTests)
     auto linked = std::make_shared<Article>("Animal");
     a->addLink(linked);
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
     CHECK_EQUAL("{\"Farm\":{\"forward_links\":[\"Animal\"]}}", oss.str());
   }
 
   TEST(WriteArticleWithMultipleLinks)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     std::ostringstream oss;
     ArticleCollection ac;
 
@@ -74,7 +73,7 @@ SUITE(ArticleJsonSerializerTests)
     a->addLink(al2);
     a->addLink(al3);
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL(
         "{\"Farm\":{\"forward_links\":[\"Animal\",\"Pig\",\"Equality\"]}}",
@@ -83,32 +82,32 @@ SUITE(ArticleJsonSerializerTests)
 
   TEST(WriteEmptyArticleCollection)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     ArticleCollection ac;
     std::ostringstream oss;
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{}", oss.str());
   }
 
   TEST(WriteArticleCollection_OneUnanalyzedArticleWithoutLinks_LinksIsNull)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     ArticleCollection ac;
     std::ostringstream oss;
 
     auto linked = std::make_shared<Article>("Foo");
     ac.add(linked);
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{\"Foo\":{\"forward_links\":null}}", oss.str());
   }
 
   TEST(WriteArticleCollection_OneAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     ArticleCollection ac;
     std::ostringstream oss;
 
@@ -116,7 +115,7 @@ SUITE(ArticleJsonSerializerTests)
     a->analyzed(true);
     ac.add(a);
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{\"Foo\":{\"forward_links\":[]}}", oss.str());
   }
