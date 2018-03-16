@@ -17,7 +17,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
 
     ArticleCollection ac;
     WikimediaJsonToArticleConverter conv;
-    auto cont = conv.convertToArticle(testdata, ac);
+    auto cont = conv.convert(testdata, ac);
     CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
               ConversionCompleted == cont);
     CHECK_EQUAL("", conv.continuationData());
@@ -34,7 +34,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
 
     ArticleCollection ac;
     WikimediaJsonToArticleConverter conv;
-    auto ret = conv.convertToArticle(testdata, ac);
+    auto ret = conv.convert(testdata, ac);
     CHECK(ret == WikiWalker::WikimediaJsonToArticleConverter::
                      ContinuationStatus::ConversionCompleted);
     auto art = ac.get("FoObAr");
@@ -49,7 +49,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
 
     ArticleCollection ac;
     WikimediaJsonToArticleConverter conv;
-    auto cont = conv.convertToArticle(testdata, ac);
+    auto cont = conv.convert(testdata, ac);
     CHECK(cont == WikimediaJsonToArticleConverter::ContinuationStatus::
                       ConversionNeedsMoreData);
     CHECK_EQUAL("34419161|0|Jharkhand", conv.continuationData());
@@ -65,7 +65,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
         R"#({"batchcomplete": true,"query": {"normalized": [{"fromencoded": false,"from": "Zanfina_Ismajli","to": "Zanfina Ismajli"},{"fromencoded": false,"from": "Kleite_(Tochter_des_Danaos)","to": "Kleite (Tochter des Danaos)"}],"pages": [{"pageid": 2834303,"ns": 0,"title": "Zanfina Ismajli","links": [{"ns": 0,"title": "10. Mai"},{"ns": 0,"title": "1985"}]},{"pageid": 8086803,"ns": 0,"title": "Kleite (Tochter des Danaos)","links": [{"ns": 0,"title": "Aigyptos"},{"ns": 0,"title": "Altgriechische Sprache"}]}]},"limits": {"links": 500}})#";
     WikimediaJsonToArticleConverter conv;
     ArticleCollection ac;
-    auto cont = conv.convertToArticle(testdata, ac);
+    auto cont = conv.convert(testdata, ac);
     CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
               ConversionCompleted == cont);
 

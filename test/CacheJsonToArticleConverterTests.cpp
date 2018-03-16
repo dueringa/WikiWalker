@@ -15,7 +15,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
-    cjta.convertToArticle(json, ac);
+    cjta.convert(json, ac);
 
     CHECK_EQUAL(1, ac.countArticles());
 
@@ -30,7 +30,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
-    cjta.convertToArticle(json, ac);
+    cjta.convert(json, ac);
 
     CHECK_EQUAL(1, ac.countArticles());
 
@@ -47,7 +47,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
-    cjta.convertToArticle(json, ac);
+    cjta.convert(json, ac);
 
     CHECK_EQUAL(2, ac.countArticles());
 
@@ -64,7 +64,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
-    cjta.convertToArticle(json, ac);
+    cjta.convert(json, ac);
 
     CHECK_EQUAL(4, ac.countArticles());
 
@@ -80,7 +80,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
-    cjta.convertToArticle(json, ac);
+    cjta.convert(json, ac);
     CHECK_EQUAL(0, ac.countArticles());
   }
 
@@ -90,7 +90,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
-    cjta.convertToArticle(json, ac);
+    cjta.convert(json, ac);
 
     CHECK_EQUAL(1, ac.countArticles());
 
@@ -105,7 +105,7 @@ SUITE(CacheJsonToArticleConverterTests)
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
-    cjta.convertToArticle(json, ac);
+    cjta.convert(json, ac);
 
     CHECK_EQUAL(1, ac.countArticles());
 

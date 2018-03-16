@@ -12,9 +12,8 @@ namespace WikiWalker
   //! \todo really ugly workaround, passing in the ArticleCollection instance...
   //! :/
   WikimediaJsonToArticleConverter::ContinuationStatus
-  WikimediaJsonToArticleConverter::convertToArticle(
-      const std::string& json,
-      ArticleCollection& articleCache)
+  WikimediaJsonToArticleConverter::convert(const std::string& json,
+                                           ArticleCollection& articleCache)
   {
     Json::Reader reader;
     Json::Value document;

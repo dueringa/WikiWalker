@@ -72,7 +72,7 @@ namespace WikiWalker
 
     if(!json.empty()) {
       WikimediaJsonToArticleConverter conv;
-      auto conversionStatus = conv.convertToArticle(json, articleSet_);
+      auto conversionStatus = conv.convert(json, articleSet_);
 
       while(WikimediaJsonToArticleConverter::ContinuationStatus::
                     ConversionNeedsMoreData == conversionStatus &&
@@ -80,7 +80,7 @@ namespace WikiWalker
         creator.addParameter("plcontinue", conv.continuationData());
 
         json             = grabber_.grabUrl(creator.buildUrl());
-        conversionStatus = conv.convertToArticle(json, articleSet_);
+        conversionStatus = conv.convert(json, articleSet_);
       }
     } else {
       std::cerr << "Error fetching article" << std::endl;
@@ -94,7 +94,7 @@ namespace WikiWalker
 
       if(!json.empty()) {
         WikimediaJsonToArticleConverter conv;
-        auto conversionStatus = conv.convertToArticle(json, articleSet_);
+        auto conversionStatus = conv.convert(json, articleSet_);
 
         while(WikimediaJsonToArticleConverter::ContinuationStatus::
                       ConversionNeedsMoreData == conversionStatus &&
@@ -102,7 +102,7 @@ namespace WikiWalker
           creator.addParameter("plcontinue", conv.continuationData());
 
           json             = grabber_.grabUrl(creator.buildUrl());
-          conversionStatus = conv.convertToArticle(json, articleSet_);
+          conversionStatus = conv.convert(json, articleSet_);
         }
       }
     }
@@ -120,7 +120,7 @@ namespace WikiWalker
       return;
     }
 
-    cjta.convertToArticle(cache, articleSet_);
+    cjta.convert(cache, articleSet_);
 
     assert(cache.eof());
 

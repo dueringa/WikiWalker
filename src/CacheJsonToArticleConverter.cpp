@@ -11,7 +11,7 @@
 
 namespace WikiWalker
 {
-  ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
+  ArticleCollection& CacheJsonToArticleConverter::convert(
       std::istream& json,
       ArticleCollection& articleCache)
   {
@@ -65,11 +65,11 @@ namespace WikiWalker
      */
   }
 
-  ArticleCollection& CacheJsonToArticleConverter::convertToArticle(
+  ArticleCollection& CacheJsonToArticleConverter::convert(
       const std::string& json,
       ArticleCollection& articleCache)
   {
     std::istringstream jsonStream(json);
-    return convertToArticle(jsonStream, articleCache);
+    return convert(jsonStream, articleCache);
   }
 }  // namespace WikiWalker
