@@ -68,13 +68,13 @@ namespace WikiWalker
     bool moreData;
 
     if(!document.isMember("batchcomplete")) {
-      moreData       = true;
-      continueString = document.get("continue", Json::Value::nullSingleton())
-                           .get("plcontinue", Json::Value::nullSingleton())
-                           .asString();
+      moreData        = true;
+      continueString_ = document.get("continue", Json::Value::nullSingleton())
+                            .get("plcontinue", Json::Value::nullSingleton())
+                            .asString();
     } else {
-      moreData       = false;
-      continueString = "";
+      moreData        = false;
+      continueString_ = "";
     }
 
     return moreData ? ContinuationStatus::ConversionNeedsMoreData

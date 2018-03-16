@@ -76,8 +76,8 @@ namespace WikiWalker
 
       while(WikimediaJsonToArticleConverter::ContinuationStatus::
                     ConversionNeedsMoreData == conversionStatus &&
-            !conv.getContinuationData().empty()) {
-        creator.addParameter("plcontinue", conv.getContinuationData());
+            !conv.continuationData().empty()) {
+        creator.addParameter("plcontinue", conv.continuationData());
 
         json             = grabber_.grabUrl(creator.buildUrl());
         conversionStatus = conv.convertToArticle(json, articleSet_);
@@ -98,8 +98,8 @@ namespace WikiWalker
 
         while(WikimediaJsonToArticleConverter::ContinuationStatus::
                       ConversionNeedsMoreData == conversionStatus &&
-              conv.getContinuationData() != "") {
-          creator.addParameter("plcontinue", conv.getContinuationData());
+              conv.continuationData() != "") {
+          creator.addParameter("plcontinue", conv.continuationData());
 
           json             = grabber_.grabUrl(creator.buildUrl());
           conversionStatus = conv.convertToArticle(json, articleSet_);
