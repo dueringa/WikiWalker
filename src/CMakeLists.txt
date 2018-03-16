@@ -6,7 +6,7 @@ set(walker_version "v${PROJECT_VERSION}")
 add_custom_target(
     gitversion
     ${CMAKE_COMMAND}
-    -D SRC=${CMAKE_CURRENT_SOURCE_DIR}/../inc/
+    -D SRC=${CMAKE_SOURCE_DIR}/inc/
     -D BIN=${CMAKE_CURRENT_BINARY_DIR}
     -D walker_version=${walker_version}
     -P ${CMAKE_CURRENT_SOURCE_DIR}/version.cmake
@@ -60,7 +60,7 @@ either is available and set WW_COMMANDLINEPARSER")
 endif()
 
 configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/../inc/config.h.in"
+    "${CMAKE_SOURCE_DIR}/inc/config.h.in"
     "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 
@@ -98,7 +98,7 @@ target_include_directories(WikiWalkerSource BEFORE PRIVATE
     ${CURL_INCLUDE_DIRS}
     $<TARGET_PROPERTY:jsoncpp,INTERFACE_INCLUDE_DIRECTORIES>
     $<TARGET_PROPERTY:lurlparser,INTERFACE_INCLUDE_DIRECTORIES>
-    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/
+    ${CMAKE_SOURCE_DIR}/inc/
 )
 
 add_executable(walker
@@ -160,7 +160,7 @@ if(${WW_USE_BOOST_PO})
 endif()
 
 target_include_directories(walker PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/
+    ${CMAKE_SOURCE_DIR}/inc/
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
