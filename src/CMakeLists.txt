@@ -71,6 +71,7 @@ add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/CacheJsonToArticleConverter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/JsonSerializer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StringUtils.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToJsonWriter.cpp
@@ -85,6 +86,7 @@ add_library(WikiWalkerSource OBJECT
     ${CMAKE_SOURCE_DIR}/inc/CurlUrlCreator.h
     ${CMAKE_SOURCE_DIR}/inc/CurlWikiGrabber.h
     ${CMAKE_SOURCE_DIR}/inc/DataOutputBase.h
+    ${CMAKE_SOURCE_DIR}/inc/JsonSerializer.h
     ${CMAKE_SOURCE_DIR}/inc/StringUtils.h
     ${CMAKE_SOURCE_DIR}/inc/ToGraphvizWriter.h
     ${CMAKE_SOURCE_DIR}/inc/ToJsonWriter.h
