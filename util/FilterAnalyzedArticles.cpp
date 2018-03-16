@@ -5,7 +5,7 @@
 
 #include "Article.h"
 #include "ArticleCollection.h"
-#include "CacheJsonToArticleConverter.h"
+#include "JsonSerializer.h"
 #include "ToGraphvizWriter.h"
 
 int main(int argc, char** argv)
@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  WikiWalker::CacheJsonToArticleConverter cjta;
+  WikiWalker::JsonSerializer jser;
   std::ifstream cache(argv[1]);
 
   // assumption: having write-only access to a file is so rare that I don't care
@@ -29,7 +29,7 @@ int main(int argc, char** argv)
   }
 
   WikiWalker::ArticleCollection ac;
-  cjta.convertToArticle(cache, ac);
+  jser.deserialize(ac, cache);
 
   if(cache.fail()) {
     cache.close();
