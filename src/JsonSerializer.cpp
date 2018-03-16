@@ -3,6 +3,7 @@
 #include <json/json.h>
 
 #include "Article.h"
+#include "CacheJsonToArticleConverter.h"
 #include "JsonSerializer.h"
 
 namespace WikiWalker
@@ -60,5 +61,12 @@ namespace WikiWalker
                                  std::ostream& outstream)
   {
     outstream << convertToJson(collection);
+  }
+
+  void JsonSerializer::deserialize(ArticleCollection& collection,
+                                   std::istream& instream)
+  {
+    CacheJsonToArticleConverter cjtac;
+    cjtac.convert(instream, collection);
   }
 }
