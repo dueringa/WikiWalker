@@ -10,13 +10,13 @@
 
 namespace WikiWalker
 {
-  void ToGraphvizWriter::writeHeader(std::ostream& os)
+  static void writeHeader(std::ostream& os)
   {
     os << "digraph G {";
     os << std::endl;
   }
 
-  void ToGraphvizWriter::writeFooter(std::ostream& os)
+  static void writeFooter(std::ostream& os)
   {
     os << "}";
     os << std::endl;
@@ -27,7 +27,7 @@ namespace WikiWalker
    * However, when writing an #ArticleCollection, all articles are included, so
    * all attibutes will be written.
    */
-  void ToGraphvizWriter::writeArticle(const Article* a, std::ostream& os)
+  static void writeArticle(const Article* a, std::ostream& os)
   {
     std::string atitle = a->title();
 

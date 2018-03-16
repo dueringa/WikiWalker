@@ -30,26 +30,13 @@ namespace WikiWalker
     return array;
   }
 
-  std::string ToJsonWriter::convertToJson(const Article* a)
-  {
-    Json::Value val(Json::ValueType::objectValue);
-
-    Json::Value linkObj(Json::ValueType::objectValue);
-
-    if(a->analyzed()) {
-      linkObj["forward_links"] = getArticleLinks(a);
-    } else {
-      linkObj["forward_links"] = Json::Value::nullSingleton();
-    }
-
-    val[a->title()] = linkObj;
-
-    Json::StreamWriterBuilder swb;
-    swb["indentation"] = "";
-    return Json::writeString(swb, val);
-  }
-
-  std::string ToJsonWriter::convertToJson(const ArticleCollection& ac)
+  /*! Convert article to string representation of JSON representation.
+   * \param a pointer to article to be converted
+   * \return json as string
+   * \internal uses the following format:
+   * {"title":{"forward_links":[...]}}
+   */
+  static std::string convertToJson(const ArticleCollection& ac)
   {
     Json::Value val(Json::ValueType::objectValue);
 
@@ -64,6 +51,32 @@ namespace WikiWalker
 
       val[ar.first] = linkObj;
     }
+
+    Json::StreamWriterBuilder swb;
+    swb["indentation"] = "";
+    return Json::writeString(swb, val);
+  }
+
+  /*! Convert article collection to string representation of JSON
+   * representation.
+   * \param ac reference to article collection to be converted
+   * \return json as string
+   * \internal uses the following format:
+   * {"title":{"forward_links":[...]}, "title2":{"forward_links":[...]}, ...}
+   */
+  static std::string convertToJson(const Article* a)
+  {
+    Json::Value val(Json::ValueType::objectValue);
+
+    Json::Value linkObj(Json::ValueType::objectValue);
+
+    if(a->analyzed()) {
+      linkObj["forward_links"] = getArticleLinks(a);
+    } else {
+      linkObj["forward_links"] = Json::Value::nullSingleton();
+    }
+
+    val[a->title()] = linkObj;
 
     Json::StreamWriterBuilder swb;
     swb["indentation"] = "";
