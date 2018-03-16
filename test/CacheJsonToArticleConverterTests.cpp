@@ -1,4 +1,5 @@
 #include <memory>
+#include <sstream>
 
 #include <UnitTest++/UnitTest++.h>
 
@@ -11,7 +12,8 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(GetArticleWithoutLinks_Unanalyzed)
   {
-    std::string json = R"({"Farm":{"forward_links":null}})";
+    std::string jsonString = R"({"Farm":{"forward_links":null}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
@@ -26,7 +28,8 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(GetArticleWithoutLinks_Analyzed)
   {
-    std::string json = R"({"Farm":{"forward_links":[]}})";
+    std::string jsonString = R"({"Farm":{"forward_links":[]}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
@@ -43,7 +46,8 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(GetArticleWithOneLink)
   {
-    std::string json = R"({"Farm":{"forward_links":["Animal"]}})";
+    std::string jsonString = R"({"Farm":{"forward_links":["Animal"]}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
@@ -59,8 +63,9 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(GetArticleWithMultipleLinks)
   {
-    std::string json =
+    std::string jsonString =
         R"({"Farm":{"forward_links":["Animal","Pig","Equality"]}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
@@ -76,7 +81,8 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(WriteEmptyArticleCollection)
   {
-    std::string json = "{}";
+    std::string jsonString = "{}";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
@@ -86,7 +92,8 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(WriteArticleCollection_OneArticleWithoutLinks_Unanalyzed)
   {
-    std::string json = R"({"Foo":{"forward_links":null}})";
+    std::string jsonString = R"({"Foo":{"forward_links":null}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
@@ -101,7 +108,8 @@ SUITE(CacheJsonToArticleConverterTests)
 
   TEST(WriteArticleCollection_OneArticleWithoutLinks_Analyzed)
   {
-    std::string json = R"({"Foo":{"forward_links":[]}})";
+    std::string jsonString = R"({"Foo":{"forward_links":[]}})";
+    std::istringstream json(jsonString);
 
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;

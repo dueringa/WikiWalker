@@ -64,12 +64,4 @@ namespace WikiWalker
      * a->analyzed(true); ?
      */
   }
-
-  ArticleCollection& CacheJsonToArticleConverter::convert(
-      const std::string& json,
-      ArticleCollection& articleCache)
-  {
-    std::istringstream jsonStream(json);
-    return convert(jsonStream, articleCache);
-  }
 }  // namespace WikiWalker
