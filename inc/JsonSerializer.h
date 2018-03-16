@@ -1,7 +1,7 @@
 //! \file
 
-#ifndef JSONSERIALIZER_H
-#define JSONSERIALIZER_H
+#ifndef WIKIWALKER_JSONSERIALIZER_H
+#define WIKIWALKER_JSONSERIALIZER_H
 
 #include <iostream>
 
@@ -23,4 +23,4 @@ namespace WikiWalker
                    std::ostream& outstream);
   };
 }
-#endif  // JSONSERIALIZER_H
+#endif  // WIKIWALKER_JSONSERIALIZER_H
