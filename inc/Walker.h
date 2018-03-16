@@ -15,9 +15,9 @@ namespace WikiWalker
      * \returns const reference to collection with stored reference
      * \todo looks code-smelly, is this really neccessary?
      */
-    const ArticleCollection& getCollection() const
+    const ArticleCollection& collection() const
     {
-      return articleSet;
+      return articleSet_;
     }
 
     //! virtual base class destructor
@@ -25,7 +25,7 @@ namespace WikiWalker
 
   protected:
     //! article collection, used as cache, for walked articles
-    ArticleCollection articleSet;
+    ArticleCollection articleSet_;
   };
 }  // namespace WikiWalker
 #endif  // WALKER_H

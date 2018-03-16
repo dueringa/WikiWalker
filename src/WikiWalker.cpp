@@ -20,7 +20,7 @@
 
 namespace WikiWalker
 {
-  void WikiWalker::startWalking(const std::string& url)
+  void WikiWalker::start(const std::string& url)
   {
     // try parsing URL
     auto parsedUrl = LUrlParser::clParseURL::ParseURL(url);
@@ -68,41 +68,41 @@ namespace WikiWalker
         .addParameter("formatversion", "2");
     creator.addParameter("titles", title);
 
-    std::string json = grabber.grabUrl(creator.buildUrl());
+    std::string json = grabber_.grabUrl(creator.buildUrl());
 
     if(!json.empty()) {
       WikimediaJsonToArticleConverter conv;
-      auto conversionStatus = conv.convertToArticle(json, articleSet);
+      auto conversionStatus = conv.convertToArticle(json, articleSet_);
 
       while(WikimediaJsonToArticleConverter::ContinuationStatus::
                     ConversionNeedsMoreData == conversionStatus &&
             !conv.getContinuationData().empty()) {
         creator.addParameter("plcontinue", conv.getContinuationData());
 
-        json             = grabber.grabUrl(creator.buildUrl());
-        conversionStatus = conv.convertToArticle(json, articleSet);
+        json             = grabber_.grabUrl(creator.buildUrl());
+        conversionStatus = conv.convertToArticle(json, articleSet_);
       }
     } else {
       std::cerr << "Error fetching article" << std::endl;
     }
 
-    if(fetchGenerator) {
+    if(fetchGenerator_) {
       creator.addParameter("generator", "links")
           .addParameter("plnamespace", "0")
           .addParameter("gpllimit", "max");
-      json = grabber.grabUrl(creator.buildUrl());
+      json = grabber_.grabUrl(creator.buildUrl());
 
       if(!json.empty()) {
         WikimediaJsonToArticleConverter conv;
-        auto conversionStatus = conv.convertToArticle(json, articleSet);
+        auto conversionStatus = conv.convertToArticle(json, articleSet_);
 
         while(WikimediaJsonToArticleConverter::ContinuationStatus::
                       ConversionNeedsMoreData == conversionStatus &&
               conv.getContinuationData() != "") {
           creator.addParameter("plcontinue", conv.getContinuationData());
 
-          json             = grabber.grabUrl(creator.buildUrl());
-          conversionStatus = conv.convertToArticle(json, articleSet);
+          json             = grabber_.grabUrl(creator.buildUrl());
+          conversionStatus = conv.convertToArticle(json, articleSet_);
         }
       }
     }
@@ -120,7 +120,7 @@ namespace WikiWalker
       return;
     }
 
-    cjta.convertToArticle(cache, articleSet);
+    cjta.convertToArticle(cache, articleSet_);
 
     assert(cache.eof());
 
@@ -140,7 +140,7 @@ namespace WikiWalker
       throw WalkerException("Error writing to cache file. Check permissions.");
     }
 
-    w.output(articleSet, cache);
+    w.output(articleSet_, cache);
 
     if(cache.fail() || cache.bad()) {
       cache.close();

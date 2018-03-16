@@ -76,13 +76,13 @@ int main(int argc, char** argv)
   }
 
   if(isDeepSet) {
-    w.setDeep(true);
+    w.deep(true);
   }
 
   if(isUrlSet) {
     try {
       std::string url = cmdp.getValue(CmdOpt::URL);
-      w.startWalking(url);
+      w.start(url);
     } catch(std::exception& e) {
       std::cout << "Error: " << e.what() << std::endl;
       return -1;
@@ -104,7 +104,7 @@ int main(int argc, char** argv)
   }
 
   if(isDotSet) {
-    const WikiWalker::ArticleCollection& ac = w.getCollection();
+    const WikiWalker::ArticleCollection& ac = w.collection();
     std::string outfile                     = cmdp.getValue(CmdOpt::DotOut);
     WikiWalker::ToGraphvizWriter tgw;
     std::ofstream file(outfile, std::ios::trunc | std::ios::out);
@@ -123,13 +123,13 @@ int main(int argc, char** argv)
     }
   }
 
-  size_t numArt = w.getCollection().countAnalyzedArticles();
+  size_t numArt = w.collection().countAnalyzedArticles();
   if(numArt > 10) {
     std::cout << "There are " << numArt << " analyzed articles."
               << " Not printing them. (Limit: " << printLimit << ")."
               << std::endl;
   } else {
-    for(auto& a : w.getCollection()) {
+    for(auto& a : w.collection()) {
       auto& art = a.second;
       if(art->marked()) {
         std::cout << "Article " << a.first << " is invalid or doesn't exist"

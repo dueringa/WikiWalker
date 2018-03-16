@@ -15,21 +15,21 @@ namespace WikiWalker
   {
   public:
     //! Creates a new instance
-    WikiWalker() : Walker(), fetchGenerator(false), grabber()
+    WikiWalker() : Walker(), fetchGenerator_(false), grabber_()
     {
     }
 
     /*! given an URL, start collecting links
      * \param url start point for analysis
      */
-    void startWalking(const std::string& url);
+    void start(const std::string& url);
 
     /*! fetch not only requested article, but also linked ones.
      * \param depth whether to fetch linked articles as well
      */
-    void setDeep(bool depth)
+    void deep(bool depth)
     {
-      fetchGenerator = depth;
+      fetchGenerator_ = depth;
     }
 
     /*! Read data from cache file.
@@ -44,8 +44,8 @@ namespace WikiWalker
     void writeCache(const std::string& cacheFile);
 
   private:
-    CurlWikiGrabber grabber;
-    bool fetchGenerator;
+    CurlWikiGrabber grabber_;
+    bool fetchGenerator_;
   };
 }  // namespace WikiWalker
 #endif  // WIKIWALKER_H
