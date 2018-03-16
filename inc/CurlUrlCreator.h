@@ -1,7 +1,7 @@
 //! \file CurlUrlCreator.h
 
-#ifndef CURLURLCREATOR_H
-#define CURLURLCREATOR_H
+#ifndef WIKIWALKER_CURLURLCREATOR_H
+#define WIKIWALKER_CURLURLCREATOR_H
 
 #include <string>
 #include <unordered_map>
@@ -61,4 +61,4 @@ namespace WikiWalker
     CURL* handle_;
   };
 }  // namespace WikiWalker
-#endif  // CURLURLCREATOR_H
+#endif  // WIKIWALKER_CURLURLCREATOR_H

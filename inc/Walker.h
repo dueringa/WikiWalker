@@ -1,7 +1,7 @@
 //! \file Walker.h
 
-#ifndef WALKER_H
-#define WALKER_H
+#ifndef WIKIWALKER_WALKER_H
+#define WIKIWALKER_WALKER_H
 
 #include "ArticleCollection.h"
 
@@ -28,4 +28,4 @@ namespace WikiWalker
     ArticleCollection articleSet_;
   };
 }  // namespace WikiWalker
-#endif  // WALKER_H
+#endif  // WIKIWALKER_WALKER_H

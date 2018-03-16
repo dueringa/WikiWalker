@@ -1,7 +1,7 @@
 //! \file WalkerException.h
 
-#ifndef WALKEREXCEPTION_H
-#define WALKEREXCEPTION_H
+#ifndef WIKIWALKER_WALKEREXCEPTION_H
+#define WIKIWALKER_WALKEREXCEPTION_H
 
 #include <stdexcept>
 #include <string>
@@ -25,4 +25,4 @@ namespace WikiWalker
     }
   };
 }  // namespace WikiWalker
-#endif  // WALKEREXCEPTION_H
+#endif  // WIKIWALKER_WALKEREXCEPTION_H

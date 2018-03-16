@@ -1,7 +1,7 @@
 //! \file WikiWalker.h
 
-#ifndef WIKIWALKER_H
-#define WIKIWALKER_H
+#ifndef WIKIWALKER_WIKIWALKER_H
+#define WIKIWALKER_WIKIWALKER_H
 
 #include <string>
 
@@ -48,4 +48,4 @@ namespace WikiWalker
     bool fetchGenerator_;
   };
 }  // namespace WikiWalker
-#endif  // WIKIWALKER_H
+#endif  // WIKIWALKER_WIKIWALKER_H

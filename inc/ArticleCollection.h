@@ -1,7 +1,7 @@
 //! \file ArticleCollection.h
 
-#ifndef ARTICLE_COLLECTION_H
-#define ARTICLE_COLLECTION_H
+#ifndef WIKIWALKER_ARTICLE_COLLECTION_H
+#define WIKIWALKER_ARTICLE_COLLECTION_H
 
 #include <map>
 #include <memory>
@@ -121,4 +121,4 @@ namespace WikiWalker
     storage_type articleSet_;
   };
 }  // namespace WikiWalker
-#endif  // ARTICLE_COLLECTION_H
+#endif  // WIKIWALKER_ARTICLE_COLLECTION_H

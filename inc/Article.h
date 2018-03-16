@@ -1,7 +1,7 @@
 //! \file Article.h
 
-#ifndef ARTICLE_H
-#define ARTICLE_H
+#ifndef WIKIWALKER_ARTICLE_H
+#define WIKIWALKER_ARTICLE_H
 
 #include <memory>
 #include <string>
@@ -102,4 +102,4 @@ namespace WikiWalker
     bool marked_;
   };
 }  // namespace WikiWalker
-#endif  // ARTICLE_H
+#endif  // WIKIWALKER_ARTICLE_H

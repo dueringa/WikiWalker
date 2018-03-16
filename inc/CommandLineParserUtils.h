@@ -1,5 +1,5 @@
-#ifndef COMMANDLINEPARSERUTILS_H
-#define COMMANDLINEPARSERUTILS_H
+#ifndef WIKIWALKER_COMMANDLINEPARSERUTILS_H
+#define WIKIWALKER_COMMANDLINEPARSERUTILS_H
 
 #include <string>
 
@@ -33,4 +33,4 @@ namespace WikiWalker
     }
   }  // namespace CommandLineParserUtils
 }  // namespace WikiWalker
-#endif  // COMMANDLINEPARSERUTILS_H
+#endif  // WIKIWALKER_COMMANDLINEPARSERUTILS_H

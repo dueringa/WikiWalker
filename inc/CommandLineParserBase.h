@@ -1,7 +1,7 @@
 //! \file CommandLineParserBase.h
 
-#ifndef ACOMMANDLINEPARSER_H
-#define ACOMMANDLINEPARSER_H
+#ifndef WIKIWALKER_ACOMMANDLINEPARSER_H
+#define WIKIWALKER_ACOMMANDLINEPARSER_H
 
 #include <string>
 
@@ -54,4 +54,4 @@ namespace WikiWalker
     virtual void printHelp() = 0;
   };
 }  // namespace WikiWalker
-#endif  // ACOMMANDLINEPARSER_H
+#endif  // WIKIWALKER_ACOMMANDLINEPARSER_H

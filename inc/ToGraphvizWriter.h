@@ -1,7 +1,7 @@
 //! \file ToGraphvizWriter.h
 
-#ifndef TOGRAPHVIZWRITER_H
-#define TOGRAPHVIZWRITER_H
+#ifndef WIKIWALKER_TOGRAPHVIZWRITER_H
+#define WIKIWALKER_TOGRAPHVIZWRITER_H
 
 #include "DataOutputBase.h"
 
@@ -27,4 +27,4 @@ namespace WikiWalker
     void output(const ArticleCollection& ac, std::ostream& os) override;
   };
 }  // namespace WikiWalker
-#endif  // TOGRAPHVIZWRITER_H
+#endif  // WIKIWALKER_TOGRAPHVIZWRITER_H

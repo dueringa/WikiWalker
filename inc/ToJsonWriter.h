@@ -1,7 +1,7 @@
 //! \file ToJsonWriter.h
 
-#ifndef TOJSONWRITER_H
-#define TOJSONWRITER_H
+#ifndef WIKIWALKER_TOJSONWRITER_H
+#define WIKIWALKER_TOJSONWRITER_H
 
 #include <string>
 
@@ -31,4 +31,4 @@ namespace WikiWalker
                 std::ostream& outstream) override;
   };
 }  // namespace WikiWalker
-#endif  // TOJSONWRITER_H
+#endif  // WIKIWALKER_TOJSONWRITER_H

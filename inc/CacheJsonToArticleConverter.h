@@ -1,7 +1,7 @@
 //! \file CacheJsonToArticleConverter.h
 
-#ifndef CACHEJSONTOARTICLECONVERTER_H
-#define CACHEJSONTOARTICLECONVERTER_H
+#ifndef WIKIWALKER_CACHEJSONTOARTICLECONVERTER_H
+#define WIKIWALKER_CACHEJSONTOARTICLECONVERTER_H
 
 #include <istream>
 #include <string>
@@ -35,4 +35,4 @@ namespace WikiWalker
                                ArticleCollection& articleCache);
   };
 }  // namespace WikiWalker
-#endif  // CACHEJSONTOARTICLECONVERTER_H
+#endif  // WIKIWALKER_CACHEJSONTOARTICLECONVERTER_H
