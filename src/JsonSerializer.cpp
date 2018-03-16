@@ -1,10 +1,9 @@
-//! \file ToJsonWriter.cpp
-
-#include "ToJsonWriter.h"
+//! \file
 
 #include <json/json.h>
 
 #include "Article.h"
+#include "JsonSerializer.h"
 
 namespace WikiWalker
 {
@@ -34,7 +33,7 @@ namespace WikiWalker
    * \param a pointer to article to be converted
    * \return json as string
    * \internal uses the following format:
-   * {"title":{"forward_links":[...]}}
+   * {"title":{"forward_links":[...]}, "title2":{"forward_links":[...]}, ...}
    */
   static std::string convertToJson(const ArticleCollection& ac)
   {
@@ -57,40 +56,9 @@ namespace WikiWalker
     return Json::writeString(swb, val);
   }
 
-  /*! Convert article collection to string representation of JSON
-   * representation.
-   * \param ac reference to article collection to be converted
-   * \return json as string
-   * \internal uses the following format:
-   * {"title":{"forward_links":[...]}, "title2":{"forward_links":[...]}, ...}
-   */
-  static std::string convertToJson(const Article* a)
-  {
-    Json::Value val(Json::ValueType::objectValue);
-
-    Json::Value linkObj(Json::ValueType::objectValue);
-
-    if(a->analyzed()) {
-      linkObj["forward_links"] = getArticleLinks(a);
-    } else {
-      linkObj["forward_links"] = Json::Value::nullSingleton();
-    }
-
-    val[a->title()] = linkObj;
-
-    Json::StreamWriterBuilder swb;
-    swb["indentation"] = "";
-    return Json::writeString(swb, val);
-  }
-
-  void ToJsonWriter::output(const Article* article, std::ostream& outstream)
-  {
-    outstream << convertToJson(article);
-  }
-
-  void ToJsonWriter::output(const ArticleCollection& collection,
-                            std::ostream& outstream)
+  void JsonSerializer::serialize(const ArticleCollection& collection,
+                                 std::ostream& outstream)
   {
     outstream << convertToJson(collection);
   }
-}  // namespace WikiWalker
+}

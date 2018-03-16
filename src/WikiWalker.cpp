@@ -11,8 +11,8 @@
 #include "Article.h"
 #include "CacheJsonToArticleConverter.h"
 #include "CurlUrlCreator.h"
+#include "JsonSerializer.h"
 #include "StringUtils.h"
-#include "ToJsonWriter.h"
 #include "WalkerException.h"
 #include "WikimediaJsonToArticleConverter.h"
 
@@ -132,7 +132,7 @@ namespace WikiWalker
 
   void WikiWalker::writeCache(const std::string& cacheFile)
   {
-    ToJsonWriter w;
+    JsonSerializer w;
 
     std::ofstream cache(cacheFile, std::ios::trunc);
 
@@ -140,7 +140,7 @@ namespace WikiWalker
       throw WalkerException("Error writing to cache file. Check permissions.");
     }
 
-    w.output(articleSet_, cache);
+    w.serialize(articleSet_, cache);
 
     if(cache.fail() || cache.bad()) {
       cache.close();

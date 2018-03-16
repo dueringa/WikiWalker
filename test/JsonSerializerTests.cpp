@@ -2,66 +2,78 @@
 
 #include <memory>
 #include <sstream>
+#include <utility>
 
 #include "Article.h"
-#include "ToJsonWriter.h"
+#include "JsonSerializer.h"
 
-SUITE(ArticleToJsonWriterTests)
+SUITE(ArticleJsonSerializerTests)
 {
   using namespace WikiWalker;
 
   TEST(WriteUnanalyzedArticleWithoutLinks_LinksIsNull)
   {
-    ToJsonWriter atj;
-    Article a("Farm");
+    JsonSerializer atj;
     std::ostringstream oss;
+    ArticleCollection ac;
+    ac.add(std::make_shared<Article>("Farm"));
 
-    atj.output(&a, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{\"Farm\":{\"forward_links\":null}}", oss.str());
   }
 
   TEST(WriteAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
   {
-    ToJsonWriter atj;
-    Article a("Farm");
+    JsonSerializer atj;
     std::ostringstream oss;
+    ArticleCollection ac;
 
-    a.analyzed(true);
+    auto a = std::make_shared<Article>("Farm");
+    ac.add(a);
+    a->analyzed(true);
 
-    atj.output(&a, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{\"Farm\":{\"forward_links\":[]}}", oss.str());
   }
 
   TEST(WriteArticleWithOneLink)
   {
-    ToJsonWriter atj;
-    Article a("Farm");
+    JsonSerializer atj;
     std::ostringstream oss;
+    ArticleCollection ac;
+
+    // yes, only a is inserted, since we want to emulate article-only
+    auto a = std::make_shared<Article>("Farm");
+    ac.add(a);
 
     auto linked = std::make_shared<Article>("Animal");
-    a.addLink(linked);
+    a->addLink(linked);
 
-    atj.output(&a, oss);
+    atj.serialize(ac, oss);
     CHECK_EQUAL("{\"Farm\":{\"forward_links\":[\"Animal\"]}}", oss.str());
   }
 
   TEST(WriteArticleWithMultipleLinks)
   {
-    ToJsonWriter atj;
-    Article a("Farm");
+    JsonSerializer atj;
     std::ostringstream oss;
+    ArticleCollection ac;
+
+    // yes, only a is inserted, since we want to emulate article-only
+    auto a = std::make_shared<Article>("Farm");
+    ac.add(a);
 
     auto al1 = std::make_shared<Article>("Animal"),
          al2 = std::make_shared<Article>("Pig"),
          al3 = std::make_shared<Article>("Equality");
 
-    a.addLink(al1);
-    a.addLink(al2);
-    a.addLink(al3);
+    a->addLink(al1);
+    a->addLink(al2);
+    a->addLink(al3);
 
-    atj.output(&a, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL(
         "{\"Farm\":{\"forward_links\":[\"Animal\",\"Pig\",\"Equality\"]}}",
@@ -70,31 +82,32 @@ SUITE(ArticleToJsonWriterTests)
 
   TEST(WriteEmptyArticleCollection)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     ArticleCollection ac;
     std::ostringstream oss;
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{}", oss.str());
   }
 
   TEST(WriteArticleCollection_OneUnanalyzedArticleWithoutLinks_LinksIsNull)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     ArticleCollection ac;
     std::ostringstream oss;
 
     auto linked = std::make_shared<Article>("Foo");
     ac.add(linked);
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{\"Foo\":{\"forward_links\":null}}", oss.str());
   }
+
   TEST(WriteArticleCollection_OneAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
   {
-    ToJsonWriter atj;
+    JsonSerializer atj;
     ArticleCollection ac;
     std::ostringstream oss;
 
@@ -102,7 +115,7 @@ SUITE(ArticleToJsonWriterTests)
     a->analyzed(true);
     ac.add(a);
 
-    atj.output(ac, oss);
+    atj.serialize(ac, oss);
 
     CHECK_EQUAL("{\"Foo\":{\"forward_links\":[]}}", oss.str());
   }
