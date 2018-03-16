@@ -14,9 +14,9 @@ namespace WikiWalker
    * reference instead? - but how to say "not found" then? */
   std::shared_ptr<Article> ArticleCollection::get(const std::string& title)
   {
-    auto it = articleSet.find(title);
+    auto it = articleSet_.find(title);
 
-    if(articleSet.end() == it) {
+    if(articleSet_.end() == it) {
       return nullptr;
     }
 
@@ -25,7 +25,7 @@ namespace WikiWalker
 
   bool ArticleCollection::add(std::shared_ptr<Article> article)
   {
-    auto ret = articleSet.insert(std::make_pair(article->title(), article));
+    auto ret = articleSet_.insert(std::make_pair(article->title(), article));
     return ret.second;
   }
 
@@ -34,21 +34,21 @@ namespace WikiWalker
   {
     switch(strategy) {
       case ArticleCollection::MergeStrategy::IgnoreDuplicates:
-        articleSet.insert(other.begin(), other.end());
+        articleSet_.insert(other.begin(), other.end());
         break;
       case ArticleCollection::MergeStrategy::AlwaysOverwrite:
         for(const auto& art : other) {
-          articleSet[art.first] = art.second;
+          articleSet_[art.first] = art.second;
         }
         break;
       case ArticleCollection::MergeStrategy::UseArticleWithMoreLinks:
         for(const auto& art : other) {
-          auto articleInThis = articleSet[art.first];
+          auto articleInThis = articleSet_[art.first];
           auto& otherArt     = art.second;
 
           if(articleInThis == nullptr ||
              (!articleInThis->analyzed() && otherArt->analyzed())) {
-            articleSet[art.first] = art.second;
+            articleSet_[art.first] = art.second;
             continue;
           }
 
@@ -59,7 +59,7 @@ namespace WikiWalker
           auto linksInThis  = articleInThis->numLinks();
           auto linksInOther = otherArt->numLinks();
           if(linksInOther > linksInThis) {
-            articleSet[art.first] = art.second;
+            articleSet_[art.first] = art.second;
           }
         }
         break;
@@ -70,22 +70,22 @@ namespace WikiWalker
 
   ArticleCollection::iterator ArticleCollection::begin()
   {
-    return articleSet.begin();
+    return articleSet_.begin();
   }
 
   ArticleCollection::iterator ArticleCollection::end()
   {
-    return articleSet.end();
+    return articleSet_.end();
   }
 
   ArticleCollection::const_iterator ArticleCollection::begin() const
   {
-    return articleSet.begin();
+    return articleSet_.begin();
   }
 
   ArticleCollection::const_iterator ArticleCollection::end() const
   {
-    return articleSet.end();
+    return articleSet_.end();
   }
 
   namespace Predicates
@@ -100,7 +100,7 @@ namespace WikiWalker
     }
   }  // namespace Predicates
 
-  size_t ArticleCollection::getNumAnalyzedArticles() const
+  size_t ArticleCollection::countAnalyzedArticles() const
   {
     return std::count_if(begin(), end(), Predicates::articleIsAnalyzed);
   }

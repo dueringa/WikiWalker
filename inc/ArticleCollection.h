@@ -55,15 +55,15 @@ namespace WikiWalker
     /*! get number of articles in collection
      * \returns number of articles in collection
      */
-    size_t getNumArticles() const
+    size_t countArticles() const
     {
-      return articleSet.size();
+      return articleSet_.size();
     }
 
     /*! get number of anlyzed articles in collection
      * \returns number of analyzed articles in collection
      */
-    size_t getNumAnalyzedArticles() const;
+    size_t countAnalyzedArticles() const;
 
     /*! merge another ArticleCollection into the current one
      * \param[in] other collection to merge into the current one
@@ -118,7 +118,7 @@ namespace WikiWalker
   private:
     // we need to avoid duplicate article instances.
     // we do this by associating an article title with its instance
-    storage_type articleSet;
+    storage_type articleSet_;
   };
 }  // namespace WikiWalker
 #endif  // ARTICLE_COLLECTION_H

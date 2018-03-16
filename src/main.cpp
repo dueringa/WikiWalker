@@ -123,7 +123,7 @@ int main(int argc, char** argv)
     }
   }
 
-  size_t numArt = w.getCollection().getNumAnalyzedArticles();
+  size_t numArt = w.getCollection().countAnalyzedArticles();
   if(numArt > 10) {
     std::cout << "There are " << numArt << " analyzed articles."
               << " Not printing them. (Limit: " << printLimit << ")."

@@ -17,7 +17,7 @@ SUITE(CacheJsonToArticleConverterTests)
     CacheJsonToArticleConverter cjta;
     cjta.convertToArticle(json, ac);
 
-    CHECK_EQUAL(1, ac.getNumArticles());
+    CHECK_EQUAL(1, ac.countArticles());
 
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
@@ -32,7 +32,7 @@ SUITE(CacheJsonToArticleConverterTests)
     CacheJsonToArticleConverter cjta;
     cjta.convertToArticle(json, ac);
 
-    CHECK_EQUAL(1, ac.getNumArticles());
+    CHECK_EQUAL(1, ac.countArticles());
 
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
@@ -49,7 +49,7 @@ SUITE(CacheJsonToArticleConverterTests)
     CacheJsonToArticleConverter cjta;
     cjta.convertToArticle(json, ac);
 
-    CHECK_EQUAL(2, ac.getNumArticles());
+    CHECK_EQUAL(2, ac.countArticles());
 
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
@@ -66,7 +66,7 @@ SUITE(CacheJsonToArticleConverterTests)
     CacheJsonToArticleConverter cjta;
     cjta.convertToArticle(json, ac);
 
-    CHECK_EQUAL(4, ac.getNumArticles());
+    CHECK_EQUAL(4, ac.countArticles());
 
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
@@ -81,7 +81,7 @@ SUITE(CacheJsonToArticleConverterTests)
     ArticleCollection ac;
     CacheJsonToArticleConverter cjta;
     cjta.convertToArticle(json, ac);
-    CHECK_EQUAL(0, ac.getNumArticles());
+    CHECK_EQUAL(0, ac.countArticles());
   }
 
   TEST(WriteArticleCollection_OneArticleWithoutLinks_Unanalyzed)
@@ -92,7 +92,7 @@ SUITE(CacheJsonToArticleConverterTests)
     CacheJsonToArticleConverter cjta;
     cjta.convertToArticle(json, ac);
 
-    CHECK_EQUAL(1, ac.getNumArticles());
+    CHECK_EQUAL(1, ac.countArticles());
 
     auto a = ac.get("Foo");
     CHECK(a != nullptr);
@@ -107,7 +107,7 @@ SUITE(CacheJsonToArticleConverterTests)
     CacheJsonToArticleConverter cjta;
     cjta.convertToArticle(json, ac);
 
-    CHECK_EQUAL(1, ac.getNumArticles());
+    CHECK_EQUAL(1, ac.countArticles());
 
     auto a = ac.get("Foo");
     CHECK(a != nullptr);

@@ -24,7 +24,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     auto getArticle = ac.get("3PTT");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->numLinks());
-    CHECK_EQUAL(2, ac.getNumArticles());
+    CHECK_EQUAL(2, ac.countArticles());
   }
 
   TEST(JsonDataWithInvalidArticle_Throws)
@@ -56,7 +56,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     auto getArticle = ac.get("Satar, Deoghar");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->numLinks());
-    CHECK_EQUAL(2, ac.getNumArticles());
+    CHECK_EQUAL(2, ac.countArticles());
   }
 
   TEST(JsonData_ContainsMultipleArticles)
@@ -69,11 +69,11 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
               ConversionCompleted == cont);
 
-    CHECK_EQUAL(2, ac.getNumAnalyzedArticles());
+    CHECK_EQUAL(2, ac.countAnalyzedArticles());
     auto ptr = ac.get("Zanfina Ismajli");
     CHECK(ptr != nullptr);
     ptr = ac.get("Kleite (Tochter des Danaos)");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(6, ac.getNumArticles());
+    CHECK_EQUAL(6, ac.countArticles());
   }
 }
