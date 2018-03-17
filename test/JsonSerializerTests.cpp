@@ -143,4 +143,26 @@ SUITE(ArticleJsonSerializerTests)
         R"(,"Baz":{"forward_links":null},"Foo":{"forward_links":["Bar"]}})",
         oss.str());
   }
+
+  TEST(SerializeArticleWithNullptr_NotSureHowToHandleYet)
+  {
+    JsonSerializer atj;
+    std::ostringstream oss;
+    ArticleCollection ac;
+
+    // yes, only a is inserted, since we want to emulate article-only
+    auto a = std::make_shared<Article>("Farm");
+    ac.add(a);
+
+    {
+      // what will happen when this goes out of scope?
+      auto linked = std::make_shared<Article>("Animal");
+      a->addLink(linked);
+    }
+
+    atj.serialize(ac, oss);
+
+    // deliberately fail the test
+    CHECK_EQUAL(R"({"Farm":{"forward_links":[ /* ???? */ ]}})", oss.str());
+  }
 }
