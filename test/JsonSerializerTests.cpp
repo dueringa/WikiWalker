@@ -76,8 +76,7 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     CHECK_EQUAL(
-        R"({"Farm":{"forward_links":["Animal","Pig","Equality"]}})",
-        oss.str());
+        R"({"Farm":{"forward_links":["Animal","Pig","Equality"]}})", oss.str());
   }
 
   TEST(WriteEmptyArticleCollection)
@@ -118,5 +117,30 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     CHECK_EQUAL(R"({"Foo":{"forward_links":[]}})", oss.str());
+  }
+
+  TEST(
+      WriteArticleCollection_MultipleArticles_WithMultipleLinks_MatchesExpected)
+  {
+    JsonSerializer atj;
+    ArticleCollection ac;
+    std::ostringstream oss;
+
+    auto a = std::make_shared<Article>("Foo");
+    auto b = std::make_shared<Article>("Bar");
+    auto c = std::make_shared<Article>("Baz");
+    a->addLink(b);
+    b->addLink(a);
+    b->addLink(c);
+    ac.add(a);
+    ac.add(b);
+    ac.add(c);
+
+    atj.serialize(ac, oss);
+
+    CHECK_EQUAL(
+        R"({"Bar":{"forward_links":["Foo","Baz"]})"
+        R"(,"Baz":{"forward_links":null},"Foo":{"forward_links":["Bar"]}})",
+        oss.str());
   }
 }
