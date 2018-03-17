@@ -8,6 +8,9 @@
 
 namespace WikiWalker
 {
+  /*! \todo since links are stored as weeak_ptrs, should this get the "whole"
+   * count, or only the non-null-count?
+   */
   size_t Article::numLinks() const
   {
     if(!analyzed_ && links_.empty()) {
