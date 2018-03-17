@@ -25,6 +25,12 @@ namespace WikiWalker
         std::string tit = a->title();
         array.append(Json::Value(tit));
       }
+      /* \todo Since Article links are stored as weak_ptrs, how should nullptrs
+       * be handled?
+       */
+      /*else {
+        array.append(Json::nullValue);
+      }*/
     }
 
     return array;
