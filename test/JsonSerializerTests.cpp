@@ -20,7 +20,7 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL("{\"Farm\":{\"forward_links\":null}}", oss.str());
+    CHECK_EQUAL(R"({"Farm":{"forward_links":null}})", oss.str());
   }
 
   TEST(WriteAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
@@ -35,7 +35,7 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL("{\"Farm\":{\"forward_links\":[]}}", oss.str());
+    CHECK_EQUAL(R"({"Farm":{"forward_links":[]}})", oss.str());
   }
 
   TEST(WriteArticleWithOneLink)
@@ -52,7 +52,7 @@ SUITE(ArticleJsonSerializerTests)
     a->addLink(linked);
 
     atj.serialize(ac, oss);
-    CHECK_EQUAL("{\"Farm\":{\"forward_links\":[\"Animal\"]}}", oss.str());
+    CHECK_EQUAL(R"({"Farm":{"forward_links":["Animal"]}})", oss.str());
   }
 
   TEST(WriteArticleWithMultipleLinks)
@@ -76,7 +76,7 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     CHECK_EQUAL(
-        "{\"Farm\":{\"forward_links\":[\"Animal\",\"Pig\",\"Equality\"]}}",
+        R"({"Farm":{"forward_links":["Animal","Pig","Equality"]}})",
         oss.str());
   }
 
@@ -102,7 +102,7 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL("{\"Foo\":{\"forward_links\":null}}", oss.str());
+    CHECK_EQUAL(R"({"Foo":{"forward_links":null}})", oss.str());
   }
 
   TEST(WriteArticleCollection_OneAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
@@ -117,6 +117,6 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL("{\"Foo\":{\"forward_links\":[]}}", oss.str());
+    CHECK_EQUAL(R"({"Foo":{"forward_links":[]}})", oss.str());
   }
 }
