@@ -41,7 +41,7 @@ SUITE(JsonDeserializerTests)
     CHECK(a != nullptr);
 
     CHECK_EQUAL(true, a->analyzed());
-    CHECK_EQUAL(0, a->numLinks());
+    CHECK_EQUAL(0, a->countLinks());
   }
 
   TEST(GetArticleWithOneLink)
@@ -64,7 +64,7 @@ SUITE(JsonDeserializerTests)
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
 
-    CHECK_EQUAL(1, a->numLinks());
+    CHECK_EQUAL(1, a->countLinks());
   }
 
   TEST(GetArticleWithMultipleLinks)
@@ -82,7 +82,7 @@ SUITE(JsonDeserializerTests)
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
 
-    CHECK_EQUAL(3, a->numLinks());
+    CHECK_EQUAL(3, a->countLinks());
   }
 
   TEST(WriteEmptyArticleCollection)
@@ -126,6 +126,6 @@ SUITE(JsonDeserializerTests)
     auto a = ac.get("Foo");
     CHECK(a != nullptr);
     CHECK_EQUAL(true, a->analyzed());
-    CHECK_EQUAL(0, a->numLinks());
+    CHECK_EQUAL(0, a->countLinks());
   }
 }

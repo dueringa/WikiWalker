@@ -135,7 +135,7 @@ int main(int argc, char** argv)
         std::cout << "Article " << a.first << " is invalid or doesn't exist"
                   << std::endl;
       } else if(art->analyzed()) {
-        std::cout << "Article " << a.first << " has " << art->numLinks()
+        std::cout << "Article " << a.first << " has " << art->countLinks()
                   << " links" << std::endl;
       }
     }

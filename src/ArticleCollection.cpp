@@ -56,8 +56,8 @@ namespace WikiWalker
             continue;
           }
 
-          auto linksInThis  = articleInThis->numLinks();
-          auto linksInOther = otherArt->numLinks();
+          auto linksInThis  = articleInThis->countLinks();
+          auto linksInOther = otherArt->countLinks();
           if(linksInOther > linksInThis) {
             articleSet_[art.first] = art.second;
           }

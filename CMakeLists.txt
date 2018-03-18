@@ -47,9 +47,12 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/doc/
 )
 
+file(GLOB formatsources inc/*.h src/*.cpp test/*.cpp)
+file(GLOB checksources src/*.cpp )
+
 add_custom_target(
     clang-format-source
-    COMMAND clang-format -i inc/*.h src/*.cpp test/*.cpp
+    COMMAND clang-format -i ${formatsources}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
@@ -58,6 +61,6 @@ add_custom_target(
     COMMAND echo "clang-check..."
     COMMAND clang-check -analyze -p ${CMAKE_BINARY_DIR} src/*.cpp
     COMMAND echo "clang-tidy..."
-    COMMAND clang-tidy -p ${CMAKE_BINARY_DIR} src/*.cpp
+    COMMAND clang-tidy -p ${CMAKE_BINARY_DIR} ${checksources}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
