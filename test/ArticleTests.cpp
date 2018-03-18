@@ -15,7 +15,7 @@ SUITE(ArticleTests)
   TEST(Article_GetCountLinks_Uninited_ThrowsException)
   {
     Article a("Foo");
-    CHECK_EQUAL(a.analyzed(), false);
+    CHECK_EQUAL(false, a.analyzed());
     CHECK_THROW(a.countLinks(), WalkerException);
   }
 
@@ -23,7 +23,7 @@ SUITE(ArticleTests)
   {
     Article a("Foo");
     a.analyzed(true);
-    CHECK_EQUAL(a.analyzed(), true);
+    CHECK_EQUAL(true, a.analyzed());
     CHECK_EQUAL(0, a.countLinks());
   }
 
@@ -34,7 +34,7 @@ SUITE(ArticleTests)
     auto link = std::make_shared<Article>("Barmiz");
     a.addLink(link);
 
-    CHECK_EQUAL(a.analyzed(), true);
+    CHECK_EQUAL(true, a.analyzed());
     CHECK_EQUAL(1, a.countLinks());
   }
 
@@ -46,7 +46,7 @@ SUITE(ArticleTests)
     CHECK(a.addLink(arl));
     CHECK(!a.addLink(arl));
 
-    CHECK_EQUAL(a.analyzed(), true);
+    CHECK_EQUAL(true, a.analyzed());
     CHECK_EQUAL(1, a.countLinks());
   }
 
@@ -67,7 +67,7 @@ SUITE(ArticleTests)
       a.addLink(s);
     }
 
-    CHECK_EQUAL(a.analyzed(), true);
+    CHECK_EQUAL(true, a.analyzed());
     CHECK_EQUAL(3, a.countLinks());
 
     int num = 0;
@@ -79,7 +79,7 @@ SUITE(ArticleTests)
       CHECK(isFound);
     }
 
-    CHECK_EQUAL(titles.size(), num);
+    CHECK_EQUAL(num, titles.size());
   }
 
   TEST(Article_Marked_State)
