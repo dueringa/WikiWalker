@@ -42,6 +42,9 @@ namespace WikiWalker
     /*! get the number of links the article has.
      * This throws an exception if state has not been set to anaylzed.
      * \return number of links the article has.
+     * This also includes links to articles that are nullptr / already deleted
+     * by the smart pointers.
+     *
      * \see analyzed(bool)
      * \see addLink
      */
