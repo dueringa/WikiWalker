@@ -47,7 +47,7 @@ SUITE(JsonSerializeDeserializeTests)
     CHECK_EQUAL(1, ac2.countArticles());
     CHECK(ac2.get("Farm") != nullptr);
     CHECK(ac2.get("Farm")->analyzed());
-    CHECK_EQUAL(0, ac2.get("Farm")->numLinks());
+    CHECK_EQUAL(0, ac2.get("Farm")->countLinks());
   }
 
   TEST(SerializeArticleWithOneLink_DeserializesInSameState)
@@ -73,7 +73,7 @@ SUITE(JsonSerializeDeserializeTests)
     CHECK_EQUAL(1, ac2.countArticles());
     CHECK(ac2.get("Farm") != nullptr);
     CHECK(ac2.get("Farm")->analyzed());
-    CHECK_EQUAL(1, ac2.get("Farm")->numLinks());
+    CHECK_EQUAL(1, ac2.get("Farm")->countLinks());
   }
 
   TEST(SerializeArticleWithMultipleLinks_DeserializesInSameState)
@@ -105,7 +105,7 @@ SUITE(JsonSerializeDeserializeTests)
     CHECK_EQUAL(1, ac2.countArticles());
     CHECK(ac2.get("Farm") != nullptr);
     CHECK(ac2.get("Farm")->analyzed());
-    CHECK_EQUAL(3, ac2.get("Farm")->numLinks());
+    CHECK_EQUAL(3, ac2.get("Farm")->countLinks());
   }
 
   TEST(SerializeEmptyArticleCollection_DeserializesInSameState)
@@ -161,6 +161,6 @@ SUITE(JsonSerializeDeserializeTests)
     CHECK_EQUAL(1, ac2.countArticles());
     CHECK(ac2.get("Foo") != nullptr);
     CHECK(ac2.get("Foo")->analyzed());
-    CHECK_EQUAL(0, ac2.get("Foo")->numLinks());
+    CHECK_EQUAL(0, ac2.get("Foo")->countLinks());
   }
 }
