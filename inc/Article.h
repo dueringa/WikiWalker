@@ -16,12 +16,14 @@ namespace WikiWalker
   class Article
   {
   public:
-    //! representation of links to other articles
-    using storage = std::vector<std::weak_ptr<const Article>>;
+    //! representation of single link to other articles
+    using link = std::weak_ptr<const Article>;
+    //! representation of collection of links to other articles
+    using link_collection = std::vector<link>;
     //! representation of iterator over links
-    using ArticleLinkIterator = storage::iterator;
+    using ArticleLinkIterator = link_collection::iterator;
     //! representation of const iterator over links
-    using ArticleLinkConstIterator = storage::const_iterator;
+    using ArticleLinkConstIterator = link_collection::const_iterator;
 
     /*! Create a new article from a title
      * \param articleTitle The title of the article
@@ -60,7 +62,7 @@ namespace WikiWalker
      * \see analyzed() const
      * \see analyzed(bool)
      */
-    bool addLink(const std::weak_ptr<const Article> article);
+    bool addLink(const link article);
 
     /*! Set article to be analyzed.
      * State is automatically set by #addLink, but if
@@ -100,7 +102,7 @@ namespace WikiWalker
 
   private:
     std::string title_;
-    storage links_;
+    link_collection links_;
     bool analyzed_;
     bool marked_;
   };

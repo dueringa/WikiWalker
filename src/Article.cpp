@@ -27,7 +27,7 @@ namespace WikiWalker
     return links_.cend();
   }
 
-  bool Article::addLink(const std::weak_ptr<const Article> article)
+  bool Article::addLink(const link article)
   {
     auto newTitle = article.lock()->title();
 
@@ -36,7 +36,7 @@ namespace WikiWalker
     bool isNewLink =
         std::none_of(links_.cbegin(),
                      links_.cend(),
-                     [&newTitle](const std::weak_ptr<const Article> x) {
+                     [&newTitle](const link x) {
                        return x.lock()->title() == newTitle;
                      });
 
