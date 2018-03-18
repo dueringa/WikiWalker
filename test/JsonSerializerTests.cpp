@@ -164,4 +164,28 @@ SUITE(ArticleJsonSerializerTests)
 
     CHECK_EQUAL(R"({"Farm":{"forward_links":[]}})", oss.str());
   }
+
+  TEST(SerializeArticleWithOnlyNullptr_NullptrWillBeSkipped)
+  {
+    JsonSerializer atj;
+    std::ostringstream oss;
+    ArticleCollection ac;
+
+    // yes, only a is inserted, since we want to emulate article-only
+    auto a = std::make_shared<Article>("Farm");
+    ac.add(a);
+
+    {
+      // will be skipped on serialization, since it'll become nullptr
+      auto linked = std::make_shared<Article>("Animal");
+      a->addLink(linked);
+    }
+
+    auto linked2 = std::make_shared<Article>("Barn");
+    a->addLink(linked2);
+
+    atj.serialize(ac, oss);
+
+    CHECK_EQUAL(R"({"Farm":{"forward_links":["Barn"]}})", oss.str());
+  }
 }
