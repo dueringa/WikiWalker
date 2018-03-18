@@ -26,7 +26,7 @@ namespace WikiWalker
      * \param instream the stream containing the JSON data
      * \returns The desirialized article collection
      */
-    // ArticleCollection&& deserialize(std::istream& instream);
+    ArticleCollection deserialize(std::istream& instream);
 
     /*! Deserialize JSON data to an ArticleCollection
      * \param[out] collection The desirialized article collection

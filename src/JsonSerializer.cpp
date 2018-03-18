@@ -69,6 +69,13 @@ namespace WikiWalker
     outstream << convertToJson(collection);
   }
 
+  ArticleCollection JsonSerializer::deserialize(std::istream& instream)
+  {
+    ArticleCollection ac;
+    deserialize(ac, instream);
+    return ac;
+  }
+
   void JsonSerializer::deserialize(ArticleCollection& collection,
                                    std::istream& instream)
   {
