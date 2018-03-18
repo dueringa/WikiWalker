@@ -144,7 +144,7 @@ SUITE(ArticleJsonSerializerTests)
         oss.str());
   }
 
-  TEST(SerializeArticleWithValidArticleAndANullptr_NullptrWillBeSkipped)
+  TEST(SerializeArticleWithOnlyNullptr_NullptrWillBeSkipped)
   {
     JsonSerializer atj;
     std::ostringstream oss;
@@ -165,7 +165,7 @@ SUITE(ArticleJsonSerializerTests)
     CHECK_EQUAL(R"({"Farm":{"forward_links":[]}})", oss.str());
   }
 
-  TEST(SerializeArticleWithOnlyNullptr_NullptrWillBeSkipped)
+  TEST(SerializeArticleWithValidArticleAndANullptr_NullptrWillBeSkipped)
   {
     JsonSerializer atj;
     std::ostringstream oss;
