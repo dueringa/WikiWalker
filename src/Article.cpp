@@ -8,7 +8,7 @@
 
 namespace WikiWalker
 {
-  size_t Article::numLinks() const
+  size_t Article::countLinks() const
   {
     if(!analyzed_ && links_.empty()) {
       throw WalkerException("Article not analyzed yet!");

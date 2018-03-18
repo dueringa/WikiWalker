@@ -48,7 +48,7 @@ namespace WikiWalker
      * \see analyzed(bool)
      * \see addLink
      */
-    size_t numLinks() const;
+    size_t countLinks() const;
 
     /*! Add a link to another article.
      * \param[in] article Pointer to the article this article links

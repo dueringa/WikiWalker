@@ -12,19 +12,19 @@ SUITE(ArticleTests)
 {
   using namespace WikiWalker;
 
-  TEST(Article_GetNumLinks_Uninited_ThrowsException)
+  TEST(Article_GetCountLinks_Uninited_ThrowsException)
   {
     Article a("Foo");
     CHECK_EQUAL(a.analyzed(), false);
-    CHECK_THROW(a.numLinks(), WalkerException);
+    CHECK_THROW(a.countLinks(), WalkerException);
   }
 
-  TEST(Article_GetNumLinks_Inited_ReturnsNull)
+  TEST(Article_GetCountLinks_Inited_ReturnsNull)
   {
     Article a("Foo");
     a.analyzed(true);
     CHECK_EQUAL(a.analyzed(), true);
-    CHECK_EQUAL(0, a.numLinks());
+    CHECK_EQUAL(0, a.countLinks());
   }
 
   TEST(Article_AddLinks_OneLinkAdded)
@@ -35,7 +35,7 @@ SUITE(ArticleTests)
     a.addLink(link);
 
     CHECK_EQUAL(a.analyzed(), true);
-    CHECK_EQUAL(1, a.numLinks());
+    CHECK_EQUAL(1, a.countLinks());
   }
 
   TEST(Article_AddLinks_DuplicateInstance)
@@ -47,7 +47,7 @@ SUITE(ArticleTests)
     CHECK(!a.addLink(arl));
 
     CHECK_EQUAL(a.analyzed(), true);
-    CHECK_EQUAL(1, a.numLinks());
+    CHECK_EQUAL(1, a.countLinks());
   }
 
   TEST(Article_Iterator_Test)
@@ -68,7 +68,7 @@ SUITE(ArticleTests)
     }
 
     CHECK_EQUAL(a.analyzed(), true);
-    CHECK_EQUAL(3, a.numLinks());
+    CHECK_EQUAL(3, a.countLinks());
 
     int num = 0;
     for(auto x = a.linkBegin(); x != a.linkEnd(); x++) {
