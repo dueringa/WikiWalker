@@ -59,7 +59,7 @@ add_custom_target(
 add_custom_target(
     clang-check-source
     COMMAND echo "clang-check..."
-    COMMAND clang-check -analyze -p ${CMAKE_BINARY_DIR} src/*.cpp
+    COMMAND clang-check -analyze -p ${CMAKE_BINARY_DIR} ${checksources}
     COMMAND echo "clang-tidy..."
     COMMAND clang-tidy -p ${CMAKE_BINARY_DIR} ${checksources}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
