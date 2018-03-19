@@ -50,7 +50,7 @@ SUITE(JsonSerializeDeserializeTests)
     CHECK_EQUAL(0, ac2.get("Farm")->countLinks());
   }
 
-  TEST(SerializeArticleWithOneLink_DeserializesInSameState)
+  TEST(SerializeArticleWithOneLink_DeserializesTwoArticles)
   {
     JsonSerializer atj;
     std::stringstream ss;
@@ -60,23 +60,27 @@ SUITE(JsonSerializeDeserializeTests)
       // yes, only a is inserted, since we want to emulate article-only
       auto a = std::make_shared<Article>("Farm");
       ac.add(a);
-      CHECK_EQUAL(1, ac.countArticles());
+
       auto linked = std::make_shared<Article>("Animal");
       a->addLink(linked);
-      CHECK_EQUAL(1, ac.countArticles());
       atj.serialize(ac, ss);
     }
 
     ArticleCollection ac2;
     atj.deserialize(ac2, ss);
-    // well, whoops, what is correct now?
-    CHECK_EQUAL(1, ac2.countArticles());
+
+    // Per design, linked-only articles are restored as "new" ones
+    CHECK_EQUAL(2, ac2.countArticles());
+
     CHECK(ac2.get("Farm") != nullptr);
     CHECK(ac2.get("Farm")->analyzed());
     CHECK_EQUAL(1, ac2.get("Farm")->countLinks());
+
+    CHECK(ac2.get("Animal") != nullptr);
+    CHECK(!ac2.get("Animal")->analyzed());
   }
 
-  TEST(SerializeArticleWithMultipleLinks_DeserializesInSameState)
+  TEST(SerializeArticleWithMultipleLinks_DeserializesNewArticles)
   {
     JsonSerializer atj;
     std::stringstream ss;
@@ -101,11 +105,18 @@ SUITE(JsonSerializeDeserializeTests)
 
     ArticleCollection ac2;
     atj.deserialize(ac2, ss);
-    // well, whoops, what is correct now?
-    CHECK_EQUAL(1, ac2.countArticles());
+
+    // Per design, linked-only articles are restored as "new" ones
+    CHECK_EQUAL(4, ac2.countArticles());
+
     CHECK(ac2.get("Farm") != nullptr);
     CHECK(ac2.get("Farm")->analyzed());
     CHECK_EQUAL(3, ac2.get("Farm")->countLinks());
+
+    for(std::string title : {"Animal", "Pig", "Equality"}) {
+      CHECK(ac2.get(title) != nullptr);
+      CHECK(!ac2.get(title)->analyzed());
+    }
   }
 
   TEST(SerializeEmptyArticleCollection_DeserializesInSameState)
@@ -121,46 +132,5 @@ SUITE(JsonSerializeDeserializeTests)
     ArticleCollection ac2;
     atj.deserialize(ac2, ss);
     CHECK_EQUAL(0, ac2.countArticles());
-  }
-
-  TEST(
-      SerializeArticleCollection_OneUnanalyzedArticleWithoutLinks_DeserializesInSameState)
-  {
-    JsonSerializer atj;
-    std::stringstream ss;
-
-    {
-      ArticleCollection ac;
-      auto linked = std::make_shared<Article>("Foo");
-      ac.add(linked);
-      atj.serialize(ac, ss);
-    }
-
-    ArticleCollection ac2;
-    atj.deserialize(ac2, ss);
-    CHECK_EQUAL(1, ac2.countArticles());
-    CHECK(ac2.get("Foo") != nullptr);
-    CHECK(!ac2.get("Foo")->analyzed());
-  }
-
-  TEST(SerializeArticleCollection_OneAnalyzedArticleWithoutLinks_DeserializesInSameState)
-  {
-    JsonSerializer atj;
-    std::stringstream ss;
-
-    {
-      ArticleCollection ac;
-      auto a = std::make_shared<Article>("Foo");
-      a->analyzed(true);
-      ac.add(a);
-      atj.serialize(ac, ss);
-    }
-
-    ArticleCollection ac2;
-    atj.deserialize(ac2, ss);
-    CHECK_EQUAL(1, ac2.countArticles());
-    CHECK(ac2.get("Foo") != nullptr);
-    CHECK(ac2.get("Foo")->analyzed());
-    CHECK_EQUAL(0, ac2.get("Foo")->countLinks());
   }
 }
