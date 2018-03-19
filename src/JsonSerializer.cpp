@@ -8,6 +8,17 @@
 
 namespace WikiWalker
 {
+  namespace JsonSerializerInformation
+  {
+    static std::string SchemeVersionName = "scheme-version";
+    static int SchemeVersion             = 2;
+
+    static std::string ProgramKeyName = "program";
+    static std::string ProgramValue   = "wikiwalker";
+
+    static std::string CollectionKey = "ArticleCollection";
+  }
+
   /*! Get article links in an array.
    * Basically undoing the Wikipedia to article conversion...
    * \param article pointer to article which links should be extracted
@@ -42,6 +53,12 @@ namespace WikiWalker
    */
   static std::string convertToJson(const ArticleCollection& ac)
   {
+    Json::Value header(Json::ValueType::objectValue);
+    header[JsonSerializerInformation::ProgramKeyName] =
+        JsonSerializerInformation::ProgramValue;
+    header[JsonSerializerInformation::SchemeVersionName] =
+        JsonSerializerInformation::SchemeVersion;
+
     Json::Value val(Json::ValueType::objectValue);
 
     for(auto ar : ac) {
@@ -55,10 +72,11 @@ namespace WikiWalker
 
       val[ar.first] = linkObj;
     }
+    header[JsonSerializerInformation::CollectionKey] = val;
 
     Json::StreamWriterBuilder swb;
     swb["indentation"] = "";
-    return Json::writeString(swb, val);
+    return Json::writeString(swb, header);
   }
 
   void JsonSerializer::serialize(const ArticleCollection& collection,
