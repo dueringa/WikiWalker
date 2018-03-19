@@ -17,7 +17,7 @@ namespace WikiWalker
     static std::string ProgramValue   = "wikiwalker";
 
     static std::string CollectionKey = "ArticleCollection";
-  }
+  }  // namespace JsonSerializerInformation
 
   /*! Get article links in an array.
    * Basically undoing the Wikipedia to article conversion...
@@ -169,4 +169,4 @@ namespace WikiWalker
       }
     }
   }
-}
+}  // namespace WikiWalker

@@ -97,4 +97,4 @@ namespace WikiWalker
 
     std::cout << std::endl;
   }
-}
+}  // namespace WikiWalker

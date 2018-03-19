@@ -53,5 +53,5 @@ namespace WikiWalker
      */
     void deserialize(ArticleCollection& collection, std::istream& instream);
   };
-}
+}  // namespace WikiWalker
 #endif  // WIKIWALKER_JSONSERIALIZER_H
