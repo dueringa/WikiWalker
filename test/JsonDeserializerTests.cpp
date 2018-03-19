@@ -100,7 +100,9 @@ SUITE(JsonDeserializerTests)
 
   TEST(Deserialize_ArticleCollection_Empty)
   {
-    std::string jsonString = "{}";
+    std::string jsonString = WW_TEST_JSONSERIALIZER_PROTOCOL_COMPLETE
+        "{}"
+        "}";
     std::istringstream json(jsonString);
 
     ArticleCollection ac;
