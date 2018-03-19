@@ -5,6 +5,7 @@
 
 #include "Article.h"
 #include "JsonSerializer.h"
+#include "WalkerException.h"
 
 #include "SerializerTestDefines.h"
 
@@ -138,5 +139,35 @@ SUITE(JsonDeserializerTests)
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
     CHECK_EQUAL(3, a->countLinks());
+  }
+
+  TEST(Deserialize_ArticleCollection_WrongProgramName)
+  {
+    std::string jsonString =
+        R"({"program":"wikwalker","scheme-version":2,)"
+        R"("ArticleCollection":)"
+        R"({"Farm":{"forward_links":null}})"
+        "}";
+
+    std::istringstream json(jsonString);
+
+    ArticleCollection ac;
+    JsonSerializer deser;
+    CHECK_THROW(deser.deserialize(ac, json), WalkerException);
+  }
+
+  TEST(Deserialize_ArticleCollection_WrongVersion)
+  {
+    std::string jsonString =
+        R"({"program":"wikiwalker","scheme-version":3,)"
+        R"("ArticleCollection":)"
+        R"({"Farm":{"forward_links":null}})"
+        "}";
+
+    std::istringstream json(jsonString);
+
+    ArticleCollection ac;
+    JsonSerializer deser;
+    CHECK_THROW(deser.deserialize(ac, json), WalkerException);
   }
 }
