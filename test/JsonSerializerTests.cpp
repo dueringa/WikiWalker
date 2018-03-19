@@ -20,7 +20,7 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL("{\"Farm\":{\"forward_links\":null}}", oss.str());
+    CHECK_EQUAL(R"({"Farm":{"forward_links":null}})", oss.str());
   }
 
   TEST(WriteAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
@@ -35,7 +35,7 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL("{\"Farm\":{\"forward_links\":[]}}", oss.str());
+    CHECK_EQUAL(R"({"Farm":{"forward_links":[]}})", oss.str());
   }
 
   TEST(WriteArticleWithOneLink)
@@ -52,7 +52,7 @@ SUITE(ArticleJsonSerializerTests)
     a->addLink(linked);
 
     atj.serialize(ac, oss);
-    CHECK_EQUAL("{\"Farm\":{\"forward_links\":[\"Animal\"]}}", oss.str());
+    CHECK_EQUAL(R"({"Farm":{"forward_links":["Animal"]}})", oss.str());
   }
 
   TEST(WriteArticleWithMultipleLinks)
@@ -76,8 +76,7 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     CHECK_EQUAL(
-        "{\"Farm\":{\"forward_links\":[\"Animal\",\"Pig\",\"Equality\"]}}",
-        oss.str());
+        R"({"Farm":{"forward_links":["Animal","Pig","Equality"]}})", oss.str());
   }
 
   TEST(WriteEmptyArticleCollection)
@@ -102,7 +101,7 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL("{\"Foo\":{\"forward_links\":null}}", oss.str());
+    CHECK_EQUAL(R"({"Foo":{"forward_links":null}})", oss.str());
   }
 
   TEST(WriteArticleCollection_OneAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
@@ -117,6 +116,76 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL("{\"Foo\":{\"forward_links\":[]}}", oss.str());
+    CHECK_EQUAL(R"({"Foo":{"forward_links":[]}})", oss.str());
+  }
+
+  TEST(
+      WriteArticleCollection_MultipleArticles_WithMultipleLinks_MatchesExpected)
+  {
+    JsonSerializer atj;
+    ArticleCollection ac;
+    std::ostringstream oss;
+
+    auto a = std::make_shared<Article>("Foo");
+    auto b = std::make_shared<Article>("Bar");
+    auto c = std::make_shared<Article>("Baz");
+    a->addLink(b);
+    b->addLink(a);
+    b->addLink(c);
+    ac.add(a);
+    ac.add(b);
+    ac.add(c);
+
+    atj.serialize(ac, oss);
+
+    CHECK_EQUAL(
+        R"({"Bar":{"forward_links":["Foo","Baz"]})"
+        R"(,"Baz":{"forward_links":null},"Foo":{"forward_links":["Bar"]}})",
+        oss.str());
+  }
+
+  TEST(SerializeArticleWithOnlyNullptr_NullptrWillBeSkipped)
+  {
+    JsonSerializer atj;
+    std::ostringstream oss;
+    ArticleCollection ac;
+
+    // yes, only a is inserted, since we want to emulate article-only
+    auto a = std::make_shared<Article>("Farm");
+    ac.add(a);
+
+    {
+      // will be skipped on serialization, since it'll become nullptr
+      auto linked = std::make_shared<Article>("Animal");
+      a->addLink(linked);
+    }
+
+    atj.serialize(ac, oss);
+
+    CHECK_EQUAL(R"({"Farm":{"forward_links":[]}})", oss.str());
+  }
+
+  TEST(SerializeArticleWithValidArticleAndANullptr_NullptrWillBeSkipped)
+  {
+    JsonSerializer atj;
+    std::ostringstream oss;
+    ArticleCollection ac;
+
+    // yes, only a is inserted, since we want to emulate article-only
+    auto a = std::make_shared<Article>("Farm");
+    ac.add(a);
+
+    {
+      // will be skipped on serialization, since it'll become nullptr
+      auto linked = std::make_shared<Article>("Animal");
+      a->addLink(linked);
+    }
+
+    auto linked2 = std::make_shared<Article>("Barn");
+    a->addLink(linked2);
+
+    atj.serialize(ac, oss);
+
+    CHECK_EQUAL(R"({"Farm":{"forward_links":["Barn"]}})", oss.str());
   }
 }

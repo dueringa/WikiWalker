@@ -50,6 +50,28 @@ SUITE(ArticleTests)
     CHECK_EQUAL(1, a.countLinks());
   }
 
+  TEST(Article_AddLinks_WhenLinkExpiredToNulltpr)
+  {
+    Article a("Foo");
+
+    {
+      /* Checks for absence of bug with nullptr access when checking for
+       * duplicates */
+      auto arl = std::make_shared<Article>("Barmiz");
+      CHECK(a.addLink(arl));
+    }
+
+    auto arl2 = std::make_shared<Article>("Barmiz");
+    CHECK(a.addLink(arl2));
+
+    CHECK_EQUAL(a.analyzed(), true);
+    /* this one's actually awkward and is counterintuitive. But since the
+     * shared_ptr went out of scope, it expired. I chose to simply ignore
+     * expired smart pointers / nullptrs inside the link collection for actual
+     * processing purposes. They're still counted, however. */
+    CHECK_EQUAL(2, a.countLinks());
+  }
+
   TEST(Article_Iterator_Test)
   {
     Article a("Foo");

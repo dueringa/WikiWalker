@@ -25,6 +25,10 @@ namespace WikiWalker
         std::string tit = a->title();
         array.append(Json::Value(tit));
       }
+      // nullptrs in articles will simply be *omitted*
+      // else {
+      //   // do nothing!
+      // }
     }
 
     return array;
@@ -61,6 +65,13 @@ namespace WikiWalker
                                  std::ostream& outstream)
   {
     outstream << convertToJson(collection);
+  }
+
+  ArticleCollection JsonSerializer::deserialize(std::istream& instream)
+  {
+    ArticleCollection ac;
+    deserialize(ac, instream);
+    return ac;
   }
 
   void JsonSerializer::deserialize(ArticleCollection& collection,

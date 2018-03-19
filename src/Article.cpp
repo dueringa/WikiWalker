@@ -37,7 +37,8 @@ namespace WikiWalker
         std::none_of(links_.cbegin(),
                      links_.cend(),
                      [&newTitle](const link x) {
-                       return x.lock()->title() == newTitle;
+                       auto p = x.lock();
+                       return p == nullptr ? false : p->title() == newTitle;
                      });
 
     if(isNewLink) {

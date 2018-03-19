@@ -11,10 +11,11 @@ add_executable(execute_tests
     ${CMAKE_CURRENT_SOURCE_DIR}/CollectionMergeTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreatorTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/JsonDeserializerTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/JsonSerializerTests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/JsonSerializeDeserializeTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverterTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriterTests.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/JsonSerializerTests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StringUtilsTest.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib/jsoncpp/jsoncpp.cpp
