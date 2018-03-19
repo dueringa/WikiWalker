@@ -94,4 +94,32 @@ SUITE(JsonDeserializerTests)
     deser.deserialize(ac, json);
     CHECK_EQUAL(0, ac.countArticles());
   }
+
+  TEST(Deserialize_ArticleCollection_MultipleArticlesWithMultipleLinks)
+  {
+    std::string jsonString =
+        R"({)"
+        R"("Farm":)"
+        R"({"forward_links":["Animal","Pig","Equality"]},)"
+        R"("Animal":)"
+        R"({"forward_links":["Cat","Pig","Dog"]})"
+        R"(})";
+    std::istringstream json(jsonString);
+
+    ArticleCollection ac;
+    JsonSerializer deser;
+    deser.deserialize(ac, json);
+
+    // see comment in Deserialize_ArticleCollection_OneArticleWithOneLink
+    CHECK_EQUAL(6, ac.countArticles());
+
+    for(std::string a : {"Farm", "Animal", "Pig", "Equality", "Cat", "Dog"}) {
+      auto x = ac.get(a);
+      CHECK(x != nullptr);
+    }
+
+    auto a = ac.get("Farm");
+    CHECK(a != nullptr);
+    CHECK_EQUAL(3, a->countLinks());
+  }
 }
