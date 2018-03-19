@@ -2,6 +2,8 @@
 
 #include "WikimediaJsonToArticleConverter.h"
 
+#include <sstream>
+
 #include <json/json.h>
 
 #include "Article.h"
@@ -15,9 +17,11 @@ namespace WikiWalker
   WikimediaJsonToArticleConverter::convert(const std::string& json,
                                            ArticleCollection& articleCache)
   {
-    Json::Reader reader;
     Json::Value document;
-    bool success = reader.parse(json, document, false);
+    Json::CharReaderBuilder crb;
+    crb.strictMode(&crb.settings_);
+    bool success = Json::parseFromStream(
+        crb, std::istringstream(json), &document, nullptr);
 
     if(!success) {
       throw WalkerException("Error parsing JSON");

@@ -95,9 +95,10 @@ namespace WikiWalker
   void JsonSerializer::deserialize(ArticleCollection& collection,
                                    std::istream& instream)
   {
-    Json::Reader reader;
     Json::Value document;
-    bool success = reader.parse(instream, document, false);
+    Json::CharReaderBuilder crb;
+    crb.strictMode(&crb.settings_);
+    bool success = Json::parseFromStream(crb, instream, &document, nullptr);
 
     if(!success) {
       throw WalkerException("Error parsing JSON");
