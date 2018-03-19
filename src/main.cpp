@@ -82,6 +82,9 @@ int main(int argc, char** argv)
   if(isUrlSet) {
     try {
       std::string url = cmdp.getValue(CmdOpt::URL);
+      w.skipSslVerification(
+          cmdp.hasSet(WikiWalker::CommandLineParserBase::CommandLineOptions::
+                          SkipSslVerification));
       w.start(url);
     } catch(std::exception& e) {
       std::cout << "Error: " << e.what() << std::endl;

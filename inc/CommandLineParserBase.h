@@ -24,7 +24,9 @@ namespace WikiWalker
       //! Graphviz output option
       DotOut,
       //! whether to use "deep mode"
-      FetchDeep
+      FetchDeep,
+      //! whether to skip ssl verification
+      SkipSslVerification
     };
 
     //! virtual base class d'tor

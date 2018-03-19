@@ -43,6 +43,12 @@ namespace WikiWalker
      */
     void writeCache(const std::string& cacheFile);
 
+    //! \see CurlWikiGrabber::skipSslVerification
+    void skipSslVerification(bool state)
+    {
+      grabber_.skipSslVerification(state);
+    }
+
   private:
     CurlWikiGrabber grabber_;
     bool fetchGenerator_;

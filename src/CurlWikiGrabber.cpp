@@ -19,7 +19,7 @@ namespace WikiWalker
     return size * nmemb;
   }
 
-  CurlWikiGrabber::CurlWikiGrabber()
+  CurlWikiGrabber::CurlWikiGrabber() : skipSslVerificationState_(false)
   {
     int error = curl_global_init(CURL_GLOBAL_ALL);
 
@@ -56,6 +56,18 @@ namespace WikiWalker
     crv = curl_easy_setopt(handle, CURLOPT_ACCEPT_ENCODING, "gzip");
     assert(crv == 0);
 
+    if(skipSslVerificationState_) {
+      // hostname verification
+      crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYHOST, 0);
+      assert(crv == 0);
+      // check against CA
+      crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYPEER, 0);
+      assert(crv == 0);
+      // ignore status
+      crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYSTATUS, 0);
+      assert(crv == 0);
+    }
+
     std::string gotContent;
     crv = curl_easy_setopt(handle, CURLOPT_WRITEDATA, &gotContent);
     assert(crv == 0);
@@ -82,6 +94,11 @@ namespace WikiWalker
     }
 
     return gotContent;
+  }
+
+  void CurlWikiGrabber::skipSslVerification(bool state)
+  {
+    skipSslVerificationState_ = state;
   }
 }  // namespace WikiWalker
 
