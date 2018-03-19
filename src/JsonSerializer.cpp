@@ -103,8 +103,37 @@ namespace WikiWalker
       throw WalkerException("Error parsing JSON");
     }
 
+    if(!document.isObject()) {
+      throw WalkerException("Error: Json root is not an object");
+    }
+
+    {
+      auto programName = document.get(JsonSerializerInformation::ProgramKeyName,
+                                      Json::Value::nullSingleton());
+      if(programName.isNull() || !programName.isString() ||
+         programName.asString() != JsonSerializerInformation::ProgramValue) {
+        throw WalkerException("Error: Wrong program name");
+      }
+    }
+    {
+      auto schemeVersion =
+          document.get(JsonSerializerInformation::SchemeVersionName,
+                       Json::Value::nullSingleton());
+      if(schemeVersion.isNull() || !schemeVersion.isNumeric() ||
+         schemeVersion.asLargestUInt() !=
+             JsonSerializerInformation::SchemeVersion) {
+        throw WalkerException("Error: Wrong scheme version");
+      }
+    }
+
+    auto coll = document.get(JsonSerializerInformation::CollectionKey,
+                             Json::Value::nullSingleton());
+    if(coll.isNull() || !coll.isObject()) {
+      throw WalkerException("Error: collection is not serialized correctly");
+    }
+
     // get all "main" articles first
-    for(auto& titleElement : document.getMemberNames()) {
+    for(auto& titleElement : coll.getMemberNames()) {
       std::string title = titleElement;
 
       //! \todo find a better solution than get-compare-add
@@ -115,7 +144,7 @@ namespace WikiWalker
         collection.add(a);
       }
 
-      auto links = document.get(title, Json::Value::nullSingleton())
+      auto links = coll.get(title, Json::Value::nullSingleton())
                        .get("forward_links", Json::Value::nullSingleton());
 
       if(links.isNull()) {
