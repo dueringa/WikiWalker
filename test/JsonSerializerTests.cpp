@@ -11,6 +11,9 @@ SUITE(ArticleJsonSerializerTests)
 {
   using namespace WikiWalker;
 
+#define WW_PROTOCOL_HEADER \
+  R"("program":"wikiwalker","scheme-version":2,"ArticleCollection":)"
+
   TEST(WriteUnanalyzedArticleWithoutLinks_LinksIsNull)
   {
     JsonSerializer atj;
@@ -20,7 +23,12 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL(R"({"Farm":{"forward_links":null}})", oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{"
+                R"("Farm":{"forward_links":null})"
+                "}"
+                "}",
+                oss.str());
   }
 
   TEST(WriteAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
@@ -35,7 +43,12 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL(R"({"Farm":{"forward_links":[]}})", oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{"
+                R"("Farm":{"forward_links":[]})"
+                "}"
+                "}",
+                oss.str());
   }
 
   TEST(WriteArticleWithOneLink)
@@ -52,7 +65,12 @@ SUITE(ArticleJsonSerializerTests)
     a->addLink(linked);
 
     atj.serialize(ac, oss);
-    CHECK_EQUAL(R"({"Farm":{"forward_links":["Animal"]}})", oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{"
+                R"("Farm":{"forward_links":["Animal"]})"
+                "}"
+                "}",
+                oss.str());
   }
 
   TEST(WriteArticleWithMultipleLinks)
@@ -75,8 +93,12 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL(
-        R"({"Farm":{"forward_links":["Animal","Pig","Equality"]}})", oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{"
+                R"("Farm":{"forward_links":["Animal","Pig","Equality"]})"
+                "}"
+                "}",
+                oss.str());
   }
 
   TEST(WriteEmptyArticleCollection)
@@ -87,7 +109,10 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL("{}", oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{}"
+                "}",
+                oss.str());
   }
 
   TEST(WriteArticleCollection_OneUnanalyzedArticleWithoutLinks_LinksIsNull)
@@ -101,7 +126,12 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL(R"({"Foo":{"forward_links":null}})", oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{"
+                R"("Foo":{"forward_links":null})"
+                "}"
+                "}",
+                oss.str());
   }
 
   TEST(WriteArticleCollection_OneAnalyzedArticleWithoutLinks_LinksIsEmptyArray)
@@ -116,7 +146,12 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL(R"({"Foo":{"forward_links":[]}})", oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{"
+                R"("Foo":{"forward_links":[]})"
+                "}"
+                "}",
+                oss.str());
   }
 
   TEST(
@@ -138,10 +173,14 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL(
-        R"({"Bar":{"forward_links":["Foo","Baz"]})"
-        R"(,"Baz":{"forward_links":null},"Foo":{"forward_links":["Bar"]}})",
-        oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{"
+                R"("Bar":{"forward_links":["Foo","Baz"]},)"
+                R"("Baz":{"forward_links":null},)"
+                R"("Foo":{"forward_links":["Bar"]})"
+                "}"
+                "}",
+                oss.str());
   }
 
   TEST(SerializeArticleWithOnlyNullptr_NullptrWillBeSkipped)
@@ -162,7 +201,12 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL(R"({"Farm":{"forward_links":[]}})", oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{"
+                R"("Farm":{"forward_links":[]})"
+                "}"
+                "}",
+                oss.str());
   }
 
   TEST(SerializeArticleWithValidArticleAndANullptr_NullptrWillBeSkipped)
@@ -186,6 +230,11 @@ SUITE(ArticleJsonSerializerTests)
 
     atj.serialize(ac, oss);
 
-    CHECK_EQUAL(R"({"Farm":{"forward_links":["Barn"]}})", oss.str());
+    CHECK_EQUAL("{" WW_PROTOCOL_HEADER
+                "{"
+                R"("Farm":{"forward_links":["Barn"]})"
+                "}"
+                "}",
+                oss.str());
   }
 }
