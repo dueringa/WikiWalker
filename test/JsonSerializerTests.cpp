@@ -9,13 +9,11 @@
 #include "JsonSerializer.h"
 #include "StringUtils.h"
 
+#include "SerializerTestDefines.h"
+
 SUITE(ArticleJsonSerializerTests)
 {
   using namespace WikiWalker;
-
-#define WW_PROTOCOL_COLLECTION_KEY R"("ArticleCollection":)"
-#define WW_PROTOCOL_HEADER_1 R"("program":"wikiwalker")"
-#define WW_PROTOCOL_HEADER_2 R"("scheme-version":2)"
 
   TEST(WriteUnanalyzedArticleWithoutLinks_LinksIsNull)
   {
@@ -27,9 +25,11 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_COLLECTION_KEY
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY
                          R"({"Farm":{"forward_links":null}})") !=
           std::string::npos);
   }
@@ -47,9 +47,11 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_COLLECTION_KEY
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY
                          R"({"Farm":{"forward_links":[]}})") !=
           std::string::npos);
   }
@@ -70,9 +72,11 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_COLLECTION_KEY
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY
                          R"({"Farm":{"forward_links":["Animal"]}})") !=
           std::string::npos);
   }
@@ -98,10 +102,12 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
     CHECK(serString.find(
-              WW_PROTOCOL_COLLECTION_KEY
+              WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY
               R"({"Farm":{"forward_links":["Animal","Pig","Equality"]}})") !=
           std::string::npos);
   }
@@ -115,9 +121,12 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_COLLECTION_KEY "{}") != std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY "{}") !=
+          std::string::npos);
   }
 
   TEST(WriteArticleCollection_OneUnanalyzedArticleWithoutLinks_LinksIsNull)
@@ -132,9 +141,11 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_COLLECTION_KEY
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY
                          R"({"Foo":{"forward_links":null}})") !=
           std::string::npos);
   }
@@ -152,9 +163,11 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_COLLECTION_KEY
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY
                          R"({"Foo":{"forward_links":[]}})") !=
           std::string::npos);
   }
@@ -179,9 +192,11 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_COLLECTION_KEY
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY
                          "{"
                          R"("Bar":{"forward_links":["Foo","Baz"]},)"
                          R"("Baz":{"forward_links":null},)"
@@ -208,9 +223,11 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_COLLECTION_KEY
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY
                          R"({"Farm":{"forward_links":[]}})") !=
           std::string::npos);
   }
@@ -237,9 +254,11 @@ SUITE(ArticleJsonSerializerTests)
     atj.serialize(ac, oss);
 
     auto serString = oss.str();
-    CHECK(serString.find(WW_PROTOCOL_HEADER_1) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_HEADER_2) != std::string::npos);
-    CHECK(serString.find(WW_PROTOCOL_COLLECTION_KEY
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_1) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_HEADER_2) !=
+          std::string::npos);
+    CHECK(serString.find(WW_TEST_JSONSERIALIZER_PROTOCOL_COLLECTION_KEY
                          R"({"Farm":{"forward_links":["Barn"]}})") !=
           std::string::npos);
   }
