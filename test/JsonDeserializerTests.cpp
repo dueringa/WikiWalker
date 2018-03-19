@@ -53,12 +53,10 @@ SUITE(JsonDeserializerTests)
     JsonSerializer deser;
     deser.deserialize(ac, json);
 
-    /* Does this actually make sense? Creating "nodes" that didn't exist before?
-     * This is the problem I stumbled upon in JsonSerializeDeserializeTests.
-     * Since Articles save linked articles as weak_ptr (18-03-17), I can't
-     * silently drop them. This would lead to nullptrs.
+    /* Deserialized state doesn't exactly match serialized one.
+     * This is intended. Only-link articles become new articles in the
+     * collection.
      */
-
     CHECK_EQUAL(2, ac.countArticles());
 
     auto a = ac.get("Farm");
@@ -77,6 +75,7 @@ SUITE(JsonDeserializerTests)
     JsonSerializer deser;
     deser.deserialize(ac, json);
 
+    // see comment in GetArticleWithOneLink
     CHECK_EQUAL(4, ac.countArticles());
 
     auto a = ac.get("Farm");
