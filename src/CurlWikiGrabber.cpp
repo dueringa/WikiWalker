@@ -57,10 +57,13 @@ namespace WikiWalker
     assert(crv == 0);
 
     if(skipSslVerificationState) {
+      // hostname verification
       crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYHOST, 0);
       assert(crv == 0);
+      // check against CA
       crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYPEER, 0);
       assert(crv == 0);
+      // ignore status
       crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYSTATUS, 0);
       assert(crv == 0);
     }
