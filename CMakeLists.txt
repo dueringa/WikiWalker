@@ -40,12 +40,7 @@ if(WW_WITH_TESTS)
     add_subdirectory(${CMAKE_SOURCE_DIR}/test)
 endif() #WW_WITH_TESTS
 
-add_custom_target(
-    doc
-    COMMAND doxygen
-    COMMAND echo "Documentation built in ${CMAKE_SOURCE_DIR}/doc/"
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/doc/
-)
+add_subdirectory(doc)
 
 file(GLOB formatsources inc/*.h src/*.cpp test/*.cpp)
 file(GLOB checksources src/*.cpp )
