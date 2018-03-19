@@ -34,12 +34,10 @@ namespace WikiWalker
     // check for duplicates using title
     //! \todo Or rather compare pointers again?
     bool isNewLink =
-        std::none_of(links_.cbegin(),
-                     links_.cend(),
-                     [&newTitle](const link x) {
-                       auto p = x.lock();
-                       return p == nullptr ? false : p->title() == newTitle;
-                     });
+        std::none_of(links_.cbegin(), links_.cend(), [&newTitle](const link x) {
+          auto p = x.lock();
+          return p == nullptr ? false : p->title() == newTitle;
+        });
 
     if(isNewLink) {
       links_.push_back(article);

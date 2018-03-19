@@ -23,7 +23,7 @@ namespace WikiWalker
                                                const std::string& value)
   {
     // overwrite
-    char* eval  = curl_easy_escape(handle_, value.c_str(), 0);
+    char* eval   = curl_easy_escape(handle_, value.c_str(), 0);
     args_[param] = eval;
     curl_free(eval);
     return *this;
