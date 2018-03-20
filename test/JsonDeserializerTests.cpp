@@ -29,9 +29,9 @@ SUITE(JsonDeserializerTests)
     JsonSerializer deser;
     deser.deserialize(ac, json);
 
-    CHECK_EQUAL(1, ac.countArticles());
+    CHECK_EQUAL(1, ac.size());
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
     CHECK_EQUAL(false, a->analyzed());
   }
@@ -47,9 +47,9 @@ SUITE(JsonDeserializerTests)
     JsonSerializer deser;
     deser.deserialize(ac, json);
 
-    CHECK_EQUAL(1, ac.countArticles());
+    CHECK_EQUAL(1, ac.size());
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
 
     CHECK_EQUAL(true, a->analyzed());
@@ -71,9 +71,9 @@ SUITE(JsonDeserializerTests)
      * This is intended. Only-link articles become new articles in the
      * collection.
      */
-    CHECK_EQUAL(2, ac.countArticles());
+    CHECK_EQUAL(2, ac.size());
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
 
     CHECK_EQUAL(1, a->countLinks());
@@ -91,9 +91,9 @@ SUITE(JsonDeserializerTests)
     deser.deserialize(ac, json);
 
     // see comment in Deserialize_ArticleCollection_OneArticleWithOneLink
-    CHECK_EQUAL(4, ac.countArticles());
+    CHECK_EQUAL(4, ac.size());
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
 
     CHECK_EQUAL(3, a->countLinks());
@@ -109,7 +109,7 @@ SUITE(JsonDeserializerTests)
     ArticleCollection ac;
     JsonSerializer deser;
     deser.deserialize(ac, json);
-    CHECK_EQUAL(0, ac.countArticles());
+    CHECK_EQUAL(0, ac.size());
   }
 
   TEST(Deserialize_ArticleCollection_MultipleArticlesWithMultipleLinks)
@@ -129,14 +129,14 @@ SUITE(JsonDeserializerTests)
     deser.deserialize(ac, json);
 
     // see comment in Deserialize_ArticleCollection_OneArticleWithOneLink
-    CHECK_EQUAL(6, ac.countArticles());
+    CHECK_EQUAL(6, ac.size());
 
     for(std::string a : {"Farm", "Animal", "Pig", "Equality", "Cat", "Dog"}) {
-      auto x = ac.get(a);
+      auto x = CollectionUtils::get(ac, a);
       CHECK(x != nullptr);
     }
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
     CHECK_EQUAL(3, a->countLinks());
   }

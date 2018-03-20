@@ -20,7 +20,7 @@ SUITE(ArticleJsonSerializerTests)
     JsonSerializer atj;
     std::ostringstream oss;
     ArticleCollection ac;
-    ac.add(std::make_shared<Article>("Farm"));
+    CollectionUtils::add(ac, std::make_shared<Article>("Farm"));
 
     atj.serialize(ac, oss);
 
@@ -41,7 +41,7 @@ SUITE(ArticleJsonSerializerTests)
     ArticleCollection ac;
 
     auto a = std::make_shared<Article>("Farm");
-    ac.add(a);
+    CollectionUtils::add(ac, a);
     a->analyzed(true);
 
     atj.serialize(ac, oss);
@@ -64,7 +64,7 @@ SUITE(ArticleJsonSerializerTests)
 
     // yes, only a is inserted, since we want to emulate article-only
     auto a = std::make_shared<Article>("Farm");
-    ac.add(a);
+    CollectionUtils::add(ac, a);
 
     auto linked = std::make_shared<Article>("Animal");
     a->addLink(linked);
@@ -89,7 +89,7 @@ SUITE(ArticleJsonSerializerTests)
 
     // yes, only a is inserted, since we want to emulate article-only
     auto a = std::make_shared<Article>("Farm");
-    ac.add(a);
+    CollectionUtils::add(ac, a);
 
     auto al1 = std::make_shared<Article>("Animal"),
          al2 = std::make_shared<Article>("Pig"),
@@ -136,7 +136,7 @@ SUITE(ArticleJsonSerializerTests)
     std::ostringstream oss;
 
     auto linked = std::make_shared<Article>("Foo");
-    ac.add(linked);
+    CollectionUtils::add(ac, linked);
 
     atj.serialize(ac, oss);
 
@@ -158,7 +158,7 @@ SUITE(ArticleJsonSerializerTests)
 
     auto a = std::make_shared<Article>("Foo");
     a->analyzed(true);
-    ac.add(a);
+    CollectionUtils::add(ac, a);
 
     atj.serialize(ac, oss);
 
@@ -185,9 +185,9 @@ SUITE(ArticleJsonSerializerTests)
     a->addLink(b);
     b->addLink(a);
     b->addLink(c);
-    ac.add(a);
-    ac.add(b);
-    ac.add(c);
+    CollectionUtils::add(ac, a);
+    CollectionUtils::add(ac, b);
+    CollectionUtils::add(ac, c);
 
     atj.serialize(ac, oss);
 
@@ -212,7 +212,7 @@ SUITE(ArticleJsonSerializerTests)
 
     // yes, only a is inserted, since we want to emulate article-only
     auto a = std::make_shared<Article>("Farm");
-    ac.add(a);
+    CollectionUtils::add(ac, a);
 
     {
       // will be skipped on serialization, since it'll become nullptr
@@ -240,7 +240,7 @@ SUITE(ArticleJsonSerializerTests)
 
     // yes, only a is inserted, since we want to emulate article-only
     auto a = std::make_shared<Article>("Farm");
-    ac.add(a);
+    CollectionUtils::add(ac, a);
 
     {
       // will be skipped on serialization, since it'll become nullptr

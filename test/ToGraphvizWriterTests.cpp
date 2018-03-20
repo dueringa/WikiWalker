@@ -40,19 +40,19 @@ SUITE(ArticleToGraphvizWriterTests)
     ArticleCollection ac;
 
     auto farm = std::make_shared<Article>("Farm");
-    ac.add(farm);
+    CollectionUtils::add(ac, farm);
 
     auto animal = std::make_shared<Article>("Animal");
     farm->addLink(animal);
-    ac.add(animal);
+    CollectionUtils::add(ac, animal);
 
     auto pig = std::make_shared<Article>("Pig");
     farm->addLink(pig);
-    ac.add(pig);
+    CollectionUtils::add(ac, pig);
 
     auto equa = std::make_shared<Article>("Equality");
     farm->addLink(equa);
-    ac.add(equa);
+    CollectionUtils::add(ac, equa);
 
     atj.output(ac, outfile);
     outfile.flush();
@@ -67,23 +67,23 @@ SUITE(ArticleToGraphvizWriterTests)
     ArticleCollection ac;
 
     auto farm = std::make_shared<Article>("Farm");
-    ac.add(farm);
+    CollectionUtils::add(ac, farm);
 
     auto animal = std::make_shared<Article>("Animal");
     farm->addLink(animal);
-    ac.add(animal);
+    CollectionUtils::add(ac, animal);
 
     auto pig = std::make_shared<Article>("Pig");
     pig->marked(true);
     farm->addLink(pig);
-    ac.add(pig);
+    CollectionUtils::add(ac, pig);
 
     pig->addLink(animal);
     animal->addLink(pig);
 
     auto equa = std::make_shared<Article>("Equality");
     farm->addLink(equa);
-    ac.add(equa);
+    CollectionUtils::add(ac, equa);
 
     atj.output(ac, outfile);
     outfile.flush();
@@ -98,29 +98,29 @@ SUITE(ArticleToGraphvizWriterTests)
     ArticleCollection ac;
 
     auto farm = std::make_shared<Article>("Farm");
-    ac.add(farm);
+    CollectionUtils::add(ac, farm);
 
     auto animal = std::make_shared<Article>("Animal");
     farm->addLink(animal);
-    ac.add(animal);
+    CollectionUtils::add(ac, animal);
 
     auto pig = std::make_shared<Article>("Pig");
     farm->addLink(pig);
-    ac.add(pig);
+    CollectionUtils::add(ac, pig);
 
     auto equa = std::make_shared<Article>("Equality");
     farm->addLink(equa);
-    ac.add(equa);
+    CollectionUtils::add(ac, equa);
 
     auto rights = std::make_shared<Article>("Rights");
     equa->addLink(rights);
-    ac.add(rights);
+    CollectionUtils::add(ac, rights);
 
     auto cat = std::make_shared<Article>("Cat");
-    ac.add(cat);
+    CollectionUtils::add(ac, cat);
     animal->addLink(cat);
     auto dog = std::make_shared<Article>("Dog");
-    ac.add(dog);
+    CollectionUtils::add(ac, dog);
     animal->addLink(dog);
 
     atj.output(ac, outfile);

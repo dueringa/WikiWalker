@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 
   filteredGraph.close();
 
-  std::cout << "There are " << filteredColl.countArticles()
+  std::cout << "There are " << filteredColl.size()
             << " analyzed articles" << std::endl;
 
   return 0;

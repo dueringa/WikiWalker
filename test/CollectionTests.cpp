@@ -17,15 +17,15 @@ SUITE(CollectionTests)
          la3 = std::make_shared<Article>("Prince"),
          la4 = std::make_shared<Article>("Queen");
 
-    CHECK(w.add(la1));
-    CHECK(w.add(la2));
-    CHECK_EQUAL(2, w.countArticles());
-    CHECK(w.add(la3));
-    CHECK_EQUAL(3, w.countArticles());
+    CHECK(CollectionUtils::add(w, la1));
+    CHECK(CollectionUtils::add(w, la2));
+    CHECK_EQUAL(2, w.size());
+    CHECK(CollectionUtils::add(w, la3));
+    CHECK_EQUAL(3, w.size());
 
     // must fail
-    CHECK(!w.add(la4));
-    CHECK_EQUAL(3, w.countArticles());
+    CHECK(!CollectionUtils::add(w, la4));
+    CHECK_EQUAL(3, w.size());
   }
 
   TEST(CollectionIsCaseInsensitive)
@@ -36,43 +36,43 @@ SUITE(CollectionTests)
          la3 = std::make_shared<Article>("Prince"),
          la4 = std::make_shared<Article>("queen");
 
-    w.add(la1);
-    w.add(la2);
-    CHECK_EQUAL(2, w.countArticles());
-    w.add(la3);
-    CHECK_EQUAL(3, w.countArticles());
-    w.add(la4);
-    CHECK_EQUAL(4, w.countArticles());
+    CollectionUtils::add(w, la1);
+    CollectionUtils::add(w, la2);
+    CHECK_EQUAL(2, w.size());
+    CollectionUtils::add(w, la3);
+    CHECK_EQUAL(3, w.size());
+    CollectionUtils::add(w, la4);
+    CHECK_EQUAL(4, w.size());
   }
 
   TEST(GetArticle_Existing_MustNotBeNull)
   {
     ArticleCollection w;
     auto king = std::make_shared<Article>("King");
-    w.add(king);
-    CHECK(w.get("King") != nullptr);
+    CollectionUtils::add(w, king);
+    CHECK(CollectionUtils::get(w, "King") != nullptr);
   }
 
   TEST(GetArticle_NonExisting_MustBeNull)
   {
     ArticleCollection w;
     auto la1 = std::make_shared<Article>("King");
-    w.add(la1);
-    CHECK(w.get("Queen") == nullptr);
+    CollectionUtils::add(w, la1);
+    CHECK(CollectionUtils::get(w, "Queen") == nullptr);
   }
 
   ArticleCollection GetArticleCollection()
   {
     ArticleCollection ac;
-    ac.add(std::make_shared<Article>("Foo"));
-    ac.add(std::make_shared<Article>("Bar"));
+    CollectionUtils::add(ac, std::make_shared<Article>("Foo"));
+    CollectionUtils::add(ac, std::make_shared<Article>("Bar"));
     return ac;
   }
 
   TEST(ArticleCollection_CreationViaMoveConstructor)
   {
     auto ac = GetArticleCollection();
-    CHECK_EQUAL(2, ac.countArticles());
-    CHECK(ac.get("Foo") != nullptr);
+    CHECK_EQUAL(2, ac.size());
+    CHECK(CollectionUtils::get(ac, "Foo") != nullptr);
   }
 }

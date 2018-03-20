@@ -138,11 +138,11 @@ namespace WikiWalker
       std::string title = titleElement;
 
       //! \todo find a better solution than get-compare-add
-      auto a = collection.get(title);
+      auto a = CollectionUtils::get(collection, title);
 
       if(a == nullptr) {
         a = std::make_shared<Article>(title);
-        collection.add(a);
+        CollectionUtils::add(collection, a);
       }
 
       auto links = coll.get(title, Json::Value::nullSingleton())
@@ -157,12 +157,13 @@ namespace WikiWalker
       a->analyzed(true);
 
       for(const auto& linkedArticle : links) {
-        std::string linkedTitle     = linkedArticle.asString();
-        std::shared_ptr<Article> la = collection.get(linkedTitle);
+        std::string linkedTitle = linkedArticle.asString();
+        std::shared_ptr<Article> la =
+            CollectionUtils::get(collection, linkedTitle);
 
         if(la == nullptr) {
           la = std::make_shared<Article>(linkedTitle);
-          collection.add(la);
+          CollectionUtils::add(collection, la);
         }
 
         a->addLink(la);

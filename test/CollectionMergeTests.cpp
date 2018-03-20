@@ -39,15 +39,15 @@ SUITE(CollectionMergeTests)
     auto a9 = std::make_shared<Article>("Outside");
     a8->addLink(a9);
 
-    ac.add(a1);
-    ac.add(a2);
-    ac.add(a3);
-    ac.add(a4);
-    ac.add(a5);
-    ac.add(a6);
-    ac.add(a7);
-    ac.add(a8);
-    ac.add(a9);
+    CollectionUtils::add(ac, a1);
+    CollectionUtils::add(ac, a2);
+    CollectionUtils::add(ac, a3);
+    CollectionUtils::add(ac, a4);
+    CollectionUtils::add(ac, a5);
+    CollectionUtils::add(ac, a6);
+    CollectionUtils::add(ac, a7);
+    CollectionUtils::add(ac, a8);
+    CollectionUtils::add(ac, a9);
   }
 
   /*!
@@ -80,15 +80,15 @@ SUITE(CollectionMergeTests)
     b6->addLink(b7);
     b6->addLink(b8);
 
-    ac.add(b1);
-    ac.add(b2);
-    ac.add(b3);
-    ac.add(b4);
-    ac.add(b5);
-    ac.add(b6);
-    ac.add(b7);
-    ac.add(b8);
-    ac.add(b9);
+    CollectionUtils::add(ac, b1);
+    CollectionUtils::add(ac, b2);
+    CollectionUtils::add(ac, b3);
+    CollectionUtils::add(ac, b4);
+    CollectionUtils::add(ac, b5);
+    CollectionUtils::add(ac, b6);
+    CollectionUtils::add(ac, b7);
+    CollectionUtils::add(ac, b8);
+    CollectionUtils::add(ac, b9);
   }
 
   /*! check whether data from first set is preferred
@@ -115,18 +115,18 @@ SUITE(CollectionMergeTests)
   void checkConflicts_DataFromFirstSetPreferred(ArticleCollection & c1)
   {
     // 15 articles in total, no matter what
-    CHECK_EQUAL(15, c1.countArticles());
+    CHECK_EQUAL(15, c1.size());
 
     // data from createArticlesAndFillFirst won
-    auto ptr = c1.get("Dragon");
+    auto ptr = CollectionUtils::get(c1, "Dragon");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(3, ptr->countLinks());
 
-    ptr = c1.get("Cat");
+    ptr = CollectionUtils::get(c1, "Cat");
     CHECK(ptr != nullptr);
     CHECK_THROW(ptr->countLinks(), WalkerException);
 
-    ptr = c1.get("Window");
+    ptr = CollectionUtils::get(c1, "Window");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(1, ptr->countLinks());
   }
@@ -136,18 +136,18 @@ SUITE(CollectionMergeTests)
    */
   void checkConflicts_DataFromSecondSetPreferred(ArticleCollection & c2)
   {
-    CHECK_EQUAL(15, c2.countArticles());
+    CHECK_EQUAL(15, c2.size());
 
     // data from createArticlesAndFillSecond won
-    auto ptr = c2.get("Dragon");
+    auto ptr = CollectionUtils::get(c2, "Dragon");
     CHECK(ptr != nullptr);
     CHECK_THROW(ptr->countLinks(), WalkerException);
 
-    ptr = c2.get("Cat");
+    ptr = CollectionUtils::get(c2, "Cat");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(2, ptr->countLinks());
 
-    ptr = c2.get("Window");
+    ptr = CollectionUtils::get(c2, "Window");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(2, ptr->countLinks());
   }
@@ -159,11 +159,11 @@ SUITE(CollectionMergeTests)
   void checkNonConflictingItems(ArticleCollection & c)
   {
     // check non-conflicting items, too
-    auto ptr = c.get("Apple");
+    auto ptr = CollectionUtils::get(c, "Apple");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(1, ptr->countLinks());
 
-    ptr = c.get("Wood");
+    ptr = CollectionUtils::get(c, "Wood");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(1, ptr->countLinks());
   }
@@ -174,7 +174,8 @@ SUITE(CollectionMergeTests)
       ArticleCollection a1, a2;
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
-      a1.merge(a2, ArticleCollection::MergeStrategy::IgnoreDuplicates);
+      CollectionUtils::merge(
+          a1, a2, CollectionUtils::MergeStrategy::IgnoreDuplicates);
       checkConflicts_DataFromFirstSetPreferred(a1);
       checkNonConflictingItems(a1);
     }
@@ -183,7 +184,8 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       // reverse merge
-      a2.merge(a1, ArticleCollection::MergeStrategy::IgnoreDuplicates);
+      CollectionUtils::merge(
+          a2, a1, CollectionUtils::MergeStrategy::IgnoreDuplicates);
       checkConflicts_DataFromSecondSetPreferred(a2);
       checkNonConflictingItems(a2);
     }
@@ -196,7 +198,8 @@ SUITE(CollectionMergeTests)
       ArticleCollection a1, a2;
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
-      a1.merge(a2, ArticleCollection::MergeStrategy::AlwaysOverwrite);
+      CollectionUtils::merge(
+          a1, a2, CollectionUtils::MergeStrategy::AlwaysOverwrite);
       checkConflicts_DataFromSecondSetPreferred(a1);
       checkNonConflictingItems(a1);
     }
@@ -205,7 +208,8 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       // reverse merge
-      a2.merge(a1, ArticleCollection::MergeStrategy::AlwaysOverwrite);
+      CollectionUtils::merge(
+          a2, a1, CollectionUtils::MergeStrategy::AlwaysOverwrite);
       checkConflicts_DataFromFirstSetPreferred(a2);
       checkNonConflictingItems(a2);
     }
@@ -217,15 +221,15 @@ SUITE(CollectionMergeTests)
    */
   void checkConflicts_DataWithMoreLinksPreferred(ArticleCollection & ac)
   {
-    auto ptr = ac.get("Dragon");
+    auto ptr = CollectionUtils::get(ac, "Dragon");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(3, ptr->countLinks());
 
-    ptr = ac.get("Cat");
+    ptr = CollectionUtils::get(ac, "Cat");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(2, ptr->countLinks());
 
-    ptr = ac.get("Window");
+    ptr = CollectionUtils::get(ac, "Window");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(2, ptr->countLinks());
   }
@@ -236,8 +240,9 @@ SUITE(CollectionMergeTests)
       ArticleCollection a1, a2;
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
-      a1.merge(a2, ArticleCollection::MergeStrategy::UseArticleWithMoreLinks);
-      CHECK_EQUAL(15, a1.countArticles());
+      CollectionUtils::merge(
+          a1, a2, CollectionUtils::MergeStrategy::UseArticleWithMoreLinks);
+      CHECK_EQUAL(15, a1.size());
 
       checkConflicts_DataWithMoreLinksPreferred(a1);
       checkNonConflictingItems(a1);
@@ -247,8 +252,9 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       // reverse merge
-      a2.merge(a1, ArticleCollection::MergeStrategy::UseArticleWithMoreLinks);
-      CHECK_EQUAL(15, a2.countArticles());
+      CollectionUtils::merge(
+          a2, a1, CollectionUtils::MergeStrategy::UseArticleWithMoreLinks);
+      CHECK_EQUAL(15, a2.size());
 
       checkConflicts_DataWithMoreLinksPreferred(a2);
       checkNonConflictingItems(a2);
@@ -258,21 +264,22 @@ SUITE(CollectionMergeTests)
   TEST(ArticleCollection_TestMerge)
   {
     ArticleCollection ac1;
-    ac1.add(std::make_shared<Article>("ManaMana"));
-    ac1.add(std::make_shared<Article>("Dragon"));
-    ac1.add(std::make_shared<Article>("Cereals"));
+    CollectionUtils::add(ac1, std::make_shared<Article>("ManaMana"));
+    CollectionUtils::add(ac1, std::make_shared<Article>("Dragon"));
+    CollectionUtils::add(ac1, std::make_shared<Article>("Cereals"));
 
     {
       ArticleCollection ac2;
-      ac2.add(std::make_shared<Article>("Dragon"));
-      ac2.add(std::make_shared<Article>("Git"));
-      ac2.add(std::make_shared<Article>("Stroustrup"));
-      ac1.merge(ac2, ArticleCollection::MergeStrategy::IgnoreDuplicates);
+      CollectionUtils::add(ac2, std::make_shared<Article>("Dragon"));
+      CollectionUtils::add(ac2, std::make_shared<Article>("Git"));
+      CollectionUtils::add(ac2, std::make_shared<Article>("Stroustrup"));
+      CollectionUtils::merge(
+          ac1, ac2, CollectionUtils::MergeStrategy::IgnoreDuplicates);
 
-      CHECK_EQUAL(5, ac1.countArticles());
-      CHECK_EQUAL(3, ac2.countArticles());
+      CHECK_EQUAL(5, ac1.size());
+      CHECK_EQUAL(3, ac2.size());
     }
     // check again after scope is left
-    CHECK_EQUAL(5, ac1.countArticles());
+    CHECK_EQUAL(5, ac1.size());
   }
 }
