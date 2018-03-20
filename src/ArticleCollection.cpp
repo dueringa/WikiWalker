@@ -10,6 +10,12 @@
 
 namespace WikiWalker
 {
+  ArticleCollection::const_iterator ArticleCollection::find(
+      const ArticleCollection::key_type& key) const
+  {
+    return articleSet_.find(key);
+  }
+
   /*! \todo I'm not exactly happy with returning a shared_ptr. Return
    * reference instead? - but how to say "not found" then? */
   std::shared_ptr<Article> ArticleCollection::get(const std::string& title)

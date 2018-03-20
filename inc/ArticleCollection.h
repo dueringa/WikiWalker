@@ -72,6 +72,11 @@ namespace WikiWalker
      */
     std::shared_ptr<Article> get(const std::string& title);
 
+    /*!  Finds an element with key equivalent to key.
+    * \param key key value of the element to search for
+    */
+    const_iterator find(const key_type& key) const;
+
     /*! Returns a reference to the value that is mapped to a key equivalent to
      * key, performing an insertion if such key does not already exist.
      * \param key the key of the element to find.
