@@ -66,15 +66,9 @@ namespace WikiWalker
       return articleSet_.size();
     }
 
-    /*! get pointer to article.
-     * \param title title of the article to request
-     * \return pointer to article, or nullptr, if not found
-     */
-    std::shared_ptr<Article> get(const std::string& title);
-
     /*!  Finds an element with key equivalent to key.
-    * \param key key value of the element to search for
-    */
+     * \param key key value of the element to search for
+     */
     const_iterator find(const key_type& key) const;
 
     /*! Returns a reference to the value that is mapped to a key equivalent to
@@ -161,6 +155,13 @@ namespace WikiWalker
     void merge(ArticleCollection& collection,
                const ArticleCollection& other,
                CollectionUtils::MergeStrategy strategy);
+
+    /*! get pointer to article.
+     * \param title title of the article to request
+     * \return pointer to article, or nullptr, if not found
+     */
+    std::shared_ptr<Article> get(ArticleCollection& collection,
+                                 const std::string& title);
   }  // namespace CollectionUtils
 }  // namespace WikiWalker
 #endif  // WIKIWALKER_ARTICLE_COLLECTION_H

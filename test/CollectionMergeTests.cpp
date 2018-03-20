@@ -118,15 +118,15 @@ SUITE(CollectionMergeTests)
     CHECK_EQUAL(15, c1.count());
 
     // data from createArticlesAndFillFirst won
-    auto ptr = c1.get("Dragon");
+    auto ptr = CollectionUtils::get(c1, "Dragon");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(3, ptr->countLinks());
 
-    ptr = c1.get("Cat");
+    ptr = CollectionUtils::get(c1, "Cat");
     CHECK(ptr != nullptr);
     CHECK_THROW(ptr->countLinks(), WalkerException);
 
-    ptr = c1.get("Window");
+    ptr = CollectionUtils::get(c1, "Window");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(1, ptr->countLinks());
   }
@@ -139,15 +139,15 @@ SUITE(CollectionMergeTests)
     CHECK_EQUAL(15, c2.count());
 
     // data from createArticlesAndFillSecond won
-    auto ptr = c2.get("Dragon");
+    auto ptr = CollectionUtils::get(c2, "Dragon");
     CHECK(ptr != nullptr);
     CHECK_THROW(ptr->countLinks(), WalkerException);
 
-    ptr = c2.get("Cat");
+    ptr = CollectionUtils::get(c2, "Cat");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(2, ptr->countLinks());
 
-    ptr = c2.get("Window");
+    ptr = CollectionUtils::get(c2, "Window");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(2, ptr->countLinks());
   }
@@ -159,11 +159,11 @@ SUITE(CollectionMergeTests)
   void checkNonConflictingItems(ArticleCollection & c)
   {
     // check non-conflicting items, too
-    auto ptr = c.get("Apple");
+    auto ptr = CollectionUtils::get(c, "Apple");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(1, ptr->countLinks());
 
-    ptr = c.get("Wood");
+    ptr = CollectionUtils::get(c, "Wood");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(1, ptr->countLinks());
   }
@@ -221,15 +221,15 @@ SUITE(CollectionMergeTests)
    */
   void checkConflicts_DataWithMoreLinksPreferred(ArticleCollection & ac)
   {
-    auto ptr = ac.get("Dragon");
+    auto ptr = CollectionUtils::get(ac, "Dragon");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(3, ptr->countLinks());
 
-    ptr = ac.get("Cat");
+    ptr = CollectionUtils::get(ac, "Cat");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(2, ptr->countLinks());
 
-    ptr = ac.get("Window");
+    ptr = CollectionUtils::get(ac, "Window");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(2, ptr->countLinks());
   }

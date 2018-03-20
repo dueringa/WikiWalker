@@ -31,7 +31,7 @@ SUITE(JsonDeserializerTests)
 
     CHECK_EQUAL(1, ac.count());
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
     CHECK_EQUAL(false, a->analyzed());
   }
@@ -49,7 +49,7 @@ SUITE(JsonDeserializerTests)
 
     CHECK_EQUAL(1, ac.count());
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
 
     CHECK_EQUAL(true, a->analyzed());
@@ -73,7 +73,7 @@ SUITE(JsonDeserializerTests)
      */
     CHECK_EQUAL(2, ac.count());
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
 
     CHECK_EQUAL(1, a->countLinks());
@@ -93,7 +93,7 @@ SUITE(JsonDeserializerTests)
     // see comment in Deserialize_ArticleCollection_OneArticleWithOneLink
     CHECK_EQUAL(4, ac.count());
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
 
     CHECK_EQUAL(3, a->countLinks());
@@ -132,11 +132,11 @@ SUITE(JsonDeserializerTests)
     CHECK_EQUAL(6, ac.count());
 
     for(std::string a : {"Farm", "Animal", "Pig", "Equality", "Cat", "Dog"}) {
-      auto x = ac.get(a);
+      auto x = CollectionUtils::get(ac, a);
       CHECK(x != nullptr);
     }
 
-    auto a = ac.get("Farm");
+    auto a = CollectionUtils::get(ac, "Farm");
     CHECK(a != nullptr);
     CHECK_EQUAL(3, a->countLinks());
   }

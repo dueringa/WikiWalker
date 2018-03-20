@@ -16,19 +16,6 @@ namespace WikiWalker
     return articleSet_.find(key);
   }
 
-  /*! \todo I'm not exactly happy with returning a shared_ptr. Return
-   * reference instead? - but how to say "not found" then? */
-  std::shared_ptr<Article> ArticleCollection::get(const std::string& title)
-  {
-    auto it = articleSet_.find(title);
-
-    if(articleSet_.end() == it) {
-      return nullptr;
-    }
-
-    return it->second;
-  }
-
   ArticleCollection::mapped_type& ArticleCollection::operator[](
       const ArticleCollection::key_type& key)
   {
@@ -129,6 +116,20 @@ namespace WikiWalker
         default:
           throw WalkerException("Not supported");
       }
+    }
+
+    /*! \todo I'm not exactly happy with returning a shared_ptr. Return
+     * reference instead? - but how to say "not found" then? */
+    std::shared_ptr<Article> get(ArticleCollection& collection,
+                                 const std::string& title)
+    {
+      auto it = collection.find(title);
+
+      if(collection.end() == it) {
+        return nullptr;
+      }
+
+      return it->second;
     }
   }  // namespace CollectionUtils
 

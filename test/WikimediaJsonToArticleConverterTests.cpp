@@ -21,7 +21,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
               ConversionCompleted == cont);
     CHECK_EQUAL("", conv.continuationData());
-    auto getArticle = ac.get("3PTT");
+    auto getArticle = CollectionUtils::get(ac, "3PTT");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->countLinks());
     CHECK_EQUAL(2, ac.count());
@@ -37,7 +37,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     auto ret = conv.convert(testdata, ac);
     CHECK(ret == WikiWalker::WikimediaJsonToArticleConverter::
                      ContinuationStatus::ConversionCompleted);
-    auto art = ac.get("FoObAr");
+    auto art = CollectionUtils::get(ac, "FoObAr");
     CHECK(art != nullptr);
     CHECK(art->marked());
   }
@@ -53,7 +53,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK(cont == WikimediaJsonToArticleConverter::ContinuationStatus::
                       ConversionNeedsMoreData);
     CHECK_EQUAL("34419161|0|Jharkhand", conv.continuationData());
-    auto getArticle = ac.get("Satar, Deoghar");
+    auto getArticle = CollectionUtils::get(ac, "Satar, Deoghar");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->countLinks());
     CHECK_EQUAL(2, ac.count());
@@ -70,9 +70,9 @@ SUITE(WikimediaJsonToArticleConverterTests)
               ConversionCompleted == cont);
 
     CHECK_EQUAL(2, CollectionUtils::countAnalyzedArticles(ac));
-    auto ptr = ac.get("Zanfina Ismajli");
+    auto ptr = CollectionUtils::get(ac, "Zanfina Ismajli");
     CHECK(ptr != nullptr);
-    ptr = ac.get("Kleite (Tochter des Danaos)");
+    ptr = CollectionUtils::get(ac, "Kleite (Tochter des Danaos)");
     CHECK(ptr != nullptr);
     CHECK_EQUAL(6, ac.count());
   }

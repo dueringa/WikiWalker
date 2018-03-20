@@ -50,7 +50,7 @@ SUITE(CollectionTests)
     ArticleCollection w;
     auto king = std::make_shared<Article>("King");
     CollectionUtils::add(w, king);
-    CHECK(w.get("King") != nullptr);
+    CHECK(CollectionUtils::get(w, "King") != nullptr);
   }
 
   TEST(GetArticle_NonExisting_MustBeNull)
@@ -58,7 +58,7 @@ SUITE(CollectionTests)
     ArticleCollection w;
     auto la1 = std::make_shared<Article>("King");
     CollectionUtils::add(w, la1);
-    CHECK(w.get("Queen") == nullptr);
+    CHECK(CollectionUtils::get(w, "Queen") == nullptr);
   }
 
   ArticleCollection GetArticleCollection()
@@ -73,6 +73,6 @@ SUITE(CollectionTests)
   {
     auto ac = GetArticleCollection();
     CHECK_EQUAL(2, ac.count());
-    CHECK(ac.get("Foo") != nullptr);
+    CHECK(CollectionUtils::get(ac, "Foo") != nullptr);
   }
 }

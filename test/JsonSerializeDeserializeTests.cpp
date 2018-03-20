@@ -25,8 +25,8 @@ SUITE(JsonSerializeDeserializeTests)
     ArticleCollection ac2;
     atj.deserialize(ac2, ss);
     CHECK_EQUAL(1, ac2.count());
-    CHECK(ac2.get("Farm") != nullptr);
-    CHECK(!ac2.get("Farm")->analyzed());
+    CHECK(CollectionUtils::get(ac2, "Farm") != nullptr);
+    CHECK(!CollectionUtils::get(ac2, "Farm")->analyzed());
   }
 
   TEST(SerializeAnalyzedArticleWithoutLinks_DeserializesInSameState)
@@ -45,9 +45,9 @@ SUITE(JsonSerializeDeserializeTests)
     ArticleCollection ac2;
     atj.deserialize(ac2, ss);
     CHECK_EQUAL(1, ac2.count());
-    CHECK(ac2.get("Farm") != nullptr);
-    CHECK(ac2.get("Farm")->analyzed());
-    CHECK_EQUAL(0, ac2.get("Farm")->countLinks());
+    CHECK(CollectionUtils::get(ac2, "Farm") != nullptr);
+    CHECK(CollectionUtils::get(ac2, "Farm")->analyzed());
+    CHECK_EQUAL(0, CollectionUtils::get(ac2, "Farm")->countLinks());
   }
 
   TEST(SerializeArticleWithOneLink_DeserializesTwoArticles)
@@ -72,12 +72,12 @@ SUITE(JsonSerializeDeserializeTests)
     // Per design, linked-only articles are restored as "new" ones
     CHECK_EQUAL(2, ac2.count());
 
-    CHECK(ac2.get("Farm") != nullptr);
-    CHECK(ac2.get("Farm")->analyzed());
-    CHECK_EQUAL(1, ac2.get("Farm")->countLinks());
+    CHECK(CollectionUtils::get(ac2, "Farm") != nullptr);
+    CHECK(CollectionUtils::get(ac2, "Farm")->analyzed());
+    CHECK_EQUAL(1, CollectionUtils::get(ac2, "Farm")->countLinks());
 
-    CHECK(ac2.get("Animal") != nullptr);
-    CHECK(!ac2.get("Animal")->analyzed());
+    CHECK(CollectionUtils::get(ac2, "Animal") != nullptr);
+    CHECK(!CollectionUtils::get(ac2, "Animal")->analyzed());
   }
 
   TEST(SerializeArticleWithMultipleLinks_DeserializesNewArticles)
@@ -109,13 +109,13 @@ SUITE(JsonSerializeDeserializeTests)
     // Per design, linked-only articles are restored as "new" ones
     CHECK_EQUAL(4, ac2.count());
 
-    CHECK(ac2.get("Farm") != nullptr);
-    CHECK(ac2.get("Farm")->analyzed());
-    CHECK_EQUAL(3, ac2.get("Farm")->countLinks());
+    CHECK(CollectionUtils::get(ac2, "Farm") != nullptr);
+    CHECK(CollectionUtils::get(ac2, "Farm")->analyzed());
+    CHECK_EQUAL(3, CollectionUtils::get(ac2, "Farm")->countLinks());
 
     for(std::string title : {"Animal", "Pig", "Equality"}) {
-      CHECK(ac2.get(title) != nullptr);
-      CHECK(!ac2.get(title)->analyzed());
+      CHECK(CollectionUtils::get(ac2, title) != nullptr);
+      CHECK(!CollectionUtils::get(ac2, title)->analyzed());
     }
   }
 

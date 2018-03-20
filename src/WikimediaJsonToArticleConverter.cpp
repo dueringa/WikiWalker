@@ -36,7 +36,7 @@ namespace WikiWalker
           onePage.get("title", Json::Value::nullSingleton()).asString();
 
       //! \todo find a better solution than get-compare-add
-      auto wantedArticle = articleCache.get(oneTitle);
+      auto wantedArticle = CollectionUtils::get(articleCache, oneTitle);
 
       if(wantedArticle == nullptr) {
         wantedArticle = std::make_shared<Article>(oneTitle);
@@ -55,7 +55,7 @@ namespace WikiWalker
           onePage.get("links", Json::Value::nullSingleton())) {
         auto linkedPageTitle =
             linked.get("title", Json::Value::nullSingleton()).asString();
-        par = articleCache.get(linkedPageTitle);
+        par = CollectionUtils::get(articleCache, linkedPageTitle);
 
         if(par == nullptr) {
           par = std::make_shared<Article>(linkedPageTitle);
