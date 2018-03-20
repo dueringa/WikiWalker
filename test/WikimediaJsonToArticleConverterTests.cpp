@@ -69,7 +69,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
               ConversionCompleted == cont);
 
-    CHECK_EQUAL(2, ac.countAnalyzedArticles());
+    CHECK_EQUAL(2, CollectionUtils::countAnalyzedArticles(ac));
     auto ptr = ac.get("Zanfina Ismajli");
     CHECK(ptr != nullptr);
     ptr = ac.get("Kleite (Tochter des Danaos)");

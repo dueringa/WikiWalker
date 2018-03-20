@@ -15,6 +15,8 @@ namespace WikiWalker
 
 namespace WikiWalker
 {
+  class ArticleCollection;
+
   namespace CollectionUtils
   {
     //! strategy for merging ArticleCollections
@@ -26,6 +28,11 @@ namespace WikiWalker
       //! use the article with more links
       UseArticleWithMoreLinks
     };
+
+    /*! get number of anlyzed articles in collection
+     * \returns number of analyzed articles in collection
+     */
+    size_t countAnalyzedArticles(const ArticleCollection& collection);
   }  // namespace CollectionUtils
 
   /*! Collection of available articles.
@@ -62,11 +69,6 @@ namespace WikiWalker
     {
       return articleSet_.size();
     }
-
-    /*! get number of anlyzed articles in collection
-     * \returns number of analyzed articles in collection
-     */
-    size_t countAnalyzedArticles() const;
 
     /*! merge another ArticleCollection into the current one
      * \param[in] other collection to merge into the current one

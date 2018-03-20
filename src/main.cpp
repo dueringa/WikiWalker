@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Article.h"
+#include "ArticleCollection.h"
 #include "ToGraphvizWriter.h"
 #include "WikiWalker.h"
 #include "version.h"
@@ -126,7 +127,8 @@ int main(int argc, char** argv)
     }
   }
 
-  size_t numArt = w.collection().countAnalyzedArticles();
+  size_t numArt =
+      WikiWalker::CollectionUtils::countAnalyzedArticles(w.collection());
   if(numArt > 10) {
     std::cout << "There are " << numArt << " analyzed articles."
               << " Not printing them. (Limit: " << printLimit << ")."

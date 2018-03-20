@@ -88,9 +88,10 @@ namespace WikiWalker
     return articleSet_.end();
   }
 
-  namespace Predicates
+  namespace CollectionUtils
   {
-    bool articleIsAnalyzed(ArticleCollection::storage_type::const_reference x)
+    static bool articleIsAnalyzed(
+        ArticleCollection::storage_type::const_reference x)
     {
       auto art = x.second;
       if(art == nullptr) {
@@ -98,10 +99,12 @@ namespace WikiWalker
       }
       return art->analyzed();
     }
-  }  // namespace Predicates
 
-  size_t ArticleCollection::countAnalyzedArticles() const
-  {
-    return std::count_if(begin(), end(), Predicates::articleIsAnalyzed);
-  }
+    size_t countAnalyzedArticles(const ArticleCollection& collection)
+    {
+      return std::count_if(
+          collection.begin(), collection.end(), articleIsAnalyzed);
+    }
+  }  // namespace CollectionUtils
+
 }  // namespace WikiWalker
