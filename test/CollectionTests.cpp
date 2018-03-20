@@ -17,14 +17,14 @@ SUITE(CollectionTests)
          la3 = std::make_shared<Article>("Prince"),
          la4 = std::make_shared<Article>("Queen");
 
-    CHECK(w.add(la1));
-    CHECK(w.add(la2));
+    CHECK(CollectionUtils::add(w, la1));
+    CHECK(CollectionUtils::add(w, la2));
     CHECK_EQUAL(2, w.count());
-    CHECK(w.add(la3));
+    CHECK(CollectionUtils::add(w, la3));
     CHECK_EQUAL(3, w.count());
 
     // must fail
-    CHECK(!w.add(la4));
+    CHECK(!CollectionUtils::add(w, la4));
     CHECK_EQUAL(3, w.count());
   }
 
@@ -36,12 +36,12 @@ SUITE(CollectionTests)
          la3 = std::make_shared<Article>("Prince"),
          la4 = std::make_shared<Article>("queen");
 
-    w.add(la1);
-    w.add(la2);
+    CollectionUtils::add(w, la1);
+    CollectionUtils::add(w, la2);
     CHECK_EQUAL(2, w.count());
-    w.add(la3);
+    CollectionUtils::add(w, la3);
     CHECK_EQUAL(3, w.count());
-    w.add(la4);
+    CollectionUtils::add(w, la4);
     CHECK_EQUAL(4, w.count());
   }
 
@@ -49,7 +49,7 @@ SUITE(CollectionTests)
   {
     ArticleCollection w;
     auto king = std::make_shared<Article>("King");
-    w.add(king);
+    CollectionUtils::add(w, king);
     CHECK(w.get("King") != nullptr);
   }
 
@@ -57,15 +57,15 @@ SUITE(CollectionTests)
   {
     ArticleCollection w;
     auto la1 = std::make_shared<Article>("King");
-    w.add(la1);
+    CollectionUtils::add(w, la1);
     CHECK(w.get("Queen") == nullptr);
   }
 
   ArticleCollection GetArticleCollection()
   {
     ArticleCollection ac;
-    ac.add(std::make_shared<Article>("Foo"));
-    ac.add(std::make_shared<Article>("Bar"));
+    CollectionUtils::add(ac, std::make_shared<Article>("Foo"));
+    CollectionUtils::add(ac, std::make_shared<Article>("Bar"));
     return ac;
   }
 

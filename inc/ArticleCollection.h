@@ -33,6 +33,14 @@ namespace WikiWalker
      * \returns number of analyzed articles in collection
      */
     size_t countAnalyzedArticles(const ArticleCollection& collection);
+
+    /*! add article to collection.
+     * \param article article to add
+     * \return true if insertion took place
+     *          false if it failed (e.g. another article with the same title
+     * already exists
+     */
+    bool add(ArticleCollection& collection, std::shared_ptr<Article> article);
   }  // namespace CollectionUtils
 
   /*! Collection of available articles.
@@ -64,14 +72,6 @@ namespace WikiWalker
      * (or to the element that prevented the insertion) and a bool denoting
      * whether the insertion took place. */
     std::pair<iterator, bool> insert(value_type value);
-
-    /*! add article to collection.
-     * \param article article to add
-     * \return true if insertion took place
-     *          false if it failed (e.g. another article with the same title
-     * already exists
-     */
-    bool add(std::shared_ptr<Article> article);
 
     /*! get number of articles in collection
      * \returns number of articles in collection

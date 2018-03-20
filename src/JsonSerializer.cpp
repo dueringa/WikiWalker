@@ -142,7 +142,7 @@ namespace WikiWalker
 
       if(a == nullptr) {
         a = std::make_shared<Article>(title);
-        collection.add(a);
+        CollectionUtils::add(collection, a);
       }
 
       auto links = coll.get(title, Json::Value::nullSingleton())
@@ -162,7 +162,7 @@ namespace WikiWalker
 
         if(la == nullptr) {
           la = std::make_shared<Article>(linkedTitle);
-          collection.add(la);
+          CollectionUtils::add(collection, la);
         }
 
         a->addLink(la);

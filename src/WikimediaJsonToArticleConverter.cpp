@@ -40,7 +40,7 @@ namespace WikiWalker
 
       if(wantedArticle == nullptr) {
         wantedArticle = std::make_shared<Article>(oneTitle);
-        articleCache.add(wantedArticle);
+        CollectionUtils::add(articleCache, wantedArticle);
       }
 
       if(onePage.isMember("missing") || onePage.isMember("invalid")) {
@@ -59,7 +59,7 @@ namespace WikiWalker
 
         if(par == nullptr) {
           par = std::make_shared<Article>(linkedPageTitle);
-          articleCache.add(par);
+          CollectionUtils::add(articleCache, par);
         }
 
         wantedArticle->addLink(par);

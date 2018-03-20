@@ -39,15 +39,15 @@ SUITE(CollectionMergeTests)
     auto a9 = std::make_shared<Article>("Outside");
     a8->addLink(a9);
 
-    ac.add(a1);
-    ac.add(a2);
-    ac.add(a3);
-    ac.add(a4);
-    ac.add(a5);
-    ac.add(a6);
-    ac.add(a7);
-    ac.add(a8);
-    ac.add(a9);
+    CollectionUtils::add(ac, a1);
+    CollectionUtils::add(ac, a2);
+    CollectionUtils::add(ac, a3);
+    CollectionUtils::add(ac, a4);
+    CollectionUtils::add(ac, a5);
+    CollectionUtils::add(ac, a6);
+    CollectionUtils::add(ac, a7);
+    CollectionUtils::add(ac, a8);
+    CollectionUtils::add(ac, a9);
   }
 
   /*!
@@ -80,15 +80,15 @@ SUITE(CollectionMergeTests)
     b6->addLink(b7);
     b6->addLink(b8);
 
-    ac.add(b1);
-    ac.add(b2);
-    ac.add(b3);
-    ac.add(b4);
-    ac.add(b5);
-    ac.add(b6);
-    ac.add(b7);
-    ac.add(b8);
-    ac.add(b9);
+    CollectionUtils::add(ac, b1);
+    CollectionUtils::add(ac, b2);
+    CollectionUtils::add(ac, b3);
+    CollectionUtils::add(ac, b4);
+    CollectionUtils::add(ac, b5);
+    CollectionUtils::add(ac, b6);
+    CollectionUtils::add(ac, b7);
+    CollectionUtils::add(ac, b8);
+    CollectionUtils::add(ac, b9);
   }
 
   /*! check whether data from first set is preferred
@@ -258,15 +258,15 @@ SUITE(CollectionMergeTests)
   TEST(ArticleCollection_TestMerge)
   {
     ArticleCollection ac1;
-    ac1.add(std::make_shared<Article>("ManaMana"));
-    ac1.add(std::make_shared<Article>("Dragon"));
-    ac1.add(std::make_shared<Article>("Cereals"));
+    CollectionUtils::add(ac1, std::make_shared<Article>("ManaMana"));
+    CollectionUtils::add(ac1, std::make_shared<Article>("Dragon"));
+    CollectionUtils::add(ac1, std::make_shared<Article>("Cereals"));
 
     {
       ArticleCollection ac2;
-      ac2.add(std::make_shared<Article>("Dragon"));
-      ac2.add(std::make_shared<Article>("Git"));
-      ac2.add(std::make_shared<Article>("Stroustrup"));
+      CollectionUtils::add(ac2, std::make_shared<Article>("Dragon"));
+      CollectionUtils::add(ac2, std::make_shared<Article>("Git"));
+      CollectionUtils::add(ac2, std::make_shared<Article>("Stroustrup"));
       ac1.merge(ac2, CollectionUtils::MergeStrategy::IgnoreDuplicates);
 
       CHECK_EQUAL(5, ac1.count());

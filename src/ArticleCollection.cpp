@@ -29,12 +29,6 @@ namespace WikiWalker
     return articleSet_.insert(value);
   }
 
-  bool ArticleCollection::add(std::shared_ptr<Article> article)
-  {
-    auto ret = articleSet_.insert(std::make_pair(article->title(), article));
-    return ret.second;
-  }
-
   void ArticleCollection::merge(const ArticleCollection& other,
                                 CollectionUtils::MergeStrategy strategy)
   {
@@ -110,6 +104,12 @@ namespace WikiWalker
     {
       return std::count_if(
           collection.begin(), collection.end(), articleIsAnalyzed);
+    }
+
+    bool add(ArticleCollection& collection, std::shared_ptr<Article> article)
+    {
+      auto ret = collection.insert(std::make_pair(article->title(), article));
+      return ret.second;
     }
   }  // namespace CollectionUtils
 

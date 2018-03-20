@@ -18,7 +18,7 @@ SUITE(JsonSerializeDeserializeTests)
 
     {
       ArticleCollection ac;
-      ac.add(std::make_shared<Article>("Farm"));
+      CollectionUtils::add(ac, std::make_shared<Article>("Farm"));
       atj.serialize(ac, ss);
     }
 
@@ -37,7 +37,7 @@ SUITE(JsonSerializeDeserializeTests)
     {
       ArticleCollection ac;
       auto a = std::make_shared<Article>("Farm");
-      ac.add(a);
+      CollectionUtils::add(ac, a);
       a->analyzed(true);
       atj.serialize(ac, ss);
     }
@@ -59,7 +59,7 @@ SUITE(JsonSerializeDeserializeTests)
       ArticleCollection ac;
       // yes, only a is inserted, since we want to emulate article-only
       auto a = std::make_shared<Article>("Farm");
-      ac.add(a);
+      CollectionUtils::add(ac, a);
 
       auto linked = std::make_shared<Article>("Animal");
       a->addLink(linked);
@@ -90,7 +90,7 @@ SUITE(JsonSerializeDeserializeTests)
 
       // yes, only a is inserted, since we want to emulate article-only
       auto a = std::make_shared<Article>("Farm");
-      ac.add(a);
+      CollectionUtils::add(ac, a);
       CHECK_EQUAL(1, ac.count());
 
       auto al1 = std::make_shared<Article>("Animal"),
