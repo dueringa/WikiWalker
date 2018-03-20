@@ -41,45 +41,6 @@ namespace WikiWalker
     return articleSet_.insert(first, last);
   }
 
-  void ArticleCollection::merge(const ArticleCollection& other,
-                                CollectionUtils::MergeStrategy strategy)
-  {
-    switch(strategy) {
-      case CollectionUtils::MergeStrategy::IgnoreDuplicates:
-        articleSet_.insert(other.begin(), other.end());
-        break;
-      case CollectionUtils::MergeStrategy::AlwaysOverwrite:
-        for(const auto& art : other) {
-          articleSet_[art.first] = art.second;
-        }
-        break;
-      case CollectionUtils::MergeStrategy::UseArticleWithMoreLinks:
-        for(const auto& art : other) {
-          auto articleInThis = articleSet_[art.first];
-          auto& otherArt     = art.second;
-
-          if(articleInThis == nullptr ||
-             (!articleInThis->analyzed() && otherArt->analyzed())) {
-            articleSet_[art.first] = art.second;
-            continue;
-          }
-
-          if(!otherArt->analyzed()) {
-            continue;
-          }
-
-          auto linksInThis  = articleInThis->countLinks();
-          auto linksInOther = otherArt->countLinks();
-          if(linksInOther > linksInThis) {
-            articleSet_[art.first] = art.second;
-          }
-        }
-        break;
-      default:
-        throw WalkerException("Not supported");
-    }
-  }
-
   ArticleCollection::iterator ArticleCollection::begin()
   {
     return articleSet_.begin();
@@ -122,6 +83,46 @@ namespace WikiWalker
     {
       auto ret = collection.insert(std::make_pair(article->title(), article));
       return ret.second;
+    }
+
+    void merge(ArticleCollection& collection,
+               const ArticleCollection& other,
+               CollectionUtils::MergeStrategy strategy)
+    {
+      switch(strategy) {
+        case CollectionUtils::MergeStrategy::IgnoreDuplicates:
+          collection.insert(other.begin(), other.end());
+          break;
+        case CollectionUtils::MergeStrategy::AlwaysOverwrite:
+          for(const auto& art : other) {
+            collection[art.first] = art.second;
+          }
+          break;
+        case CollectionUtils::MergeStrategy::UseArticleWithMoreLinks:
+          for(const auto& art : other) {
+            auto articleInThis = collection[art.first];
+            auto& otherArt     = art.second;
+
+            if(articleInThis == nullptr ||
+               (!articleInThis->analyzed() && otherArt->analyzed())) {
+              collection[art.first] = art.second;
+              continue;
+            }
+
+            if(!otherArt->analyzed()) {
+              continue;
+            }
+
+            auto linksInThis  = articleInThis->countLinks();
+            auto linksInOther = otherArt->countLinks();
+            if(linksInOther > linksInThis) {
+              collection[art.first] = art.second;
+            }
+          }
+          break;
+        default:
+          throw WalkerException("Not supported");
+      }
     }
   }  // namespace CollectionUtils
 
