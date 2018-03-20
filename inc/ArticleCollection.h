@@ -55,6 +55,12 @@ namespace WikiWalker
     //! the value type
     using value_type = storage_type::value_type;
 
+    //! the key type
+    using key_type = storage_type::key_type;
+
+    //! the mapped type
+    using mapped_type = storage_type::mapped_type;
+
     //! iterator type
     using iterator = storage_type::iterator;
 
@@ -94,6 +100,14 @@ namespace WikiWalker
      * \return pointer to article, or nullptr, if not found
      */
     std::shared_ptr<Article> get(const std::string& title);
+
+    /*! Returns a reference to the value that is mapped to a key equivalent to
+     * key, performing an insertion if such key does not already exist.
+     * \param key the key of the element to find.
+     * \return Reference to the mapped value of the new element if no element
+     * with key key existed. Otherwise a reference to the mapped value of the
+     * existing element whose key is equivalent to key. */
+    mapped_type& operator[](const key_type& key);
 
     /*! Returns an iterator to the first article in the collection.
      * \returns iterator to the first article

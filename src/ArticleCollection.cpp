@@ -23,6 +23,12 @@ namespace WikiWalker
     return it->second;
   }
 
+  ArticleCollection::mapped_type& ArticleCollection::operator[](
+      const ArticleCollection::key_type& key)
+  {
+    return articleSet_[key];
+  }
+
   std::pair<ArticleCollection::iterator, bool> ArticleCollection::insert(
       value_type value)
   {
