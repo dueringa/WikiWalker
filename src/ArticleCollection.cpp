@@ -30,18 +30,18 @@ namespace WikiWalker
   }
 
   void ArticleCollection::merge(const ArticleCollection& other,
-                                ArticleCollection::MergeStrategy strategy)
+                                CollectionUtils::MergeStrategy strategy)
   {
     switch(strategy) {
-      case ArticleCollection::MergeStrategy::IgnoreDuplicates:
+      case CollectionUtils::MergeStrategy::IgnoreDuplicates:
         articleSet_.insert(other.begin(), other.end());
         break;
-      case ArticleCollection::MergeStrategy::AlwaysOverwrite:
+      case CollectionUtils::MergeStrategy::AlwaysOverwrite:
         for(const auto& art : other) {
           articleSet_[art.first] = art.second;
         }
         break;
-      case ArticleCollection::MergeStrategy::UseArticleWithMoreLinks:
+      case CollectionUtils::MergeStrategy::UseArticleWithMoreLinks:
         for(const auto& art : other) {
           auto articleInThis = articleSet_[art.first];
           auto& otherArt     = art.second;

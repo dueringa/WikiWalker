@@ -174,7 +174,7 @@ SUITE(CollectionMergeTests)
       ArticleCollection a1, a2;
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
-      a1.merge(a2, ArticleCollection::MergeStrategy::IgnoreDuplicates);
+      a1.merge(a2, CollectionUtils::MergeStrategy::IgnoreDuplicates);
       checkConflicts_DataFromFirstSetPreferred(a1);
       checkNonConflictingItems(a1);
     }
@@ -183,7 +183,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       // reverse merge
-      a2.merge(a1, ArticleCollection::MergeStrategy::IgnoreDuplicates);
+      a2.merge(a1, CollectionUtils::MergeStrategy::IgnoreDuplicates);
       checkConflicts_DataFromSecondSetPreferred(a2);
       checkNonConflictingItems(a2);
     }
@@ -196,7 +196,7 @@ SUITE(CollectionMergeTests)
       ArticleCollection a1, a2;
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
-      a1.merge(a2, ArticleCollection::MergeStrategy::AlwaysOverwrite);
+      a1.merge(a2, CollectionUtils::MergeStrategy::AlwaysOverwrite);
       checkConflicts_DataFromSecondSetPreferred(a1);
       checkNonConflictingItems(a1);
     }
@@ -205,7 +205,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       // reverse merge
-      a2.merge(a1, ArticleCollection::MergeStrategy::AlwaysOverwrite);
+      a2.merge(a1, CollectionUtils::MergeStrategy::AlwaysOverwrite);
       checkConflicts_DataFromFirstSetPreferred(a2);
       checkNonConflictingItems(a2);
     }
@@ -236,7 +236,7 @@ SUITE(CollectionMergeTests)
       ArticleCollection a1, a2;
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
-      a1.merge(a2, ArticleCollection::MergeStrategy::UseArticleWithMoreLinks);
+      a1.merge(a2, CollectionUtils::MergeStrategy::UseArticleWithMoreLinks);
       CHECK_EQUAL(15, a1.countArticles());
 
       checkConflicts_DataWithMoreLinksPreferred(a1);
@@ -247,7 +247,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       // reverse merge
-      a2.merge(a1, ArticleCollection::MergeStrategy::UseArticleWithMoreLinks);
+      a2.merge(a1, CollectionUtils::MergeStrategy::UseArticleWithMoreLinks);
       CHECK_EQUAL(15, a2.countArticles());
 
       checkConflicts_DataWithMoreLinksPreferred(a2);
@@ -267,7 +267,7 @@ SUITE(CollectionMergeTests)
       ac2.add(std::make_shared<Article>("Dragon"));
       ac2.add(std::make_shared<Article>("Git"));
       ac2.add(std::make_shared<Article>("Stroustrup"));
-      ac1.merge(ac2, ArticleCollection::MergeStrategy::IgnoreDuplicates);
+      ac1.merge(ac2, CollectionUtils::MergeStrategy::IgnoreDuplicates);
 
       CHECK_EQUAL(5, ac1.countArticles());
       CHECK_EQUAL(3, ac2.countArticles());

@@ -15,12 +15,8 @@ namespace WikiWalker
 
 namespace WikiWalker
 {
-  /*! Collection of available articles.
-   *  This should be used as "cache".
-   */
-  class ArticleCollection
+  namespace CollectionUtils
   {
-  public:
     //! strategy for merging ArticleCollections
     enum class MergeStrategy {
       //! ignore duplicates, always keep current entry
@@ -30,7 +26,14 @@ namespace WikiWalker
       //! use the article with more links
       UseArticleWithMoreLinks
     };
+  }  // namespace CollectionUtils
 
+  /*! Collection of available articles.
+   *  This should be used as "cache".
+   */
+  class ArticleCollection
+  {
+  public:
     //! The way that articles are stored inside
     using storage_type = std::map<std::string, std::shared_ptr<Article>>;
 
@@ -70,7 +73,8 @@ namespace WikiWalker
      * \param[in] strategy merge stratgy to use
      * \details other collection is left unmodified.
      */
-    void merge(const ArticleCollection& other, MergeStrategy strategy);
+    void merge(const ArticleCollection& other,
+               CollectionUtils::MergeStrategy strategy);
 
     /*! get pointer to article.
      * \param title title of the article to request
