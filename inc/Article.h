@@ -62,7 +62,7 @@ namespace WikiWalker
      * \see analyzed() const
      * \see analyzed(bool)
      */
-    bool addLink(const link article);
+    bool addLink(link article);
 
     /*! Set article to be analyzed.
      * State is automatically set by #addLink, but if

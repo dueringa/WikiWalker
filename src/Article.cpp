@@ -27,7 +27,7 @@ namespace WikiWalker
     return links_.cend();
   }
 
-  bool Article::addLink(const link article)
+  bool Article::addLink(link article)
   {
     auto newTitle = article.lock()->title();
 
