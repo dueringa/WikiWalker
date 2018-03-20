@@ -30,7 +30,8 @@ namespace WikiWalker
      * \param os out stream to putput to
      * YOU are responsible for opening and closing the stream
      */
-    virtual void output(const ArticleCollection& ac, std::ostream& os) = 0;
+    virtual void output(const CollectionUtils::ArticleCollection& ac,
+                        std::ostream& os) = 0;
 
     //! virtual base class d'tor
     virtual ~DataOutputBase() = default;

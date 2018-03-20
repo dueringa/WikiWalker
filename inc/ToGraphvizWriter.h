@@ -24,7 +24,8 @@ namespace WikiWalker
      * \param os out stream to putput to
      * YOU are responsible for opening and closing the stream
      */
-    void output(const ArticleCollection& ac, std::ostream& os) override;
+    void output(const CollectionUtils::ArticleCollection& ac,
+                std::ostream& os) override;
   };
 }  // namespace WikiWalker
 #endif  // WIKIWALKER_TOGRAPHVIZWRITER_H

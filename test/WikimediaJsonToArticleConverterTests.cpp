@@ -9,6 +9,7 @@
 SUITE(WikimediaJsonToArticleConverterTests)
 {
   using namespace WikiWalker;
+  using namespace WikiWalker::CollectionUtils;
 
   TEST(JsonDataWithOneLinkedArticle)
   {

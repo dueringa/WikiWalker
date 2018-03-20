@@ -8,6 +8,7 @@
 #include "JsonSerializer.h"
 #include "ToGraphvizWriter.h"
 
+
 int main(int argc, char** argv)
 {
   if(argc != 3) {
@@ -28,7 +29,7 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  WikiWalker::ArticleCollection ac;
+  WikiWalker::CollectionUtils::ArticleCollection ac;
   jser.deserialize(ac, cache);
 
   if(cache.fail()) {
@@ -37,7 +38,7 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  WikiWalker::ArticleCollection filteredColl;
+  WikiWalker::CollectionUtils::ArticleCollection filteredColl;
   for(auto& anArticle : ac) {
     auto art = anArticle.second;
     if(art->analyzed()) {

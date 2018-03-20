@@ -14,6 +14,7 @@
 SUITE(ArticleJsonSerializerTests)
 {
   using namespace WikiWalker;
+  using namespace WikiWalker::CollectionUtils;
 
   TEST(WriteUnanalyzedArticleWithoutLinks_LinksIsNull)
   {

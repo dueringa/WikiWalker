@@ -67,7 +67,8 @@ namespace WikiWalker
     writeFooter(os);
   }
 
-  void ToGraphvizWriter::output(const ArticleCollection& ac, std::ostream& os)
+  void ToGraphvizWriter::output(const CollectionUtils::ArticleCollection& ac,
+                                std::ostream& os)
   {
     writeHeader(os);
 

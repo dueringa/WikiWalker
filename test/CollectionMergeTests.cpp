@@ -9,6 +9,7 @@
 SUITE(CollectionMergeTests)
 {
   using namespace WikiWalker;
+  using namespace WikiWalker::CollectionUtils;
 
   /*!
    * Create test data of the following structure:

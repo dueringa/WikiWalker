@@ -22,15 +22,15 @@ namespace WikiWalker
      * because their weak_ptr already expired will be simply *omitted* from the
      * serialization
      */
-    void serialize(const ArticleCollection& collection,
+    void serialize(const CollectionUtils::ArticleCollection& collection,
                    std::ostream& outstream);
 
     /*! Deserialize JSON data to an ArticleCollection
      * \param instream the stream containing the JSON data
      * \returns The desirialized article collection.
-     * \sa deserialize(ArticleCollection&, std::istream&)
+     * \sa deserialize(CollectionUtils::ArticleCollection&, std::istream&)
      */
-    ArticleCollection deserialize(std::istream& instream);
+    CollectionUtils::ArticleCollection deserialize(std::istream& instream);
 
     /*! Deserialize JSON data to an ArticleCollection
      * \param[out] collection The desirialized article collection
@@ -51,7 +51,8 @@ namespace WikiWalker
      * need some #std::shared_ptr so the object doesn't disappear right away.
      * This is why I deserialize them as new object in the collection.
      */
-    void deserialize(ArticleCollection& collection, std::istream& instream);
+    void deserialize(CollectionUtils::ArticleCollection& collection,
+                     std::istream& instream);
   };
 }  // namespace WikiWalker
 #endif  // WIKIWALKER_JSONSERIALIZER_H

@@ -51,7 +51,7 @@ namespace WikiWalker
    * \internal uses the following format:
    * {"title":{"forward_links":[...]}, "title2":{"forward_links":[...]}, ...}
    */
-  static std::string convertToJson(const ArticleCollection& ac)
+  static std::string convertToJson(const CollectionUtils::ArticleCollection& ac)
   {
     Json::Value header(Json::ValueType::objectValue);
     header[JsonSerializerInformation::ProgramKeyName] =
@@ -79,21 +79,24 @@ namespace WikiWalker
     return Json::writeString(swb, header);
   }
 
-  void JsonSerializer::serialize(const ArticleCollection& collection,
-                                 std::ostream& outstream)
+  void JsonSerializer::serialize(
+      const CollectionUtils::ArticleCollection& collection,
+      std::ostream& outstream)
   {
     outstream << convertToJson(collection);
   }
 
-  ArticleCollection JsonSerializer::deserialize(std::istream& instream)
+  CollectionUtils::ArticleCollection JsonSerializer::deserialize(
+      std::istream& instream)
   {
-    ArticleCollection ac;
+    CollectionUtils::ArticleCollection ac;
     deserialize(ac, instream);
     return ac;
   }
 
-  void JsonSerializer::deserialize(ArticleCollection& collection,
-                                   std::istream& instream)
+  void JsonSerializer::deserialize(
+      CollectionUtils::ArticleCollection& collection,
+      std::istream& instream)
   {
     Json::Value document;
     Json::CharReaderBuilder crb;

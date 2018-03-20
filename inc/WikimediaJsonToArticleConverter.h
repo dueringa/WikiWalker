@@ -40,8 +40,9 @@ namespace WikiWalker
      * #ContinuationStatus::ConversionNeedsMoreData, get continuation data with
      * #continuationData.
      */
-    ContinuationStatus convert(const std::string& json,
-                               ArticleCollection& articleCache);
+    ContinuationStatus convert(
+        const std::string& json,
+        CollectionUtils::ArticleCollection& articleCache);
 
     /*! Get the continuation data, if
      * #ContinuationStat::ConversionNeedsMoreData was returned by

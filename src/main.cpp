@@ -108,8 +108,8 @@ int main(int argc, char** argv)
   }
 
   if(isDotSet) {
-    const WikiWalker::ArticleCollection& ac = w.collection();
-    std::string outfile                     = cmdp.getValue(CmdOpt::DotOut);
+    const WikiWalker::CollectionUtils::ArticleCollection& ac = w.collection();
+    std::string outfile = cmdp.getValue(CmdOpt::DotOut);
     WikiWalker::ToGraphvizWriter tgw;
     std::ofstream file(outfile, std::ios::trunc | std::ios::out);
 

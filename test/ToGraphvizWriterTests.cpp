@@ -12,6 +12,7 @@
 SUITE(ArticleToGraphvizWriterTests)
 {
   using namespace WikiWalker;
+  using namespace WikiWalker::CollectionUtils;
 
   TEST(WriteArticleWithMultipleLinks)
   {

@@ -17,6 +17,7 @@
 SUITE(JsonDeserializerTests)
 {
   using namespace WikiWalker;
+  using namespace WikiWalker::CollectionUtils;
 
   TEST(Deserialize_ArticleCollection_OneArticleWithoutLinks_Unanalyzed)
   {
