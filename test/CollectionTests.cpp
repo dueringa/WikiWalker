@@ -19,13 +19,13 @@ SUITE(CollectionTests)
 
     CHECK(CollectionUtils::add(w, la1));
     CHECK(CollectionUtils::add(w, la2));
-    CHECK_EQUAL(2, w.count());
+    CHECK_EQUAL(2, w.size());
     CHECK(CollectionUtils::add(w, la3));
-    CHECK_EQUAL(3, w.count());
+    CHECK_EQUAL(3, w.size());
 
     // must fail
     CHECK(!CollectionUtils::add(w, la4));
-    CHECK_EQUAL(3, w.count());
+    CHECK_EQUAL(3, w.size());
   }
 
   TEST(CollectionIsCaseInsensitive)
@@ -38,11 +38,11 @@ SUITE(CollectionTests)
 
     CollectionUtils::add(w, la1);
     CollectionUtils::add(w, la2);
-    CHECK_EQUAL(2, w.count());
+    CHECK_EQUAL(2, w.size());
     CollectionUtils::add(w, la3);
-    CHECK_EQUAL(3, w.count());
+    CHECK_EQUAL(3, w.size());
     CollectionUtils::add(w, la4);
-    CHECK_EQUAL(4, w.count());
+    CHECK_EQUAL(4, w.size());
   }
 
   TEST(GetArticle_Existing_MustNotBeNull)
@@ -72,7 +72,7 @@ SUITE(CollectionTests)
   TEST(ArticleCollection_CreationViaMoveConstructor)
   {
     auto ac = GetArticleCollection();
-    CHECK_EQUAL(2, ac.count());
+    CHECK_EQUAL(2, ac.size());
     CHECK(CollectionUtils::get(ac, "Foo") != nullptr);
   }
 }

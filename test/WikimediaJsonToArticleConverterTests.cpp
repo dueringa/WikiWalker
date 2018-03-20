@@ -24,7 +24,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     auto getArticle = CollectionUtils::get(ac, "3PTT");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->countLinks());
-    CHECK_EQUAL(2, ac.count());
+    CHECK_EQUAL(2, ac.size());
   }
 
   TEST(JsonDataWithInvalidArticle_Throws)
@@ -56,7 +56,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     auto getArticle = CollectionUtils::get(ac, "Satar, Deoghar");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->countLinks());
-    CHECK_EQUAL(2, ac.count());
+    CHECK_EQUAL(2, ac.size());
   }
 
   TEST(JsonData_ContainsMultipleArticles)
@@ -74,6 +74,6 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK(ptr != nullptr);
     ptr = CollectionUtils::get(ac, "Kleite (Tochter des Danaos)");
     CHECK(ptr != nullptr);
-    CHECK_EQUAL(6, ac.count());
+    CHECK_EQUAL(6, ac.size());
   }
 }

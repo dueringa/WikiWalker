@@ -61,7 +61,7 @@ namespace WikiWalker
     /*! get number of articles in collection
      * \returns number of articles in collection
      */
-    size_t count() const
+    size_t size() const
     {
       return articleSet_.size();
     }

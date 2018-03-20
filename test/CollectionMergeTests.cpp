@@ -115,7 +115,7 @@ SUITE(CollectionMergeTests)
   void checkConflicts_DataFromFirstSetPreferred(ArticleCollection & c1)
   {
     // 15 articles in total, no matter what
-    CHECK_EQUAL(15, c1.count());
+    CHECK_EQUAL(15, c1.size());
 
     // data from createArticlesAndFillFirst won
     auto ptr = CollectionUtils::get(c1, "Dragon");
@@ -136,7 +136,7 @@ SUITE(CollectionMergeTests)
    */
   void checkConflicts_DataFromSecondSetPreferred(ArticleCollection & c2)
   {
-    CHECK_EQUAL(15, c2.count());
+    CHECK_EQUAL(15, c2.size());
 
     // data from createArticlesAndFillSecond won
     auto ptr = CollectionUtils::get(c2, "Dragon");
@@ -242,7 +242,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillSecond(a2);
       CollectionUtils::merge(
           a1, a2, CollectionUtils::MergeStrategy::UseArticleWithMoreLinks);
-      CHECK_EQUAL(15, a1.count());
+      CHECK_EQUAL(15, a1.size());
 
       checkConflicts_DataWithMoreLinksPreferred(a1);
       checkNonConflictingItems(a1);
@@ -254,7 +254,7 @@ SUITE(CollectionMergeTests)
       // reverse merge
       CollectionUtils::merge(
           a2, a1, CollectionUtils::MergeStrategy::UseArticleWithMoreLinks);
-      CHECK_EQUAL(15, a2.count());
+      CHECK_EQUAL(15, a2.size());
 
       checkConflicts_DataWithMoreLinksPreferred(a2);
       checkNonConflictingItems(a2);
@@ -276,10 +276,10 @@ SUITE(CollectionMergeTests)
       CollectionUtils::merge(
           ac1, ac2, CollectionUtils::MergeStrategy::IgnoreDuplicates);
 
-      CHECK_EQUAL(5, ac1.count());
-      CHECK_EQUAL(3, ac2.count());
+      CHECK_EQUAL(5, ac1.size());
+      CHECK_EQUAL(3, ac2.size());
     }
     // check again after scope is left
-    CHECK_EQUAL(5, ac1.count());
+    CHECK_EQUAL(5, ac1.size());
   }
 }
