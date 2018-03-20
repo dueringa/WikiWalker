@@ -29,7 +29,7 @@ SUITE(JsonDeserializerTests)
     JsonSerializer deser;
     deser.deserialize(ac, json);
 
-    CHECK_EQUAL(1, ac.countArticles());
+    CHECK_EQUAL(1, ac.count());
 
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
@@ -47,7 +47,7 @@ SUITE(JsonDeserializerTests)
     JsonSerializer deser;
     deser.deserialize(ac, json);
 
-    CHECK_EQUAL(1, ac.countArticles());
+    CHECK_EQUAL(1, ac.count());
 
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
@@ -71,7 +71,7 @@ SUITE(JsonDeserializerTests)
      * This is intended. Only-link articles become new articles in the
      * collection.
      */
-    CHECK_EQUAL(2, ac.countArticles());
+    CHECK_EQUAL(2, ac.count());
 
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
@@ -91,7 +91,7 @@ SUITE(JsonDeserializerTests)
     deser.deserialize(ac, json);
 
     // see comment in Deserialize_ArticleCollection_OneArticleWithOneLink
-    CHECK_EQUAL(4, ac.countArticles());
+    CHECK_EQUAL(4, ac.count());
 
     auto a = ac.get("Farm");
     CHECK(a != nullptr);
@@ -109,7 +109,7 @@ SUITE(JsonDeserializerTests)
     ArticleCollection ac;
     JsonSerializer deser;
     deser.deserialize(ac, json);
-    CHECK_EQUAL(0, ac.countArticles());
+    CHECK_EQUAL(0, ac.count());
   }
 
   TEST(Deserialize_ArticleCollection_MultipleArticlesWithMultipleLinks)
@@ -129,7 +129,7 @@ SUITE(JsonDeserializerTests)
     deser.deserialize(ac, json);
 
     // see comment in Deserialize_ArticleCollection_OneArticleWithOneLink
-    CHECK_EQUAL(6, ac.countArticles());
+    CHECK_EQUAL(6, ac.count());
 
     for(std::string a : {"Farm", "Animal", "Pig", "Equality", "Cat", "Dog"}) {
       auto x = ac.get(a);

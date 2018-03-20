@@ -24,7 +24,7 @@ SUITE(JsonSerializeDeserializeTests)
 
     ArticleCollection ac2;
     atj.deserialize(ac2, ss);
-    CHECK_EQUAL(1, ac2.countArticles());
+    CHECK_EQUAL(1, ac2.count());
     CHECK(ac2.get("Farm") != nullptr);
     CHECK(!ac2.get("Farm")->analyzed());
   }
@@ -44,7 +44,7 @@ SUITE(JsonSerializeDeserializeTests)
 
     ArticleCollection ac2;
     atj.deserialize(ac2, ss);
-    CHECK_EQUAL(1, ac2.countArticles());
+    CHECK_EQUAL(1, ac2.count());
     CHECK(ac2.get("Farm") != nullptr);
     CHECK(ac2.get("Farm")->analyzed());
     CHECK_EQUAL(0, ac2.get("Farm")->countLinks());
@@ -70,7 +70,7 @@ SUITE(JsonSerializeDeserializeTests)
     atj.deserialize(ac2, ss);
 
     // Per design, linked-only articles are restored as "new" ones
-    CHECK_EQUAL(2, ac2.countArticles());
+    CHECK_EQUAL(2, ac2.count());
 
     CHECK(ac2.get("Farm") != nullptr);
     CHECK(ac2.get("Farm")->analyzed());
@@ -91,7 +91,7 @@ SUITE(JsonSerializeDeserializeTests)
       // yes, only a is inserted, since we want to emulate article-only
       auto a = std::make_shared<Article>("Farm");
       ac.add(a);
-      CHECK_EQUAL(1, ac.countArticles());
+      CHECK_EQUAL(1, ac.count());
 
       auto al1 = std::make_shared<Article>("Animal"),
            al2 = std::make_shared<Article>("Pig"),
@@ -99,7 +99,7 @@ SUITE(JsonSerializeDeserializeTests)
       a->addLink(al1);
       a->addLink(al2);
       a->addLink(al3);
-      CHECK_EQUAL(1, ac.countArticles());
+      CHECK_EQUAL(1, ac.count());
       atj.serialize(ac, ss);
     }
 
@@ -107,7 +107,7 @@ SUITE(JsonSerializeDeserializeTests)
     atj.deserialize(ac2, ss);
 
     // Per design, linked-only articles are restored as "new" ones
-    CHECK_EQUAL(4, ac2.countArticles());
+    CHECK_EQUAL(4, ac2.count());
 
     CHECK(ac2.get("Farm") != nullptr);
     CHECK(ac2.get("Farm")->analyzed());
@@ -131,6 +131,6 @@ SUITE(JsonSerializeDeserializeTests)
 
     ArticleCollection ac2;
     atj.deserialize(ac2, ss);
-    CHECK_EQUAL(0, ac2.countArticles());
+    CHECK_EQUAL(0, ac2.count());
   }
 }

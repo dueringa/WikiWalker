@@ -115,7 +115,7 @@ SUITE(CollectionMergeTests)
   void checkConflicts_DataFromFirstSetPreferred(ArticleCollection & c1)
   {
     // 15 articles in total, no matter what
-    CHECK_EQUAL(15, c1.countArticles());
+    CHECK_EQUAL(15, c1.count());
 
     // data from createArticlesAndFillFirst won
     auto ptr = c1.get("Dragon");
@@ -136,7 +136,7 @@ SUITE(CollectionMergeTests)
    */
   void checkConflicts_DataFromSecondSetPreferred(ArticleCollection & c2)
   {
-    CHECK_EQUAL(15, c2.countArticles());
+    CHECK_EQUAL(15, c2.count());
 
     // data from createArticlesAndFillSecond won
     auto ptr = c2.get("Dragon");
@@ -237,7 +237,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillFirst(a1);
       createArticlesAndFillSecond(a2);
       a1.merge(a2, CollectionUtils::MergeStrategy::UseArticleWithMoreLinks);
-      CHECK_EQUAL(15, a1.countArticles());
+      CHECK_EQUAL(15, a1.count());
 
       checkConflicts_DataWithMoreLinksPreferred(a1);
       checkNonConflictingItems(a1);
@@ -248,7 +248,7 @@ SUITE(CollectionMergeTests)
       createArticlesAndFillSecond(a2);
       // reverse merge
       a2.merge(a1, CollectionUtils::MergeStrategy::UseArticleWithMoreLinks);
-      CHECK_EQUAL(15, a2.countArticles());
+      CHECK_EQUAL(15, a2.count());
 
       checkConflicts_DataWithMoreLinksPreferred(a2);
       checkNonConflictingItems(a2);
@@ -269,10 +269,10 @@ SUITE(CollectionMergeTests)
       ac2.add(std::make_shared<Article>("Stroustrup"));
       ac1.merge(ac2, CollectionUtils::MergeStrategy::IgnoreDuplicates);
 
-      CHECK_EQUAL(5, ac1.countArticles());
-      CHECK_EQUAL(3, ac2.countArticles());
+      CHECK_EQUAL(5, ac1.count());
+      CHECK_EQUAL(3, ac2.count());
     }
     // check again after scope is left
-    CHECK_EQUAL(5, ac1.countArticles());
+    CHECK_EQUAL(5, ac1.count());
   }
 }

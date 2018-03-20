@@ -19,13 +19,13 @@ SUITE(CollectionTests)
 
     CHECK(w.add(la1));
     CHECK(w.add(la2));
-    CHECK_EQUAL(2, w.countArticles());
+    CHECK_EQUAL(2, w.count());
     CHECK(w.add(la3));
-    CHECK_EQUAL(3, w.countArticles());
+    CHECK_EQUAL(3, w.count());
 
     // must fail
     CHECK(!w.add(la4));
-    CHECK_EQUAL(3, w.countArticles());
+    CHECK_EQUAL(3, w.count());
   }
 
   TEST(CollectionIsCaseInsensitive)
@@ -38,11 +38,11 @@ SUITE(CollectionTests)
 
     w.add(la1);
     w.add(la2);
-    CHECK_EQUAL(2, w.countArticles());
+    CHECK_EQUAL(2, w.count());
     w.add(la3);
-    CHECK_EQUAL(3, w.countArticles());
+    CHECK_EQUAL(3, w.count());
     w.add(la4);
-    CHECK_EQUAL(4, w.countArticles());
+    CHECK_EQUAL(4, w.count());
   }
 
   TEST(GetArticle_Existing_MustNotBeNull)
@@ -72,7 +72,7 @@ SUITE(CollectionTests)
   TEST(ArticleCollection_CreationViaMoveConstructor)
   {
     auto ac = GetArticleCollection();
-    CHECK_EQUAL(2, ac.countArticles());
+    CHECK_EQUAL(2, ac.count());
     CHECK(ac.get("Foo") != nullptr);
   }
 }
