@@ -10,54 +10,9 @@
 
 namespace WikiWalker
 {
-  ArticleCollection::const_iterator ArticleCollection::find(
-      const ArticleCollection::key_type& key) const
-  {
-    return articleSet_.find(key);
-  }
-
-  ArticleCollection::mapped_type& ArticleCollection::operator[](
-      const ArticleCollection::key_type& key)
-  {
-    return articleSet_[key];
-  }
-
-  std::pair<ArticleCollection::iterator, bool> ArticleCollection::insert(
-      value_type value)
-  {
-    return articleSet_.insert(value);
-  }
-
-  void ArticleCollection::insert(ArticleCollection::const_iterator first,
-                                 ArticleCollection::const_iterator last)
-  {
-    return articleSet_.insert(first, last);
-  }
-
-  ArticleCollection::iterator ArticleCollection::begin()
-  {
-    return articleSet_.begin();
-  }
-
-  ArticleCollection::iterator ArticleCollection::end()
-  {
-    return articleSet_.end();
-  }
-
-  ArticleCollection::const_iterator ArticleCollection::begin() const
-  {
-    return articleSet_.begin();
-  }
-
-  ArticleCollection::const_iterator ArticleCollection::end() const
-  {
-    return articleSet_.end();
-  }
-
   namespace CollectionUtils
   {
-    static bool articleIsAnalyzed(
-        ArticleCollection::storage_type::const_reference x)
+    static bool articleIsAnalyzed(ArticleCollection::const_reference x)
     {
       auto art = x.second;
       if(art == nullptr) {
