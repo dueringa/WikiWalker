@@ -23,8 +23,7 @@ namespace WikiWalker
     Json::CharReaderBuilder crb;
     crb.strictMode(&crb.settings_);
     std::istringstream jsonStream(json);
-    bool success = Json::parseFromStream(
-        crb, jsonStream, &document, nullptr);
+    bool success = Json::parseFromStream(crb, jsonStream, &document, nullptr);
 
     if(!success) {
       throw WalkerException("Error parsing JSON");
