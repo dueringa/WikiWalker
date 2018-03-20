@@ -79,6 +79,13 @@ namespace WikiWalker
      * whether the insertion took place. */
     std::pair<iterator, bool> insert(value_type value);
 
+    /*! Inserts elements from range [first, last). If multiple elements in the
+     * range have keys that compare equivalent, it is unspecified which element
+     * is inserted. \param first first element to insert \param last last
+     * element to insert
+     */
+    void insert(const_iterator first, const_iterator last);
+
     /*! get number of articles in collection
      * \returns number of articles in collection
      */

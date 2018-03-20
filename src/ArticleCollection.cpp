@@ -35,6 +35,12 @@ namespace WikiWalker
     return articleSet_.insert(value);
   }
 
+  void ArticleCollection::insert(ArticleCollection::const_iterator first,
+                                 ArticleCollection::const_iterator last)
+  {
+    return articleSet_.insert(first, last);
+  }
+
   void ArticleCollection::merge(const ArticleCollection& other,
                                 CollectionUtils::MergeStrategy strategy)
   {
