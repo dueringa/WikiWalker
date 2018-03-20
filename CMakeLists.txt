@@ -5,6 +5,14 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+if(MSVC)
+    # disable language extensions
+    # this prevents MSVC from allowing binding temporaries to references
+    # not sure why CMAKE_CXX_EXTENSIONS OFF doesn't handle this
+    # related to #17068 in cmake?
+    add_compile_options("/Za")
+endif()
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 option(WW_WITH_CODECOV "also build code coverage" OFF)
