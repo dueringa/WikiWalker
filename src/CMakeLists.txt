@@ -75,6 +75,7 @@ add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandLineParserUtils.cpp
 
     ${CMAKE_SOURCE_DIR}/inc/Article.h
     ${CMAKE_SOURCE_DIR}/inc/ArticleCollection.h
