@@ -75,7 +75,7 @@ namespace WikiWalker
 
     /*! \todo I'm not exactly happy with returning a shared_ptr. Return
      * reference instead? - but how to say "not found" then? */
-    std::shared_ptr<Article> get(ArticleCollection& collection,
+    std::shared_ptr<Article> get(const ArticleCollection& collection,
                                  const std::string& title)
     {
       auto it = collection.find(title);

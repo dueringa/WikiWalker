@@ -38,15 +38,17 @@ namespace WikiWalker
     size_t countAnalyzedArticles(const ArticleCollection& collection);
 
     /*! add article to collection.
+     * \param collection collection to add to
      * \param article article to add
      * \return true if insertion took place
      *          false if it failed (e.g. another article with the same title
-     * already exists
+     *          already exists
      */
     bool add(ArticleCollection& collection, std::shared_ptr<Article> article);
 
-    /*! merge another ArticleCollection into the current one
-     * \param[in] other collection to merge into the current one
+    /*! merge another ArticleCollection into the first one
+     * \param[in] collection collection to merge into
+     * \param[in] other collection to merge
      * \param[in] strategy merge stratgy to use
      * \details other collection is left unmodified.
      */
@@ -55,10 +57,11 @@ namespace WikiWalker
                CollectionUtils::MergeStrategy strategy);
 
     /*! get pointer to article.
+     * \param collection collection to search
      * \param title title of the article to request
      * \return pointer to article, or nullptr, if not found
      */
-    std::shared_ptr<Article> get(ArticleCollection& collection,
+    std::shared_ptr<Article> get(const ArticleCollection& collection,
                                  const std::string& title);
   }  // namespace CollectionUtils
 }  // namespace WikiWalker
