@@ -41,7 +41,7 @@ int main(int argc, char** argv)
   for(auto& anArticle : ac) {
     auto art = anArticle.second;
     if(art->analyzed()) {
-      filteredColl.add(art);
+      WikiWalker::CollectionUtils::add(filteredColl, art);
     }
   }
 
@@ -63,8 +63,8 @@ int main(int argc, char** argv)
 
   filteredGraph.close();
 
-  std::cout << "There are " << filteredColl.size()
-            << " analyzed articles" << std::endl;
+  std::cout << "There are " << filteredColl.size() << " analyzed articles"
+            << std::endl;
 
   return 0;
 }
