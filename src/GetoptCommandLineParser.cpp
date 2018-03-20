@@ -21,8 +21,6 @@ namespace WikiWalker
       {nullptr, 0, nullptr, 0},
   };
 
-  GetoptCommandLineParser::~GetoptCommandLineParser() = default;
-
   std::string GetoptCommandLineParser::getValue(
       CommandLineParserBase::CommandLineOptions option)
   {

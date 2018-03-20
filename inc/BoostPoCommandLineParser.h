@@ -18,6 +18,7 @@ namespace WikiWalker
   {
   public:
     BoostPoCommandLineParser();
+    ~BoostPoCommandLineParser() override = default;
 
     std::string getValue(
         CommandLineParserBase::CommandLineOptions option) override;

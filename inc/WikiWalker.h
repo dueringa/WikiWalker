@@ -14,11 +14,6 @@ namespace WikiWalker
   class WikiWalker : public Walker
   {
   public:
-    //! Creates a new instance
-    WikiWalker() : Walker(), fetchGenerator_(false), grabber_()
-    {
-    }
-
     /*! given an URL, start collecting links
      * \param url start point for analysis
      */
@@ -51,7 +46,7 @@ namespace WikiWalker
 
   private:
     CurlWikiGrabber grabber_;
-    bool fetchGenerator_;
+    bool fetchGenerator_{false};
   };
 }  // namespace WikiWalker
 #endif  // WIKIWALKER_WIKIWALKER_H

@@ -42,7 +42,7 @@ namespace WikiWalker
     void skipSslVerification(bool state);
 
   private:
-    bool skipSslVerificationState_;
+    bool skipSslVerificationState_{false};
   };
 }  // namespace WikiWalker
 #endif  // WIKIWALKER_CURL_WIKI_GRABBER_H

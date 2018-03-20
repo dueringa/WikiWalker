@@ -12,7 +12,7 @@ namespace WikiWalker
   class GetoptCommandLineParser : public CommandLineParserBase
   {
   public:
-    virtual ~GetoptCommandLineParser();
+    ~GetoptCommandLineParser() override = default;
 
     std::string getValue(
         CommandLineParserBase::CommandLineOptions option) override;

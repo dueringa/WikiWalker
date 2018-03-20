@@ -9,7 +9,6 @@
 #include "LUrlParser.h"
 
 #include "Article.h"
-#include "JsonSerializer.h"
 #include "CurlUrlCreator.h"
 #include "JsonSerializer.h"
 #include "StringUtils.h"
@@ -98,7 +97,7 @@ namespace WikiWalker
 
         while(WikimediaJsonToArticleConverter::ContinuationStatus::
                       ConversionNeedsMoreData == conversionStatus &&
-              conv.continuationData() != "") {
+              !conv.continuationData().empty()) {
           creator.addParameter("plcontinue", conv.continuationData());
 
           json             = grabber_.grabUrl(creator.buildUrl());

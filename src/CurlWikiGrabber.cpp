@@ -19,7 +19,7 @@ namespace WikiWalker
     return size * nmemb;
   }
 
-  CurlWikiGrabber::CurlWikiGrabber() : skipSslVerificationState_(false)
+  CurlWikiGrabber::CurlWikiGrabber()
   {
     int error = curl_global_init(CURL_GLOBAL_ALL);
 
