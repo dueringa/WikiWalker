@@ -23,6 +23,12 @@ namespace WikiWalker
     return it->second;
   }
 
+  std::pair<ArticleCollection::iterator, bool> ArticleCollection::insert(
+      value_type value)
+  {
+    return articleSet_.insert(value);
+  }
+
   bool ArticleCollection::add(std::shared_ptr<Article> article)
   {
     auto ret = articleSet_.insert(std::make_pair(article->title(), article));

@@ -44,6 +44,9 @@ namespace WikiWalker
     //! The way that articles are stored inside
     using storage_type = std::map<std::string, std::shared_ptr<Article>>;
 
+    //! the value type
+    using value_type = storage_type::value_type;
+
     //! iterator type
     using iterator = storage_type::iterator;
 
@@ -53,6 +56,14 @@ namespace WikiWalker
     ArticleCollection() = default;
 
     ~ArticleCollection() = default;
+
+    /*! Inserts element(s) into the container, if the container doesn't already
+     * contain an element with an equivalent key.
+     * \param value 	element value to insert
+     * \return Returns a pair consisting of an iterator to the inserted element
+     * (or to the element that prevented the insertion) and a bool denoting
+     * whether the insertion took place. */
+    std::pair<iterator, bool> insert(value_type value);
 
     /*! add article to collection.
      * \param article article to add
