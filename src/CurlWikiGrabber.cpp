@@ -3,6 +3,7 @@
 #include "CurlWikiGrabber.h"
 
 #include <cassert>
+#include <cstdlib>
 
 #include <curl/curl.h>
 
@@ -56,6 +57,8 @@ namespace WikiWalker
     crv = curl_easy_setopt(handle, CURLOPT_ACCEPT_ENCODING, "gzip");
     assert(crv == 0);
 
+    const char* certbundle = std::getenv("CURL_CA_BUNDLE");
+
     if(skipSslVerificationState_) {
       // hostname verification
       crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYHOST, 0);
@@ -68,6 +71,9 @@ namespace WikiWalker
         crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYSTATUS, 0);
         assert(crv == 0);
       }
+    } else if(certbundle != nullptr) {
+      crv = curl_easy_setopt(handle, CURLOPT_CAINFO, certbundle);
+      assert(crv == 0);
     }
 
     std::string gotContent;

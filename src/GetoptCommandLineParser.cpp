@@ -95,5 +95,12 @@ namespace WikiWalker
     helpFormatter("-o, --dot-out", "output file for dot/graphviz");
 
     std::cout << std::endl;
+
+    std::cout << "The environment variable CURL_CA_BUNDLE is read for"
+                 " finding a CA bundle"
+              << std::endl
+              << "  for curl." << std::endl;
+
+    std::cout << std::endl;
   }
 }  // namespace WikiWalker
