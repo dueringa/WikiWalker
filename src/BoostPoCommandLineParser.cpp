@@ -61,5 +61,9 @@ namespace WikiWalker
   {
     std::cout << "Usage: walker [options] URL" << std::endl;
     std::cout << cmdOptions << std::endl;
+    std::cout << "The environment variable CURL_CA_BUNDLE is read for"
+                 " finding a CA bundle"
+              << std::endl
+              << "  for curl." << std::endl;
   }
 }  // namespace WikiWalker
