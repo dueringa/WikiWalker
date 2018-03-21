@@ -63,9 +63,11 @@ namespace WikiWalker
       // check against CA
       crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYPEER, 0);
       assert(crv == 0);
-      // ignore status
-      crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYSTATUS, 0);
-      assert(crv == 0);
+      if(CURL_AT_LEAST_VERSION(7, 41, 0)) {
+        // ignore status
+        crv = curl_easy_setopt(handle, CURLOPT_SSL_VERIFYSTATUS, 0);
+        assert(crv == 0);
+      }
     }
 
     std::string gotContent;
