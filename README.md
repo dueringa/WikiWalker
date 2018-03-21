@@ -44,10 +44,6 @@ Also, have a look at [Gephi](https://gephi.org).
 
 Where `5` is the "depth" the links get distributed to.
 
-## Features
-
-* independent of systemd :p
-
 ## Formatting
 
 The root directory contains a .clang-format, which can be used to reformat the
