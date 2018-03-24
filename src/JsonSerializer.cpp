@@ -46,7 +46,7 @@ namespace WikiWalker
   }
 
   /*! Convert article to string representation of JSON representation.
-   * \param a pointer to article to be converted
+   * \param ac reference to articlecollection to be converted
    * \return json as string
    * \internal uses the following format:
    * {"title":{"forward_links":[...]}, "title2":{"forward_links":[...]}, ...}

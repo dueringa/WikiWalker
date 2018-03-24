@@ -15,8 +15,8 @@ namespace WikiWalker
   {
   public:
     /*! Serialize ArticleCollection to JSON in an output stream
-     * \param a pointer to article to be output
-     * \param os out stream to putput to.
+     * \param collection pointer to article to be output
+     * \param outstream outstream stream to putput to.
      * YOU are responsible for opening and closing the stream.
      * Articles in the collection which happen to "link" against nullptrs
      * because their weak_ptr already expired will be simply *omitted* from the

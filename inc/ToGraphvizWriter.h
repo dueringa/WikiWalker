@@ -13,7 +13,7 @@ namespace WikiWalker
   {
   public:
     /*! output an article with links in dot format to a stream
-     * \param ac reference to article collection to be output
+     * \param a reference to article to be output
      * \param os out stream to putput to
      * YOU are responsible for opening and closing the stream
      */
