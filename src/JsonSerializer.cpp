@@ -10,13 +10,13 @@ namespace WikiWalker
 {
   namespace JsonSerializerInformation
   {
-    static std::string SchemeVersionName = "scheme-version";
+    constexpr const char* SchemeVersionName = "scheme-version";
     static int SchemeVersion             = 2;
 
-    static std::string ProgramKeyName = "program";
-    static std::string ProgramValue   = "wikiwalker";
+    constexpr const char* ProgramKeyName = "program";
+    constexpr const char* ProgramValue   = "wikiwalker";
 
-    static std::string CollectionKey = "ArticleCollection";
+    constexpr const char* CollectionKey = "ArticleCollection";
   }  // namespace JsonSerializerInformation
 
   /*! Get article links in an array.
