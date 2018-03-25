@@ -4,4 +4,4 @@
 
 namespace WikiWalker
 {
-}
+}  // namespace WikiWalker
