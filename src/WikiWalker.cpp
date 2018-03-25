@@ -8,12 +8,10 @@
 
 #include "LUrlParser.h"
 
-#include "Article.h"
-#include "CurlUrlCreator.h"
 #include "JsonSerializer.h"
 #include "StringUtils.h"
 #include "WalkerException.h"
-#include "WikimediaJsonToArticleConverter.h"
+#include "WikimediaApi.h"
 
 // since the class is names like the namespace, this is a bit awkward...
 
@@ -57,54 +55,8 @@ namespace WikiWalker
     apiBaseUrl.append(parsedUrl.m_Host);
     apiBaseUrl.append("/w/api.php");
 
-    CurlUrlCreator creator(apiBaseUrl);
-
-    creator.addParameter("action", "query")
-        .addParameter("format", "json")
-        .addParameter("prop", "links")
-        .addParameter("pllimit", "max")
-        .addParameter("plnamespace", "0")
-        .addParameter("formatversion", "2");
-    creator.addParameter("titles", title);
-
-    std::string json = grabber_.grabUrl(creator.buildUrl());
-
-    if(!json.empty()) {
-      WikimediaJsonToArticleConverter conv;
-      auto conversionStatus = conv.convert(json, articleSet_);
-
-      while(WikimediaJsonToArticleConverter::ContinuationStatus::
-                    ConversionNeedsMoreData == conversionStatus &&
-            !conv.continuationData().empty()) {
-        creator.addParameter("plcontinue", conv.continuationData());
-
-        json             = grabber_.grabUrl(creator.buildUrl());
-        conversionStatus = conv.convert(json, articleSet_);
-      }
-    } else {
-      std::cerr << "Error fetching article" << std::endl;
-    }
-
-    if(fetchGenerator_) {
-      creator.addParameter("generator", "links")
-          .addParameter("plnamespace", "0")
-          .addParameter("gpllimit", "max");
-      json = grabber_.grabUrl(creator.buildUrl());
-
-      if(!json.empty()) {
-        WikimediaJsonToArticleConverter conv;
-        auto conversionStatus = conv.convert(json, articleSet_);
-
-        while(WikimediaJsonToArticleConverter::ContinuationStatus::
-                      ConversionNeedsMoreData == conversionStatus &&
-              !conv.continuationData().empty()) {
-          creator.addParameter("plcontinue", conv.continuationData());
-
-          json             = grabber_.grabUrl(creator.buildUrl());
-          conversionStatus = conv.convert(json, articleSet_);
-        }
-      }
-    }
+    WikimediaApi wapi(apiBaseUrl);
+    wapi.fetchForwardLinks(title, fetchGenerator_, articleSet_);
   }
 
   void WikiWalker::readCache(const std::string& cacheFile)
