@@ -1,5 +1,5 @@
-#ifndef GETOPTCOMMANDLINEPARSER_H
-#define GETOPTCOMMANDLINEPARSER_H
+#ifndef WIKIWALKER_GETOPTCOMMANDLINEPARSER_H
+#define WIKIWALKER_GETOPTCOMMANDLINEPARSER_H
 
 #include <map>
 #include <string>
@@ -24,4 +24,4 @@ namespace WikiWalker
     std::map<std::string, std::string> setOptions;
   };
 }  // namespace WikiWalker
-#endif  // GETOPTCOMMANDLINEPARSER_H
+#endif  // WIKIWALKER_GETOPTCOMMANDLINEPARSER_H

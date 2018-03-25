@@ -1,7 +1,7 @@
 //! \file BoostPoCommandLineParser.h
 
-#ifndef BOOSTPOCOMMANDLINEPARSER_H
-#define BOOSTPOCOMMANDLINEPARSER_H
+#ifndef WIKIWALKER_BOOSTPOCOMMANDLINEPARSER_H
+#define WIKIWALKER_BOOSTPOCOMMANDLINEPARSER_H
 
 #include <string>
 
@@ -34,4 +34,4 @@ namespace WikiWalker
     po::positional_options_description p;
   };
 }  // namespace WikiWalker
-#endif  // BOOSTPOCOMMANDLINEPARSER_H
+#endif  // WIKIWALKER_BOOSTPOCOMMANDLINEPARSER_H

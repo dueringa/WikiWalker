@@ -1,7 +1,7 @@
 //! \file WikimediaJsonToArticleConverter.h
 
-#ifndef WIKIMEDIAJSONTOARTICLECONVERTER_H
-#define WIKIMEDIAJSONTOARTICLECONVERTER_H
+#ifndef WIKIWALKER_WIKIMEDIAJSONTOARTICLECONVERTER_H
+#define WIKIWALKER_WIKIMEDIAJSONTOARTICLECONVERTER_H
 
 #include "ArticleCollection.h"
 
@@ -59,4 +59,4 @@ namespace WikiWalker
     std::string continueString_;
   };
 }  // namespace WikiWalker
-#endif /* WIKIMEDIAJSONTOARTICLECONVERTER_H */
+#endif // WIKIWALKER_WIKIMEDIAJSONTOARTICLECONVERTER_H

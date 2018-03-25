@@ -1,7 +1,7 @@
 //! \file StringUtils.h
 
-#ifndef STRINGUTILS_H
-#define STRINGUTILS_H
+#ifndef WIKIWALKER_STRINGUTILS_H
+#define WIKIWALKER_STRINGUTILS_H
 
 #include <string>
 
@@ -22,4 +22,4 @@ namespace WikiWalker
   }  //  namespace StringUtils
 }  //  namespace WikiWalker
 
-#endif /* STRINGUTILS_H */
+#endif // WIKIWALKER_STRINGUTILS_H
