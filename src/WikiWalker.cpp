@@ -121,7 +121,8 @@ namespace WikiWalker
 
     jser.deserialize(articleSet_, cache);
 
-    assert(cache.eof());
+    // doesn't work anymore since jsoncpp class changed
+    // assert(cache.eof());
 
     if(cache.fail()) {
       cache.close();
