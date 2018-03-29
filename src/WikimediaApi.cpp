@@ -59,7 +59,7 @@ namespace WikiWalker
 
     if(alsoUseGenetator) {
       creator.addParameter("generator", "links")
-          .addParameter("plnamespace", "0")
+          .addParameter("gplnamespace", "0")
           .addParameter("gpllimit", "max");
       json = grabber_.grabUrl(creator.buildUrl());
 
