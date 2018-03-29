@@ -97,14 +97,12 @@ namespace WikiWalker
         }
       }
 
-      size_t domainpos              = parsedUrl.m_Host.find("wikipedia.org");
       std::string path              = parsedUrl.m_Path;
       std::string pathMustStartWith = "wiki/";
 
-      // Host must contain wikipedia.org, path must begin with /wiki/
-      if(domainpos == std::string::npos ||
-         !StringUtils::startsWith(path, pathMustStartWith)) {
-        throw WalkerException("Must be an Wikipedia URL");
+      // path must begin with /wiki/
+      if(!StringUtils::startsWith(path, pathMustStartWith)) {
+        throw WalkerException("Must be an Wikimedia URL which uses /wiki/");
       }
 
       // extract Wikipedia title
@@ -113,7 +111,7 @@ namespace WikiWalker
                       path.length() - pathMustStartWith.length());
 
       if(title.empty()) {
-        throw WalkerException("Must be an Wikipedia URL - Article missing");
+        throw WalkerException("Must be an Wikimedia URL - Article missing");
       }
 
       std::string apiBaseUrl;
