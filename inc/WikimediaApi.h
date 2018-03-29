@@ -10,6 +10,23 @@
 
 namespace WikiWalker
 {
+  namespace WikimediaApiUtils
+  {
+    //! Represents URL components
+    struct WikimediaUrlInfo {
+      //! the API base URL
+      std::string apiBaseUrl;
+      //! the article title
+      std::string articleTitle;
+    };
+
+    /*! Parses a Wikimedia article URL and returns components.
+     * \param articleUrl the Wikimedia article URL.
+     * \returns a stuct containing base URL and title.
+     */
+    WikimediaUrlInfo parseArticleUrl(const std::string& articleUrl);
+  }  // namespace WikimediaApiUtils
+
   /*! \brief Represents the Wikimedia API.
    * \details the needed parts.
    * The API already converts the string/Json data to a
@@ -19,8 +36,9 @@ namespace WikiWalker
   {
   public:
     /*! \brief Create a new instance of the WikimediaApi
-     * \param baseUrl the Base URL of the Wikimedia instance, including the
-     * protocol \todo Take "DataFetcher" or whatever to replace default CURL
+     * \param baseUrl the API base URL of the Wikimedia instance, including the
+     * protocol.
+     * \todo Take "DataFetcher" or whatever to replace default CURL
      */
     explicit WikimediaApi(std::string baseUrl);
 
@@ -30,8 +48,8 @@ namespace WikiWalker
      * \param title the title of the WikimediaArticle.
      * \param alsoUseGenetator whether to use a generator to also fetch links in
      * articles linked from the specified artitle.
-     * \param[out] the collection to store into. If article always exists in
-     * collection, it will be skipped (TODO: REALLY?).
+     * \param[out] collection the collection to store into. If article already
+     * exists in collection, it will be skipped (TODO: REALLY?).
      */
     void fetchForwardLinks(std::string title,
                            bool alsoUseGenetator,

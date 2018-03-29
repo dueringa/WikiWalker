@@ -7,6 +7,7 @@
 #include <LUrlParser.h>
 
 #include "CurlUrlCreator.h"
+#include "StringUtils.h"
 #include "WalkerException.h"
 #include "WikimediaJsonToArticleConverter.h"
 
@@ -77,4 +78,55 @@ namespace WikiWalker
       }
     }
   }
+
+  namespace WikimediaApiUtils
+  {
+    WikimediaUrlInfo parseArticleUrl(const std::string& articleUrl)
+    {
+      WikimediaUrlInfo urlInfo;
+
+      // try parsing URL
+      auto parsedUrl = LUrlParser::clParseURL::ParseURL(articleUrl);
+      if(!parsedUrl.IsValid()) {
+        // if URL with no protocol is passed, use HTTPS
+        std::string protocol = "https://";
+        parsedUrl = LUrlParser::clParseURL::ParseURL(protocol + articleUrl);
+
+        if(!parsedUrl.IsValid()) {
+          throw WalkerException("Invalid URL");
+        }
+      }
+
+      size_t domainpos              = parsedUrl.m_Host.find("wikipedia.org");
+      std::string path              = parsedUrl.m_Path;
+      std::string pathMustStartWith = "wiki/";
+
+      // Host must contain wikipedia.org, path must begin with /wiki/
+      if(domainpos == std::string::npos ||
+         !StringUtils::startsWith(path, pathMustStartWith)) {
+        throw WalkerException("Must be an Wikipedia URL");
+      }
+
+      // extract Wikipedia title
+      std::string title =
+          path.substr(pathMustStartWith.length(),
+                      path.length() - pathMustStartWith.length());
+
+      if(title.empty()) {
+        throw WalkerException("Must be an Wikipedia URL - Article missing");
+      }
+
+      std::string apiBaseUrl;
+
+      apiBaseUrl = parsedUrl.m_Scheme;
+      apiBaseUrl.append("://");
+      apiBaseUrl.append(parsedUrl.m_Host);
+      apiBaseUrl.append("/w/api.php");
+
+      urlInfo.articleTitle = std::move(title);
+      urlInfo.apiBaseUrl   = std::move(apiBaseUrl);
+
+      return urlInfo;
+    }
+  }  // namespace WikimediaApiUtils
 }  // namespace WikiWalker

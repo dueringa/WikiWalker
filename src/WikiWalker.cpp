@@ -19,44 +19,9 @@ namespace WikiWalker
 {
   void WikiWalker::start(const std::string& url)
   {
-    // try parsing URL
-    auto parsedUrl = LUrlParser::clParseURL::ParseURL(url);
-    if(!parsedUrl.IsValid()) {
-      // if URL with no protocol is passed, use HTTPS
-      std::string protocol = "https://";
-      parsedUrl            = LUrlParser::clParseURL::ParseURL(protocol + url);
-
-      if(!parsedUrl.IsValid()) {
-        throw WalkerException("Invalid URL");
-      }
-    }
-
-    size_t domainpos              = parsedUrl.m_Host.find("wikipedia.org");
-    std::string path              = parsedUrl.m_Path;
-    std::string pathMustStartWith = "wiki/";
-
-    // Host must contain wikipedia.org, path must begin with /wiki/
-    if(domainpos == std::string::npos ||
-       !StringUtils::startsWith(path, pathMustStartWith)) {
-      throw WalkerException("Must be an Wikipedia URL");
-    }
-    // extract Wikipedia title
-    std::string title = path.substr(pathMustStartWith.length(),
-                                    path.length() - pathMustStartWith.length());
-
-    if(title.empty()) {
-      throw WalkerException("Must be an Wikipedia URL - Article missing");
-    }
-
-    std::string apiBaseUrl;
-
-    apiBaseUrl = parsedUrl.m_Scheme;
-    apiBaseUrl.append("://");
-    apiBaseUrl.append(parsedUrl.m_Host);
-    apiBaseUrl.append("/w/api.php");
-
-    WikimediaApi wapi(apiBaseUrl);
-    wapi.fetchForwardLinks(title, fetchGenerator_, articleSet_);
+    auto info = WikimediaApiUtils::parseArticleUrl(url);
+    WikimediaApi wapi(info.apiBaseUrl);
+    wapi.fetchForwardLinks(info.articleTitle, fetchGenerator_, articleSet_);
   }
 
   void WikiWalker::readCache(const std::string& cacheFile)
