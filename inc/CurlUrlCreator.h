@@ -3,6 +3,7 @@
 #ifndef WIKIWALKER_CURLURLCREATOR_H
 #define WIKIWALKER_CURLURLCREATOR_H
 
+#include <map>
 #include <string>
 #include <unordered_map>
 
@@ -44,6 +45,16 @@ namespace WikiWalker
      */
     CurlUrlCreator& addParameter(const std::string& param,
                                  const std::string& value);
+
+    /*! Add GET parameters to URL.
+     *  \param params a map of keys and values.
+     *                values have to be UNESCAPED!
+     *                This will be done by curl. If you already escape
+     *                it will be double-escaped.
+     *  \return reference to self, so method chaining is possible.
+     */
+    CurlUrlCreator& addParameter(
+        const std::map<const std::string, const std::string>& params);
 
     //! Reset parameters
     void reset();
