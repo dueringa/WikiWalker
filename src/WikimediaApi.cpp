@@ -32,13 +32,13 @@ namespace WikiWalker
 
     CurlUrlCreator creator(baseUrl_);
 
-    creator.addParameter("action", "query")
-        .addParameter("format", "json")
-        .addParameter("prop", "links")
-        .addParameter("pllimit", "max")
-        .addParameter("plnamespace", "0")
-        .addParameter("formatversion", "2");
-    creator.addParameter("titles", title);
+    creator.addParameter({{"action", "query"},
+                          {"format", "json"},
+                          {"prop", "links"},
+                          {"pllimit", "max"},
+                          {"plnamespace", "0"},
+                          {"formatversion", "2"},
+                          {"titles", title}});
 
     std::string json = grabber_.grabUrl(creator.buildUrl());
     if(!json.empty()) {
@@ -58,9 +58,8 @@ namespace WikiWalker
     }
 
     if(alsoUseGenetator) {
-      creator.addParameter("generator", "links")
-          .addParameter("gplnamespace", "0")
-          .addParameter("gpllimit", "max");
+      creator.addParameter(
+          {{"generator", "links"}, {"gplnamespace", "0"}, {"gpllimit", "max"}});
       json = grabber_.grabUrl(creator.buildUrl());
 
       if(!json.empty()) {
