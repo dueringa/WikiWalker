@@ -59,4 +59,4 @@ namespace WikiWalker
     std::string continueString_;
   };
 }  // namespace WikiWalker
-#endif // WIKIWALKER_WIKIMEDIAJSONTOARTICLECONVERTER_H
+#endif  // WIKIWALKER_WIKIMEDIAJSONTOARTICLECONVERTER_H

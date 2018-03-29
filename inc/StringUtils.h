@@ -22,4 +22,4 @@ namespace WikiWalker
   }  //  namespace StringUtils
 }  //  namespace WikiWalker
 
-#endif // WIKIWALKER_STRINGUTILS_H
+#endif  // WIKIWALKER_STRINGUTILS_H
