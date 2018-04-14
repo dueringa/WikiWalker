@@ -63,6 +63,19 @@ namespace WikiWalker
                            WikimediaGenerator generator,
                            CollectionUtils::ArticleCollection& collection);
 
+    /*! Get the backward links from a specified title and store it in the
+     * collection.
+     *
+     * \param title the title of the WikimediaArticle.
+     * \param generator which generator to use to also fetch links in
+     * articles linked from the specified artitle.
+     * \param[out] collection the collection to store into. If article already
+     * exists in collection, it will be skipped (TODO: REALLY?).
+     */
+    void fetchBackwardLinks(std::string title,
+                            WikimediaGenerator generator,
+                            CollectionUtils::ArticleCollection& collection);
+
   private:
     std::string baseUrl_;
     CurlWikiGrabber grabber_;

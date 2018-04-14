@@ -19,6 +19,7 @@ namespace WikiWalker
    * \param collection the collection to store converted articles into
    * \param creator the prepared CurlUrlCreator
    * \param grabber the CurlWikiGrabber used for fetching
+   * \param continueKey the key/parameter used for continuation
    */
   static void grabAndConvert(CollectionUtils::ArticleCollection& collection,
                              CurlUrlCreator& creator,
@@ -63,6 +64,31 @@ namespace WikiWalker
     auto result = LUrlParser::clParseURL::ParseURL(baseUrl_);
     if(!result.IsValid()) {
       throw WalkerException("Invalid URL");
+    }
+  }
+
+  void WikimediaApi::fetchBackwardLinks(
+      std::string title,
+      WikimediaApi::WikimediaGenerator generator,
+      CollectionUtils::ArticleCollection& collection)
+  {
+    if(title.empty()) {
+      throw WalkerException("Title can't be empty.");
+    }
+
+    CurlUrlCreator creator = getUrlCreator(baseUrl_, title);
+    creator.addParameter({{"prop", "linkshere"},
+                          {"lhprop", "title"},
+                          {"lhnamespace", "0"},
+                          {"lhlimit", "max"}});
+
+    grabAndConvert(collection, creator, grabber_);
+
+    if(WikimediaApi::WikimediaGenerator::ForwardLinkGenerator == generator) {
+      creator.addParameter(
+          {{"generator", "links"}, {"gplnamespace", "0"}, {"gpllimit", "max"}});
+
+      grabAndConvert(collection, creator, grabber_);
     }
   }
 
