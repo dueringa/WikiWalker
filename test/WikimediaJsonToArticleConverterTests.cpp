@@ -21,7 +21,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     auto cont = conv.convert(testdata, ac);
     CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
               ConversionCompleted == cont);
-    CHECK_EQUAL("", conv.continuationData());
+    CHECK_EQUAL("", conv.continuationData()["plcontinue"]);
     auto getArticle = CollectionUtils::get(ac, "3PTT");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->countLinks());
@@ -53,7 +53,7 @@ SUITE(WikimediaJsonToArticleConverterTests)
     auto cont = conv.convert(testdata, ac);
     CHECK(cont == WikimediaJsonToArticleConverter::ContinuationStatus::
                       ConversionNeedsMoreData);
-    CHECK_EQUAL("34419161|0|Jharkhand", conv.continuationData());
+    CHECK_EQUAL("34419161|0|Jharkhand", conv.continuationData()["plcontinue"]);
     auto getArticle = CollectionUtils::get(ac, "Satar, Deoghar");
     CHECK(getArticle != nullptr);
     CHECK_EQUAL(1, getArticle->countLinks());

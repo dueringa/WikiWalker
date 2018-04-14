@@ -2,6 +2,7 @@
 
 #include "WikimediaJsonToArticleConverter.h"
 
+#include <cassert>
 #include <sstream>
 
 #include <json/json.h>
@@ -72,14 +73,20 @@ namespace WikiWalker
 
     bool moreData;
 
+    // always clear, otherwise insert won't happen
+    continuationData_.clear();
+
     if(!document.isMember("batchcomplete")) {
-      moreData        = true;
-      continueString_ = document.get("continue", Json::Value::nullSingleton())
-                            .get("plcontinue", Json::Value::nullSingleton())
-                            .asString();
+      moreData = true;
+      const auto contData =
+          document.get("continue", Json::Value::nullSingleton());
+      assert(contData.isObject());
+
+      for(auto it = contData.begin(); it != contData.end(); it++) {
+        continuationData_.emplace(it.name(), it->asString());
+      }
     } else {
-      moreData        = false;
-      continueString_ = "";
+      moreData = false;
     }
 
     return moreData ? ContinuationStatus::ConversionNeedsMoreData

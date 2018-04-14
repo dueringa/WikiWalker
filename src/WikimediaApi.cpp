@@ -32,7 +32,7 @@ namespace WikiWalker
       while(WikimediaJsonToArticleConverter::ContinuationStatus::
                     ConversionNeedsMoreData == conversionStatus &&
             !conv.continuationData().empty()) {
-        creator.addParameter("plcontinue", conv.continuationData());
+        creator.addParameter(conv.continuationData());
 
         json             = grabber.grabUrl(creator.buildUrl());
         conversionStatus = conv.convert(json, collection);
