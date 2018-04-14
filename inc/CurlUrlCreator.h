@@ -25,14 +25,14 @@ namespace WikiWalker
     //! delete copy constructor, because of CURL handle
     CurlUrlCreator(const CurlUrlCreator&) = delete;
 
-    //! delete move constructor, because of CURL handle
-    CurlUrlCreator(CurlUrlCreator&&) = delete;
+    //! default move constructor
+    CurlUrlCreator(CurlUrlCreator&&) = default;
 
     //! delete copy assignment, because of CURL handle
     CurlUrlCreator& operator=(const CurlUrlCreator&) = delete;
 
-    //! delete move assignment, because of CURL handle
-    CurlUrlCreator& operator=(CurlUrlCreator&&) = delete;
+    //! default move assignment
+    CurlUrlCreator& operator=(CurlUrlCreator&&) = default;
 
     /*! Add GET parameters to URL.
      *  If parameter keys are specified multiple times, later occurrences

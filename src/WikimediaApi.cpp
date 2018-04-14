@@ -13,6 +13,19 @@
 
 namespace WikiWalker
 {
+  //! gets a CurlUrlCreator with common properties
+  static CurlUrlCreator getUrlCreator(std::string baseUrl, std::string title)
+  {
+    CurlUrlCreator creator(baseUrl);
+    creator.addParameter({{"action", "query"},
+                          {"format", "json"},
+                          {"pllimit", "max"},
+                          {"plnamespace", "0"},
+                          {"formatversion", "2"},
+                          {"titles", title}});
+    return creator;
+  }
+
   WikimediaApi::WikimediaApi(std::string baseUrl) : baseUrl_(std::move(baseUrl))
   {
     auto result = LUrlParser::clParseURL::ParseURL(baseUrl_);
@@ -30,15 +43,8 @@ namespace WikiWalker
       throw WalkerException("Title can't be empty.");
     }
 
-    CurlUrlCreator creator(baseUrl_);
-
-    creator.addParameter({{"action", "query"},
-                          {"format", "json"},
-                          {"prop", "links"},
-                          {"pllimit", "max"},
-                          {"plnamespace", "0"},
-                          {"formatversion", "2"},
-                          {"titles", title}});
+    CurlUrlCreator creator = getUrlCreator(baseUrl_, title);
+    creator.addParameter("prop", "links");
 
     std::string json = grabber_.grabUrl(creator.buildUrl());
     if(!json.empty()) {
