@@ -54,7 +54,7 @@ namespace WikiWalker
      * collection.
      *
      * \param title the title of the WikimediaArticle.
-     * \param alsoUseGenetator whether to use a generator to also fetch links in
+     * \param generator which generator to use to also fetch links in
      * articles linked from the specified artitle.
      * \param[out] collection the collection to store into. If article already
      * exists in collection, it will be skipped (TODO: REALLY?).
