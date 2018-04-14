@@ -35,6 +35,14 @@ namespace WikiWalker
   class WikimediaApi
   {
   public:
+    //! Usable generators
+    enum class WikimediaGenerator {
+      //! Don't use a generator
+      NoGenerator,
+      //! use the forwardlinks generator
+      ForwardLinkGenerator
+    };
+
     /*! \brief Create a new instance of the WikimediaApi
      * \param baseUrl the API base URL of the Wikimedia instance, including the
      * protocol.
@@ -52,7 +60,7 @@ namespace WikiWalker
      * exists in collection, it will be skipped (TODO: REALLY?).
      */
     void fetchForwardLinks(std::string title,
-                           bool alsoUseGenetator,
+                           WikimediaGenerator generator,
                            CollectionUtils::ArticleCollection& collection);
 
   private:

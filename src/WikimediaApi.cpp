@@ -23,7 +23,7 @@ namespace WikiWalker
 
   void WikimediaApi::fetchForwardLinks(
       std::string title,
-      bool alsoUseGenetator,
+      WikimediaApi::WikimediaGenerator generator,
       CollectionUtils::ArticleCollection& collection)
   {
     if(title.empty()) {
@@ -57,7 +57,7 @@ namespace WikiWalker
       throw WalkerException("Error fetching article");
     }
 
-    if(alsoUseGenetator) {
+    if(WikimediaApi::WikimediaGenerator::ForwardLinkGenerator == generator) {
       creator.addParameter(
           {{"generator", "links"}, {"gplnamespace", "0"}, {"gpllimit", "max"}});
       json = grabber_.grabUrl(creator.buildUrl());
