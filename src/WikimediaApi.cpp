@@ -13,7 +13,41 @@
 
 namespace WikiWalker
 {
-  //! gets a CurlUrlCreator with common properties
+  /*!
+   * \brief Fetches articles and converts them
+   *
+   * \param collection the collection to store converted articles into
+   * \param creator the prepared CurlUrlCreator
+   * \param grabber the CurlWikiGrabber used for fetching
+   */
+  static void grabAndConvert(CollectionUtils::ArticleCollection& collection,
+                             CurlUrlCreator& creator,
+                             CurlWikiGrabber& grabber)
+  {
+    std::string json = grabber.grabUrl(creator.buildUrl());
+    if(!json.empty()) {
+      WikimediaJsonToArticleConverter conv;
+      auto conversionStatus = conv.convert(json, collection);
+
+      while(WikimediaJsonToArticleConverter::ContinuationStatus::
+                    ConversionNeedsMoreData == conversionStatus &&
+            !conv.continuationData().empty()) {
+        creator.addParameter("plcontinue", conv.continuationData());
+
+        json             = grabber.grabUrl(creator.buildUrl());
+        conversionStatus = conv.convert(json, collection);
+      }
+    } else {
+      throw WalkerException("Error fetching article");
+    }
+  }
+
+  /*!
+   * \brief Gets a CurlUrlCreator with common properties
+   * \param baseUrl the Wikimedia API base URL
+   * \param title the article title
+   * \returns the prepared CurlUrlCreator
+   */
   static CurlUrlCreator getUrlCreator(std::string baseUrl, std::string title)
   {
     CurlUrlCreator creator(baseUrl);
@@ -46,41 +80,13 @@ namespace WikiWalker
     CurlUrlCreator creator = getUrlCreator(baseUrl_, title);
     creator.addParameter("prop", "links");
 
-    std::string json = grabber_.grabUrl(creator.buildUrl());
-    if(!json.empty()) {
-      WikimediaJsonToArticleConverter conv;
-      auto conversionStatus = conv.convert(json, collection);
-
-      while(WikimediaJsonToArticleConverter::ContinuationStatus::
-                    ConversionNeedsMoreData == conversionStatus &&
-            !conv.continuationData().empty()) {
-        creator.addParameter("plcontinue", conv.continuationData());
-
-        json             = grabber_.grabUrl(creator.buildUrl());
-        conversionStatus = conv.convert(json, collection);
-      }
-    } else {
-      throw WalkerException("Error fetching article");
-    }
+    grabAndConvert(collection, creator, grabber_);
 
     if(WikimediaApi::WikimediaGenerator::ForwardLinkGenerator == generator) {
       creator.addParameter(
           {{"generator", "links"}, {"gplnamespace", "0"}, {"gpllimit", "max"}});
-      json = grabber_.grabUrl(creator.buildUrl());
 
-      if(!json.empty()) {
-        WikimediaJsonToArticleConverter conv;
-        auto conversionStatus = conv.convert(json, collection);
-
-        while(WikimediaJsonToArticleConverter::ContinuationStatus::
-                      ConversionNeedsMoreData == conversionStatus &&
-              !conv.continuationData().empty()) {
-          creator.addParameter("plcontinue", conv.continuationData());
-
-          json             = grabber_.grabUrl(creator.buildUrl());
-          conversionStatus = conv.convert(json, collection);
-        }
-      }
+      grabAndConvert(collection, creator, grabber_);
     }
   }
 
