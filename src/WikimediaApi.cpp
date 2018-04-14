@@ -53,8 +53,6 @@ namespace WikiWalker
     CurlUrlCreator creator(baseUrl);
     creator.addParameter({{"action", "query"},
                           {"format", "json"},
-                          {"pllimit", "max"},
-                          {"plnamespace", "0"},
                           {"formatversion", "2"},
                           {"titles", title}});
     return creator;
@@ -78,7 +76,8 @@ namespace WikiWalker
     }
 
     CurlUrlCreator creator = getUrlCreator(baseUrl_, title);
-    creator.addParameter("prop", "links");
+    creator.addParameter(
+        {{"prop", "links"}, {"plnamespace", "0"}, {"pllimit", "max"}});
 
     grabAndConvert(collection, creator, grabber_);
 
