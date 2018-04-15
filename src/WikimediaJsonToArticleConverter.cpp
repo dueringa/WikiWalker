@@ -22,7 +22,7 @@ namespace WikiWalker
   {
     Json::Value document;
     Json::CharReaderBuilder crb;
-    crb.strictMode(&crb.settings_);
+    Json::CharReaderBuilder::strictMode(&crb.settings_);
     std::istringstream jsonStream(json);
     bool success = Json::parseFromStream(crb, jsonStream, &document, nullptr);
 

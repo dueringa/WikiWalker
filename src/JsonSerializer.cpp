@@ -100,7 +100,7 @@ namespace WikiWalker
   {
     Json::Value document;
     Json::CharReaderBuilder crb;
-    crb.strictMode(&crb.settings_);
+    Json::CharReaderBuilder::strictMode(&crb.settings_);
     bool success = Json::parseFromStream(crb, instream, &document, nullptr);
 
     if(!success) {

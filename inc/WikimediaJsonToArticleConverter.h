@@ -30,9 +30,7 @@ namespace WikiWalker
         std::map<const std::string, const std::string>;
 
     //! create a new instance
-    WikimediaJsonToArticleConverter()
-    {
-    }
+    WikimediaJsonToArticleConverter() = default;
 
     /*! convert JSON data to Article.
      * convert a string containing json data containing the reply of a Wikimedia
