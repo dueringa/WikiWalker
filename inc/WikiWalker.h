@@ -5,7 +5,6 @@
 
 #include <string>
 
-#include "CurlWikiGrabber.h"
 #include "Walker.h"
 
 namespace WikiWalker
@@ -41,12 +40,12 @@ namespace WikiWalker
     //! \see CurlWikiGrabber::skipSslVerification
     void skipSslVerification(bool state)
     {
-      grabber_.skipSslVerification(state);
+      skipSslVerification_ = state;
     }
 
   private:
-    CurlWikiGrabber grabber_;
     bool fetchGenerator_{false};
+    bool skipSslVerification_{false};
   };
 }  // namespace WikiWalker
 #endif  // WIKIWALKER_WIKIWALKER_H

@@ -25,8 +25,12 @@ namespace WikiWalker
       ConversionNeedsMoreData
     };
 
+    //! Type used for continuation data
+    using continuationData_type =
+        std::map<const std::string, const std::string>;
+
     //! create a new instance
-    WikimediaJsonToArticleConverter() : continueString_("")
+    WikimediaJsonToArticleConverter()
     {
     }
 
@@ -49,14 +53,14 @@ namespace WikiWalker
      * #convert.
      * \return continuation string
      */
-    std::string continuationData() const
+    continuationData_type continuationData() const
     {
-      return continueString_;
+      return continuationData_;
     }
 
   private:
     //! string required for API operation
-    std::string continueString_;
+    continuationData_type continuationData_;
   };
 }  // namespace WikiWalker
-#endif // WIKIWALKER_WIKIMEDIAJSONTOARTICLECONVERTER_H
+#endif  // WIKIWALKER_WIKIMEDIAJSONTOARTICLECONVERTER_H

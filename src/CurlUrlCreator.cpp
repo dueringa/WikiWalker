@@ -29,6 +29,17 @@ namespace WikiWalker
     return *this;
   }
 
+  CurlUrlCreator& CurlUrlCreator::addParameter(
+      const std::map<const std::string, const std::string>& params)
+  {
+    /* we need to escape the values, so doing a direct ranged insert isn't
+     * possible */
+    for(auto& paramterPair : params) {
+      addParameter(paramterPair.first, paramterPair.second);
+    }
+    return *this;
+  }
+
   std::string CurlUrlCreator::buildUrl() const
   {
     std::string ret = baseUrl_;

@@ -11,7 +11,7 @@ namespace WikiWalker
   namespace JsonSerializerInformation
   {
     constexpr const char* SchemeVersionName = "scheme-version";
-    static int SchemeVersion             = 2;
+    static int SchemeVersion                = 2;
 
     constexpr const char* ProgramKeyName = "program";
     constexpr const char* ProgramValue   = "wikiwalker";
