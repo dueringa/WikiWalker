@@ -67,7 +67,7 @@ namespace WikiWalker
    */
   static CurlUrlCreator getUrlCreator(std::string baseUrl, std::string title)
   {
-    CurlUrlCreator creator(baseUrl);
+    CurlUrlCreator creator(std::move(baseUrl));
     creator.addParameter({{"action", "query"},
                           {"format", "json"},
                           {"formatversion", "2"},
@@ -84,7 +84,7 @@ namespace WikiWalker
   }
 
   void WikimediaApi::fetchBackwardLinks(
-      std::string title,
+      const std::string& title,
       WikimediaApi::WikimediaGenerator generator,
       CollectionUtils::ArticleCollection& collection)
   {
@@ -102,7 +102,7 @@ namespace WikiWalker
   }
 
   void WikimediaApi::fetchForwardLinks(
-      std::string title,
+      const std::string& title,
       WikimediaApi::WikimediaGenerator generator,
       CollectionUtils::ArticleCollection& collection)
   {

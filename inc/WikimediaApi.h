@@ -61,7 +61,7 @@ namespace WikiWalker
      * \param[out] collection the collection to store into. If article already
      * exists in collection, it will be skipped (TODO: REALLY?).
      */
-    void fetchForwardLinks(std::string title,
+    void fetchForwardLinks(const std::string& title,
                            WikimediaGenerator generator,
                            CollectionUtils::ArticleCollection& collection);
 
@@ -74,7 +74,7 @@ namespace WikiWalker
      * \param[out] collection the collection to store into. If article already
      * exists in collection, it will be skipped (TODO: REALLY?).
      */
-    void fetchBackwardLinks(std::string title,
+    void fetchBackwardLinks(const std::string& title,
                             WikimediaGenerator generator,
                             CollectionUtils::ArticleCollection& collection);
 
