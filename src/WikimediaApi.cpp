@@ -157,6 +157,12 @@ namespace WikiWalker
       apiBaseUrl = parsedUrl.m_Scheme;
       apiBaseUrl.append("://");
       apiBaseUrl.append(parsedUrl.m_Host);
+
+      if(!parsedUrl.m_Port.empty()) {
+        apiBaseUrl.append(":");
+        apiBaseUrl.append(parsedUrl.m_Port);
+      }
+
       apiBaseUrl.append("/w/api.php");
 
       urlInfo.articleTitle = std::move(title);
