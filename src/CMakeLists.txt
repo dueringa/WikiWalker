@@ -68,15 +68,19 @@ configure_file(
 add_library(WikiWalkerSource OBJECT
     ${CMAKE_CURRENT_SOURCE_DIR}/Article.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ArticleCollection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandLineParserBase.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandLineParserUtils.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlUrlCreator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CurlWikiGrabber.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DataOutputBase.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/JsonSerializer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StringUtils.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ToGraphvizWriter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Walker.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WalkerException.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaApi.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/WikimediaJsonToArticleConverter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CommandLineParserUtils.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WikiWalker.cpp
 
     ${CMAKE_SOURCE_DIR}/inc/Article.h
     ${CMAKE_SOURCE_DIR}/inc/ArticleCollection.h
@@ -90,9 +94,9 @@ add_library(WikiWalkerSource OBJECT
     ${CMAKE_SOURCE_DIR}/inc/ToGraphvizWriter.h
     ${CMAKE_SOURCE_DIR}/inc/Walker.h
     ${CMAKE_SOURCE_DIR}/inc/WalkerException.h
-    ${CMAKE_SOURCE_DIR}/inc/WikiWalker.h
     ${CMAKE_SOURCE_DIR}/inc/WikimediaApi.h
     ${CMAKE_SOURCE_DIR}/inc/WikimediaJsonToArticleConverter.h
+    ${CMAKE_SOURCE_DIR}/inc/WikiWalker.h
 )
 
 target_include_directories(WikiWalkerSource BEFORE PRIVATE
