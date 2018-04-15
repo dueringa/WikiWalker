@@ -20,11 +20,27 @@ namespace WikiWalker
    * \param creator the prepared CurlUrlCreator
    * \param grabber the CurlWikiGrabber used for fetching
    * \param continueKey the key/parameter used for continuation
+   * \param generator which generator to use, if any
    */
   static void grabAndConvert(CollectionUtils::ArticleCollection& collection,
                              CurlUrlCreator& creator,
-                             CurlWikiGrabber& grabber)
+                             CurlWikiGrabber& grabber,
+                             WikimediaApi::WikimediaGenerator generator)
   {
+    switch(generator) {
+      case WikimediaApi::WikimediaGenerator::ForwardLinkGenerator:
+        creator.addParameter({{"generator", "links"},
+                              {"gplnamespace", "0"},
+                              {"gpllimit", "max"}});
+        break;
+      case WikimediaApi::WikimediaGenerator::NoGenerator:
+        // nothing to do
+        break;
+      default:
+        throw WalkerException("Unsupported generator");
+        break;
+    }
+
     std::string json = grabber.grabUrl(creator.buildUrl());
     if(!json.empty()) {
       WikimediaJsonToArticleConverter conv;
@@ -82,14 +98,7 @@ namespace WikiWalker
                           {"lhnamespace", "0"},
                           {"lhlimit", "max"}});
 
-    grabAndConvert(collection, creator, grabber_);
-
-    if(WikimediaApi::WikimediaGenerator::ForwardLinkGenerator == generator) {
-      creator.addParameter(
-          {{"generator", "links"}, {"gplnamespace", "0"}, {"gpllimit", "max"}});
-
-      grabAndConvert(collection, creator, grabber_);
-    }
+    grabAndConvert(collection, creator, grabber_, generator);
   }
 
   void WikimediaApi::fetchForwardLinks(
@@ -105,14 +114,7 @@ namespace WikiWalker
     creator.addParameter(
         {{"prop", "links"}, {"plnamespace", "0"}, {"pllimit", "max"}});
 
-    grabAndConvert(collection, creator, grabber_);
-
-    if(WikimediaApi::WikimediaGenerator::ForwardLinkGenerator == generator) {
-      creator.addParameter(
-          {{"generator", "links"}, {"gplnamespace", "0"}, {"gpllimit", "max"}});
-
-      grabAndConvert(collection, creator, grabber_);
-    }
+    grabAndConvert(collection, creator, grabber_, generator);
   }
 
   namespace WikimediaApiUtils

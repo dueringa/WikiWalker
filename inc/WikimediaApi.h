@@ -55,7 +55,9 @@ namespace WikiWalker
      *
      * \param title the title of the WikimediaArticle.
      * \param generator which generator to use to also fetch links in
-     * articles linked from the specified artitle.
+     * articles linked from the specified artitle. ONLY this generator is used.
+     * If you specify ForwardLinks, only the ForwardLinks generator is used. You
+     * won't get the links of the article itself. Use NoGenerator for that.
      * \param[out] collection the collection to store into. If article already
      * exists in collection, it will be skipped (TODO: REALLY?).
      */

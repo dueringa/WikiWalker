@@ -21,11 +21,17 @@ namespace WikiWalker
   {
     auto info = WikimediaApiUtils::parseArticleUrl(url);
     WikimediaApi wapi(info.apiBaseUrl);
-    wapi.fetchForwardLinks(
-        info.articleTitle,
-        fetchGenerator_ ? WikimediaApi::WikimediaGenerator::ForwardLinkGenerator
-                        : WikimediaApi::WikimediaGenerator::NoGenerator,
-        articleSet_);
+
+    wapi.fetchForwardLinks(info.articleTitle,
+                           WikimediaApi::WikimediaGenerator::NoGenerator,
+                           articleSet_);
+
+    if(fetchGenerator_) {
+      wapi.fetchForwardLinks(
+          info.articleTitle,
+          WikimediaApi::WikimediaGenerator::ForwardLinkGenerator,
+          articleSet_);
+    }
   }
 
   void WikiWalker::readCache(const std::string& cacheFile)
