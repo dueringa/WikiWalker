@@ -77,7 +77,7 @@ namespace WikiWalker
     // always clear, otherwise insert won't happen
     continuationData_.clear();
 
-    if(!document.isMember("continue")) {
+    if(document.isMember("continue")) {
       moreData = true;
       const auto contData =
           document.get("continue", Json::Value::nullSingleton());
