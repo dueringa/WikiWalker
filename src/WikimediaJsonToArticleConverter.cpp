@@ -53,6 +53,7 @@ namespace WikiWalker
       }
 
       // add links
+      //! \todo support linkshere
       std::shared_ptr<Article> par;
       for(const auto& linked :
           onePage.get("links", Json::Value::nullSingleton())) {
