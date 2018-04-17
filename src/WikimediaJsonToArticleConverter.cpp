@@ -55,21 +55,23 @@ namespace WikiWalker
       // add links
       //! \todo support linkshere
       std::shared_ptr<Article> par;
-      for(const auto& linked :
-          onePage.get("links", Json::Value::nullSingleton())) {
-        auto linkedPageTitle =
-            linked.get("title", Json::Value::nullSingleton()).asString();
-        par = CollectionUtils::get(articleCache, linkedPageTitle);
+      if(onePage.isMember("links")) {
+        for(const auto& linked :
+            onePage.get("links", Json::Value::nullSingleton())) {
+          auto linkedPageTitle =
+              linked.get("title", Json::Value::nullSingleton()).asString();
+          par = CollectionUtils::get(articleCache, linkedPageTitle);
 
-        if(par == nullptr) {
-          par = std::make_shared<Article>(linkedPageTitle);
-          CollectionUtils::add(articleCache, par);
+          if(par == nullptr) {
+            par = std::make_shared<Article>(linkedPageTitle);
+            CollectionUtils::add(articleCache, par);
+          }
+
+          wantedArticle->addLink(par);
         }
 
-        wantedArticle->addLink(par);
+        wantedArticle->analyzed(true);
       }
-
-      wantedArticle->analyzed(true);
     }
 
     bool moreData;
