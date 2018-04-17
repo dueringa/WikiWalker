@@ -71,6 +71,23 @@ namespace WikiWalker
         }
 
         wantedArticle->analyzed(true);
+      } else if(onePage.isMember("linkshere")) {
+        for(const auto& linksHere :
+            onePage.get("linkshere", Json::Value::nullSingleton())) {
+          auto linkingPageTitle =
+              linksHere.get("title", Json::Value::nullSingleton()).asString();
+          par = CollectionUtils::get(articleCache, linkingPageTitle);
+
+          if(par == nullptr) {
+            par = std::make_shared<Article>(linkingPageTitle);
+            CollectionUtils::add(articleCache, par);
+          }
+
+          par->addLink(wantedArticle);
+          /* par.isAnalyzed? this is strictly speaking not true, since we only
+           * know this article links here, not where else it links...
+           * However, it's still automatically set once we call addLink */
+        }
       }
     }
 
