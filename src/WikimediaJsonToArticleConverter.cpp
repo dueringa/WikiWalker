@@ -70,6 +70,7 @@ namespace WikiWalker
           wantedArticle->addLink(par);
         }
 
+        // It might happen there are no links. In this case, set analyzed anyway.
         wantedArticle->analyzed(true);
       } else if(onePage.isMember("linkshere")) {
         for(const auto& linksHere :
