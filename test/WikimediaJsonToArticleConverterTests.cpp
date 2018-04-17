@@ -77,4 +77,33 @@ SUITE(WikimediaJsonToArticleConverterTests)
     CHECK(ptr != nullptr);
     CHECK_EQUAL(6, ac.size());
   }
+
+  TEST(JsonData_ConvertLinkshere)
+  {
+    std::string testdata =
+        R"#({"batchcomplete":true,"query":{"pages":[{"pageid":2,"ns":0,"title":"Eins","linkshere":[{"ns":0,"title":"Zw\u00f6lf"},{"ns":0,"title":"Dreizehn"},{"ns":0,"title":"Ens"}]}]},"limits":{"linkshere":500}})#";
+    WikimediaJsonToArticleConverter conv;
+    ArticleCollection ac;
+    auto cont = conv.convert(testdata, ac);
+
+    // exp: zwölf, dreizehn, ens --> eins
+    CHECK(WikimediaJsonToArticleConverter::ContinuationStatus::
+              ConversionCompleted == cont);
+    CHECK_EQUAL(3, CollectionUtils::countAnalyzedArticles(ac));
+    CHECK_EQUAL(4, ac.size());
+
+    auto ptr = CollectionUtils::get(ac, "Ens");
+    REQUIRE CHECK(ptr != nullptr);
+    CHECK(ptr->analyzed());
+    ptr = CollectionUtils::get(ac, "Dreizehn");
+    REQUIRE CHECK(ptr != nullptr);
+    CHECK(ptr->analyzed());
+    // better be save than sorry
+    ptr = CollectionUtils::get(ac, "Zw\u00f6lf");
+    REQUIRE CHECK(ptr != nullptr);
+    CHECK(ptr->analyzed());
+    ptr = CollectionUtils::get(ac, "Eins");
+    REQUIRE CHECK(ptr != nullptr);
+    CHECK(!ptr->analyzed());
+  }
 }
