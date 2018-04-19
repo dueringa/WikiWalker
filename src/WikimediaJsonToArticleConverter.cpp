@@ -55,21 +55,41 @@ namespace WikiWalker
       // add links
       //! \todo support linkshere
       std::shared_ptr<Article> par;
-      for(const auto& linked :
-          onePage.get("links", Json::Value::nullSingleton())) {
-        auto linkedPageTitle =
-            linked.get("title", Json::Value::nullSingleton()).asString();
-        par = CollectionUtils::get(articleCache, linkedPageTitle);
+      if(onePage.isMember("links")) {
+        for(const auto& linked :
+            onePage.get("links", Json::Value::nullSingleton())) {
+          auto linkedPageTitle =
+              linked.get("title", Json::Value::nullSingleton()).asString();
+          par = CollectionUtils::get(articleCache, linkedPageTitle);
 
-        if(par == nullptr) {
-          par = std::make_shared<Article>(linkedPageTitle);
-          CollectionUtils::add(articleCache, par);
+          if(par == nullptr) {
+            par = std::make_shared<Article>(linkedPageTitle);
+            CollectionUtils::add(articleCache, par);
+          }
+
+          wantedArticle->addLink(par);
         }
 
-        wantedArticle->addLink(par);
-      }
+        // It might happen there are no links. In this case, set analyzed anyway.
+        wantedArticle->analyzed(true);
+      } else if(onePage.isMember("linkshere")) {
+        for(const auto& linksHere :
+            onePage.get("linkshere", Json::Value::nullSingleton())) {
+          auto linkingPageTitle =
+              linksHere.get("title", Json::Value::nullSingleton()).asString();
+          par = CollectionUtils::get(articleCache, linkingPageTitle);
 
-      wantedArticle->analyzed(true);
+          if(par == nullptr) {
+            par = std::make_shared<Article>(linkingPageTitle);
+            CollectionUtils::add(articleCache, par);
+          }
+
+          par->addLink(wantedArticle);
+          /* par.isAnalyzed? this is strictly speaking not true, since we only
+           * know this article links here, not where else it links...
+           * However, it's still automatically set once we call addLink */
+        }
+      }
     }
 
     bool moreData;
